@@ -1,0 +1,60 @@
+@import '../../styles/palette.component.scss';
+
+.api-list-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 200px;
+    height: 100%;
+
+    background-color: $surface-mixed-100;
+    border-right: 1px solid $surface-mixed-300;
+}
+
+.api-list-header {
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+
+    border-bottom: 1px solid $surface-mixed-300;
+}
+
+.api-list-header p {
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+}
+
+.api {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 18px;
+
+    margin: 5px;
+    padding: 5px;
+
+    border-radius: 5px;
+    border: 1px solid $surface-mixed-200;
+
+    cursor: pointer;
+}
+
+.api:hover {
+    background-color: $surface-mixed-200;
+}
+
+.api p {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.api img {
+    width: 20px;
+    height: 20px;
+
+    margin-right: 5px;
+}
