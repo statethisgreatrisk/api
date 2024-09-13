@@ -1,9 +1,9 @@
-<div class="api-endpoint-list-container">
-    <div class="api-endpoint-list-header">
+<div class="service-data-list-container">
+    <div class="service-data-list-header">
         <p *ngIf="view.service === 'API'">Endpoints</p>
     </div>
-    <div class="api-endpoint-list">
-        <div class="api-endpoint" *ngFor="let endpoint of endpoints">
+    <div class="service-data-list">
+        <div class="service-data" *ngFor="let endpoint of endpoints">
             <p class="action" [ngClass]="endpoint.action">{{ endpoint.action }}</p>
             <p>{{ endpoint.name }}</p>
         </div>

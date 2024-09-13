@@ -5,13 +5,13 @@ import { map } from 'rxjs';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-api-endpoint-list',
+  selector: 'app-service-data',
   standalone: true,
   imports: [NgIf, NgFor, NgClass],
-  templateUrl: './api-endpoint-list.component.html',
-  styleUrl: './api-endpoint-list.component.scss'
+  templateUrl: './service-data.component.html',
+  styleUrl: './service-data.component.scss'
 })
-export class ApiEndpointListComponent {
+export class ServiceDataComponent {
   endpoints: Endpoint[] = [];
   view: View = { service: '' };
 
@@ -21,7 +21,7 @@ export class ApiEndpointListComponent {
 
   ngOnInit() {
     this.initView();
-    this.initAPIEndpoints();
+    this.initEndpoints();
   }
 
   initView() {
@@ -31,7 +31,7 @@ export class ApiEndpointListComponent {
     });
   }
 
-  initAPIEndpoints() {
+  initEndpoints() {
     this.store.pipe(map((store) => store.app.endpoints)).subscribe((endpoints) => {
       if (!endpoints || !endpoints.length) return;
       this.endpoints = endpoints;

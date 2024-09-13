@@ -5,13 +5,13 @@ import { map } from 'rxjs';
 import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-api-list',
+  selector: 'app-services',
   standalone: true,
   imports: [NgFor],
-  templateUrl: './api-list.component.html',
-  styleUrl: './api-list.component.scss'
+  templateUrl: './services.component.html',
+  styleUrl: './services.component.scss'
 })
-export class ApiListComponent {
+export class ServicesComponent {
   services: Service[] = [];
 
   constructor(

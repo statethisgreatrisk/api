@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ApiListComponent } from './components/api-list/api-list.component';
-import { ApiEndpointListComponent } from './components/api-endpoint-list/api-endpoint-list.component';
+import { ServicesComponent } from './components/services/services.component';
+import { ServiceDataComponent } from './components/service-data/service-data.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ApiListComponent, ApiEndpointListComponent],
+  imports: [RouterOutlet, ServicesComponent, ServiceDataComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
