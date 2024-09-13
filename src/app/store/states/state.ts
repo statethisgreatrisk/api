@@ -7,4 +7,10 @@ export const appState: AppState = {
         { name: 'Schema', icon: '/file.png' },
         { name: 'Database', icon: '/news.png' },
     ],
+    endpoints: [
+        { name: '/commits', action: 'get' }
+    ],
+    view: {
+        service: 'API',
+    }
 };

@@ -4,7 +4,7 @@
     </div>
     <div class="api-list">
         <div class="api" *ngFor="let service of services;">
-            <img src="{{ service.icon }}">
+            <img [src]="service.icon">
             <p>{{ service.name }}</p>
         </div>
     </div>
