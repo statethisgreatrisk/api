@@ -56,7 +56,7 @@
     border-radius: 2px;
 }
 
-.edit-validation-form-select {
+.edit-validation-form-prefix-select {
     display: flex;
     flex-direction: column;
 
@@ -75,7 +75,7 @@
     border-right: 1px solid $surface-mixed-300;
 }
 
-.edit-validation-form-select-button {
+.edit-validation-form-prefix-select-button {
     display: flex;
     flex-direction: row;
 
@@ -85,20 +85,20 @@
     width: 75px;
 }
 
-.edit-validation-form-select-button p {
+.edit-validation-form-prefix-select-button p {
     font-size: 12px;
     font-weight: 500;
     color: $primary-600;
 }
 
-.edit-validation-form-select-button img {
+.edit-validation-form-prefix-select-button img {
     width: 15px;
     height: 15px;
 
     padding-left: 5px;
 }
 
-.edit-validation-form-select-dropdown {
+.edit-validation-form-prefix-select-dropdown {
     display: flex;
     flex-direction: column;
 
@@ -115,7 +115,7 @@
     box-shadow: 0px 7px 11px rgba(162, 162, 162, 0.11);
 }
 
-.edit-validation-form-select-dropdown-button {
+.edit-validation-form-prefix-select-dropdown-button {
     display: flex;
     flex-direction: column;
 
@@ -126,20 +126,20 @@
     padding-left: 10px;
 }
 
-.edit-validation-form-select-dropdown-button:hover {
+.edit-validation-form-prefix-select-dropdown-button:hover {
     background-color: $surface-mixed-300;
 }
 
-.edit-validation-form-select-dropdown-button p {
+.edit-validation-form-prefix-select-dropdown-button p {
     font-size: 12px;
     font-weight: 500;
 }
 
-.edit-validation-form-select-dropdown-button p.param {
+.edit-validation-form-prefix-select-dropdown-button p.param {
     color: $param;
 }
 
-.edit-validation-form-select-dropdown-button p.body {
+.edit-validation-form-prefix-select-dropdown-button p.body {
     color: $body;
 }
 

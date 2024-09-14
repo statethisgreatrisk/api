@@ -56,7 +56,7 @@
     border-radius: 2px;
 }
 
-.edit-api-form-select {
+.edit-api-form-prefix-select {
     display: flex;
     flex-direction: column;
 
@@ -75,7 +75,7 @@
     border-right: 1px solid $surface-mixed-300;
 }
 
-.edit-api-form-select-button {
+.edit-api-form-prefix-select-button {
     display: flex;
     flex-direction: row;
 
@@ -85,20 +85,20 @@
     width: 75px;
 }
 
-.edit-api-form-select-button p {
+.edit-api-form-prefix-select-button p {
     font-size: 12px;
     font-weight: 500;
     color: $primary-600;
 }
 
-.edit-api-form-select-button img {
+.edit-api-form-prefix-select-button img {
     width: 15px;
     height: 15px;
 
     padding-left: 5px;
 }
 
-.edit-api-form-select-dropdown {
+.edit-api-form-prefix-select-dropdown {
     display: flex;
     flex-direction: column;
 
@@ -115,7 +115,7 @@
     box-shadow: 0px 7px 11px rgba(162, 162, 162, 0.11);
 }
 
-.edit-api-form-select-dropdown-button {
+.edit-api-form-prefix-select-dropdown-button {
     display: flex;
     flex-direction: column;
 
@@ -126,32 +126,32 @@
     padding-left: 10px;
 }
 
-.edit-api-form-select-dropdown-button:hover {
+.edit-api-form-prefix-select-dropdown-button:hover {
     background-color: $surface-mixed-300;
 }
 
-.edit-api-form-select-dropdown-button p {
+.edit-api-form-prefix-select-dropdown-button p {
     font-size: 12px;
     font-weight: 500;
 }
 
-.edit-api-form-select-dropdown-button p.get {
+.edit-api-form-prefix-select-dropdown-button p.get {
     color: $get;
 }
 
-.edit-api-form-select-dropdown-button p.post {
+.edit-api-form-prefix-select-dropdown-button p.post {
     color: $post;
 }
 
-.edit-api-form-select-dropdown-button p.put {
+.edit-api-form-prefix-select-dropdown-button p.put {
     color: $put;
 }
 
-.edit-api-form-select-dropdown-button p.patch {
+.edit-api-form-prefix-select-dropdown-button p.patch {
     color: $patch;
 }
 
-.edit-api-form-select-dropdown-button p.delete {
+.edit-api-form-prefix-select-dropdown-button p.delete {
     color: $delete;
 }
 
