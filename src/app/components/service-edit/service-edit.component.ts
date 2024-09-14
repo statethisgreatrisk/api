@@ -7,6 +7,7 @@ import { EditValidationComponent } from '../edit-validation/edit-validation.comp
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { NgIf } from '@angular/common';
+import { EditSchemaComponent } from '../edit-schema/edit-schema.component';
 
 @Component({
   selector: 'app-service-edit',
@@ -19,7 +20,7 @@ export class ServiceEditComponent {
   view: View = { service: '', serviceDataId: '' };
   
   @ViewChild('componentHost', { read: ViewContainerRef, static: true }) componentHost!: ViewContainerRef;
-  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidationComponent> | null = null;
+  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidationComponent | EditSchemaComponent> | null = null;
   
   constructor(
     private store: Store<AppStateInit>,
@@ -64,6 +65,9 @@ export class ServiceEditComponent {
     } else if (this.view.service === 'Validation') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditValidationComponent, { injector: componentInjector });
+    } else if (this.view.service === 'Schema') {
+      const componentInjector = this.componentInjector.createServiceEditInjector();
+      this.componentHostRef = this.componentHost.createComponent(EditSchemaComponent, { injector: componentInjector });
     }
   }
 

@@ -1,0 +1,197 @@
+@import '../../styles/palette.component.scss';
+
+.edit-schema-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-schema {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-schema-header {
+    display: flex;
+    flex-direction: column;
+
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.edit-schema-header p {
+    font-size: 12px;
+    font-weight: 500;
+    color: $surface-mixed-600;
+}
+
+.edit-schema-form-label {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.edit-schema-form-label p {
+    font-size: 11px;
+    font-weight: 500;
+    color: $surface-mixed-600;
+}
+
+.edit-schema-form {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 28px;
+
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    background-color: $surface-mixed-200;
+    border: 1px solid $surface-mixed-300;
+    border-radius: 2px;
+}
+
+.edit-schema-form-input {
+    width: 100%;
+
+    margin-left: 5px;
+}
+
+.edit-schema-form-input input {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+
+    width: 97%;
+
+    padding-bottom: 5px;
+
+    background-color: $surface-mixed-200;
+    border: none;
+}
+
+.edit-schema-form-input input:focus-visible {
+    outline: none;
+}
+
+.edit-schema-buttons {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: end;
+
+    width: 100%;
+}
+
+.edit-schema-cancel {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 75px;
+    height: 27px;
+
+    margin-top: 15px;
+    margin-right: 10px;
+
+    border: 1px solid $surface-mixed-300;
+    border-radius: 3px;
+
+    cursor: pointer;
+}
+
+.edit-schema-cancel:hover {
+    background-color: $surface-mixed-200;
+}
+
+.edit-schema-cancel p {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.edit-schema-save {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 75px;
+    height: 27px;
+
+    margin-top: 15px;
+    margin-right: 10px;
+
+    border: 1px solid $surface-mixed-300;
+    border-radius: 3px;
+    background-color: $primary-500;
+
+    cursor: pointer;
+}
+
+.edit-schema-save:hover {
+    background-color: $primary-400;
+}
+
+.edit-schema-save p {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.edit-schema-divider {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    margin-top: 20px;
+}
+
+.edit-schema-divider .divider {
+    width: 95%;
+    height: 1px;
+
+    border-top: 1px solid $surface-mixed-200;
+}
+
+.edit-schema-path-docs {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 15px;
+}
+
+.edit-schema-path-doc {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    padding: 10px;
+
+    background-color: $surface-mixed-200;
+    border-radius: 4px;
+}
+
+.edit-schema-path-doc p {
+    font-size: 11px;
+    font-weight: 500;
+    color: $surface-mixed-600;
+}
