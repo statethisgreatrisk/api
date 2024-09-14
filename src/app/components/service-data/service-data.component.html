@@ -1,4 +1,4 @@
-<div class="service-data-list-container" *ngIf="view.service !== ''">
+<div class="service-data-list-container">
     <div class="service-data-list-header">
         <p *ngIf="view.service === 'API'">Endpoints</p>
         <p *ngIf="view.service === 'Storage'">Collections</p>
@@ -7,28 +7,28 @@
     </div>
     <!-- API -->
     <div class="service-data-list" *ngIf="view.service === 'API'">
-        <div class="service-data" *ngFor="let a of api">
+        <div class="service-data" [ngClass]="{ 'active': view.serviceDataId === a._id }" *ngFor="let a of api" (click)="selectServiceData(a._id)">
             <p class="action" [ngClass]="a.action">{{ a.action }}</p>
             <p>{{ a.name }}</p>
         </div>
     </div>
     <!-- Storage -->
     <div class="service-data-list" *ngIf="view.service === 'Storage'">
-        <div class="service-data" *ngFor="let s of storage">
+        <div class="service-data" [ngClass]="{ 'active': view.serviceDataId === s._id }" *ngFor="let s of storage" (click)="selectServiceData(s._id)">
             <img src="/news.png">
             <p>{{ s.name }}</p>
         </div>
     </div>
     <!-- Validation -->
     <div class="service-data-list" *ngIf="view.service === 'Validation'">
-        <div class="service-data" *ngFor="let v of validation">
+        <div class="service-data" [ngClass]="{ 'active': view.serviceDataId === v._id }" *ngFor="let v of validation" (click)="selectServiceData(v._id)">
             <p class="field" [ngClass]="v.field">{{ v.field }}</p>
             <p>{{ v.name }}</p>
         </div>
     </div>
     <!-- Schema -->
     <div class="service-data-list" *ngIf="view.service === 'Schema'">
-        <div class="service-data" *ngFor="let s of schema">
+        <div class="service-data" [ngClass]="{ 'active': view.serviceDataId === s._id }" *ngFor="let s of schema" (click)="selectServiceData(s._id)">
             <img src="/file.png">
             <p>{{ s.name }}</p>
         </div>

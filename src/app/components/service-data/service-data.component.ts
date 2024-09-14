@@ -3,6 +3,7 @@ import { API, AppStateInit, Schema, Storage, Validation, View } from '../../stor
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { NgClass, NgFor, NgIf } from '@angular/common';
+import { selectServiceData } from '../../store/actions/app.action';
 
 @Component({
   selector: 'app-service-data',
@@ -12,11 +13,12 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
   styleUrl: './service-data.component.scss'
 })
 export class ServiceDataComponent {
+  view: View = { service: '', serviceDataId: '' };
+
   api: API[] = [];
   validation: Validation[] = [];
   storage: Storage[] = [];
   schema: Schema[] = [];
-  view: View = { service: '' };
 
   constructor(
     private store: Store<AppStateInit>,
@@ -28,6 +30,10 @@ export class ServiceDataComponent {
     this.initStorage();
     this.initValidation();
     this.initSchema();
+  }
+
+  selectServiceData(serviceDataId: string) {
+    this.store.dispatch(selectServiceData({ serviceDataId }));
   }
 
   initView() {

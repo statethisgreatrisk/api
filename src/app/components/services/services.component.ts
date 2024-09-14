@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppStateInit, Service, View } from '../../store/interfaces/app.interface';
 import { map } from 'rxjs';
 import { NgClass, NgFor } from '@angular/common';
-import { selectService } from '../../store/actions/app.action';
+import { deselectServiceData, selectService } from '../../store/actions/app.action';
 
 @Component({
   selector: 'app-services',
@@ -13,8 +13,8 @@ import { selectService } from '../../store/actions/app.action';
   styleUrl: './services.component.scss'
 })
 export class ServicesComponent {
+  view: View = { service: '', serviceDataId: '' };
   services: Service[] = [];
-  view: View = { service: '' };
 
   constructor(
     private store: Store<AppStateInit>,
@@ -26,6 +26,7 @@ export class ServicesComponent {
   }
 
   selectService(name: string) {
+    this.store.dispatch(deselectServiceData());
     this.store.dispatch(selectService({ name }));
   }
 

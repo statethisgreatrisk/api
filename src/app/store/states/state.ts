@@ -8,10 +8,10 @@ export const appState: AppState = {
         { name: 'Schema', icon: '/file.png' },
     ],
 
-    api: [ { name: '/commits', action: 'get' } ],
-    storage: [{ name: 'Commits' }],
-    validation: [{ name: 'Commit Name', field: 'body' }],
-    schema: [{ name: 'Commit' }],
+    api: [ { _id: '1', name: '/commits', action: 'get' } ],
+    storage: [{ _id: '1', name: 'Commits' }],
+    validation: [{ _id: '1', name: 'Commit Name', field: 'body' }],
+    schema: [{ _id: '1', name: 'Commit' }],
 
-    view: { service: 'API' }
+    view: { service: '', serviceDataId: '' }
 };
