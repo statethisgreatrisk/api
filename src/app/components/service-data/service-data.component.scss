@@ -51,9 +51,8 @@
     color: white;
 }
 
-.service-data p.action,
-.service-data p.field {
-    width: 35px;
+.service-data p.action {
+    width: 45px;
 
     font-size: 12px;
     font-weight: 600;
@@ -61,11 +60,18 @@
 }
 
 .service-data p.action.get {
-    color: $primary-600;
+    color: $get;
 }
 
-.service-data p.field.body {
-    color: $primary-600;
+.service-data p.field {
+    width: 45px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.service-data p.field.param {
+    color: $param;
 }
 
 .service-data img {

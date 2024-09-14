@@ -1,0 +1,281 @@
+@import '../../styles/palette.component.scss';
+
+.edit-validation-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-validation {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-validation-header {
+    display: flex;
+    flex-direction: column;
+
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.edit-validation-header p {
+    font-size: 12px;
+    font-weight: 500;
+    color: $surface-mixed-600;
+}
+
+.edit-validation-form-label {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.edit-validation-form-label p {
+    font-size: 11px;
+    font-weight: 500;
+    color: $surface-mixed-600;
+}
+
+.edit-validation-form {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 28px;
+
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    background-color: $surface-mixed-200;
+    border: 1px solid $surface-mixed-300;
+    border-radius: 2px;
+}
+
+.edit-validation-form-select {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: pointer;
+
+    border-right: 1px solid $surface-mixed-300;
+}
+
+.edit-validation-form-select-button {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+
+    width: 75px;
+}
+
+.edit-validation-form-select-button p {
+    font-size: 12px;
+    font-weight: 500;
+    color: $primary-600;
+}
+
+.edit-validation-form-select-button img {
+    width: 15px;
+    height: 15px;
+
+    padding-left: 5px;
+}
+
+.edit-validation-form-input {
+    width: 100%;
+
+    margin-left: 5px;
+}
+
+.edit-validation-form-input input {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+
+    width: 97%;
+
+    padding-bottom: 5px;
+
+    background-color: $surface-mixed-200;
+    border: none;
+}
+
+.edit-validation-form-input input:focus-visible {
+    outline: none;
+}
+
+.edit-validation-buttons {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: end;
+
+    width: 100%;
+}
+
+.edit-validation-cancel {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 75px;
+    height: 27px;
+
+    margin-top: 15px;
+    margin-right: 10px;
+
+    border: 1px solid $surface-mixed-300;
+    border-radius: 3px;
+
+    cursor: pointer;
+}
+
+.edit-validation-cancel:hover {
+    background-color: $surface-mixed-200;
+}
+
+.edit-validation-cancel p {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.edit-validation-save {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 75px;
+    height: 27px;
+
+    margin-top: 15px;
+    margin-right: 10px;
+
+    border: 1px solid $surface-mixed-300;
+    border-radius: 3px;
+    background-color: $primary-500;
+
+    cursor: pointer;
+}
+
+.edit-validation-save:hover {
+    background-color: $primary-400;
+}
+
+.edit-validation-save p {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.edit-validation-divider {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    margin-top: 20px;
+}
+
+.edit-validation-divider .divider {
+    width: 95%;
+    height: 1px;
+
+    border-top: 1px solid $surface-mixed-200;
+}
+
+.edit-validation-field-docs {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 15px;
+}
+
+.edit-validation-field-doc {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    margin-top: 10px;
+}
+
+.edit-validation-field-doc p:nth-child(1) {
+    font-size: 12px;
+    font-weight: 500;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    min-width: 45px;
+    max-width: 45px;
+}
+
+.edit-validation-field-doc p:nth-child(2) {
+    font-size: 12px;
+    font-weight: 500;
+    color: $surface-mixed-600;
+}
+
+.edit-validation-field-doc p.param {
+    color: $param;
+}
+
+.edit-validation-field-doc p.body {
+    color: $body;
+}
+
+.edit-validation-path-docs {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 15px;
+}
+
+.edit-validation-path-doc {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    padding: 10px;
+
+    background-color: $surface-mixed-200;
+    border-radius: 4px;
+}
+
+.edit-validation-path-doc p {
+    font-size: 11px;
+    font-weight: 500;
+    color: $surface-mixed-600;
+}

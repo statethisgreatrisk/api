@@ -22,7 +22,7 @@
     <!-- Validation -->
     <div class="service-data-list" *ngIf="view.service === 'Validation'">
         <div class="service-data" [ngClass]="{ 'active': view.serviceDataId === v._id }" *ngFor="let v of validation" (click)="selectServiceData(v._id)">
-            <p class="field" [ngClass]="v.field">{{ v.field }}</p>
+            <p class="field" [ngClass]="v.field">{{ v.field.charAt(0).toUpperCase() + v.field.slice(1) }}</p>
             <p>{{ v.name }}</p>
         </div>
     </div>

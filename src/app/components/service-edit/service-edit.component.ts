@@ -3,6 +3,7 @@ import { ComponentInjectorService } from '../../services/component-injector.serv
 import { AppStateInit, View } from '../../store/interfaces/app.interface';
 import { EditApiComponent } from '../edit-api/edit-api.component';
 import { EditStorageComponent } from '../edit-storage/edit-storage.component';
+import { EditValidationComponent } from '../edit-validation/edit-validation.component';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { NgIf } from '@angular/common';
@@ -18,7 +19,7 @@ export class ServiceEditComponent {
   view: View = { service: '', serviceDataId: '' };
   
   @ViewChild('componentHost', { read: ViewContainerRef, static: true }) componentHost!: ViewContainerRef;
-  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent> | null = null;
+  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidationComponent> | null = null;
   
   constructor(
     private store: Store<AppStateInit>,
@@ -60,6 +61,9 @@ export class ServiceEditComponent {
     } else if (this.view.service === 'Storage') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditStorageComponent, { injector: componentInjector });
+    } else if (this.view.service === 'Validation') {
+      const componentInjector = this.componentInjector.createServiceEditInjector();
+      this.componentHostRef = this.componentHost.createComponent(EditValidationComponent, { injector: componentInjector });
     }
   }
 
