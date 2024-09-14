@@ -52,7 +52,8 @@
     color: white;
 }
 
-.service-data p.action {
+.service-data p.action,
+.service-data p.field {
     width: 35px;
 
     font-size: 12px;
@@ -62,4 +63,15 @@
 
 .service-data p.action.get {
     color: $primary-600;
+}
+
+.service-data p.field.body {
+    color: $primary-600;
+}
+
+.service-data img {
+    width: 15px;
+    height: 15px;
+
+    margin-right: 5px;
 }

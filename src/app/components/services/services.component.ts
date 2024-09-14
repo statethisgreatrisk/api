@@ -1,25 +1,39 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppStateInit, Service } from '../../store/interfaces/app.interface';
+import { AppStateInit, Service, View } from '../../store/interfaces/app.interface';
 import { map } from 'rxjs';
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor } from '@angular/common';
+import { selectService } from '../../store/actions/app.action';
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, NgClass],
   templateUrl: './services.component.html',
   styleUrl: './services.component.scss'
 })
 export class ServicesComponent {
   services: Service[] = [];
+  view: View = { service: '' };
 
   constructor(
     private store: Store<AppStateInit>,
   ) {}
 
   ngOnInit() {
+    this.initView();
     this.initServices();
+  }
+
+  selectService(name: string) {
+    this.store.dispatch(selectService({ name }));
+  }
+
+  initView() {
+    this.store.pipe(map((store) => store.app.view)).subscribe((view) => {
+      if (!view) return;
+      this.view = view;
+    });
   }
 
   initServices() {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AppStateInit, Endpoint, View } from '../../store/interfaces/app.interface';
+import { API, AppStateInit, Schema, Storage, Validation, View } from '../../store/interfaces/app.interface';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { NgClass, NgFor, NgIf } from '@angular/common';
@@ -12,7 +12,10 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
   styleUrl: './service-data.component.scss'
 })
 export class ServiceDataComponent {
-  endpoints: Endpoint[] = [];
+  api: API[] = [];
+  validation: Validation[] = [];
+  storage: Storage[] = [];
+  schema: Schema[] = [];
   view: View = { service: '' };
 
   constructor(
@@ -21,7 +24,10 @@ export class ServiceDataComponent {
 
   ngOnInit() {
     this.initView();
-    this.initEndpoints();
+    this.initAPI();
+    this.initStorage();
+    this.initValidation();
+    this.initSchema();
   }
 
   initView() {
@@ -31,10 +37,31 @@ export class ServiceDataComponent {
     });
   }
 
-  initEndpoints() {
-    this.store.pipe(map((store) => store.app.endpoints)).subscribe((endpoints) => {
-      if (!endpoints || !endpoints.length) return;
-      this.endpoints = endpoints;
+  initAPI() {
+    this.store.pipe(map((store) => store.app.api)).subscribe((api) => {
+      if (!api || !api.length) return;
+      this.api = api;
+    });
+  }
+
+  initStorage() {
+    this.store.pipe(map((store) => store.app.storage)).subscribe((storage) => {
+      if (!storage || !storage.length) return;
+      this.storage = storage;
+    });
+  }
+
+  initValidation() {
+    this.store.pipe(map((store) => store.app.validation)).subscribe((validation) => {
+      if (!validation || !validation.length) return;
+      this.validation = validation;
+    });
+  }
+
+  initSchema() {
+    this.store.pipe(map((store) => store.app.schema)).subscribe((schema) => {
+      if (!schema || !schema.length) return;
+      this.schema = schema;
     });
   }
 }

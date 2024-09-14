@@ -7,14 +7,32 @@ export interface View {
     service: string;
 }
 
-export interface Endpoint {
+export interface API {
     name: string;
     action: string;
 }
 
+export interface Validation {
+    name: string;
+    field: string;
+}
+
+export interface Storage {
+    name: string;
+}
+
+export interface Schema {
+    name: string;
+}
+
 export interface AppState {
     services: Service[];
-    endpoints: Endpoint[];
+
+    api: API[];
+    validation: Validation[];
+    storage: Storage[];
+    schema: Schema[];
+    
     view: View;
 }
 

@@ -3,7 +3,7 @@
         <p>Services</p>
     </div>
     <div class="services">
-        <div class="service" *ngFor="let service of services;">
+        <div class="service" [ngClass]="{ 'active': view.service === service.name }" *ngFor="let service of services;" (click)="selectService(service.name)">
             <img [src]="service.icon">
             <p>{{ service.name }}</p>
         </div>

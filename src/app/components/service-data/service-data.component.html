@@ -1,11 +1,36 @@
-<div class="service-data-list-container">
+<div class="service-data-list-container" *ngIf="view.service !== ''">
     <div class="service-data-list-header">
         <p *ngIf="view.service === 'API'">Endpoints</p>
+        <p *ngIf="view.service === 'Storage'">Collections</p>
+        <p *ngIf="view.service === 'Validation'">Field Validators</p>
+        <p *ngIf="view.service === 'Schema'">Storage Models</p>
     </div>
-    <div class="service-data-list">
-        <div class="service-data" *ngFor="let endpoint of endpoints">
-            <p class="action" [ngClass]="endpoint.action">{{ endpoint.action }}</p>
-            <p>{{ endpoint.name }}</p>
+    <!-- API -->
+    <div class="service-data-list" *ngIf="view.service === 'API'">
+        <div class="service-data" *ngFor="let a of api">
+            <p class="action" [ngClass]="a.action">{{ a.action }}</p>
+            <p>{{ a.name }}</p>
+        </div>
+    </div>
+    <!-- Storage -->
+    <div class="service-data-list" *ngIf="view.service === 'Storage'">
+        <div class="service-data" *ngFor="let s of storage">
+            <img src="/news.png">
+            <p>{{ s.name }}</p>
+        </div>
+    </div>
+    <!-- Validation -->
+    <div class="service-data-list" *ngIf="view.service === 'Validation'">
+        <div class="service-data" *ngFor="let v of validation">
+            <p class="field" [ngClass]="v.field">{{ v.field }}</p>
+            <p>{{ v.name }}</p>
+        </div>
+    </div>
+    <!-- Schema -->
+    <div class="service-data-list" *ngIf="view.service === 'Schema'">
+        <div class="service-data" *ngFor="let s of schema">
+            <img src="/file.png">
+            <p>{{ s.name }}</p>
         </div>
     </div>
 </div>
