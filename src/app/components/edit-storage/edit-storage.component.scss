@@ -1,16 +1,16 @@
 @import '../../styles/palette.component.scss';
 
-.edit-api-container {
+.edit-storage-container {
     display: flex;
     flex-direction: column;
 }
 
-.edit-api {
+.edit-storage {
     display: flex;
     flex-direction: column;
 }
 
-.edit-api-header {
+.edit-storage-header {
     display: flex;
     flex-direction: column;
 
@@ -18,13 +18,13 @@
     padding-left: 10px;
 }
 
-.edit-api-header p {
+.edit-storage-header p {
     font-size: 12px;
     font-weight: 500;
     color: $surface-mixed-600;
 }
 
-.edit-api-form-label {
+.edit-storage-form-label {
     display: flex;
     flex-direction: column;
 
@@ -33,13 +33,13 @@
     margin-right: 10px;
 }
 
-.edit-api-form-label p {
+.edit-storage-form-label p {
     font-size: 11px;
     font-weight: 500;
     color: $surface-mixed-600;
 }
 
-.edit-api-form {
+.edit-storage-form {
     display: flex;
     flex-direction: row;
 
@@ -56,53 +56,13 @@
     border-radius: 2px;
 }
 
-.edit-api-form-select {
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    height: 100%;
-
-    padding-left: 10px;
-    padding-right: 10px;
-
-    cursor: pointer;
-
-    border-right: 1px solid $surface-mixed-300;
-}
-
-.edit-api-form-select-button {
-    display: flex;
-    flex-direction: row;
-
-    align-items: center;
-    justify-content: space-between;
-
-    width: 75px;
-}
-
-.edit-api-form-select-button p {
-    font-size: 12px;
-    font-weight: 500;
-    color: $primary-600;
-}
-
-.edit-api-form-select-button img {
-    width: 15px;
-    height: 15px;
-
-    padding-left: 5px;
-}
-
-.edit-api-form-input {
+.edit-storage-form-input {
     width: 100%;
 
     margin-left: 5px;
 }
 
-.edit-api-form-input input {
+.edit-storage-form-input input {
     font-size: 12px;
     font-weight: 600;
     color: white;
@@ -115,11 +75,11 @@
     border: none;
 }
 
-.edit-api-form-input input:focus-visible {
+.edit-storage-form-input input:focus-visible {
     outline: none;
 }
 
-.edit-api-buttons {
+.edit-storage-buttons {
     display: flex;
     flex-direction: row;
 
@@ -129,7 +89,7 @@
     width: 100%;
 }
 
-.edit-api-cancel {
+.edit-storage-cancel {
     display: flex;
     flex-direction: column;
 
@@ -148,17 +108,17 @@
     cursor: pointer;
 }
 
-.edit-api-cancel:hover {
+.edit-storage-cancel:hover {
     background-color: $surface-mixed-200;
 }
 
-.edit-api-cancel p {
+.edit-storage-cancel p {
     font-size: 12px;
     font-weight: 600;
     color: white;
 }
 
-.edit-api-save {
+.edit-storage-save {
     display: flex;
     flex-direction: column;
 
@@ -178,17 +138,17 @@
     cursor: pointer;
 }
 
-.edit-api-save:hover {
+.edit-storage-save:hover {
     background-color: $primary-400;
 }
 
-.edit-api-save p {
+.edit-storage-save p {
     font-size: 12px;
     font-weight: 600;
     color: white;
 }
 
-.edit-api-divider {
+.edit-storage-divider {
     display: flex;
     flex-direction: column;
 
@@ -200,77 +160,21 @@
     margin-top: 20px;
 }
 
-.edit-api-divider .divider {
+.edit-storage-divider .divider {
     width: 95%;
     height: 1px;
 
     border-top: 1px solid $surface-mixed-200;
 }
 
-.edit-api-action-docs {
+.edit-storage-path-docs {
     display: flex;
     flex-direction: column;
 
     margin-top: 15px;
 }
 
-.edit-api-action-doc {
-    display: flex;
-    flex-direction: row;
-
-    align-items: center;
-
-    padding-left: 10px;
-    padding-right: 10px;
-
-    margin-top: 10px;
-}
-
-.edit-api-action-doc p:nth-child(1) {
-    font-size: 12px;
-    font-weight: 500;
-
-    padding-left: 10px;
-    padding-right: 10px;
-
-    min-width: 45px;
-    max-width: 45px;
-}
-
-.edit-api-action-doc p:nth-child(2) {
-    font-size: 12px;
-    font-weight: 500;
-    color: $surface-mixed-600;
-}
-
-.edit-api-action-doc p.get {
-    color: $get;
-}
-
-.edit-api-action-doc p.post {
-    color: $post;
-}
-
-.edit-api-action-doc p.put {
-    color: $put;
-}
-
-.edit-api-action-doc p.patch {
-    color: $patch;
-}
-
-.edit-api-action-doc p.delete {
-    color: $delete;
-}
-
-.edit-api-path-docs {
-    display: flex;
-    flex-direction: column;
-
-    margin-top: 15px;
-}
-
-.edit-api-path-doc {
+.edit-storage-path-doc {
     display: flex;
     flex-direction: row;
 
@@ -286,7 +190,7 @@
     border-radius: 4px;
 }
 
-.edit-api-path-doc p {
+.edit-storage-path-doc p {
     font-size: 11px;
     font-weight: 500;
     color: $surface-mixed-600;

@@ -1,6 +1,7 @@
 <div class="service-edit-container">
     <div class="service-edit-header">
-        <p>Edit Endpoint</p>
+        <p *ngIf="view.service === 'API'">Edit Endpoint</p>
+        <p *ngIf="view.service === 'Storage'">Edit Collection</p>
     </div>
 
     <ng-container #componentHost></ng-container>
