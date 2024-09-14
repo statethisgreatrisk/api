@@ -104,7 +104,7 @@
     outline: none;
 }
 
-.edit-api-actions {
+.edit-api-buttons {
     display: flex;
     flex-direction: row;
 
@@ -190,4 +190,89 @@
     height: 1px;
 
     border-top: 1px solid $surface-mixed-200;
+}
+
+.edit-api-action-docs {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 15px;
+}
+
+.edit-api-action-doc {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    margin-top: 10px;
+}
+
+.edit-api-action-doc p:nth-child(1) {
+    font-size: 12px;
+    font-weight: 500;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    min-width: 45px;
+    max-width: 45px;
+}
+
+.edit-api-action-doc p:nth-child(2) {
+    font-size: 12px;
+    font-weight: 500;
+    color: $surface-mixed-600;
+}
+
+.edit-api-action-doc p.get {
+    color: $get;
+}
+
+.edit-api-action-doc p.post {
+    color: $post;
+}
+
+.edit-api-action-doc p.put {
+    color: $put;
+}
+
+.edit-api-action-doc p.patch {
+    color: $patch;
+}
+
+.edit-api-action-doc p.delete {
+    color: $delete;
+}
+
+.edit-api-path-docs {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 15px;
+}
+
+.edit-api-path-doc {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    padding: 10px;
+
+    background-color: $surface-mixed-200;
+    border-radius: 4px;
+}
+
+.edit-api-path-doc p {
+    font-size: 11px;
+    font-weight: 500;
+    color: $surface-mixed-600;
 }
