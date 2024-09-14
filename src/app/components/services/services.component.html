@@ -3,9 +3,38 @@
         <p>Services</p>
     </div>
     <div class="services">
-        <div class="service" [ngClass]="{ 'active': view.service === service.name }" *ngFor="let service of services;" (click)="selectService(service.name)">
-            <img [src]="service.icon">
-            <p>{{ service.name }}</p>
+        <div *ngFor="let service of services;">
+            <div class="service">
+                <p>{{ service.name }}</p>
+            </div>
+            <!-- API -->
+            <div class="service-data-list" *ngIf="service.name === 'API'">
+                <div class="service-data" [ngClass]="{ 'active': view.serviceDataId === a._id }" *ngFor="let a of api" (click)="selectService(service.name, a._id)">
+                    <img [src]="service.icon">
+                    <p>{{ a.name }}</p>
+                </div>
+            </div>
+            <!-- Storage -->
+            <div class="service-data-list" *ngIf="service.name === 'Storage'">
+                <div class="service-data" [ngClass]="{ 'active': view.serviceDataId === s._id }" *ngFor="let s of storage" (click)="selectService(service.name, s._id)">
+                    <img [src]="service.icon">
+                    <p>{{ s.name }}</p>
+                </div>
+            </div>
+            <!-- Schema -->
+            <div class="service-data-list" *ngIf="service.name === 'Schema'">
+                <div class="service-data" [ngClass]="{ 'active': view.serviceDataId === s._id }" *ngFor="let s of schema" (click)="selectService(service.name, s._id)">
+                    <img [src]="service.icon">
+                    <p>{{ s.name }}</p>
+                </div>
+            </div>
+            <!-- Validation -->
+            <div class="service-data-list" *ngIf="service.name === 'Validation'">
+                <div class="service-data" [ngClass]="{ 'active': view.serviceDataId === v._id }" *ngFor="let v of validation" (click)="selectService(service.name, v._id)">
+                    <img [src]="service.icon">
+                    <p>{{ v.name }}</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

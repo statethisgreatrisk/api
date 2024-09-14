@@ -12,9 +12,10 @@
 }
 
 .services-header {
-    padding-top: 5px;
-    padding-left: 5px;
-    padding-bottom: 5px;
+    padding-top: 10px;
+    padding-left: 10px;
+
+    margin-bottom: 10px;
 }
 
 .services-header p {
@@ -31,28 +32,44 @@
 
     height: 18px;
 
-    margin: 5px;
-    padding: 5px;
+    margin: 0 5px 0 5px;
+    padding: 2px 5px 2px 5px;
+}
 
-    border-radius: 5px;
+.service p {
+    font-size: 11px;
+    font-weight: 500;
+    color: white;
+}
+
+.service-data {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    
+    height: 18px;
+
+    margin: 0 5px 0 5px;
+    padding: 2px 5px 2px 15px;
 
     cursor: pointer;
 }
 
-.service.active,
-.service:hover {
+.service-data.active,
+.service-data:hover {
     background-color: $surface-mixed-200;
 }
 
-.service p {
-    font-size: 12px;
-    font-weight: 600;
+.service-data p {
+    font-size: 11px;
+    font-weight: 400;
     color: white;
 }
 
-.service img {
-    width: 15px;
-    height: 15px;
+.service-data img {
+    width: 10px;
+    height: 10px;
 
     margin-right: 5px;
 }

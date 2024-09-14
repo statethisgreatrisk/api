@@ -2,16 +2,16 @@ import { AppState } from "../interfaces/app.interface";
 
 export const appState: AppState = {
     services: [
-        { name: 'API', icon: '/home.png' },
-        { name: 'Storage', icon: '/news.png' },
+        { name: 'API', icon: '/news.png' },
+        { name: 'Storage', icon: '/folder.png' },
+        { name: 'Schema', icon: '/tool.png' },
         { name: 'Validation', icon: '/binoculars.png' },
-        { name: 'Schema', icon: '/file.png' },
     ],
 
     api: [ { _id: '1', name: '/commits', action: 'get' } ],
-    storage: [{ _id: '1', name: 'Commits' }],
-    validation: [{ _id: '1', name: 'Name is Alpha', field: 'param' }],
-    schema: [{ _id: '1', name: 'Commit' }],
+    storage: [{ _id: '2', name: 'commits' }],
+    schema: [{ _id: '4', name: 'Commit' }],
+    validation: [{ _id: '3', name: 'commit name is alpha', field: 'param' }],
 
-    view: { service: 'Storage', serviceDataId: '1' }
+    view: { service: 'Storage', serviceDataId: '2' }
 };

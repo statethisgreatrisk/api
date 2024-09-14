@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ServicesComponent } from './components/services/services.component';
-import { ServiceDataComponent } from './components/service-data/service-data.component';
 import { ServiceEditComponent } from './components/service-edit/service-edit.component';
 import { NgIf } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -11,7 +10,7 @@ import { View, AppStateInit } from './store/interfaces/app.interface';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgIf, ServicesComponent, ServiceDataComponent, ServiceEditComponent],
+  imports: [RouterOutlet, NgIf, ServicesComponent, ServiceEditComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
