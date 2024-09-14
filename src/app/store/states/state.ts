@@ -10,8 +10,8 @@ export const appState: AppState = {
 
     api: [ { _id: '1', name: '/commits', action: 'get' } ],
     storage: [{ _id: '2', name: 'commits' }],
-    schema: [{ _id: '4', name: 'Commit' }],
-    validation: [{ _id: '3', name: 'commit name is alpha', field: 'param' }],
+    schema: [{ _id: '3', name: 'Commit' }],
+    validation: [{ _id: '4', name: 'commit name is alpha', field: 'param' }],
 
-    view: { service: 'API', serviceDataId: '1' }
+    view: { service: 'Storage', serviceDataId: '2' }
 };

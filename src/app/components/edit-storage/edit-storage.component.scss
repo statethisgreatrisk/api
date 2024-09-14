@@ -56,6 +56,87 @@
     border-radius: 2px;
 }
 
+.edit-storage-form-select {
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: pointer;
+
+    border-right: 1px solid $surface-mixed-300;
+}
+
+.edit-storage-form-select-button {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.edit-storage-form-select-button p {
+    font-size: 12px;
+    font-weight: 500;
+    color: $surface-mixed-600;
+}
+
+.edit-storage-form-select-button img {
+    width: 15px;
+    height: 15px;
+
+    padding-left: 5px;
+}
+
+.edit-storage-form-select-dropdown {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    top: 29px;
+    position: absolute;
+    
+    background-color: $surface-mixed-200;
+    border-left: 1px solid $surface-mixed-300;
+    border-right: 1px solid $surface-mixed-300;
+    border-bottom: 1px solid $surface-mixed-300;
+
+    box-shadow: 0px 7px 11px rgba(162, 162, 162, 0.11);
+}
+
+.edit-storage-form-select-dropdown-button {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    
+    height: 30px;
+
+    padding-left: 10px;
+}
+
+.edit-storage-form-select-dropdown-button:hover {
+    background-color: $surface-mixed-300;
+}
+
+.edit-storage-form-select-dropdown-button p {
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+}
+
 .edit-storage-form-input {
     width: 100%;
 
