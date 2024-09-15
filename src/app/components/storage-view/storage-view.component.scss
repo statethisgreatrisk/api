@@ -1,0 +1,186 @@
+@import '../../styles/palette.component.scss';
+
+.storage-view-outer-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 15px;
+
+    flex-grow: 1;
+    height: 100%;
+
+    background-color: $surface-mixed-100;
+}
+
+.storage-view-container {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+    height: 100%;
+
+    max-width: 1400px;
+}
+
+.storage-view-breadcrumb-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 30px;
+
+    margin-left: 15px;
+    margin-right: 15px;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.storage-view-breadcrumb {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.storage-view-breadcrumb p {
+    font-size: 11px;
+    font-weight: 600;
+
+    margin-left: 15px;
+
+    color:white;
+
+    cursor: pointer;
+}
+
+.storage-view-breadcrumb p.initial {
+    margin-left: 0px;
+}
+
+.storage-view-breadcrumb p.active,
+.storage-view-breadcrumb p:hover {
+    color: $primary-600;
+
+    cursor: pointer;
+}
+
+.storage-view-breadcrumb img {
+    width: 10px;
+    height: 10px;
+
+    margin-left: 15px;
+}
+
+.storage-view-header {
+    display: flex;
+    flex-direction: column;
+
+    align-content: start;
+
+    height: 100px;
+}
+
+.storage-view-header p:nth-child(1) {
+    font-size: 25px;
+    font-weight: 600;
+
+    margin-left: 15px;
+    margin-top: 15px;
+
+    color:$surface-mixed-600;
+}
+
+.storage-view-header p:nth-child(2) {
+    font-size: 15px;
+    font-weight: 500;
+
+    margin-left: 15px;
+    margin-top: 15px;
+
+    color:$surface-mixed-600;
+}
+
+.storage-view-table-container {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+
+    margin-left: 15px;
+    margin-right: 15px;
+
+    border-top: 1px solid $surface-mixed-400;
+}
+
+.storage-view-table-row {
+    display: flex;
+    flex-direction: row;
+
+    align-items: start;
+
+    border-left: 1px solid $surface-mixed-400;
+}
+
+.storage-view-table-row.table-row {
+    &:nth-child(even) {
+        background-color: $surface-mixed-200;
+    }
+
+    &:hover {
+        background-color: $surface-mixed-200;
+        cursor: pointer;
+    }
+}
+
+.storage-view-table-column {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    padding: 5px;
+
+    width: 20%;
+
+    border-bottom: 1px solid $surface-mixed-400;
+    border-right: 1px solid $surface-mixed-400;
+}
+
+.storage-view-table-column:last-child {
+    flex-grow: 1;
+}
+
+.storage-view-table-header {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    flex-grow: 1;
+}
+
+.storage-view-table-header p {
+    font-size: 11px;
+    font-weight: 800;
+
+    color: $surface-mixed-700;
+}
+
+.storage-view-table-data {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    flex-grow: 1;
+}
+
+.storage-view-table-data p {
+    font-size: 11px;
+    font-weight: 500;
+
+    color: $surface-mixed-700;
+}
