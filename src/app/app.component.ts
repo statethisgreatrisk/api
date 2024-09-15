@@ -7,11 +7,12 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { View, AppStateInit } from './store/interfaces/app.interface';
 import { StorageViewComponent } from './components/storage-view/storage-view.component';
+import { ApiViewComponent } from './components/api-view/api-view.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgIf, ServicesComponent, ServiceEditComponent, StorageViewComponent],
+  imports: [RouterOutlet, NgIf, ServicesComponent, ServiceEditComponent, StorageViewComponent, ApiViewComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

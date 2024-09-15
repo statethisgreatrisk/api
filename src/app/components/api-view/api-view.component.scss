@@ -1,0 +1,176 @@
+@import '../../styles/palette.component.scss';
+
+.api-view-outer-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 15px;
+
+    flex-grow: 1;
+    height: 100%;
+
+    background-color: $surface-mixed-100;
+}
+
+.api-view-container {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+    height: 100%;
+
+    max-width: 1400px;
+}
+
+.api-view-breadcrumb-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 30px;
+
+    margin-left: 15px;
+    margin-right: 15px;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.api-view-breadcrumb {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.api-view-breadcrumb p {
+    font-size: 11px;
+    font-weight: 600;
+
+    margin-left: 15px;
+
+    color:white;
+
+    cursor: pointer;
+}
+
+.api-view-breadcrumb p.initial {
+    margin-left: 0px;
+}
+
+.api-view-breadcrumb p.active,
+.api-view-breadcrumb p:hover {
+    color: $primary-600;
+
+    cursor: pointer;
+}
+
+.api-view-breadcrumb img {
+    width: 10px;
+    height: 10px;
+
+    margin-left: 15px;
+}
+
+.api-view-header {
+    display: flex;
+    flex-direction: column;
+
+    align-content: start;
+
+    height: 100px;
+}
+
+.api-view-header p:nth-child(1) {
+    font-size: 25px;
+    font-weight: 600;
+
+    margin-left: 15px;
+    margin-top: 15px;
+
+    color:$surface-mixed-600;
+}
+
+.api-view-header p:nth-child(2) {
+    font-size: 15px;
+    font-weight: 500;
+
+    margin-left: 15px;
+    margin-top: 15px;
+
+    color:$surface-mixed-600;
+}
+
+.api-view-editor-container {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+
+    margin-left: 15px;
+    margin-right: 15px;
+
+    flex-grow: 1;
+
+    border: 1px solid $surface-mixed-400;
+}
+
+.api-view-editor {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+}
+
+.api-view-editor-row {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    height: auto;
+}
+
+.api-view-editor-row:hover .api-view-editor-row-prefix p {
+    color: white;
+}
+
+.api-view-editor-row-prefix {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    width: 45px;
+
+    padding: 2px 5px;
+
+    background-color: $surface-mixed-200;
+}
+
+.api-view-editor-row-prefix p {
+    font-size: 11px;
+
+    color: $surface-mixed-500;
+}
+
+.api-view-editor-row-input {
+    flex-grow: 1;
+
+    padding: 2px 10px;
+
+    border-top: 1px solid $surface-mixed-100;
+    border-bottom: 1px solid $surface-mixed-100;
+}
+
+.api-view-editor-row-input:hover {
+    border-top: 1px solid $surface-mixed-300;
+    border-bottom: 1px solid $surface-mixed-300;
+}
+
+.api-view-editor-row-input p {
+    font-size: 11px;
+
+    color: white;
+}
