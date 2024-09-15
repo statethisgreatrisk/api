@@ -280,6 +280,45 @@
     color: white;
 }
 
+.edit-api-list-item-container {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 5px;
+}
+
+.edit-api-list-item {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    
+    height: 18px;
+
+    margin: 0 5px 0 5px;
+    padding: 2px 5px 2px 15px;
+
+    cursor: pointer;
+}
+
+.edit-api-list-item.active,
+.edit-api-list-item:hover {
+    background-color: $surface-mixed-200;
+}
+
+.edit-api-list-item p {
+    font-size: 11px;
+    font-weight: 400;
+    color: white;
+}
+
+.edit-api-list-item img {
+    width: 10px;
+    height: 10px;
+
+    margin-right: 5px;
+}
+
 .edit-api-buttons {
     display: flex;
     flex-direction: row;
