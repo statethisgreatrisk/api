@@ -208,6 +208,83 @@
     outline: none;
 }
 
+.edit-validation-list-checkbox-container {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 5px;
+}
+
+.edit-validation-list-checkbox {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    
+    height: 18px;
+
+    margin: 0 5px 0 5px;
+    padding: 2px 5px 2px 15px;
+}
+
+.edit-validation-list-checkbox.active,
+.edit-validation-list-checkbox:hover {
+    background-color: $surface-mixed-200;
+}
+
+.edit-validation-list-checkbox label {
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+
+    cursor: pointer;
+}
+
+.edit-validation-list-checkbox input[type=checkbox] {
+    width: 10px;
+    height: 10px;
+
+    margin:0;
+    padding:0;
+
+    margin-right: 5px;
+
+    accent-color: $primary-600;
+
+    cursor: pointer;
+}
+
+.edit-validation-list-checkbox input[type=text] {
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+
+    width: 10%;
+
+    background-color: #2f2b3a;
+    border: none;
+}
+
+.edit-validation-list-checkbox input[type=text]:focus-visible {
+    outline:none;
+}
+
+.edit-validation-list-checkbox.option {
+    margin-left: 30px;
+}
+
+.edit-validation-list-checkbox.option label {
+    width: 35px;
+}
+
+.edit-validation-list-checkbox.option input[type=text] {
+    margin-left: 15px;
+}
+
+.edit-validation-list-checkbox.option:hover {
+    background: none;
+}
+
 .edit-validation-buttons {
     display: flex;
     flex-direction: row;
