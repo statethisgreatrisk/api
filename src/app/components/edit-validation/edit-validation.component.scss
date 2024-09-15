@@ -113,6 +113,8 @@
     border-bottom: 1px solid $surface-mixed-300;
 
     box-shadow: 0px 7px 11px rgba(162, 162, 162, 0.11);
+
+    z-index: 2;
 }
 
 .edit-validation-form-prefix-select-dropdown-button {

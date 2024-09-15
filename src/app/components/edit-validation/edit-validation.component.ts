@@ -9,9 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './edit-validation.component.scss'
 })
 export class EditValidationComponent {
-  dropdownVisible = false;
+  prefixDropdownVisible = false;
 
-  toggleDropdown() {
-    this.dropdownVisible = !this.dropdownVisible;
+  togglePrefixDropdown() {
+    this.prefixDropdownVisible = !this.prefixDropdownVisible;
   }
 }

@@ -7,12 +7,12 @@
             <p>Endpoint</p>
         </div>
         <div class="edit-api-form">
-            <div class="edit-api-form-prefix-select" (click)="toggleDropdown()">
+            <div class="edit-api-form-prefix-select" (click)="togglePrefixDropdown()">
                 <div class="edit-api-form-prefix-select-button">
                     <p>GET</p>
                     <img src="/down.png">
                 </div>
-                <div class="edit-api-form-prefix-select-dropdown" *ngIf="dropdownVisible">
+                <div class="edit-api-form-prefix-select-dropdown" *ngIf="prefixDropdownVisible">
                     <div class="edit-api-form-prefix-select-dropdown-button">
                         <p class="get">GET</p>
                     </div>
@@ -33,6 +33,31 @@
             <div class="edit-api-form-input">
                 <input type="text" placeholder="/resource/:resource-id">
             </div>
+        </div>
+        <div class="edit-api-form-label">
+            <p>Select Validation</p>
+        </div>
+        <div class="edit-api-form">
+            <div class="edit-api-form-select" (click)="toggleDropdown()">
+                <div class="edit-api-form-select-button">
+                    <p>Validators</p>
+                    <img src="/down.png">
+                </div>
+                <div class="edit-api-form-select-dropdown" *ngIf="dropdownVisible">
+                    <div class="edit-api-form-select-dropdown-button">
+                        <p>Validator 1</p>
+                    </div>
+                    <div class="edit-api-form-select-dropdown-button">
+                        <p>Validator 2</p>
+                    </div>
+                    <div class="edit-api-form-select-dropdown-button">
+                        <p>Validator 3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-api-form-label">
+            <p>Validation</p>
         </div>
         <div class="edit-api-buttons">
             <div class="edit-api-cancel">
