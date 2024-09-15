@@ -39,6 +39,46 @@
     color: $surface-mixed-600;
 }
 
+.edit-api-input-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 28px;
+
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    background-color: $surface-mixed-200;
+    border: 1px solid $surface-mixed-300;
+    border-radius: 2px;
+}
+
+.edit-api-input {
+    width: 100%;
+
+    margin-left: 5px;
+}
+
+.edit-api-input input {
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+
+    width: 97%;
+
+    padding-bottom: 5px;
+
+    background-color: $surface-mixed-200;
+    border: none;
+}
+
+.edit-api-input input:focus-visible {
+    outline: none;
+}
+
 .edit-api-prefix-container {
     display: flex;
     flex-direction: row;
@@ -165,7 +205,7 @@
 
 .edit-api-prefix-input input {
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 500;
     color: white;
 
     width: 97%;
