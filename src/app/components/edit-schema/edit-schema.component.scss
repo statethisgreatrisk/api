@@ -33,6 +33,14 @@
     margin-right: 10px;
 }
 
+.edit-schema-label.row {
+    flex-direction: row;
+}
+
+.edit-schema-label.between {
+    justify-content: space-between;
+}
+
 .edit-schema-label p {
     font-size: 11px;
     font-weight: 500;
@@ -272,6 +280,38 @@
 
 .edit-schema-list-checkbox.main-option:hover {
     background: none;
+}
+
+.edit-schema-slim-button-container {
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.edit-schema-slim-button {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: end;
+
+    width: 100%;
+
+    cursor: pointer;
+}
+
+.edit-schema-slim-button.inline {
+    width: auto;
+}
+
+.edit-schema-slim-button p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-600;
+
+    border-bottom: 1px solid $surface-mixed-600;
 }
 
 .edit-schema-buttons {

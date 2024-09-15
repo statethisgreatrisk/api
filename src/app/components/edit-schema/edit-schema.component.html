@@ -11,8 +11,11 @@
                 <input type="text" placeholder="Enter schema name">
             </div>
         </div>
-        <div class="edit-schema-label">
+        <div class="edit-schema-label row between">
             <p>Object Key</p>
+            <div class="edit-schema-slim-button inline">
+                <p>Delete key</p>
+            </div>
         </div>
         <div class="edit-schema-prefix-container">
             <div class="edit-schema-prefix-select" (click)="togglePrefixDropdown()">
@@ -64,6 +67,11 @@
                 <input type="checkbox" id="default">
                 <label for="default">Default</label>
                 <input type="text">
+            </div>
+        </div>
+        <div class="edit-schema-slim-button-container">
+            <div class="edit-schema-slim-button">
+                <p>Add another key</p>
             </div>
         </div>
         <div class="edit-schema-buttons">
