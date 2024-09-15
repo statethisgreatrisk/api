@@ -201,6 +201,79 @@
     outline: none;
 }
 
+.edit-schema-list-checkbox-container {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 5px;
+}
+
+.edit-schema-list-checkbox {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    
+    height: 18px;
+
+    margin: 0 5px 0 5px;
+    padding: 2px 5px 2px 15px;
+}
+
+.edit-schema-list-checkbox.active,
+.edit-schema-list-checkbox:hover {
+    background-color: $surface-mixed-200;
+}
+
+.edit-schema-list-checkbox label {
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+
+    cursor: pointer;
+}
+
+.edit-schema-list-checkbox input[type=checkbox] {
+    width: 10px;
+    height: 10px;
+
+    margin:0;
+    padding:0;
+
+    margin-right: 5px;
+
+    accent-color: $primary-600;
+
+    cursor: pointer;
+}
+
+.edit-schema-list-checkbox.main-option input[type=text] {
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+
+    width: 25%;
+
+    background-color: #2f2b3a;
+    border: none;
+}
+
+.edit-schema-list-checkbox.main-option input[type=text]:focus-visible {
+    outline: none;
+}
+
+.edit-schema-list-checkbox.main-option label {
+    width: 35px;
+}
+
+.edit-schema-list-checkbox.main-option input[type=text] {
+    margin-left: 15px;
+}
+
+.edit-schema-list-checkbox.main-option:hover {
+    background: none;
+}
+
 .edit-schema-buttons {
     display: flex;
     flex-direction: row;
