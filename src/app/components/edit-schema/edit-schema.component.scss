@@ -79,6 +79,128 @@
     outline: none;
 }
 
+.edit-schema-prefix-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 28px;
+
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    background-color: $surface-mixed-200;
+    border: 1px solid $surface-mixed-300;
+    border-radius: 2px;
+}
+
+.edit-schema-prefix-select {
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: pointer;
+
+    border-right: 1px solid $surface-mixed-300;
+}
+
+.edit-schema-prefix-select-button {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+
+    width: 75px;
+}
+
+.edit-schema-prefix-select-button p {
+    font-size: 12px;
+    font-weight: 500;
+    color: $surface-mixed-600;
+}
+
+.edit-schema-prefix-select-button img {
+    width: 15px;
+    height: 15px;
+
+    padding-left: 5px;
+}
+
+.edit-schema-prefix-select-dropdown {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    top: 29px;
+    position: absolute;
+    
+    background-color: $surface-mixed-200;
+    border-left: 1px solid $surface-mixed-300;
+    border-right: 1px solid $surface-mixed-300;
+    border-bottom: 1px solid $surface-mixed-300;
+
+    box-shadow: 0px 7px 11px rgba(162, 162, 162, 0.11);
+
+    z-index: 2;
+}
+
+.edit-schema-prefix-select-dropdown-button {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    
+    height: 30px;
+
+    padding-left: 10px;
+}
+
+.edit-schema-prefix-select-dropdown-button:hover {
+    background-color: $surface-mixed-300;
+}
+
+.edit-schema-prefix-select-dropdown-button p {
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+}
+
+.edit-schema-prefix-input {
+    width: 100%;
+
+    margin-left: 5px;
+}
+
+.edit-schema-prefix-input input {
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+
+    width: 97%;
+
+    padding-bottom: 5px;
+
+    background-color: $surface-mixed-200;
+    border: none;
+}
+
+.edit-schema-prefix-input input:focus-visible {
+    outline: none;
+}
+
 .edit-schema-buttons {
     display: flex;
     flex-direction: row;

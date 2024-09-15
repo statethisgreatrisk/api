@@ -11,6 +11,40 @@
                 <input type="text" placeholder="Enter schema name">
             </div>
         </div>
+        <div class="edit-schema-label">
+            <p>Object Key</p>
+        </div>
+        <div class="edit-schema-prefix-container">
+            <div class="edit-schema-prefix-select" (click)="togglePrefixDropdown()">
+                <div class="edit-schema-prefix-select-button">
+                    <p>String</p>
+                    <img src="/down.png">
+                </div>
+                <div class="edit-schema-prefix-select-dropdown" *ngIf="prefixDropdownVisible">
+                    <div class="edit-schema-prefix-select-dropdown-button">
+                        <p>String</p>
+                    </div>
+                    <div class="edit-schema-prefix-select-dropdown-button">
+                        <p>Number</p>
+                    </div>
+                    <div class="edit-schema-prefix-select-dropdown-button">
+                        <p>Object</p>
+                    </div>
+                    <div class="edit-schema-prefix-select-dropdown-button">
+                        <p>Boolean</p>
+                    </div>
+                    <div class="edit-schema-prefix-select-dropdown-button">
+                        <p>Null</p>
+                    </div>
+                    <div class="edit-schema-prefix-select-dropdown-button">
+                        <p>Any</p>
+                    </div>
+                </div>
+            </div>
+            <div class="edit-schema-prefix-input">
+                <input type="text" placeholder="Enter key name">
+            </div>
+        </div>
         <div class="edit-schema-buttons">
             <div class="edit-schema-cancel">
                 <p>Cancel</p>
