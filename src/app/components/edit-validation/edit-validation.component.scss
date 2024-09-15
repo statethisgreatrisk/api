@@ -39,7 +39,7 @@
     color: $surface-mixed-600;
 }
 
-.edit-validation-form {
+.edit-validation-prefix-container {
     display: flex;
     flex-direction: row;
 
@@ -56,7 +56,7 @@
     border-radius: 2px;
 }
 
-.edit-validation-form-prefix-select {
+.edit-validation-prefix-select {
     display: flex;
     flex-direction: column;
 
@@ -75,7 +75,7 @@
     border-right: 1px solid $surface-mixed-300;
 }
 
-.edit-validation-form-prefix-select-button {
+.edit-validation-prefix-select-button {
     display: flex;
     flex-direction: row;
 
@@ -85,20 +85,20 @@
     width: 75px;
 }
 
-.edit-validation-form-prefix-select-button p {
+.edit-validation-prefix-select-button p {
     font-size: 12px;
     font-weight: 500;
     color: $primary-600;
 }
 
-.edit-validation-form-prefix-select-button img {
+.edit-validation-prefix-select-button img {
     width: 15px;
     height: 15px;
 
     padding-left: 5px;
 }
 
-.edit-validation-form-prefix-select-dropdown {
+.edit-validation-prefix-select-dropdown {
     display: flex;
     flex-direction: column;
 
@@ -117,7 +117,7 @@
     z-index: 2;
 }
 
-.edit-validation-form-prefix-select-dropdown-button {
+.edit-validation-prefix-select-dropdown-button {
     display: flex;
     flex-direction: column;
 
@@ -128,30 +128,30 @@
     padding-left: 10px;
 }
 
-.edit-validation-form-prefix-select-dropdown-button:hover {
+.edit-validation-prefix-select-dropdown-button:hover {
     background-color: $surface-mixed-300;
 }
 
-.edit-validation-form-prefix-select-dropdown-button p {
+.edit-validation-prefix-select-dropdown-button p {
     font-size: 12px;
     font-weight: 500;
 }
 
-.edit-validation-form-prefix-select-dropdown-button p.param {
+.edit-validation-prefix-select-dropdown-button p.param {
     color: $param;
 }
 
-.edit-validation-form-prefix-select-dropdown-button p.body {
+.edit-validation-prefix-select-dropdown-button p.body {
     color: $body;
 }
 
-.edit-validation-form-input {
+.edit-validation-prefix-input {
     width: 100%;
 
     margin-left: 5px;
 }
 
-.edit-validation-form-input input {
+.edit-validation-prefix-input input {
     font-size: 12px;
     font-weight: 600;
     color: white;
@@ -164,7 +164,7 @@
     border: none;
 }
 
-.edit-validation-form-input input:focus-visible {
+.edit-validation-prefix-input input:focus-visible {
     outline: none;
 }
 

@@ -6,22 +6,22 @@
         <div class="edit-validation-label">
             <p>Field Selection</p>
         </div>
-        <div class="edit-validation-form">
-            <div class="edit-validation-form-prefix-select" (click)="togglePrefixDropdown()">
-                <div class="edit-validation-form-prefix-select-button">
+        <div class="edit-validation-prefix-container">
+            <div class="edit-validation-prefix-select" (click)="togglePrefixDropdown()">
+                <div class="edit-validation-prefix-select-button">
                     <p>Param</p>
                     <img src="/down.png">
                 </div>
-                <div class="edit-validation-form-prefix-select-dropdown" *ngIf="prefixDropdownVisible">
-                    <div class="edit-validation-form-prefix-select-dropdown-button">
+                <div class="edit-validation-prefix-select-dropdown" *ngIf="prefixDropdownVisible">
+                    <div class="edit-validation-prefix-select-dropdown-button">
                         <p class="param">Param</p>
                     </div>
-                    <div class="edit-validation-form-prefix-select-dropdown-button">
+                    <div class="edit-validation-prefix-select-dropdown-button">
                         <p class="body">Body</p>
                     </div>
                 </div>
             </div>
-            <div class="edit-validation-form-input">
+            <div class="edit-validation-prefix-input">
                 <input type="text" placeholder="Enter field path">
             </div>
         </div>

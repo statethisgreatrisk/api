@@ -39,7 +39,7 @@
     color: $surface-mixed-600;
 }
 
-.edit-storage-form {
+.edit-storage-select-container {
     display: flex;
     flex-direction: row;
 
@@ -56,7 +56,7 @@
     border-radius: 2px;
 }
 
-.edit-storage-form-select {
+.edit-storage-select {
     display: flex;
     flex-direction: column;
 
@@ -76,7 +76,7 @@
     border-right: 1px solid $surface-mixed-300;
 }
 
-.edit-storage-form-select-button {
+.edit-storage-select-button {
     display: flex;
     flex-direction: row;
 
@@ -86,20 +86,20 @@
     justify-content: space-between;
 }
 
-.edit-storage-form-select-button p {
+.edit-storage-select-button p {
     font-size: 12px;
     font-weight: 500;
     color: $surface-mixed-600;
 }
 
-.edit-storage-form-select-button img {
+.edit-storage-select-button img {
     width: 15px;
     height: 15px;
 
     padding-left: 5px;
 }
 
-.edit-storage-form-select-dropdown {
+.edit-storage-select-dropdown {
     display: flex;
     flex-direction: column;
 
@@ -118,7 +118,7 @@
     z-index: 2;
 }
 
-.edit-storage-form-select-dropdown-button {
+.edit-storage-select-dropdown-button {
     display: flex;
     flex-direction: column;
 
@@ -129,23 +129,40 @@
     padding-left: 10px;
 }
 
-.edit-storage-form-select-dropdown-button:hover {
+.edit-storage-select-dropdown-button:hover {
     background-color: $surface-mixed-300;
 }
 
-.edit-storage-form-select-dropdown-button p {
+.edit-storage-select-dropdown-button p {
     font-size: 12px;
     font-weight: 500;
     color: white;
 }
 
-.edit-storage-form-input {
+.edit-storage-input-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 28px;
+
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    background-color: $surface-mixed-200;
+    border: 1px solid $surface-mixed-300;
+    border-radius: 2px;
+}
+
+.edit-storage-input {
     width: 100%;
 
     margin-left: 5px;
 }
 
-.edit-storage-form-input input {
+.edit-storage-input input {
     font-size: 12px;
     font-weight: 600;
     color: white;
@@ -158,7 +175,7 @@
     border: none;
 }
 
-.edit-storage-form-input input:focus-visible {
+.edit-storage-input input:focus-visible {
     outline: none;
 }
 

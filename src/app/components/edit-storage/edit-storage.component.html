@@ -6,28 +6,28 @@
         <div class="edit-storage-label">
             <p>Collection</p>
         </div>
-        <div class="edit-storage-form">
-            <div class="edit-storage-form-input">
+        <div class="edit-storage-input-container">
+            <div class="edit-storage-input">
                 <input type="text" placeholder="Enter collection name">
             </div>
         </div>
         <div class="edit-storage-label">
             <p>Schema</p>
         </div>
-        <div class="edit-storage-form">
-            <div class="edit-storage-form-select" (click)="toggleDropdown()">
-                <div class="edit-storage-form-select-button">
+        <div class="edit-storage-select-container">
+            <div class="edit-storage-select" (click)="toggleDropdown()">
+                <div class="edit-storage-select-button">
                     <p>Select Schema</p>
                     <img src="/down.png">
                 </div>
-                <div class="edit-storage-form-select-dropdown" *ngIf="dropdownVisible">
-                    <div class="edit-storage-form-select-dropdown-button">
+                <div class="edit-storage-select-dropdown" *ngIf="dropdownVisible">
+                    <div class="edit-storage-select-dropdown-button">
                         <p>Schema 1</p>
                     </div>
-                    <div class="edit-storage-form-select-dropdown-button">
+                    <div class="edit-storage-select-dropdown-button">
                         <p>Schema 2</p>
                     </div>
-                    <div class="edit-storage-form-select-dropdown-button">
+                    <div class="edit-storage-select-dropdown-button">
                         <p>Schema 3</p>
                     </div>
                 </div>

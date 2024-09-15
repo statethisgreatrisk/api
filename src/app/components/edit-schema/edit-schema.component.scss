@@ -39,7 +39,7 @@
     color: $surface-mixed-600;
 }
 
-.edit-schema-form {
+.edit-schema-input-container {
     display: flex;
     flex-direction: row;
 
@@ -56,13 +56,13 @@
     border-radius: 2px;
 }
 
-.edit-schema-form-input {
+.edit-schema-input {
     width: 100%;
 
     margin-left: 5px;
 }
 
-.edit-schema-form-input input {
+.edit-schema-input input {
     font-size: 12px;
     font-weight: 600;
     color: white;
@@ -75,7 +75,7 @@
     border: none;
 }
 
-.edit-schema-form-input input:focus-visible {
+.edit-schema-input input:focus-visible {
     outline: none;
 }
 
