@@ -28,9 +28,9 @@
                     <p>{{ s.name }}</p>
                 </div>
             </div>
-            <!-- Validation -->
-            <div class="service-data-list" *ngIf="service.name === 'Validation'">
-                <div class="service-data" [ngClass]="{ 'active': view.serviceDataId === v._id }" *ngFor="let v of validation" (click)="selectService(service.name, v._id)">
+            <!-- Validator -->
+            <div class="service-data-list" *ngIf="service.name === 'Validator'">
+                <div class="service-data" [ngClass]="{ 'active': view.serviceDataId === v._id }" *ngFor="let v of validator" (click)="selectService(service.name, v._id)">
                     <img [src]="service.icon">
                     <p>{{ v.name }}</p>
                 </div>

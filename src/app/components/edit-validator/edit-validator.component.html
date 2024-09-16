@@ -1,96 +1,96 @@
-<div class="edit-validation-container">
-    <div class="edit-validation">
-        <div class="edit-validation-header">
-            <p>Configure Validation</p>
+<div class="edit-validator-container">
+    <div class="edit-validator">
+        <div class="edit-validator-header">
+            <p>Configure Validator</p>
         </div>
-        <div class="edit-validation-label">
+        <div class="edit-validator-label">
             <p>Name</p>
         </div>
-        <div class="edit-validation-input-container">
-            <div class="edit-validation-input">
-                <input type="text" placeholder="Enter validation name">
+        <div class="edit-validator-input-container">
+            <div class="edit-validator-input">
+                <input type="text" placeholder="Enter validator name">
             </div>
         </div>
-        <div class="edit-validation-label">
+        <div class="edit-validator-label">
             <p>Field Selection</p>
         </div>
-        <div class="edit-validation-prefix-container">
-            <div class="edit-validation-prefix-select" (click)="togglePrefixDropdown()">
-                <div class="edit-validation-prefix-select-button">
+        <div class="edit-validator-prefix-container">
+            <div class="edit-validator-prefix-select" (click)="togglePrefixDropdown()">
+                <div class="edit-validator-prefix-select-button">
                     <p>Param</p>
                     <img src="/down.png">
                 </div>
-                <div class="edit-validation-prefix-select-dropdown" *ngIf="prefixDropdownVisible">
-                    <div class="edit-validation-prefix-select-dropdown-button">
+                <div class="edit-validator-prefix-select-dropdown" *ngIf="prefixDropdownVisible">
+                    <div class="edit-validator-prefix-select-dropdown-button">
                         <p class="param">Param</p>
                     </div>
-                    <div class="edit-validation-prefix-select-dropdown-button">
+                    <div class="edit-validator-prefix-select-dropdown-button">
                         <p class="body">Body</p>
                     </div>
                 </div>
             </div>
-            <div class="edit-validation-prefix-input">
+            <div class="edit-validator-prefix-input">
                 <input type="text" placeholder="Enter field path">
             </div>
         </div>
-        <div class="edit-validation-label">
-            <p>Validation</p>
+        <div class="edit-validator-label">
+            <p>Validator</p>
         </div>
-        <div class="edit-validation-list-checkbox-container">
-            <div class="edit-validation-list-checkbox">
+        <div class="edit-validator-list-checkbox-container">
+            <div class="edit-validator-list-checkbox">
                 <input type="checkbox" id="isAlpha">
                 <label for="isAlpha">isAlpha</label>
             </div>
-            <div class="edit-validation-list-checkbox">
+            <div class="edit-validator-list-checkbox">
                 <input type="checkbox" id="matches">
                 <label for="matches">matches</label>
             </div>
-            <div class="edit-validation-list-checkbox">
+            <div class="edit-validator-list-checkbox">
                 <input type="checkbox" id="isUUID">
                 <label for="isUUID">isUUID</label>
             </div>
-            <div class="edit-validation-list-checkbox">
+            <div class="edit-validator-list-checkbox">
                 <input type="checkbox" id="isMongoID">
                 <label for="isMongoID">isMongoID</label>
             </div>
-            <div class="edit-validation-list-checkbox">
+            <div class="edit-validator-list-checkbox">
                 <input type="checkbox" id="isLength">
                 <label for="isLength">isLength</label>
             </div>
-            <div class="edit-validation-list-checkbox option">
+            <div class="edit-validator-list-checkbox option">
                 <input type="checkbox" id="isLengthMin">
                 <label for="isLengthMin">min</label>
                 <input type="text">
             </div>
-            <div class="edit-validation-list-checkbox option">
+            <div class="edit-validator-list-checkbox option">
                 <input type="checkbox" id="isLengthMax">
                 <label for="isLengthMax">max</label>
                 <input type="text">
             </div>
         </div>
-        <div class="edit-validation-buttons">
-            <div class="edit-validation-cancel">
+        <div class="edit-validator-buttons">
+            <div class="edit-validator-cancel">
                 <p>Cancel</p>
             </div>
-            <div class="edit-validation-save">
+            <div class="edit-validator-save">
                 <p>Save</p>
             </div>
         </div>
-        <div class="edit-validation-divider">
+        <div class="edit-validator-divider">
             <div class="divider"></div>
         </div>
-        <div class="edit-validation-field-docs">
-            <div class="edit-validation-field-doc">
+        <div class="edit-validator-field-docs">
+            <div class="edit-validator-field-doc">
                 <p class="param">Param</p>
                 <p>Select a field from the Express req.params object.</p>
             </div>
-            <div class="edit-validation-field-doc">
+            <div class="edit-validator-field-doc">
                 <p class="body">Body</p>
                 <p>Select a field from the Express req.body object.</p>
             </div>
         </div>
-        <div class="edit-validation-path-docs">
-            <div class="edit-validation-path-doc">
+        <div class="edit-validator-path-docs">
+            <div class="edit-validator-path-doc">
                 <p>Field selection and validators are based on express-validator 7.x. See the express-validator documentation for details.</p>
             </div>
         </div>

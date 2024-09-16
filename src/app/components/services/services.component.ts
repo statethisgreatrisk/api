@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validation, Storage, Schema } from '../../store/interfaces/app.interface';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema } from '../../store/interfaces/app.interface';
 import { selectService } from '../../store/actions/app.action';
 
 @Component({
@@ -17,7 +17,7 @@ export class ServicesComponent {
 
   services: Service[] = [];
   api: API[] = [];
-  validation: Validation[] = [];
+  validator: Validator[] = [];
   storage: Storage[] = [];
   schema: Schema[] = [];
 
@@ -30,7 +30,7 @@ export class ServicesComponent {
     this.initServices();
     this.initAPI();
     this.initStorage();
-    this.initValidation();
+    this.initValidator();
     this.initSchema();
   }
 
@@ -66,10 +66,10 @@ export class ServicesComponent {
     });
   }
 
-  initValidation() {
-    this.store.pipe(map((store) => store.app.validation)).subscribe((validation) => {
-      if (!validation || !validation.length) return;
-      this.validation = validation;
+  initValidator() {
+    this.store.pipe(map((store) => store.app.validator)).subscribe((validator) => {
+      if (!validator || !validator.length) return;
+      this.validator = validator;
     });
   }
 

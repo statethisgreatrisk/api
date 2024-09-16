@@ -1,16 +1,16 @@
 @import '../../styles/palette.component.scss';
 
-.edit-validation-container {
+.edit-validator-container {
     display: flex;
     flex-direction: column;
 }
 
-.edit-validation {
+.edit-validator {
     display: flex;
     flex-direction: column;
 }
 
-.edit-validation-header {
+.edit-validator-header {
     display: flex;
     flex-direction: column;
 
@@ -18,13 +18,13 @@
     padding-left: 10px;
 }
 
-.edit-validation-header p {
+.edit-validator-header p {
     font-size: 12px;
     font-weight: 500;
     color: $surface-mixed-600;
 }
 
-.edit-validation-label {
+.edit-validator-label {
     display: flex;
     flex-direction: column;
 
@@ -33,13 +33,13 @@
     margin-right: 10px;
 }
 
-.edit-validation-label p {
+.edit-validator-label p {
     font-size: 11px;
     font-weight: 500;
     color: $surface-mixed-600;
 }
 
-.edit-validation-input-container {
+.edit-validator-input-container {
     display: flex;
     flex-direction: row;
 
@@ -56,13 +56,13 @@
     border-radius: 2px;
 }
 
-.edit-validation-input {
+.edit-validator-input {
     width: 100%;
 
     margin-left: 5px;
 }
 
-.edit-validation-input input {
+.edit-validator-input input {
     font-size: 12px;
     font-weight: 500;
     color: white;
@@ -75,11 +75,11 @@
     border: none;
 }
 
-.edit-validation-input input:focus-visible {
+.edit-validator-input input:focus-visible {
     outline: none;
 }
 
-.edit-validation-prefix-container {
+.edit-validator-prefix-container {
     display: flex;
     flex-direction: row;
 
@@ -96,7 +96,7 @@
     border-radius: 2px;
 }
 
-.edit-validation-prefix-select {
+.edit-validator-prefix-select {
     display: flex;
     flex-direction: column;
 
@@ -115,7 +115,7 @@
     border-right: 1px solid $surface-mixed-300;
 }
 
-.edit-validation-prefix-select-button {
+.edit-validator-prefix-select-button {
     display: flex;
     flex-direction: row;
 
@@ -125,20 +125,20 @@
     width: 75px;
 }
 
-.edit-validation-prefix-select-button p {
+.edit-validator-prefix-select-button p {
     font-size: 12px;
     font-weight: 500;
     color: $primary-600;
 }
 
-.edit-validation-prefix-select-button img {
+.edit-validator-prefix-select-button img {
     width: 15px;
     height: 15px;
 
     padding-left: 5px;
 }
 
-.edit-validation-prefix-select-dropdown {
+.edit-validator-prefix-select-dropdown {
     display: flex;
     flex-direction: column;
 
@@ -157,7 +157,7 @@
     z-index: 2;
 }
 
-.edit-validation-prefix-select-dropdown-button {
+.edit-validator-prefix-select-dropdown-button {
     display: flex;
     flex-direction: column;
 
@@ -168,30 +168,30 @@
     padding-left: 10px;
 }
 
-.edit-validation-prefix-select-dropdown-button:hover {
+.edit-validator-prefix-select-dropdown-button:hover {
     background-color: $surface-mixed-300;
 }
 
-.edit-validation-prefix-select-dropdown-button p {
+.edit-validator-prefix-select-dropdown-button p {
     font-size: 12px;
     font-weight: 500;
 }
 
-.edit-validation-prefix-select-dropdown-button p.param {
+.edit-validator-prefix-select-dropdown-button p.param {
     color: $param;
 }
 
-.edit-validation-prefix-select-dropdown-button p.body {
+.edit-validator-prefix-select-dropdown-button p.body {
     color: $body;
 }
 
-.edit-validation-prefix-input {
+.edit-validator-prefix-input {
     width: 100%;
 
     margin-left: 5px;
 }
 
-.edit-validation-prefix-input input {
+.edit-validator-prefix-input input {
     font-size: 12px;
     font-weight: 500;
     color: white;
@@ -204,18 +204,18 @@
     border: none;
 }
 
-.edit-validation-prefix-input input:focus-visible {
+.edit-validator-prefix-input input:focus-visible {
     outline: none;
 }
 
-.edit-validation-list-checkbox-container {
+.edit-validator-list-checkbox-container {
     display: flex;
     flex-direction: column;
 
     margin-top: 5px;
 }
 
-.edit-validation-list-checkbox {
+.edit-validator-list-checkbox {
     display: flex;
     flex-direction: row;
 
@@ -227,12 +227,12 @@
     padding: 2px 5px 2px 15px;
 }
 
-.edit-validation-list-checkbox.active,
-.edit-validation-list-checkbox:hover {
+.edit-validator-list-checkbox.active,
+.edit-validator-list-checkbox:hover {
     background-color: $surface-mixed-200;
 }
 
-.edit-validation-list-checkbox label {
+.edit-validator-list-checkbox label {
     font-size: 11px;
     font-weight: 600;
     color: white;
@@ -240,7 +240,7 @@
     cursor: pointer;
 }
 
-.edit-validation-list-checkbox input[type=checkbox] {
+.edit-validator-list-checkbox input[type=checkbox] {
     width: 10px;
     height: 10px;
 
@@ -254,7 +254,7 @@
     cursor: pointer;
 }
 
-.edit-validation-list-checkbox.option input[type=text] {
+.edit-validator-list-checkbox.option input[type=text] {
     font-size: 11px;
     font-weight: 600;
     color: white;
@@ -265,27 +265,27 @@
     border: none;
 }
 
-.edit-validation-list-checkbox.option input[type=text]:focus-visible {
+.edit-validator-list-checkbox.option input[type=text]:focus-visible {
     outline: none;
 }
 
-.edit-validation-list-checkbox.option {
+.edit-validator-list-checkbox.option {
     margin-left: 30px;
 }
 
-.edit-validation-list-checkbox.option label {
+.edit-validator-list-checkbox.option label {
     width: 35px;
 }
 
-.edit-validation-list-checkbox.option input[type=text] {
+.edit-validator-list-checkbox.option input[type=text] {
     margin-left: 15px;
 }
 
-.edit-validation-list-checkbox.option:hover {
+.edit-validator-list-checkbox.option:hover {
     background: none;
 }
 
-.edit-validation-buttons {
+.edit-validator-buttons {
     display: flex;
     flex-direction: row;
 
@@ -295,7 +295,7 @@
     width: 100%;
 }
 
-.edit-validation-cancel {
+.edit-validator-cancel {
     display: flex;
     flex-direction: column;
 
@@ -314,17 +314,17 @@
     cursor: pointer;
 }
 
-.edit-validation-cancel:hover {
+.edit-validator-cancel:hover {
     background-color: $surface-mixed-200;
 }
 
-.edit-validation-cancel p {
+.edit-validator-cancel p {
     font-size: 12px;
     font-weight: 600;
     color: white;
 }
 
-.edit-validation-save {
+.edit-validator-save {
     display: flex;
     flex-direction: column;
 
@@ -344,17 +344,17 @@
     cursor: pointer;
 }
 
-.edit-validation-save:hover {
+.edit-validator-save:hover {
     background-color: $primary-400;
 }
 
-.edit-validation-save p {
+.edit-validator-save p {
     font-size: 12px;
     font-weight: 600;
     color: white;
 }
 
-.edit-validation-divider {
+.edit-validator-divider {
     display: flex;
     flex-direction: column;
 
@@ -366,21 +366,21 @@
     margin-top: 20px;
 }
 
-.edit-validation-divider .divider {
+.edit-validator-divider .divider {
     width: 95%;
     height: 1px;
 
     border-top: 1px solid $surface-mixed-200;
 }
 
-.edit-validation-field-docs {
+.edit-validator-field-docs {
     display: flex;
     flex-direction: column;
 
     margin-top: 15px;
 }
 
-.edit-validation-field-doc {
+.edit-validator-field-doc {
     display: flex;
     flex-direction: row;
 
@@ -392,7 +392,7 @@
     margin-top: 10px;
 }
 
-.edit-validation-field-doc p:nth-child(1) {
+.edit-validator-field-doc p:nth-child(1) {
     font-size: 12px;
     font-weight: 500;
 
@@ -403,28 +403,28 @@
     max-width: 45px;
 }
 
-.edit-validation-field-doc p:nth-child(2) {
+.edit-validator-field-doc p:nth-child(2) {
     font-size: 12px;
     font-weight: 500;
     color: $surface-mixed-600;
 }
 
-.edit-validation-field-doc p.param {
+.edit-validator-field-doc p.param {
     color: $param;
 }
 
-.edit-validation-field-doc p.body {
+.edit-validator-field-doc p.body {
     color: $body;
 }
 
-.edit-validation-path-docs {
+.edit-validator-path-docs {
     display: flex;
     flex-direction: column;
 
     margin-top: 15px;
 }
 
-.edit-validation-path-doc {
+.edit-validator-path-doc {
     display: flex;
     flex-direction: row;
 
@@ -440,7 +440,7 @@
     border-radius: 4px;
 }
 
-.edit-validation-path-doc p {
+.edit-validator-path-doc p {
     font-size: 11px;
     font-weight: 500;
     color: $surface-mixed-600;

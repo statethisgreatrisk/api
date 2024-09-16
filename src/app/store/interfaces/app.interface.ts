@@ -9,7 +9,7 @@ export interface API {
     action: string;
 }
 
-export interface Validation {
+export interface Validator {
     _id: string;
     name: string;
     field: string;
@@ -34,7 +34,7 @@ export interface AppState {
     services: Service[];
 
     api: API[];
-    validation: Validation[];
+    validator: Validator[];
     storage: Storage[];
     schema: Schema[];
     

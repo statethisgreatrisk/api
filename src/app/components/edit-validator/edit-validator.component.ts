@@ -2,13 +2,13 @@ import { NgIf, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-edit-validation',
+  selector: 'app-edit-validator',
   standalone: true,
   imports: [NgIf, NgClass],
-  templateUrl: './edit-validation.component.html',
-  styleUrl: './edit-validation.component.scss'
+  templateUrl: './edit-validator.component.html',
+  styleUrl: './edit-validator.component.scss'
 })
-export class EditValidationComponent {
+export class EditValidatorComponent {
   prefixDropdownVisible = false;
 
   togglePrefixDropdown() {
