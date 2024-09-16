@@ -1,11 +1,128 @@
-import { AppState } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator } from "../interfaces/app.interface";
 
-export const logFn: (state: AppState, any: any) => AppState = (state: AppState, any: any) => {
-    return { ...state };
+// User
+
+export const addUserFn: (state: AppState, user: User) => AppState = (state: AppState, user: User) => {
+    if (!user) return { ...state };
+    return { ...state, user };
 }
+
+// API
+
+export const addAPIsFn: (state: AppState, apis: API[]) => AppState = (state: AppState, apis: API[]) => {
+    if (!apis) return { ...state };
+    return { ...state, api: state.api.concat(apis) };
+}
+
+export const addAPIFn: (state: AppState, api: API) => AppState = (state: AppState, api: API) => {
+    if (!api) return { ...state };
+    return { ...state, api: state.api.concat([api]) };
+}
+
+export const replaceAPIFn: (state: AppState, api: API) => AppState = (state: AppState, api: API) => {
+    if (!api) return { ...state };
+
+    const apis = state.api.map((existingAPI) => {
+        return existingAPI;
+    });
+
+    return { ...state, api: apis };
+}
+
+export const removeAPIFn: (state: AppState, apiId: string) => AppState = (state: AppState, apiId: string) => {
+    if (!apiId) return { ...state };
+    return { ...state, api: state.api.filter((api) => api._id !== apiId ) };
+}
+
+// Storage
+
+export const addStoragesFn: (state: AppState, storages: Storage[]) => AppState = (state: AppState, storages: Storage[]) => {
+    if (!storages) return { ...state };
+    return { ...state, storage: state.storage.concat(storages) };
+}
+
+export const addStorageFn: (state: AppState, storage: Storage) => AppState = (state: AppState, storage: Storage) => {
+    if (!storage) return { ...state };
+    return { ...state, storage: state.storage.concat([storage]) };
+}
+
+export const replaceStorageFn: (state: AppState, storage: Storage) => AppState = (state: AppState, storage: Storage) => {
+    if (!storage) return { ...state };
+
+    const storages = state.storage.map((existingStorage) => {
+        return existingStorage;
+    });
+
+    return { ...state, storage: storages };
+}
+
+export const removeStorageFn: (state: AppState, storageId: string) => AppState = (state: AppState, storageId: string) => {
+    if (!storageId) return { ...state };
+    return { ...state, storage: state.storage.filter((storage) => storage._id !== storageId ) };
+}
+
+// Schema
+
+export const addSchemasFn: (state: AppState, schemas: Schema[]) => AppState = (state: AppState, schemas: Schema[]) => {
+    if (!schemas) return { ...state };
+    return { ...state, schema: state.schema.concat(schemas) };
+}
+
+export const addSchemaFn: (state: AppState, schema: Schema) => AppState = (state: AppState, schema: Schema) => {
+    if (!schema) return { ...state };
+    return { ...state, schema: state.schema.concat([schema]) };
+}
+
+export const replaceSchemaFn: (state: AppState, schema: Schema) => AppState = (state: AppState, schema: Schema) => {
+    if (!schema) return { ...state };
+
+    const schemas = state.schema.map((existingSchema) => {
+        return existingSchema;
+    });
+
+    return { ...state, schema: schemas };
+}
+
+export const removeSchemaFn: (state: AppState, schemaId: string) => AppState = (state: AppState, schemaId: string) => {
+    if (!schemaId) return { ...state };
+    return { ...state, schema: state.schema.filter((schema) => schema._id !== schemaId ) };
+}
+
+// Validator
+
+export const addValidatorsFn: (state: AppState, validators: Validator[]) => AppState = (state: AppState, validators: Validator[]) => {
+    if (!validators) return { ...state };
+    return { ...state, validator: state.validator.concat(validators) };
+}
+
+export const addValidatorFn: (state: AppState, validator: Validator) => AppState = (state: AppState, validator: Validator) => {
+    if (!validator) return { ...state };
+    return { ...state, validator: state.validator.concat([validator]) };
+}
+
+export const replaceValidatorFn: (state: AppState, validator: Validator) => AppState = (state: AppState, validator: Validator) => {
+    if (!validator) return { ...state };
+
+    const validators = state.validator.map((existingValidator) => {
+        return existingValidator;
+    });
+
+    return { ...state, validator: validators };
+}
+
+export const removeValidatorFn: (state: AppState, validatorId: string) => AppState = (state: AppState, validatorId: string) => {
+    if (!validatorId) return { ...state };
+    return { ...state, validator: state.validator.filter((validator) => validator._id !== validatorId ) };
+}
+
+// Services/View
 
 export const selectServiceFn: (state: AppState, serviceName: string, serviceDataId: string) => AppState = (state: AppState, serviceName: string, serviceDataId: string) => {
     if (!serviceName || !serviceDataId) return { ...state };
 
     return { ...state, view: { service: serviceName, serviceDataId } };
+}
+
+export const logFn: (state: AppState, any: any) => AppState = (state: AppState, any: any) => {
+    return { ...state };
 }

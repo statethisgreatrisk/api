@@ -8,10 +8,10 @@ export const appState: AppState = {
         { name: 'Validator', icon: '/binoculars.png' },
     ],
 
-    api: [ { _id: '1', name: '/commits', action: 'get' } ],
-    storage: [{ _id: '2', name: 'commits' }],
-    schema: [{ _id: '3', name: 'Commit' }],
-    validator: [{ _id: '4', name: 'commit name is alpha', field: 'param' }],
+    api: [ { _id: '1', date: '', name: '/commits', action: 'get' } ],
+    storage: [{ _id: '2', date: '', name: 'commits' }],
+    schema: [{ _id: '3', date: '', name: 'Commit' }],
+    validator: [{ _id: '4', date: '', name: 'commit name is alpha', field: 'param' }],
 
     view: { service: '', serviceDataId: '' }
 };

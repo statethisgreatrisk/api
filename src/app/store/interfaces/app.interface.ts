@@ -3,26 +3,36 @@ export interface Service {
     icon: string;
 }
 
+export interface User {
+    _id: string;
+    date: string;
+    name: string;
+}
+
 export interface API {
     _id: string;
+    date: string;
     name: string;
     action: string;
 }
 
-export interface Validator {
-    _id: string;
-    name: string;
-    field: string;
-}
-
 export interface Storage {
     _id: string;
+    date: string;
     name: string;
 }
 
 export interface Schema {
     _id: string;
+    date: string;
     name: string;
+}
+
+export interface Validator {
+    _id: string;
+    date: string;
+    name: string;
+    field: string;
 }
 
 export interface View {
