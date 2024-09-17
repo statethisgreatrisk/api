@@ -285,6 +285,33 @@
     background: none;
 }
 
+.edit-validator-list-checkbox.main-option input[type=text] {
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+
+    width: 25%;
+
+    background-color: #2f2b3a;
+    border: none;
+}
+
+.edit-validator-list-checkbox.main-option input[type=text]:focus-visible {
+    outline: none;
+}
+
+.edit-validator-list-checkbox.main-option label {
+    width: 35px;
+}
+
+.edit-validator-list-checkbox.main-option input[type=text] {
+    margin-left: 15px;
+}
+
+.edit-validator-list-checkbox.main-option:hover {
+    background: none;
+}
+
 .edit-validator-buttons {
     display: flex;
     flex-direction: row;
