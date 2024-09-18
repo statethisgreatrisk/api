@@ -132,10 +132,6 @@
     height: auto;
 }
 
-.api-view-editor-row:hover .api-view-editor-row-prefix p {
-    color: white;
-}
-
 .api-view-editor-row-prefix {
     display: flex;
     flex-direction: column;
@@ -147,12 +143,110 @@
     padding: 2px 5px;
 
     background-color: $surface-mixed-200;
+
+    cursor: default;
 }
 
 .api-view-editor-row-prefix p {
     font-size: 11px;
 
     color: $surface-mixed-500;
+}
+
+.api-view-editor-row-select {
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 75px;
+
+    padding: 2px 5px;
+
+    cursor: pointer;
+}
+
+.api-view-editor-row-select-button {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding-left: 10px;
+}
+
+.api-view-editor-row-select-button p {
+    font-size: 11px;
+
+    color: $surface-mixed-500;
+}
+
+.api-view-editor-row-select-button img {
+    width: 12px;
+    height: 12px;
+
+    padding-left: 5px;
+    
+    visibility: hidden;
+}
+
+.api-view-editor-row-select-dropdown {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    top: 19px;
+    position: absolute;
+    
+    background-color: $surface-mixed-200;
+    border-left: 1px solid $surface-mixed-300;
+    border-right: 1px solid $surface-mixed-300;
+    border-bottom: 1px solid $surface-mixed-300;
+
+    box-shadow: 0px 7px 11px rgba(162, 162, 162, 0.11);
+
+    z-index: 2;
+}
+
+.api-view-editor-row-select-dropdown-button {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    
+    height: 30px;
+
+    padding-left: 10px;
+}
+
+.api-view-editor-row-select-dropdown-button p {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.api-view-editor-row-select-dropdown-button:hover {
+    background-color: $surface-mixed-300;
+}
+
+.api-view-editor-row-select-dropdown-button p.api {
+    color: $api;
+}
+
+.api-view-editor-row-select-dropdown-button p.collection {
+    color: $collection;
+}
+
+.api-view-editor-row-select-dropdown-button p.schema {
+    color: $schema;
+}
+
+.api-view-editor-row-select-dropdown-button p.validator {
+    color: $validator;
 }
 
 .api-view-editor-row-input {
@@ -173,4 +267,35 @@
     font-size: 11px;
 
     color: white;
+}
+
+.api-view-editor-row:hover .api-view-editor-row-prefix p,
+.api-view-editor-row:hover .api-view-editor-row-select-button p {
+    color: white;
+}
+
+.api-view-editor-row:hover .api-view-editor-row-select-button img {
+    visibility: visible;
+}
+
+.api-view-editor-row:hover .api-view-editor-row-input {
+    border-top: 1px solid $surface-mixed-300;
+    border-bottom: 1px solid $surface-mixed-300;
+}
+
+.api-view-editor-row-prefix p.visible {
+    color: white;
+}
+
+.api-view-editor-row-select-button p.visible {
+    color: white;
+}
+
+.api-view-editor-row-select-button img.visible {
+    visibility: visible;
+}
+
+.api-view-editor-row-input.visible {
+    border-top: 1px solid $surface-mixed-300;
+    border-bottom: 1px solid $surface-mixed-300;
 }

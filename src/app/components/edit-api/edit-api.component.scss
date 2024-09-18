@@ -168,13 +168,13 @@
     padding-left: 10px;
 }
 
-.edit-api-prefix-select-dropdown-button:hover {
-    background-color: $surface-mixed-300;
-}
-
 .edit-api-prefix-select-dropdown-button p {
     font-size: 12px;
     font-weight: 500;
+}
+
+.edit-api-prefix-select-dropdown-button:hover {
+    background-color: $surface-mixed-300;
 }
 
 .edit-api-prefix-select-dropdown-button p.get {

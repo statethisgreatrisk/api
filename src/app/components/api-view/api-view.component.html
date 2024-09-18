@@ -17,17 +17,57 @@
             <div class="api-view-editor">
                 <div class="api-view-editor-row">
                     <div class="api-view-editor-row-prefix">
-                        <p>1</p>
+                        <p [ngClass]="{ 'visible': dropdownVisible }">1</p>
                     </div>
-                    <div class="api-view-editor-row-input">
+                    <div class="api-view-editor-row-select" (click)="toggleDropdown()">
+                        <div class="api-view-editor-row-select-button">
+                            <p [ngClass]="{ 'visible': dropdownVisible }">Select</p>
+                            <img src="/down.png" [ngClass]="{ 'visible': dropdownVisible }">
+                        </div>
+                        <div class="api-view-editor-row-select-dropdown" *ngIf="dropdownVisible">
+                            <div class="api-view-editor-row-select-dropdown-button">
+                                <p class="api">API</p>
+                            </div>
+                            <div class="api-view-editor-row-select-dropdown-button">
+                                <p class="collection">Collection</p>
+                            </div>
+                            <div class="api-view-editor-row-select-dropdown-button">
+                                <p class="schema">Schema</p>
+                            </div>
+                            <div class="api-view-editor-row-select-dropdown-button">
+                                <p class="validator">Validator</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="api-view-editor-row-input" [ngClass]="{ 'visible': dropdownVisible }">
                         <p>2</p>
                     </div>
                 </div>
                 <div class="api-view-editor-row">
                     <div class="api-view-editor-row-prefix">
-                        <p>1</p>
+                        <p [ngClass]="{ 'visible': dropdownVisible2 }">1</p>
                     </div>
-                    <div class="api-view-editor-row-input">
+                    <div class="api-view-editor-row-select" (click)="toggleDropdown2()">
+                        <div class="api-view-editor-row-select-button">
+                            <p [ngClass]="{ 'visible': dropdownVisible2 }">Select</p>
+                            <img src="/down.png" [ngClass]="{ 'visible': dropdownVisible2 }">
+                        </div>
+                        <div class="api-view-editor-row-select-dropdown" *ngIf="dropdownVisible2">
+                            <div class="api-view-editor-row-select-dropdown-button">
+                                <p class="api">API</p>
+                            </div>
+                            <div class="api-view-editor-row-select-dropdown-button">
+                                <p class="collection">Collection</p>
+                            </div>
+                            <div class="api-view-editor-row-select-dropdown-button">
+                                <p class="schema">Schema</p>
+                            </div>
+                            <div class="api-view-editor-row-select-dropdown-button">
+                                <p class="validator">Validator</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="api-view-editor-row-input" [ngClass]="{ 'visible': dropdownVisible2 }">
                         <p>2</p>
                     </div>
                 </div>
