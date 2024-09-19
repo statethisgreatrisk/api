@@ -1,7 +1,7 @@
 <div class="edit-api-container">
     <div class="edit-api">
         <div class="edit-api-header">
-            <p>Configure API</p>
+            <p>Configure Endpoint</p>
         </div>
         <div class="edit-api-label">
             <p>Name</p>
@@ -22,63 +22,24 @@
                 </div>
                 <div class="edit-api-prefix-select-dropdown" *ngIf="prefixDropdownVisible">
                     <div class="edit-api-prefix-select-dropdown-button">
-                        <p class="get">GET</p>
+                        <p>GET</p>
                     </div>
                     <div class="edit-api-prefix-select-dropdown-button">
-                        <p class="post">POST</p>
+                        <p>POST</p>
                     </div>
                     <div class="edit-api-prefix-select-dropdown-button">
-                        <p class="put">PUT</p>
+                        <p>PUT</p>
                     </div>
                     <div class="edit-api-prefix-select-dropdown-button">
-                        <p class="patch">PATCH</p>
+                        <p>PATCH</p>
                     </div>
                     <div class="edit-api-prefix-select-dropdown-button">
-                        <p class="delete">DELETE</p>
+                        <p>DELETE</p>
                     </div>
                 </div>
             </div>
             <div class="edit-api-prefix-input">
                 <input type="text" placeholder="/resource/:resource-id">
-            </div>
-        </div>
-        <div class="edit-api-label">
-            <p>Select Validator</p>
-        </div>
-        <div class="edit-api-select-container">
-            <div class="edit-api-select" (click)="toggleDropdown()">
-                <div class="edit-api-select-button">
-                    <p>Validators</p>
-                    <img src="/down.png">
-                </div>
-                <div class="edit-api-select-dropdown" *ngIf="dropdownVisible">
-                    <div class="edit-api-select-dropdown-button">
-                        <p>Validator 1</p>
-                    </div>
-                    <div class="edit-api-select-dropdown-button">
-                        <p>Validator 2</p>
-                    </div>
-                    <div class="edit-api-select-dropdown-button">
-                        <p>Validator 3</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="edit-api-label">
-            <p>Validators</p>
-        </div>
-        <div class="edit-api-list-item-container">
-            <div class="edit-api-list-item">
-                <img src="/check.png">
-                <p>Validator 1</p>
-            </div>
-            <div class="edit-api-list-item">
-                <img src="/check.png">
-                <p>Validator 2</p>
-            </div>
-            <div class="edit-api-list-item">
-                <img src="/check.png">
-                <p>Validator 3</p>
             </div>
         </div>
         <div class="edit-api-buttons">
@@ -91,28 +52,6 @@
         </div>
         <div class="edit-api-divider">
             <div class="divider"></div>
-        </div>
-        <div class="edit-api-action-docs">
-            <div class="edit-api-action-doc">
-                <p class="get">GET</p>
-                <p>Fetch or read information without changing anything.</p>
-            </div>
-            <div class="edit-api-action-doc">
-                <p class="post">POST</p>
-                <p>Create something new.</p>
-            </div>
-            <div class="edit-api-action-doc">
-                <p class="put">PUT</p>
-                <p>Update a resource.</p>
-            </div>
-            <div class="edit-api-action-doc">
-                <p class="patch">PATCH</p>
-                <p>Partially update a resource, changing only certain parts.</p>
-            </div>
-            <div class="edit-api-action-doc">
-                <p class="delete">DELETE</p>
-                <p>Delete a resource or data.</p>
-            </div>
         </div>
         <div class="edit-api-path-docs">
             <div class="edit-api-path-doc">

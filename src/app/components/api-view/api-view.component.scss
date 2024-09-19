@@ -74,35 +74,6 @@
     margin-left: 15px;
 }
 
-.api-view-header {
-    display: flex;
-    flex-direction: column;
-
-    align-content: start;
-
-    height: 100px;
-}
-
-.api-view-header p:nth-child(1) {
-    font-size: 25px;
-    font-weight: 600;
-
-    margin-left: 15px;
-    margin-top: 15px;
-
-    color:$surface-mixed-600;
-}
-
-.api-view-header p:nth-child(2) {
-    font-size: 15px;
-    font-weight: 500;
-
-    margin-left: 15px;
-    margin-top: 15px;
-
-    color:$surface-mixed-600;
-}
-
 .api-view-editor-container {
     display: flex;
     flex-direction: column;
@@ -113,8 +84,6 @@
     margin-right: 15px;
 
     flex-grow: 1;
-
-    border: 1px solid $surface-mixed-400;
 }
 
 .api-view-editor {
@@ -149,6 +118,7 @@
 
 .api-view-editor-row-prefix p {
     font-size: 11px;
+    font-weight: 600;
 
     color: $surface-mixed-500;
 }
@@ -181,6 +151,7 @@
 
 .api-view-editor-row-select-button p {
     font-size: 11px;
+    font-weight: 600;
 
     color: $surface-mixed-500;
 }
@@ -203,12 +174,7 @@
     top: 19px;
     position: absolute;
     
-    background-color: $surface-mixed-200;
-    border-left: 1px solid $surface-mixed-300;
-    border-right: 1px solid $surface-mixed-300;
-    border-bottom: 1px solid $surface-mixed-300;
-
-    box-shadow: 0px 7px 11px rgba(162, 162, 162, 0.11);
+    background-color: $surface-mixed-000;
 
     z-index: 2;
 }
@@ -219,34 +185,20 @@
 
     justify-content: center;
     
-    height: 30px;
+    height: 25px;
 
     padding-left: 10px;
 }
 
 .api-view-editor-row-select-dropdown-button p {
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
+
+    color: $primary-600;
 }
 
 .api-view-editor-row-select-dropdown-button:hover {
-    background-color: $surface-mixed-300;
-}
-
-.api-view-editor-row-select-dropdown-button p.api {
-    color: $api;
-}
-
-.api-view-editor-row-select-dropdown-button p.collection {
-    color: $collection;
-}
-
-.api-view-editor-row-select-dropdown-button p.schema {
-    color: $schema;
-}
-
-.api-view-editor-row-select-dropdown-button p.validator {
-    color: $validator;
+    background-color: $primary-000;
 }
 
 .api-view-editor-row-input {
@@ -265,6 +217,7 @@
 
 .api-view-editor-row-input p {
     font-size: 11px;
+    font-weight: 600;
 
     color: white;
 }

@@ -64,7 +64,7 @@ export interface Validator {
     name: string;
     field: 'param' | 'body';
     path: string;
-    validation: ValidatorOption;
+    validation: string;
 }
 
 export interface View {

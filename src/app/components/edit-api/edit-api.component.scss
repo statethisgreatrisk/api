@@ -64,7 +64,7 @@
 
 .edit-api-input input {
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     color: white;
 
     width: 97%;
@@ -113,6 +113,7 @@
     cursor: pointer;
 
     border-right: 1px solid $surface-mixed-300;
+    background-color: $surface-mixed-000;
 }
 
 .edit-api-prefix-select-button {
@@ -127,7 +128,7 @@
 
 .edit-api-prefix-select-button p {
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     color: $primary-600;
 }
 
@@ -147,12 +148,7 @@
     top: 29px;
     position: absolute;
     
-    background-color: $surface-mixed-200;
-    border-left: 1px solid $surface-mixed-300;
-    border-right: 1px solid $surface-mixed-300;
-    border-bottom: 1px solid $surface-mixed-300;
-
-    box-shadow: 0px 7px 11px rgba(162, 162, 162, 0.11);
+    background-color: $surface-mixed-000;
 
     z-index: 2;
 }
@@ -170,31 +166,12 @@
 
 .edit-api-prefix-select-dropdown-button p {
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
+    color: $primary-600;
 }
 
 .edit-api-prefix-select-dropdown-button:hover {
-    background-color: $surface-mixed-300;
-}
-
-.edit-api-prefix-select-dropdown-button p.get {
-    color: $get;
-}
-
-.edit-api-prefix-select-dropdown-button p.post {
-    color: $post;
-}
-
-.edit-api-prefix-select-dropdown-button p.put {
-    color: $put;
-}
-
-.edit-api-prefix-select-dropdown-button p.patch {
-    color: $patch;
-}
-
-.edit-api-prefix-select-dropdown-button p.delete {
-    color: $delete;
+    background-color: $primary-000;
 }
 
 .edit-api-prefix-input {
@@ -205,7 +182,7 @@
 
 .edit-api-prefix-input input {
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     color: white;
 
     width: 97%;

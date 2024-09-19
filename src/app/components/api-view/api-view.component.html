@@ -9,10 +9,6 @@
                 <p class="active">/commits</p>
             </div>
         </div>
-        <div class="api-view-header">
-            <p>Commits</p>
-            <p>/commits</p>
-        </div>
         <div class="api-view-editor-container">
             <div class="api-view-editor">
                 <div class="api-view-editor-row">
@@ -26,26 +22,26 @@
                         </div>
                         <div class="api-view-editor-row-select-dropdown" *ngIf="dropdownVisible">
                             <div class="api-view-editor-row-select-dropdown-button">
-                                <p class="api">API</p>
+                                <p>API</p>
                             </div>
                             <div class="api-view-editor-row-select-dropdown-button">
-                                <p class="collection">Collection</p>
+                                <p>Collection</p>
                             </div>
                             <div class="api-view-editor-row-select-dropdown-button">
-                                <p class="schema">Schema</p>
+                                <p>Schema</p>
                             </div>
                             <div class="api-view-editor-row-select-dropdown-button">
-                                <p class="validator">Validator</p>
+                                <p>Validator</p>
                             </div>
                         </div>
                     </div>
                     <div class="api-view-editor-row-input" [ngClass]="{ 'visible': dropdownVisible }">
-                        <p>2</p>
+                        <p>const GetUsers = Endpoint.getUsers</p>
                     </div>
                 </div>
                 <div class="api-view-editor-row">
                     <div class="api-view-editor-row-prefix">
-                        <p [ngClass]="{ 'visible': dropdownVisible2 }">1</p>
+                        <p [ngClass]="{ 'visible': dropdownVisible2 }">2</p>
                     </div>
                     <div class="api-view-editor-row-select" (click)="toggleDropdown2()">
                         <div class="api-view-editor-row-select-button">
@@ -54,21 +50,21 @@
                         </div>
                         <div class="api-view-editor-row-select-dropdown" *ngIf="dropdownVisible2">
                             <div class="api-view-editor-row-select-dropdown-button">
-                                <p class="api">API</p>
+                                <p>API</p>
                             </div>
                             <div class="api-view-editor-row-select-dropdown-button">
-                                <p class="collection">Collection</p>
+                                <p>Collection</p>
                             </div>
                             <div class="api-view-editor-row-select-dropdown-button">
-                                <p class="schema">Schema</p>
+                                <p>Schema</p>
                             </div>
                             <div class="api-view-editor-row-select-dropdown-button">
-                                <p class="validator">Validator</p>
+                                <p>Validator</p>
                             </div>
                         </div>
                     </div>
                     <div class="api-view-editor-row-input" [ngClass]="{ 'visible': dropdownVisible2 }">
-                        <p>2</p>
+                        <p>function</p>
                     </div>
                 </div>
             </div>

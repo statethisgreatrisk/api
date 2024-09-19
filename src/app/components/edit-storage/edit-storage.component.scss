@@ -64,7 +64,7 @@
 
 .edit-storage-input input {
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     color: white;
 
     width: 97%;
@@ -114,6 +114,7 @@
     cursor: pointer;
 
     border-right: 1px solid $surface-mixed-300;
+    background-color: $surface-mixed-000;
 }
 
 .edit-storage-select-button {
@@ -128,8 +129,8 @@
 
 .edit-storage-select-button p {
     font-size: 12px;
-    font-weight: 500;
-    color: $surface-mixed-600;
+    font-weight: 600;
+    color: $primary-600;
 }
 
 .edit-storage-select-button img {
@@ -147,13 +148,8 @@
 
     top: 29px;
     position: absolute;
-    
-    background-color: $surface-mixed-200;
-    border-left: 1px solid $surface-mixed-300;
-    border-right: 1px solid $surface-mixed-300;
-    border-bottom: 1px solid $surface-mixed-300;
 
-    box-shadow: 0px 7px 11px rgba(162, 162, 162, 0.11);
+    background-color: $surface-mixed-000;
 
     z-index: 2;
 }
@@ -170,13 +166,13 @@
 }
 
 .edit-storage-select-dropdown-button:hover {
-    background-color: $surface-mixed-300;
+    background-color: $primary-000;
 }
 
 .edit-storage-select-dropdown-button p {
     font-size: 12px;
-    font-weight: 500;
-    color: white;
+    font-weight: 600;
+    color: $primary-600;
 }
 
 .edit-storage-buttons {
