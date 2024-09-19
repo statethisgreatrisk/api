@@ -13,5 +13,5 @@ export const appState: AppState = {
     schema: [{ _id: '3', date: '', name: 'Schema 1', keys: [] }],
     validator: [{ _id: '4', date: '', name: 'Validator 1', field: 'param', path: '', validation: '' }],
 
-    view: { service: 'Validator', serviceDataId: '4' }
+    view: { service: '', serviceDataId: '' }
 };
