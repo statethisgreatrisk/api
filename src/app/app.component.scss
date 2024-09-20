@@ -53,6 +53,16 @@
     font-optical-sizing: auto;
 }
 
+::ng-deep .api-view-editor-row input {
+    margin:0;
+    padding: 0;
+
+    font-family: "Roboto Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
 app-services {
     height: 100%;
 }
