@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema } from '../../store/interfaces/app.interface';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow } from '../../store/interfaces/app.interface';
 import { selectService } from '../../store/actions/app.action';
 
 @Component({
@@ -20,6 +20,7 @@ export class ServicesComponent {
   validator: Validator[] = [];
   storage: Storage[] = [];
   schema: Schema[] = [];
+  workflow: Workflow[] = [];
 
   constructor(
     private store: Store<AppStateInit>,
@@ -32,6 +33,7 @@ export class ServicesComponent {
     this.initStorage();
     this.initValidator();
     this.initSchema();
+    this.initWorkflow();
   }
 
   selectService(serviceName: string, serviceDataId: string) {
@@ -77,6 +79,13 @@ export class ServicesComponent {
     this.store.pipe(map((store) => store.app.schema)).subscribe((schema) => {
       if (!schema || !schema.length) return;
       this.schema = schema;
+    });
+  }
+
+  initWorkflow() {
+    this.store.pipe(map((store) => store.app.workflow)).subscribe((workflow) => {
+      if (!workflow || !workflow.length) return;
+      this.workflow = workflow;
     });
   }
 }

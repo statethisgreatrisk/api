@@ -3,7 +3,7 @@ import { catchError, exhaustMap, map, of } from "rxjs";
 import { Injectable } from "@angular/core";
 
 import { AppRequest } from "../requests/app.request";
-import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator } from "../actions/app.action";
+import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow } from "../actions/app.action";
 
 @Injectable()
 export class AppEffect {
@@ -184,6 +184,48 @@ export class AppEffect {
             ofType(deleteValidator),
             exhaustMap((action) => this.appRequest.deleteValidator(action.userId, action.validatorId).pipe(
                 map(data => removeValidator({ validatorId: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    // Workflow
+
+    getWorkflows$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(getWorkflows),
+            exhaustMap((action) => this.appRequest.getWorkflows(action.userId).pipe(
+                map(data => addWorkflows({ workflows: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    createWorkflow$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(createWorkflow),
+            exhaustMap((action) => this.appRequest.createWorkflow(action.userId, action.workflow).pipe(
+                map(data => addWorkflow({ workflow: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    updateWorkflow$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updateWorkflow),
+            exhaustMap((action) => this.appRequest.updateWorkflow(action.userId, action.workflow).pipe(
+                map(data => replaceWorkflow({ workflow: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    deleteWorkflow$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(deleteWorkflow),
+            exhaustMap((action) => this.appRequest.deleteWorkflow(action.userId, action.workflowId).pipe(
+                map(data => removeWorkflow({ workflowId: data })),
                 catchError(err => of(requestError({ error: err })))
             )),
         );

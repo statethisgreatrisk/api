@@ -7,6 +7,13 @@
             <div class="service">
                 <p>{{ service.name }}</p>
             </div>
+            <!-- Workflow -->
+            <div class="service-data-list" *ngIf="service.name === 'Workflow'">
+                <div class="service-data" [ngClass]="{ 'active': view.serviceDataId === w._id }" *ngFor="let w of workflow" (click)="selectService(service.name, w._id)">
+                    <img [src]="service.icon">
+                    <p>{{ w.name }}</p>
+                </div>
+            </div>
             <!-- API -->
             <div class="service-data-list" *ngIf="service.name === 'API'">
                 <div class="service-data" [ngClass]="{ 'active': view.serviceDataId === a._id }" *ngFor="let a of api" (click)="selectService(service.name, a._id)">

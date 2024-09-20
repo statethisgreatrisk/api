@@ -35,6 +35,14 @@ export interface ValidatorOption {
     isLengthMaxValue: string | number;
 }
 
+export interface WorkflowRow {
+    position: string | number;
+    service: string;
+    variable: string;
+    command: string;
+    detail: string;
+}
+
 export interface API {
     _id: string;
     date: string;
@@ -67,6 +75,13 @@ export interface Validator {
     validation: string;
 }
 
+export interface Workflow {
+    _id: string;
+    date: string;
+    name: string;
+    rows: WorkflowRow[];
+}
+
 export interface View {
     service: string;
     serviceDataId: string;
@@ -79,6 +94,7 @@ export interface AppState {
     validator: Validator[];
     storage: Storage[];
     schema: Schema[];
+    workflow: Workflow[];
     
     view: View;
 }

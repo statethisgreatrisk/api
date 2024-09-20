@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow } from "../interfaces/app.interface";
 
 // User
 
@@ -113,6 +113,33 @@ export const replaceValidatorFn: (state: AppState, validator: Validator) => AppS
 export const removeValidatorFn: (state: AppState, validatorId: string) => AppState = (state: AppState, validatorId: string) => {
     if (!validatorId) return { ...state };
     return { ...state, validator: state.validator.filter((validator) => validator._id !== validatorId ) };
+}
+
+// Workflow
+
+export const addWorkflowsFn: (state: AppState, workflows: Workflow[]) => AppState = (state: AppState, workflows: Workflow[]) => {
+    if (!workflows) return { ...state };
+    return { ...state, workflow: state.workflow.concat(workflows) };
+}
+
+export const addWorkflowFn: (state: AppState, workflow: Workflow) => AppState = (state: AppState, workflow: Workflow) => {
+    if (!workflow) return { ...state };
+    return { ...state, workflow: state.workflow.concat([workflow]) };
+}
+
+export const replaceWorkflowFn: (state: AppState, workflow: Workflow) => AppState = (state: AppState, workflow: Workflow) => {
+    if (!workflow) return { ...state };
+
+    const workflows = state.workflow.map((existingWorkflow) => {
+        return existingWorkflow;
+    });
+
+    return { ...state, workflow: workflows };
+}
+
+export const removeWorkflowFn: (state: AppState, workflowId: string) => AppState = (state: AppState, workflowId: string) => {
+    if (!workflowId) return { ...state };
+    return { ...state, workflow: state.workflow.filter((workflow) => workflow._id !== workflowId ) };
 }
 
 // Services/View
