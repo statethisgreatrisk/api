@@ -227,7 +227,36 @@
     background-color: $primary-000;
 }
 
-.api-view-editor-row-input {
+.api-view-editor-row-variable {
+    display: flex;
+    flex-direction: row;
+
+    min-width: 105px;
+
+    padding: 2px 10px;
+
+    border-top: 1px solid $surface-mixed-100;
+    border-bottom: 1px solid $surface-mixed-100;
+}
+
+.api-view-editor-row-variable.visible {
+    border-top: 1px solid $surface-mixed-300;
+    border-bottom: 1px solid $surface-mixed-300;
+}
+
+.api-view-editor-row:hover .api-view-editor-row-variable {
+    border-top: 1px solid $surface-mixed-300;
+    border-bottom: 1px solid $surface-mixed-300;
+}
+
+.api-view-editor-row-variable .text {
+    font-size: 11px;
+    font-weight: 600;
+
+    color: $light-green;
+}
+
+.api-view-editor-row-service {
     display: flex;
     flex-direction: row;
 
@@ -239,47 +268,55 @@
     border-bottom: 1px solid $surface-mixed-100;
 }
 
-.api-view-editor-row-input:hover {
+.api-view-editor-row-service.visible {
     border-top: 1px solid $surface-mixed-300;
     border-bottom: 1px solid $surface-mixed-300;
 }
 
-.api-view-editor-row-input p {
+.api-view-editor-row:hover .api-view-editor-row-service {
+    border-top: 1px solid $surface-mixed-300;
+    border-bottom: 1px solid $surface-mixed-300;
+}
+
+.api-view-editor-row-service .text {
     font-size: 11px;
     font-weight: 600;
 
-    color: white;
-}
-
-.api-view-editor-row:hover .api-view-editor-row-input {
-    border-top: 1px solid $surface-mixed-300;
-    border-bottom: 1px solid $surface-mixed-300;
-}
-
-.api-view-editor-row-input.visible {
-    border-top: 1px solid $surface-mixed-300;
-    border-bottom: 1px solid $surface-mixed-300;
-}
-
-.api-view-editor-row-input p.row-variable-name {
-    color: $light-green;
-    min-width: 105px;
-}
-
-.api-view-editor-row-input p.row-variable-name-placeholder {
-    color: black;
-    min-width: 105px;
-
-    background-color: $light-green;
-
-    border: 1px solid green;
-}
-
-.api-view-editor-row-input p.row-service-name {
     color: $light-yellow;
-    flex-grow: 1;
 }
 
-.api-view-editor-row-input p.row-detail {
+.api-view-editor-row-detail {
+    display: flex;
+    flex-direction: row;
+
+    padding: 2px 10px;
+
+    border-top: 1px solid $surface-mixed-100;
+    border-bottom: 1px solid $surface-mixed-100;
+}
+
+.api-view-editor-row-detail.visible {
+    border-top: 1px solid $surface-mixed-300;
+    border-bottom: 1px solid $surface-mixed-300;
+}
+
+.api-view-editor-row:hover .api-view-editor-row-detail {
+    border-top: 1px solid $surface-mixed-300;
+    border-bottom: 1px solid $surface-mixed-300;
+}
+
+.api-view-editor-row-detail .text {
+    font-size: 11px;
+    font-weight: 600;
+
     color: $light-purple;
 }
+
+// .api-view-editor-row-input p.row-variable-name-placeholder {
+//     color: black;
+//     min-width: 105px;
+
+//     background-color: $light-green;
+
+//     border: 1px solid green;
+// }
