@@ -123,6 +123,14 @@
     color: $surface-mixed-500;
 }
 
+.api-view-editor-row-prefix p.visible {
+    color: white;
+}
+
+.api-view-editor-row:hover .api-view-editor-row-prefix p {
+    color: white;
+}
+
 .api-view-editor-row-select {
     display: flex;
     flex-direction: column;
@@ -161,6 +169,26 @@
     height: 12px;
     
     visibility: hidden;
+}
+
+.api-view-editor-row-select-button p.visible {
+    color: white;
+}
+
+.api-view-editor-row-select-button img.visible {
+    visibility: visible;
+}
+
+.api-view-editor-row-select-button p.row-service {
+    color: $primary-600;
+}
+
+.api-view-editor-row:hover .api-view-editor-row-select-button p {
+    color: white;
+}
+
+.api-view-editor-row:hover .api-view-editor-row-select-button img {
+    visibility: visible;
 }
 
 .api-view-editor-row-select-dropdown {
@@ -223,39 +251,14 @@
     color: white;
 }
 
-.api-view-editor-row:hover .api-view-editor-row-prefix p,
-.api-view-editor-row:hover .api-view-editor-row-select-button p {
-    color: white;
-}
-
-.api-view-editor-row:hover .api-view-editor-row-select-button img {
-    visibility: visible;
-}
-
 .api-view-editor-row:hover .api-view-editor-row-input {
     border-top: 1px solid $surface-mixed-300;
     border-bottom: 1px solid $surface-mixed-300;
 }
 
-.api-view-editor-row-prefix p.visible {
-    color: white;
-}
-
-.api-view-editor-row-select-button p.visible {
-    color: white;
-}
-
-.api-view-editor-row-select-button img.visible {
-    visibility: visible;
-}
-
 .api-view-editor-row-input.visible {
     border-top: 1px solid $surface-mixed-300;
     border-bottom: 1px solid $surface-mixed-300;
-}
-
-.api-view-editor-row-select-button p.row-service {
-    color: $primary-600;
 }
 
 .api-view-editor-row-input p.row-variable-name {
