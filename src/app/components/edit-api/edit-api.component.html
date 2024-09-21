@@ -25,7 +25,7 @@
                     <p>{{ api.action | uppercase }}</p>
                     <img src="/down.png">
                 </div>
-                <div class="edit-api-prefix-select-dropdown" *ngIf="prefixDropdown">
+                <div class="edit-api-prefix-select-dropdown" *ngIf="prefixDropdown && api">
                     <div class="edit-api-prefix-select-dropdown-button" (click)="selectAction('get')">
                         <p>{{ 'get' | uppercase }}</p>
                     </div>

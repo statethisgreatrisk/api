@@ -26,7 +26,7 @@
                     <p *ngIf="!storage.schemaId">Select Schema</p>
                     <img src="/down.png">
                 </div>
-                <div class="edit-storage-select-dropdown" *ngIf="dropdown">
+                <div class="edit-storage-select-dropdown" *ngIf="dropdown && storage">
                     <div class="edit-storage-select-dropdown-button">
                         <p>Schema 1</p>
                     </div>

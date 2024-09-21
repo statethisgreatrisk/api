@@ -46,6 +46,7 @@ export interface API {
     _id: string;
     userId: string;
     date: string;
+    active: boolean;
     name: string;
     action: 'get' | 'post' | 'put' | 'delete';
     url: string;
@@ -56,6 +57,7 @@ export interface Storage {
     _id: string;
     userId: string;
     date: string;
+    active: boolean;
     name: string;
     schemaId: string;
 }
@@ -64,6 +66,7 @@ export interface Schema {
     _id: string;
     userId: string;
     date: string;
+    active: boolean;
     name: string;
     keys: SchemaKey[];
 }
@@ -72,6 +75,7 @@ export interface Validator {
     _id: string;
     userId: string;
     date: string;
+    active: boolean;
     name: string;
     field: 'param' | 'body';
     path: string;
@@ -82,6 +86,7 @@ export interface Workflow {
     _id: string;
     userId: string;
     date: string;
+    active: boolean;
     name: string;
     rows: WorkflowRow[];
 }

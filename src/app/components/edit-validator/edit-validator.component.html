@@ -12,8 +12,8 @@
             <p>Name</p>
         </div>
         <div class="edit-validator-input-container">
-            <div class="edit-validator-input">
-                <input type="text" placeholder="Enter validator name">
+            <div class="edit-validator-input" *ngIf="validator">
+                <input type="text" placeholder="Enter validator name" [(ngModel)]="validator.name">
             </div>
         </div>
         <div class="edit-validator-label">
@@ -21,31 +21,31 @@
         </div>
         <div class="edit-validator-prefix-container">
             <div class="edit-validator-prefix-select" (click)="togglePrefixDropdown()">
-                <div class="edit-validator-prefix-select-button">
-                    <p>Param</p>
+                <div class="edit-validator-prefix-select-button" *ngIf="validator">
+                    <p>{{ validator.field | capitalize }}</p>
                     <img src="/down.png">
                 </div>
-                <div class="edit-validator-prefix-select-dropdown" *ngIf="prefixDropdownVisible">
-                    <div class="edit-validator-prefix-select-dropdown-button">
-                        <p>Param</p>
+                <div class="edit-validator-prefix-select-dropdown" *ngIf="prefixDropdown && validator">
+                    <div class="edit-validator-prefix-select-dropdown-button" (click)="selectField('param')">
+                        <p>{{ 'param' | capitalize }}</p>
                     </div>
-                    <div class="edit-validator-prefix-select-dropdown-button">
-                        <p>Body</p>
+                    <div class="edit-validator-prefix-select-dropdown-button" (click)="selectField('body')">
+                        <p>{{ 'body' | capitalize }}</p>
                     </div>
                 </div>
             </div>
-            <div class="edit-validator-prefix-input">
-                <input type="text" placeholder="Enter field path">
+            <div class="edit-validator-prefix-input" *ngIf="validator">
+                <input type="text" placeholder="Enter field path" [(ngModel)]="validator.path">
             </div>
         </div>
         <div class="edit-validator-label">
             <p>Validation</p>
         </div>
         <div class="edit-validator-buttons">
-            <div class="edit-validator-cancel">
+            <div class="edit-validator-cancel" (click)="cancel()">
                 <p>Cancel</p>
             </div>
-            <div class="edit-validator-save">
+            <div class="edit-validator-save" (click)="save()">
                 <p>Save</p>
             </div>
         </div>

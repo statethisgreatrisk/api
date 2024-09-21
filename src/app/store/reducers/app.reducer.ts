@@ -32,7 +32,7 @@ export const replaceAPIFn: (state: AppState, api: API) => AppState = (state: App
 
 export const removeAPIFn: (state: AppState, apiId: string) => AppState = (state: AppState, apiId: string) => {
     if (!apiId) return { ...state };
-    return { ...state, apis: state.apis.filter((api) => api._id !== apiId ) };
+    return { ...state, apis: state.apis.filter((api) => api._id !== apiId) };
 }
 
 // Storage
@@ -60,7 +60,7 @@ export const replaceStorageFn: (state: AppState, storage: Storage) => AppState =
 
 export const removeStorageFn: (state: AppState, storageId: string) => AppState = (state: AppState, storageId: string) => {
     if (!storageId) return { ...state };
-    return { ...state, storages: state.storages.filter((storage) => storage._id !== storageId ) };
+    return { ...state, storages: state.storages.filter((storage) => storage._id !== storageId) };
 }
 
 // Schema
@@ -88,7 +88,7 @@ export const replaceSchemaFn: (state: AppState, schema: Schema) => AppState = (s
 
 export const removeSchemaFn: (state: AppState, schemaId: string) => AppState = (state: AppState, schemaId: string) => {
     if (!schemaId) return { ...state };
-    return { ...state, schemas: state.schemas.filter((schema) => schema._id !== schemaId ) };
+    return { ...state, schemas: state.schemas.filter((schema) => schema._id !== schemaId) };
 }
 
 // Validator
@@ -116,7 +116,7 @@ export const replaceValidatorFn: (state: AppState, validator: Validator) => AppS
 
 export const removeValidatorFn: (state: AppState, validatorId: string) => AppState = (state: AppState, validatorId: string) => {
     if (!validatorId) return { ...state };
-    return { ...state, validators: state.validators.filter((validator) => validator._id !== validatorId ) };
+    return { ...state, validators: state.validators.filter((validator) => validator._id !== validatorId) };
 }
 
 // Workflow
@@ -144,7 +144,7 @@ export const replaceWorkflowFn: (state: AppState, workflow: Workflow) => AppStat
 
 export const removeWorkflowFn: (state: AppState, workflowId: string) => AppState = (state: AppState, workflowId: string) => {
     if (!workflowId) return { ...state };
-    return { ...state, workflows: state.workflows.filter((workflow) => workflow._id !== workflowId ) };
+    return { ...state, workflows: state.workflows.filter((workflow) => workflow._id !== workflowId) };
 }
 
 // Services/View
