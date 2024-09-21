@@ -9,11 +9,11 @@ export const appState: AppState = {
         { name: 'Validator', icon: '/binoculars.png' },
     ],
 
-    api: [{ _id: '1', date: '', name: 'Endpoint 1', action: '', url: '', validators: [] }],
-    storage: [{ _id: '2', date: '', name: 'Collection 1', schema: '' }],
-    schema: [{ _id: '3', date: '', name: 'Schema 1', keys: [] }],
-    validator: [{ _id: '4', date: '', name: 'Validator 1', field: 'param', path: '', validation: '' }],
-    workflow: [{ _id: '5', date: '', name: 'Workflow 1', rows: [] }],
+    api: [],
+    storage: [],
+    schema: [],
+    validator: [],
+    workflow: [],
 
     view: { service: '', serviceDataId: '', window: '', windowId: '' },
 };
