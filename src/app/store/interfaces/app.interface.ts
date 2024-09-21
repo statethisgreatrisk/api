@@ -99,11 +99,11 @@ export interface Toast {
 }
 
 export interface AppState {
-    api: API[];
-    validator: Validator[];
-    storage: Storage[];
-    schema: Schema[];
-    workflow: Workflow[];
+    apis: API[];
+    validators: Validator[];
+    storages: Storage[];
+    schemas: Schema[];
+    workflows: Workflow[];
     
     user: User | null;
     view: View;

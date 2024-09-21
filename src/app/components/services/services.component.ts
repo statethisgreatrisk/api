@@ -4,6 +4,7 @@ import { map } from 'rxjs';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, SchemaKey, WorkflowRow } from '../../store/interfaces/app.interface';
 import { createAPI, createSchema, createStorage, createValidator, createWorkflow, deselectService, selectService } from '../../store/actions/app.action';
+import { selectAPIs, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 
 @Component({
   selector: 'app-services',
@@ -16,11 +17,11 @@ export class ServicesComponent {
   user: User | null = null;
   view: View = { service: '', serviceDataId: '', window: '', windowId: '' };
 
-  api: API[] = [];
-  validator: Validator[] = [];
-  storage: Storage[] = [];
-  schema: Schema[] = [];
-  workflow: Workflow[] = [];
+  apis: API[] = [];
+  validators: Validator[] = [];
+  storages: Storage[] = [];
+  schemas: Schema[] = [];
+  workflows: Workflow[] = [];
 
   services: Service[] =  [
     { name: 'Workflow', icon: '/workflow.png' },
@@ -37,11 +38,11 @@ export class ServicesComponent {
   ngOnInit() {
     this.initUser();
     this.initView();
-    this.initAPI();
-    this.initStorage();
-    this.initValidator();
-    this.initSchema();
-    this.initWorkflow();
+    this.initAPIs();
+    this.initStorages();
+    this.initValidators();
+    this.initSchemas();
+    this.initWorkflows();
   }
 
   selectService(serviceName: string, serviceDataId: string) {
@@ -53,50 +54,50 @@ export class ServicesComponent {
   }
 
   initUser() {
-    this.store.pipe(map((store) => store.app.user)).subscribe((user) => {
+    this.store.select(selectUser).subscribe((user) => {
       this.user = user;
     });
   }
 
   initView() {
-    this.store.pipe(map((store) => store.app.view)).subscribe((view) => {
+    this.store.select(selectView).subscribe((view) => {
       if (!view) return;
       this.view = view;
     });
   }
 
-  initAPI() {
-    this.store.pipe(map((store) => store.app.api)).subscribe((api) => {
-      if (!api || !api.length) return;
-      this.api = api;
+  initAPIs() {
+    this.store.select(selectAPIs).subscribe((apis) => {
+      if (!apis || !apis.length) return;
+      this.apis = apis;
     });
   }
 
-  initStorage() {
-    this.store.pipe(map((store) => store.app.storage)).subscribe((storage) => {
-      if (!storage || !storage.length) return;
-      this.storage = storage;
+  initStorages() {
+    this.store.select(selectStorages).subscribe((storages) => {
+      if (!storages || !storages.length) return;
+      this.storages = storages;
     });
   }
 
-  initValidator() {
-    this.store.pipe(map((store) => store.app.validator)).subscribe((validator) => {
-      if (!validator || !validator.length) return;
-      this.validator = validator;
+  initValidators() {
+    this.store.select(selectValidators).subscribe((validators) => {
+      if (!validators || !validators.length) return;
+      this.validators = validators;
     });
   }
 
-  initSchema() {
-    this.store.pipe(map((store) => store.app.schema)).subscribe((schema) => {
-      if (!schema || !schema.length) return;
-      this.schema = schema;
+  initSchemas() {
+    this.store.select(selectSchemas).subscribe((schemas) => {
+      if (!schemas || !schemas.length) return;
+      this.schemas = schemas;
     });
   }
 
-  initWorkflow() {
-    this.store.pipe(map((store) => store.app.workflow)).subscribe((workflow) => {
-      if (!workflow || !workflow.length) return;
-      this.workflow = workflow;
+  initWorkflows() {
+    this.store.select(selectWorkflows).subscribe((workflows) => {
+      if (!workflows || !workflows.length) return;
+      this.workflows = workflows;
     });
   }
 

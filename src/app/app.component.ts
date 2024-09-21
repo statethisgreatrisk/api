@@ -11,6 +11,7 @@ import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
 import { getAPIs, getSchemas, getStorages, getUser, getValidators, getWorkflows } from './store/actions/app.action';
+import { selectView } from './store/selectors/app.selector';
 
 @Component({
   selector: 'app-root',
@@ -46,7 +47,7 @@ export class AppComponent {
   }
 
   initView() {
-    this.store.pipe(map((store) => store.app.view)).subscribe((view) => {
+    this.store.select(selectView).subscribe((view) => {
       if (!view) return;
       this.view = view;
     });

@@ -11,140 +11,140 @@ export const addUserFn: (state: AppState, user: User) => AppState = (state: AppS
 
 export const addAPIsFn: (state: AppState, apis: API[]) => AppState = (state: AppState, apis: API[]) => {
     if (!apis) return { ...state };
-    return { ...state, api: state.api.concat(apis) };
+    return { ...state, apis: state.apis.concat(apis) };
 }
 
 export const addAPIFn: (state: AppState, api: API) => AppState = (state: AppState, api: API) => {
     if (!api) return { ...state };
-    return { ...state, api: state.api.concat([api]) };
+    return { ...state, apis: state.apis.concat([api]) };
 }
 
 export const replaceAPIFn: (state: AppState, api: API) => AppState = (state: AppState, api: API) => {
     if (!api) return { ...state };
 
-    const apis = state.api.map((existingAPI) => {
+    const apis = state.apis.map((existingAPI) => {
         if (existingAPI._id !== api._id) return existingAPI;
         return api;
     });
 
-    return { ...state, api: apis };
+    return { ...state, apis: apis };
 }
 
 export const removeAPIFn: (state: AppState, apiId: string) => AppState = (state: AppState, apiId: string) => {
     if (!apiId) return { ...state };
-    return { ...state, api: state.api.filter((api) => api._id !== apiId ) };
+    return { ...state, apis: state.apis.filter((api) => api._id !== apiId ) };
 }
 
 // Storage
 
 export const addStoragesFn: (state: AppState, storages: Storage[]) => AppState = (state: AppState, storages: Storage[]) => {
     if (!storages) return { ...state };
-    return { ...state, storage: state.storage.concat(storages) };
+    return { ...state, storages: state.storages.concat(storages) };
 }
 
 export const addStorageFn: (state: AppState, storage: Storage) => AppState = (state: AppState, storage: Storage) => {
     if (!storage) return { ...state };
-    return { ...state, storage: state.storage.concat([storage]) };
+    return { ...state, storages: state.storages.concat([storage]) };
 }
 
 export const replaceStorageFn: (state: AppState, storage: Storage) => AppState = (state: AppState, storage: Storage) => {
     if (!storage) return { ...state };
 
-    const storages = state.storage.map((existingStorage) => {
+    const storages = state.storages.map((existingStorage) => {
         if (existingStorage._id !== storage._id) return existingStorage;
         return storage;
     });
 
-    return { ...state, storage: storages };
+    return { ...state, storages: storages };
 }
 
 export const removeStorageFn: (state: AppState, storageId: string) => AppState = (state: AppState, storageId: string) => {
     if (!storageId) return { ...state };
-    return { ...state, storage: state.storage.filter((storage) => storage._id !== storageId ) };
+    return { ...state, storages: state.storages.filter((storage) => storage._id !== storageId ) };
 }
 
 // Schema
 
 export const addSchemasFn: (state: AppState, schemas: Schema[]) => AppState = (state: AppState, schemas: Schema[]) => {
     if (!schemas) return { ...state };
-    return { ...state, schema: state.schema.concat(schemas) };
+    return { ...state, schemas: state.schemas.concat(schemas) };
 }
 
 export const addSchemaFn: (state: AppState, schema: Schema) => AppState = (state: AppState, schema: Schema) => {
     if (!schema) return { ...state };
-    return { ...state, schema: state.schema.concat([schema]) };
+    return { ...state, schemas: state.schemas.concat([schema]) };
 }
 
 export const replaceSchemaFn: (state: AppState, schema: Schema) => AppState = (state: AppState, schema: Schema) => {
     if (!schema) return { ...state };
 
-    const schemas = state.schema.map((existingSchema) => {
+    const schemas = state.schemas.map((existingSchema) => {
         if (existingSchema._id !== schema._id) return existingSchema;
         return schema;
     });
 
-    return { ...state, schema: schemas };
+    return { ...state, schemas: schemas };
 }
 
 export const removeSchemaFn: (state: AppState, schemaId: string) => AppState = (state: AppState, schemaId: string) => {
     if (!schemaId) return { ...state };
-    return { ...state, schema: state.schema.filter((schema) => schema._id !== schemaId ) };
+    return { ...state, schemas: state.schemas.filter((schema) => schema._id !== schemaId ) };
 }
 
 // Validator
 
 export const addValidatorsFn: (state: AppState, validators: Validator[]) => AppState = (state: AppState, validators: Validator[]) => {
     if (!validators) return { ...state };
-    return { ...state, validator: state.validator.concat(validators) };
+    return { ...state, validators: state.validators.concat(validators) };
 }
 
 export const addValidatorFn: (state: AppState, validator: Validator) => AppState = (state: AppState, validator: Validator) => {
     if (!validator) return { ...state };
-    return { ...state, validator: state.validator.concat([validator]) };
+    return { ...state, validators: state.validators.concat([validator]) };
 }
 
 export const replaceValidatorFn: (state: AppState, validator: Validator) => AppState = (state: AppState, validator: Validator) => {
     if (!validator) return { ...state };
 
-    const validators = state.validator.map((existingValidator) => {
+    const validators = state.validators.map((existingValidator) => {
         if (existingValidator._id !== validator._id) return existingValidator;
         return validator;
     });
 
-    return { ...state, validator: validators };
+    return { ...state, validators: validators };
 }
 
 export const removeValidatorFn: (state: AppState, validatorId: string) => AppState = (state: AppState, validatorId: string) => {
     if (!validatorId) return { ...state };
-    return { ...state, validator: state.validator.filter((validator) => validator._id !== validatorId ) };
+    return { ...state, validators: state.validators.filter((validator) => validator._id !== validatorId ) };
 }
 
 // Workflow
 
 export const addWorkflowsFn: (state: AppState, workflows: Workflow[]) => AppState = (state: AppState, workflows: Workflow[]) => {
     if (!workflows) return { ...state };
-    return { ...state, workflow: state.workflow.concat(workflows) };
+    return { ...state, workflows: state.workflows.concat(workflows) };
 }
 
 export const addWorkflowFn: (state: AppState, workflow: Workflow) => AppState = (state: AppState, workflow: Workflow) => {
     if (!workflow) return { ...state };
-    return { ...state, workflow: state.workflow.concat([workflow]) };
+    return { ...state, workflows: state.workflows.concat([workflow]) };
 }
 
 export const replaceWorkflowFn: (state: AppState, workflow: Workflow) => AppState = (state: AppState, workflow: Workflow) => {
     if (!workflow) return { ...state };
 
-    const workflows = state.workflow.map((existingWorkflow) => {
+    const workflows = state.workflows.map((existingWorkflow) => {
         if (existingWorkflow._id !== workflow._id) return existingWorkflow;
         return workflow;
     });
 
-    return { ...state, workflow: workflows };
+    return { ...state, workflows: workflows };
 }
 
 export const removeWorkflowFn: (state: AppState, workflowId: string) => AppState = (state: AppState, workflowId: string) => {
     if (!workflowId) return { ...state };
-    return { ...state, workflow: state.workflow.filter((workflow) => workflow._id !== workflowId ) };
+    return { ...state, workflows: state.workflows.filter((workflow) => workflow._id !== workflowId ) };
 }
 
 // Services/View

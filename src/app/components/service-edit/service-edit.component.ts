@@ -9,6 +9,7 @@ import { map } from 'rxjs';
 import { NgIf } from '@angular/common';
 import { EditSchemaComponent } from '../edit-schema/edit-schema.component';
 import { EditWorkflowComponent } from '../edit-workflow/edit-workflow.component';
+import { selectView } from '../../store/selectors/app.selector';
 
 @Component({
   selector: 'app-service-edit',
@@ -33,7 +34,7 @@ export class ServiceEditComponent {
   }
 
   initView() {
-    this.store.pipe(map((store) => store.app.view)).subscribe((view) => {
+    this.store.select(selectView).subscribe((view) => {
       if (!view) return;
 
       if (!view.service && !view.serviceDataId) {
