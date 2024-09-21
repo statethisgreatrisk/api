@@ -10,7 +10,7 @@
     flex-direction: column;
 }
 
-.edit-workflow-header {
+.edit-workflow-header-container {
     display: flex;
     flex-direction: row;
 
@@ -22,10 +22,32 @@
     padding-right: 10px;
 }
 
-.edit-workflow-header p {
-    font-size: 12px;
+.edit-workflow-header {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+}
+
+.edit-workflow-header p:nth-child(1) {
+    font-size: 13px;
     font-weight: 500;
-    color: $surface-mixed-600;
+    color: white;
+}
+
+.edit-workflow-header p:nth-child(2) {
+    font-size: 11px;
+    font-weight:700;
+    
+    margin-left: 15px;
+    padding: 0 10px;
+
+    color: $primary-600;
+
+    border: 1px solid $primary-600;
+    border-radius: 10px;
+
+    cursor: pointer;
 }
 
 .edit-workflow-label {

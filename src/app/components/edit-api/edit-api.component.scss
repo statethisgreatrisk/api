@@ -10,7 +10,7 @@
     flex-direction: column;
 }
 
-.edit-api-header {
+.edit-api-header-container {
     display: flex;
     flex-direction: row;
 
@@ -22,10 +22,17 @@
     padding-right: 10px;
 }
 
+.edit-api-header {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+}
+
 .edit-api-header p {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
-    color: $surface-mixed-600;
+    color: white;
 }
 
 .edit-api-label {

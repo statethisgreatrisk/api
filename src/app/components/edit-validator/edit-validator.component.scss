@@ -10,7 +10,7 @@
     flex-direction: column;
 }
 
-.edit-validator-header {
+.edit-validator-header-container {
     display: flex;
     flex-direction: row;
 
@@ -22,10 +22,17 @@
     padding-right: 10px;
 }
 
+.edit-validator-header {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+}
+
 .edit-validator-header p {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
-    color: $surface-mixed-600;
+    color: white;
 }
 
 .edit-validator-label {
