@@ -55,6 +55,7 @@ export const deleteWorkflow = createAction('[DELETE] Workflow', props<{userId: s
 export const removeWorkflow = createAction('[REMOVE] Workflow', props<{workflowId: string}>());
 
 export const selectService = createAction('[SELECT] Service', props<{ serviceName: string, serviceDataId: string }>());
+export const deselectService = createAction('[DESELECT] Service', props<{ serviceName: string, serviceDataId: string }>());
 
 export const log = createAction('[LOG]', props<{ any: any }>())
 export const requestError = createAction('[ERROR] Request', props<{ error: any }>());

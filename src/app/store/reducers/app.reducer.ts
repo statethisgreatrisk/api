@@ -150,6 +150,10 @@ export const selectServiceFn: (state: AppState, serviceName: string, serviceData
     return { ...state, view: { service: serviceName, serviceDataId } };
 }
 
+export const deselectServiceFn: (state: AppState, serviceName: string, serviceDataId: string) => AppState = (state: AppState, serviceName: string, serviceDataId: string) => {
+    return { ...state, view: { service: '', serviceDataId: '' } };
+}
+
 export const logFn: (state: AppState, any: any) => AppState = (state: AppState, any: any) => {
     return { ...state };
 }

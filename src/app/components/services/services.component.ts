@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow } from '../../store/interfaces/app.interface';
-import { selectService } from '../../store/actions/app.action';
+import { deselectService, selectService } from '../../store/actions/app.action';
 
 @Component({
   selector: 'app-services',
@@ -37,7 +37,11 @@ export class ServicesComponent {
   }
 
   selectService(serviceName: string, serviceDataId: string) {
-    this.store.dispatch(selectService({ serviceName, serviceDataId }));
+    if (serviceName === this.view.service && serviceDataId === this.view.serviceDataId) {
+      this.store.dispatch(deselectService({ serviceName, serviceDataId }));
+    } else {
+      this.store.dispatch(selectService({ serviceName, serviceDataId }));
+    }
   }
 
   initView() {
