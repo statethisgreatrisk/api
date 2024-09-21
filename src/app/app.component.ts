@@ -8,11 +8,12 @@ import { map } from 'rxjs';
 import { View, AppStateInit } from './store/interfaces/app.interface';
 import { StorageViewComponent } from './components/storage-view/storage-view.component';
 import { ApiViewComponent } from './components/api-view/api-view.component';
+import { LandingViewComponent } from './components/landing-view/landing-view.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgIf, ServicesComponent, ServiceEditComponent, StorageViewComponent, ApiViewComponent],
+  imports: [RouterOutlet, NgIf, ServicesComponent, ServiceEditComponent, StorageViewComponent, ApiViewComponent, LandingViewComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

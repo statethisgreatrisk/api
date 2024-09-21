@@ -1,0 +1,49 @@
+@import '../../styles/palette.component.scss';
+
+.landing-view-outer-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 15px;
+
+    flex-grow: 1;
+    height: 100%;
+
+    background-color: $surface-mixed-100;
+}
+
+.landing-view-container {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-grow: 1;
+    height: 100%;
+
+    max-width: 1400px;
+}
+
+.landing-view-container p {
+    font-size: 15px;
+    font-weight: 400;
+
+    text-align: center;
+
+    color: $primary-700;
+}
+
+.landing-view-container span {
+    font-weight: 700;
+}
+
+.landing-view-container img {
+    width: 55px;
+    height: 55px;
+
+    margin-bottom: 25px;
+}
