@@ -10,7 +10,7 @@ import { StorageViewComponent } from './components/storage-view/storage-view.com
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
-import { getUser } from './store/actions/app.action';
+import { getAPIs, getSchemas, getStorages, getUser, getValidators } from './store/actions/app.action';
 
 @Component({
   selector: 'app-root',
@@ -38,6 +38,10 @@ export class AppComponent {
   ngOnInit() {
     this.initView();
     this.dispatchUser();
+    this.dispatchAPIs();
+    this.dispatchStorages();
+    this.dispatchSchemas();
+    this.dispatchValidators();
   }
 
   initView() {
@@ -49,5 +53,21 @@ export class AppComponent {
 
   dispatchUser() {
     this.store.dispatch(getUser({ userId: '66e7f036567ffc29c90400f5' }));
+  }
+
+  dispatchAPIs() {
+    this.store.dispatch(getAPIs({ userId: '66e7f036567ffc29c90400f5' }));
+  }
+
+  dispatchStorages() {
+    this.store.dispatch(getStorages({ userId: '66e7f036567ffc29c90400f5' }));
+  }
+
+  dispatchSchemas() {
+    this.store.dispatch(getSchemas({ userId: '66e7f036567ffc29c90400f5' }));
+  }
+
+  dispatchValidators() {
+    this.store.dispatch(getValidators({ userId: '66e7f036567ffc29c90400f5' }));
   }
 }
