@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppStateInit, User, View, Workflow } from '../../store/interfaces/app.interface';
-import { deselectService, selectWindow, updateWorkflow } from '../../store/actions/app.action';
+import { deleteWorkflow, deselectService, selectWindow, updateWorkflow } from '../../store/actions/app.action';
 import { combineLatest, Subscription } from 'rxjs';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -56,6 +56,15 @@ export class EditWorkflowComponent {
   save() {
     if (!this.workflow) return;
     this.store.dispatch(updateWorkflow({ workflow: this.workflow }));
+  }
+
+  delete() {
+    if (!this.workflow) return;
+
+    if (window.confirm('Are you sure you want to delete this Workflow?')) {
+      this.store.dispatch(deleteWorkflow({ userId: this.workflow.userId, workflowId: this.workflow._id }));
+      this.cancel();
+    }
   }
 
   openView() {

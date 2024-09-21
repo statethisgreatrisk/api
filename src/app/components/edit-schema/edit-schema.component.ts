@@ -5,7 +5,7 @@ import { AppStateInit, Schema, User, View } from '../../store/interfaces/app.int
 import { selectSchemas, selectUser, selectView } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
-import { deselectService, updateSchema } from '../../store/actions/app.action';
+import { deleteSchema, deselectService, updateSchema } from '../../store/actions/app.action';
 
 @Component({
   selector: 'app-edit-schema',
@@ -58,6 +58,15 @@ export class EditSchemaComponent {
   save() {
     if (!this.schema) return;
     this.store.dispatch(updateSchema({ schema: this.schema }));
+  }
+
+  delete() {
+    if (!this.schema) return;
+
+    if (window.confirm('Are you sure you want to delete this Schema?')) {
+      this.store.dispatch(deleteSchema({ userId: this.schema.userId, schemaId: this.schema._id }));
+      this.cancel();
+    }
   }
 
   togglePrefixDropdown() {

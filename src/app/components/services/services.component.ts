@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, SchemaKey, WorkflowRow } from '../../store/interfaces/app.interface';
 import { createAPI, createSchema, createStorage, createValidator, createWorkflow, deselectService, selectService } from '../../store/actions/app.action';
@@ -68,35 +67,30 @@ export class ServicesComponent {
 
   initAPIs() {
     this.store.select(selectAPIs).subscribe((apis) => {
-      if (!apis || !apis.length) return;
       this.apis = apis;
     });
   }
 
   initStorages() {
     this.store.select(selectStorages).subscribe((storages) => {
-      if (!storages || !storages.length) return;
       this.storages = storages;
     });
   }
 
   initValidators() {
     this.store.select(selectValidators).subscribe((validators) => {
-      if (!validators || !validators.length) return;
       this.validators = validators;
     });
   }
 
   initSchemas() {
     this.store.select(selectSchemas).subscribe((schemas) => {
-      if (!schemas || !schemas.length) return;
       this.schemas = schemas;
     });
   }
 
   initWorkflows() {
     this.store.select(selectWorkflows).subscribe((workflows) => {
-      if (!workflows || !workflows.length) return;
       this.workflows = workflows;
     });
   }
@@ -114,11 +108,12 @@ export class ServicesComponent {
     const _id = '';
     const name = 'Endpoint';
     const date = new Date().toISOString();
+    const active = true;
     const action = 'get';
     const url = '/hello-world';
     const validators: string[] = [];
 
-    this.store.dispatch(createAPI({ api: { _id, userId, name, date, action, url, validators } }));
+    this.store.dispatch(createAPI({ api: { _id, userId, name, date, active, action, url, validators } }));
   }
 
   createStorage() {
@@ -126,9 +121,10 @@ export class ServicesComponent {
     const _id = '';
     const name = 'Storage';
     const date = new Date().toISOString();
+    const active = true;
     const schemaId = '';
 
-    this.store.dispatch(createStorage({ storage: { _id, userId, name, date, schemaId } }));
+    this.store.dispatch(createStorage({ storage: { _id, userId, name, date, active, schemaId } }));
   }
 
   createSchema() {
@@ -136,9 +132,10 @@ export class ServicesComponent {
     const _id = '';
     const name = 'Schema';
     const date = new Date().toISOString();
+    const active = true;
     const keys: SchemaKey[] = [];
 
-    this.store.dispatch(createSchema({ schema: { _id, userId, name, date, keys } }));
+    this.store.dispatch(createSchema({ schema: { _id, userId, name, date, active, keys } }));
   }
 
   createValidator() {
@@ -146,11 +143,12 @@ export class ServicesComponent {
     const _id = '';
     const name = 'Validator';
     const date = new Date().toISOString();
+    const active = true;
     const field = 'param';
     const path = '';
     const validation = '';
 
-    this.store.dispatch(createValidator({ validator: { _id, userId, name, date, field, path, validation } }));
+    this.store.dispatch(createValidator({ validator: { _id, userId, name, date, active, field, path, validation } }));
   }
 
   createWorkflow() {
@@ -158,8 +156,9 @@ export class ServicesComponent {
     const _id = '';
     const name = 'Workflow';
     const date = new Date().toISOString();
+    const active = true;
     const rows: WorkflowRow[] = [];
 
-    this.store.dispatch(createWorkflow({ workflow: { _id, userId, name, date, rows } }));
+    this.store.dispatch(createWorkflow({ workflow: { _id, userId, name, date, active, rows } }));
   }
 }

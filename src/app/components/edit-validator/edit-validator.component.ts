@@ -5,7 +5,7 @@ import { AppStateInit, User, Validator, View } from '../../store/interfaces/app.
 import { combineLatest, Subscription } from 'rxjs';
 import { selectUser, selectValidators, selectView } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
-import { deselectService, updateValidator } from '../../store/actions/app.action';
+import { deleteValidator, deselectService, updateValidator } from '../../store/actions/app.action';
 import { CapitalizePipe } from '../../services/capitalize.pipe';
 
 @Component({
@@ -64,6 +64,15 @@ export class EditValidatorComponent {
   save() {
     if (!this.validator) return;
     this.store.dispatch(updateValidator({ validator: this.validator }));
+  }
+
+  delete() {
+    if (!this.validator) return;
+
+    if (window.confirm('Are you sure you want to delete this Validator?')) {
+      this.store.dispatch(deleteValidator({ userId: this.validator.userId, validatorId: this.validator._id }));
+      this.cancel();
+    }
   }
 
   togglePrefixDropdown() {

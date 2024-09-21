@@ -5,7 +5,7 @@ import { API, AppStateInit, User, View } from '../../store/interfaces/app.interf
 import { combineLatest, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectAPIs, selectUser, selectView } from '../../store/selectors/app.selector';
-import { deselectService, updateAPI } from '../../store/actions/app.action';
+import { deleteAPI, deselectService, updateAPI } from '../../store/actions/app.action';
 import { UpperCasePipe } from '../../services/uppercase.pipe';
 
 @Component({
@@ -64,6 +64,15 @@ export class EditApiComponent {
   save() {
     if (!this.api) return;
     this.store.dispatch(updateAPI({ api: this.api }));
+  }
+
+  delete() {
+    if (!this.api) return;
+
+    if (window.confirm('Are you sure you want to delete this API?')) {
+      this.store.dispatch(deleteAPI({ userId: this.api.userId, apiId: this.api._id }));
+      this.cancel();
+    }
   }
 
   togglePrefixDropdown() {

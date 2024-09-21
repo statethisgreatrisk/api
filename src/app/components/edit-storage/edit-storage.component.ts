@@ -2,7 +2,7 @@ import { NgClass, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppStateInit, User, View, Storage } from '../../store/interfaces/app.interface';
-import { deselectService, selectWindow, updateStorage } from '../../store/actions/app.action';
+import { deleteStorage, deselectService, selectWindow, updateStorage } from '../../store/actions/app.action';
 import { combineLatest, Subscription } from 'rxjs';
 import { selectUser, selectView, selectStorages } from '../../store/selectors/app.selector';
 import { FormsModule } from '@angular/forms';
@@ -63,6 +63,15 @@ export class EditStorageComponent {
   save() {
     if (!this.storage) return;
     this.store.dispatch(updateStorage({ storage: this.storage }));
+  }
+
+  delete() {
+    if (!this.storage) return;
+
+    if (window.confirm('Are you sure you want to delete this Storage?')) {
+      this.store.dispatch(deleteStorage({ userId: this.storage.userId, storageId: this.storage._id }));
+      this.cancel();
+    }
   }
 
   toggleDropdown() {
