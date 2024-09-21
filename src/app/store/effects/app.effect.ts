@@ -36,7 +36,7 @@ export class AppEffect {
     createAPI$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(createAPI),
-            exhaustMap((action) => this.appRequest.createAPI(action.userId, action.api).pipe(
+            exhaustMap((action) => this.appRequest.createAPI(action.api).pipe(
                 map(data => addAPI({ api: data })),
                 catchError(err => of(requestError({ error: err })))
             )),
@@ -46,7 +46,7 @@ export class AppEffect {
     updateAPI$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(updateAPI),
-            exhaustMap((action) => this.appRequest.updateAPI(action.userId, action.api).pipe(
+            exhaustMap((action) => this.appRequest.updateAPI(action.api).pipe(
                 map(data => replaceAPI({ api: data })),
                 catchError(err => of(requestError({ error: err })))
             )),
@@ -78,7 +78,7 @@ export class AppEffect {
     createStorage$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(createStorage),
-            exhaustMap((action) => this.appRequest.createStorage(action.userId, action.storage).pipe(
+            exhaustMap((action) => this.appRequest.createStorage(action.storage).pipe(
                 map(data => addStorage({ storage: data })),
                 catchError(err => of(requestError({ error: err })))
             )),
@@ -88,7 +88,7 @@ export class AppEffect {
     updateStorage$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(updateStorage),
-            exhaustMap((action) => this.appRequest.updateStorage(action.userId, action.storage).pipe(
+            exhaustMap((action) => this.appRequest.updateStorage(action.storage).pipe(
                 map(data => replaceStorage({ storage: data })),
                 catchError(err => of(requestError({ error: err })))
             )),
@@ -120,7 +120,7 @@ export class AppEffect {
     createSchema$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(createSchema),
-            exhaustMap((action) => this.appRequest.createSchema(action.userId, action.schema).pipe(
+            exhaustMap((action) => this.appRequest.createSchema(action.schema).pipe(
                 map(data => addSchema({ schema: data })),
                 catchError(err => of(requestError({ error: err })))
             )),
@@ -130,7 +130,7 @@ export class AppEffect {
     updateSchema$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(updateSchema),
-            exhaustMap((action) => this.appRequest.updateSchema(action.userId, action.schema).pipe(
+            exhaustMap((action) => this.appRequest.updateSchema(action.schema).pipe(
                 map(data => replaceSchema({ schema: data })),
                 catchError(err => of(requestError({ error: err })))
             )),
@@ -162,7 +162,7 @@ export class AppEffect {
     createValidator$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(createValidator),
-            exhaustMap((action) => this.appRequest.createValidator(action.userId, action.validator).pipe(
+            exhaustMap((action) => this.appRequest.createValidator(action.validator).pipe(
                 map(data => addValidator({ validator: data })),
                 catchError(err => of(requestError({ error: err })))
             )),
@@ -172,7 +172,7 @@ export class AppEffect {
     updateValidator$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(updateValidator),
-            exhaustMap((action) => this.appRequest.updateValidator(action.userId, action.validator).pipe(
+            exhaustMap((action) => this.appRequest.updateValidator(action.validator).pipe(
                 map(data => replaceValidator({ validator: data })),
                 catchError(err => of(requestError({ error: err })))
             )),
@@ -204,7 +204,7 @@ export class AppEffect {
     createWorkflow$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(createWorkflow),
-            exhaustMap((action) => this.appRequest.createWorkflow(action.userId, action.workflow).pipe(
+            exhaustMap((action) => this.appRequest.createWorkflow(action.workflow).pipe(
                 map(data => addWorkflow({ workflow: data })),
                 catchError(err => of(requestError({ error: err })))
             )),
@@ -214,7 +214,7 @@ export class AppEffect {
     updateWorkflow$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(updateWorkflow),
-            exhaustMap((action) => this.appRequest.updateWorkflow(action.userId, action.workflow).pipe(
+            exhaustMap((action) => this.appRequest.updateWorkflow(action.workflow).pipe(
                 map(data => replaceWorkflow({ workflow: data })),
                 catchError(err => of(requestError({ error: err })))
             )),

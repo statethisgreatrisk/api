@@ -25,13 +25,13 @@ export class AppRequest {
     return this.http.get<API[]>(endpoint);
   }
 
-  createAPI(userId: string, api: API): Observable<API> {
-    const endpoint = `${url}/api/:userId`.replace(':userId', userId);
+  createAPI(api: API): Observable<API> {
+    const endpoint = `${url}/api/:userId`.replace(':userId', api.userId);
     return this.http.post<API>(endpoint, { api });
   }
 
-  updateAPI(userId: string, api: API): Observable<API> {
-    const endpoint = `${url}/api/:userId/:apiId`.replace(':userId', userId).replace(':apiId', api._id);
+  updateAPI(api: API): Observable<API> {
+    const endpoint = `${url}/api/:userId/:apiId`.replace(':userId', api.userId).replace(':apiId', api._id);
     return this.http.put<API>(endpoint, { api });
   }
 
@@ -47,13 +47,13 @@ export class AppRequest {
     return this.http.get<Storage[]>(endpoint);
   }
   
-  createStorage(userId: string, storage: Storage): Observable<Storage> {
-    const endpoint = `${url}/storage/:userId`.replace(':userId', userId);
+  createStorage(storage: Storage): Observable<Storage> {
+    const endpoint = `${url}/storage/:userId`.replace(':userId', storage.userId);
     return this.http.post<Storage>(endpoint, { storage });
   }
   
-  updateStorage(userId: string, storage: Storage): Observable<Storage> {
-    const endpoint = `${url}/storage/:userId/:storageId`.replace(':userId', userId).replace(':storageId', storage._id);
+  updateStorage(storage: Storage): Observable<Storage> {
+    const endpoint = `${url}/storage/:userId/:storageId`.replace(':userId', storage.userId).replace(':storageId', storage._id);
     return this.http.put<Storage>(endpoint, { storage });
   }
   
@@ -69,13 +69,13 @@ export class AppRequest {
     return this.http.get<Schema[]>(endpoint);
   }
   
-  createSchema(userId: string, schema: Schema): Observable<Schema> {
-    const endpoint = `${url}/schema/:userId`.replace(':userId', userId);
+  createSchema(schema: Schema): Observable<Schema> {
+    const endpoint = `${url}/schema/:userId`.replace(':userId', schema.userId);
     return this.http.post<Schema>(endpoint, { schema });
   }
   
-  updateSchema(userId: string, schema: Schema): Observable<Schema> {
-    const endpoint = `${url}/schema/:userId/:schemaId`.replace(':userId', userId).replace(':schemaId', schema._id);
+  updateSchema(schema: Schema): Observable<Schema> {
+    const endpoint = `${url}/schema/:userId/:schemaId`.replace(':userId', schema.userId).replace(':schemaId', schema._id);
     return this.http.put<Schema>(endpoint, { schema });
   }
   
@@ -91,13 +91,13 @@ export class AppRequest {
     return this.http.get<Validator[]>(endpoint);
   }
   
-  createValidator(userId: string, validator: Validator): Observable<Validator> {
-    const endpoint = `${url}/validator/:userId`.replace(':userId', userId);
+  createValidator(validator: Validator): Observable<Validator> {
+    const endpoint = `${url}/validator/:userId`.replace(':userId', validator.userId);
     return this.http.post<Validator>(endpoint, { validator });
   }
   
-  updateValidator(userId: string, validator: Validator): Observable<Validator> {
-    const endpoint = `${url}/validator/:userId/:validatorId`.replace(':userId', userId).replace(':validatorId', validator._id);
+  updateValidator(validator: Validator): Observable<Validator> {
+    const endpoint = `${url}/validator/:userId/:validatorId`.replace(':userId', validator.userId).replace(':validatorId', validator._id);
     return this.http.put<Validator>(endpoint, { validator });
   }
   
@@ -113,13 +113,13 @@ export class AppRequest {
     return this.http.get<Workflow[]>(endpoint);
   }
   
-  createWorkflow(userId: string, workflow: Workflow): Observable<Workflow> {
-    const endpoint = `${url}/workflow/:userId`.replace(':userId', userId);
+  createWorkflow(workflow: Workflow): Observable<Workflow> {
+    const endpoint = `${url}/workflow/:userId`.replace(':userId', workflow.userId);
     return this.http.post<Workflow>(endpoint, { workflow });
   }
   
-  updateWorkflow(userId: string, workflow: Workflow): Observable<Workflow> {
-    const endpoint = `${url}/workflow/:userId/:workflowId`.replace(':userId', userId).replace(':workflowId', workflow._id);
+  updateWorkflow(workflow: Workflow): Observable<Workflow> {
+    const endpoint = `${url}/workflow/:userId/:workflowId`.replace(':userId', workflow.userId).replace(':workflowId', workflow._id);
     return this.http.put<Workflow>(endpoint, { workflow });
   }
   

@@ -44,6 +44,7 @@ export interface WorkflowRow {
 
 export interface API {
     _id: string;
+    userId: string;
     date: string;
     name: string;
     action: 'get' | 'post' | 'put' | 'delete';
@@ -53,13 +54,15 @@ export interface API {
 
 export interface Storage {
     _id: string;
+    userId: string;
     date: string;
     name: string;
-    schema: string;
+    schemaId: string;
 }
 
 export interface Schema {
     _id: string;
+    userId: string;
     date: string;
     name: string;
     keys: SchemaKey[];
@@ -67,6 +70,7 @@ export interface Schema {
 
 export interface Validator {
     _id: string;
+    userId: string;
     date: string;
     name: string;
     field: 'param' | 'body';
@@ -76,6 +80,7 @@ export interface Validator {
 
 export interface Workflow {
     _id: string;
+    userId: string;
     date: string;
     name: string;
     rows: WorkflowRow[];
