@@ -1,0 +1,54 @@
+@import '../../styles/palette.component.scss';
+
+.toast-view {
+    display: flex;
+    flex-direction: column;
+
+    padding: 15px 25px;
+    margin-bottom: 50px;
+
+    max-width: 300px;
+
+    text-align: center;
+
+    border-radius: 5px;
+}
+
+.toast-view.info {
+    background-color: $surface-dark;
+    border: 1px solid $primary-600;
+    box-shadow: 0px 0px 3px $primary-600;
+}
+
+.toast-view.info p {
+    font-size: 14px;
+    font-weight:500;
+
+    color: white;
+}
+
+.toast-view.success {
+    background-color: $post;
+    border: 1px solid $surface-dark;
+    box-shadow: 0px 0px 3px $post;
+}
+
+.toast-view.success p {
+    font-size: 14px;
+    font-weight:500;
+
+    color: white;
+}
+
+.toast-view.alert {
+    background-color: $delete;
+    border: 1px solid $surface-dark;
+    box-shadow: 0px 0px 3px $delete;
+}
+
+.toast-view.alert p {
+    font-size: 14px;
+    font-weight:500;
+
+    color: white;
+}

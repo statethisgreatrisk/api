@@ -87,6 +87,11 @@ export interface View {
     serviceDataId: string;
 }
 
+export interface Toast {
+    type: 'info' | 'success' | 'alert';
+    text: string;
+}
+
 export interface AppState {
     services: Service[];
 

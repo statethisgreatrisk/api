@@ -9,11 +9,21 @@ import { View, AppStateInit } from './store/interfaces/app.interface';
 import { StorageViewComponent } from './components/storage-view/storage-view.component';
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
+import { ToastViewComponent } from './components/toast-view/toast-view.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgIf, ServicesComponent, ServiceEditComponent, StorageViewComponent, ApiViewComponent, LandingViewComponent],
+  imports: [
+    RouterOutlet,
+    NgIf,
+    ServicesComponent,
+    ServiceEditComponent,
+    StorageViewComponent,
+    ApiViewComponent,
+    LandingViewComponent,
+    ToastViewComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
