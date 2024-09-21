@@ -15,5 +15,5 @@ export const appState: AppState = {
     validator: [{ _id: '4', date: '', name: 'Validator 1', field: 'param', path: '', validation: '' }],
     workflow: [{ _id: '5', date: '', name: 'Workflow 1', rows: [] }],
 
-    view: { service: '', serviceDataId: '' }
+    view: { service: '', serviceDataId: '', window: '', windowId: '' },
 };

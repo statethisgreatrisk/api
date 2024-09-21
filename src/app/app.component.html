@@ -2,9 +2,11 @@
   <div class="root">
     <app-services></app-services>
     <app-service-edit *ngIf="view.service !== '' && view.serviceDataId !== ''"></app-service-edit>
-    <!-- <app-storage-view></app-storage-view> -->
-    <!-- <app-api-view></app-api-view> -->
-     <app-landing-view></app-landing-view>
-     <app-toast-view></app-toast-view>
+
+    <app-landing-view *ngIf="view.window === ''"></app-landing-view>
+    <app-storage-view *ngIf="view.window === 'Storage'"></app-storage-view>
+    <app-api-view *ngIf="view.window === 'Workflow'"></app-api-view>
+
+    <app-toast-view></app-toast-view>
   </div>
 </div>

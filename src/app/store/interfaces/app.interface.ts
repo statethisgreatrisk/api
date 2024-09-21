@@ -85,6 +85,8 @@ export interface Workflow {
 export interface View {
     service: string;
     serviceDataId: string;
+    window: string;
+    windowId: string;
 }
 
 export interface Toast {

@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { appState } from "../states/state";
-import { addAPI, addAPIs, addSchema, addSchemas, addStorage, addStorages, addUser, addValidator, addValidators, addWorkflow, addWorkflows, deselectService, log, removeAPI, removeSchema, removeStorage, removeValidator, removeWorkflow, replaceAPI, replaceSchema, replaceStorage, replaceValidator, replaceWorkflow, selectService } from "../actions/app.action";
-import { addAPIFn, addAPIsFn, addSchemaFn, addSchemasFn, addStorageFn, addStoragesFn, addUserFn, addValidatorFn, addValidatorsFn, addWorkflowFn, addWorkflowsFn, deselectServiceFn, logFn, removeAPIFn, removeSchemaFn, removeStorageFn, removeValidatorFn, removeWorkflowFn, replaceAPIFn, replaceSchemaFn, replaceStorageFn, replaceValidatorFn, replaceWorkflowFn, selectServiceFn } from "./app.reducer";
+import { addAPI, addAPIs, addSchema, addSchemas, addStorage, addStorages, addUser, addValidator, addValidators, addWorkflow, addWorkflows, deselectService, deselectWindow, log, removeAPI, removeSchema, removeStorage, removeValidator, removeWorkflow, replaceAPI, replaceSchema, replaceStorage, replaceValidator, replaceWorkflow, selectService, selectWindow } from "../actions/app.action";
+import { addAPIFn, addAPIsFn, addSchemaFn, addSchemasFn, addStorageFn, addStoragesFn, addUserFn, addValidatorFn, addValidatorsFn, addWorkflowFn, addWorkflowsFn, deselectServiceFn, deselectWindowFn, logFn, removeAPIFn, removeSchemaFn, removeStorageFn, removeValidatorFn, removeWorkflowFn, replaceAPIFn, replaceSchemaFn, replaceStorageFn, replaceValidatorFn, replaceWorkflowFn, selectServiceFn, selectWindowFn } from "./app.reducer";
 
 export const appStateReducer = createReducer(
     appState,
@@ -36,4 +36,6 @@ export const appStateReducer = createReducer(
     on(log, (state, { any }) => logFn(state, any)),
     on(selectService, (state, { serviceName, serviceDataId }) => selectServiceFn(state, serviceName, serviceDataId)),
     on(deselectService, (state, { serviceName, serviceDataId }) => deselectServiceFn(state, serviceName, serviceDataId)),
+    on(selectWindow, (state, { windowName, windowId }) => selectWindowFn(state, windowName, windowId)),
+    on(deselectWindow, (state, { windowName, windowId }) => deselectWindowFn(state, windowName, windowId)),
 );

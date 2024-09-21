@@ -13,7 +13,7 @@ import { deselectService, selectService } from '../../store/actions/app.action';
   styleUrl: './services.component.scss'
 })
 export class ServicesComponent {
-  view: View = { service: '', serviceDataId: '' };
+  view: View = { service: '', serviceDataId: '', window: '', windowId: '' };
 
   services: Service[] = [];
   api: API[] = [];

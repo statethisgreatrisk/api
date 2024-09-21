@@ -57,5 +57,8 @@ export const removeWorkflow = createAction('[REMOVE] Workflow', props<{workflowI
 export const selectService = createAction('[SELECT] Service', props<{ serviceName: string, serviceDataId: string }>());
 export const deselectService = createAction('[DESELECT] Service', props<{ serviceName: string, serviceDataId: string }>());
 
+export const selectWindow = createAction('[SELECT] Window', props<{ windowName: string, windowId: string }>());
+export const deselectWindow = createAction('[DESELECT] Window', props<{ windowName: string, windowId: string }>());
+
 export const log = createAction('[LOG]', props<{ any: any }>())
 export const requestError = createAction('[ERROR] Request', props<{ error: any }>());

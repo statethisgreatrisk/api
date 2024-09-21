@@ -28,7 +28,7 @@ import { ToastViewComponent } from './components/toast-view/toast-view.component
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  view: View = { service: '', serviceDataId: '' };
+  view: View = { service: '', serviceDataId: '', window: '', windowId: '' };
 
   constructor(
     private store: Store<AppStateInit>,

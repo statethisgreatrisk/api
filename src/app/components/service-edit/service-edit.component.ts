@@ -18,7 +18,7 @@ import { EditWorkflowComponent } from '../edit-workflow/edit-workflow.component'
   styleUrl: './service-edit.component.scss'
 })
 export class ServiceEditComponent {
-  view: View = { service: '', serviceDataId: '' };
+  view: View = { service: '', serviceDataId: '', window: '', windowId: '' };
   
   @ViewChild('componentHost', { read: ViewContainerRef, static: true }) componentHost!: ViewContainerRef;
   componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditWorkflowComponent> | null = null;
