@@ -270,7 +270,21 @@
     cursor: pointer;
 }
 
-.api-view-editor-row-variable input {
+.api-view-editor-row-variable .input {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 15px;
+
+    padding: 0;
+    margin: 0;
+
+    background-color: $surface-mixed-100;
+    border: none;
+}
+
+.api-view-editor-row-variable .input input {
     font-size: 11px;
     font-weight: 600;
     color: $light-green;
@@ -285,7 +299,7 @@
     border: none;
 }
 
-.api-view-editor-row-variable input:focus-visible {
+.api-view-editor-row-variable .input input:focus-visible {
     outline: none;
 }
 
@@ -332,7 +346,21 @@
     cursor: pointer;
 }
 
-.api-view-editor-row-service input {
+.api-view-editor-row-service .input {
+    display: flex;
+    flex-direction: column;
+    
+    width: 100%;
+    height: 15px;
+
+    padding: 0;
+    margin: 0;
+
+    background-color: $surface-mixed-100;
+    border: none;
+}
+
+.api-view-editor-row-service .input input {
     font-size: 11px;
     font-weight: 600;
     color: $light-yellow;
@@ -347,7 +375,7 @@
     border: none;
 }
 
-.api-view-editor-row-service input:focus-visible {
+.api-view-editor-row-service .input input:focus-visible {
     outline: none;
 }
 

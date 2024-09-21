@@ -33,163 +33,21 @@
                         </div>
                     </div>
                     <div class="api-view-editor-row-variable" [ngClass]="{ 'visible': dropdownVisible2 }">
-                        <p class="text">getUsers</p>
+                        <!-- <p class="text">getUsers</p> -->
                         <!-- <p class="placeholder">variable</p> -->
-                         <!-- <input> -->
+                        <div class="input">
+                            <input>
+                        </div>
                     </div>
                     <div class="api-view-editor-row-service" [ngClass]="{ 'visible': dropdownVisible2 }">
-                        <p class="text">Get Users</p>
+                        <!-- <p class="text">Get Users</p> -->
                         <!-- <p class="placeholder">service</p> -->
-                         <!-- <input> -->
+                        <div class="input">
+                            <input>
+                        </div>
                     </div>
                     <div class="api-view-editor-row-detail" [ngClass]="{ 'visible': dropdownVisible2 }">
                         <p class="text">/api/:apiKey/users/:userId</p>
-                    </div>
-                </div>
-                <div class="api-view-editor-row">
-                    <div class="api-view-editor-row-prefix">
-                        <p [ngClass]="{ 'visible': dropdownVisible }">2</p>
-                    </div>
-                    <div class="api-view-editor-row-select" (click)="toggleDropdown()">
-                        <div class="api-view-editor-row-select-button">
-                            <p [ngClass]="{ 'visible': dropdownVisible }" class="row-service">Storage</p>
-                            <img src="/down.png" [ngClass]="{ 'visible': dropdownVisible }">
-                        </div>
-                        <div class="api-view-editor-row-select-dropdown" *ngIf="dropdownVisible">
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>API</p>
-                            </div>
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>Storage</p>
-                            </div>
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>Variable</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="api-view-editor-row-variable" [ngClass]="{ 'visible': dropdownVisible }">
-                        <p class="text">users</p>
-                    </div>
-                    <div class="api-view-editor-row-service" [ngClass]="{ 'visible': dropdownVisible }">
-                        <p class="text">Users</p>
-                    </div>
-                    <div class="api-view-editor-row-detail" [ngClass]="{ 'visible': dropdownVisible }">
-                    </div>
-                </div>
-                <div class="api-view-editor-row">
-                    <div class="api-view-editor-row-prefix">
-                        <p [ngClass]="{ 'visible': dropdownVisible }">3</p>
-                    </div>
-                    <div class="api-view-editor-row-select" (click)="toggleDropdown()">
-                        <div class="api-view-editor-row-select-button">
-                            <p [ngClass]="{ 'visible': dropdownVisible }"></p>
-                            <img src="/down.png" [ngClass]="{ 'visible': dropdownVisible }">
-                        </div>
-                        <div class="api-view-editor-row-select-dropdown" *ngIf="dropdownVisible">
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>API</p>
-                            </div>
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>Storage</p>
-                            </div>
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>Variable</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="api-view-editor-row-variable" [ngClass]="{ 'visible': dropdownVisible }">
-                    </div>
-                    <div class="api-view-editor-row-service" [ngClass]="{ 'visible': dropdownVisible }">
-                    </div>
-                    <div class="api-view-editor-row-detail" [ngClass]="{ 'visible': dropdownVisible }">
-                    </div>
-                </div>
-                <div class="api-view-editor-row">
-                    <div class="api-view-editor-row-prefix">
-                        <p [ngClass]="{ 'visible': dropdownVisible }">4</p>
-                    </div>
-                    <div class="api-view-editor-row-select" (click)="toggleDropdown()">
-                        <div class="api-view-editor-row-select-button">
-                            <p [ngClass]="{ 'visible': dropdownVisible }" class="row-service">Variable</p>
-                            <img src="/down.png" [ngClass]="{ 'visible': dropdownVisible }">
-                        </div>
-                        <div class="api-view-editor-row-select-dropdown" *ngIf="dropdownVisible">
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>API</p>
-                            </div>
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>Storage</p>
-                            </div>
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>Variable</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="api-view-editor-row-variable" [ngClass]="{ 'visible': dropdownVisible }">
-                        <p class="text">apiKey</p>
-                    </div>
-                    <div class="api-view-editor-row-service" [ngClass]="{ 'visible': dropdownVisible }">
-                        <p class="text">getUsers.params.apiKey</p>
-                    </div>
-                    <div class="api-view-editor-row-detail" [ngClass]="{ 'visible': dropdownVisible }">
-                    </div>
-                </div>
-                <div class="api-view-editor-row">
-                    <div class="api-view-editor-row-prefix">
-                        <p [ngClass]="{ 'visible': dropdownVisible }">5</p>
-                    </div>
-                    <div class="api-view-editor-row-select" (click)="toggleDropdown()">
-                        <div class="api-view-editor-row-select-button">
-                            <p [ngClass]="{ 'visible': dropdownVisible }" class="row-service">Variable</p>
-                            <img src="/down.png" [ngClass]="{ 'visible': dropdownVisible }">
-                        </div>
-                        <div class="api-view-editor-row-select-dropdown" *ngIf="dropdownVisible">
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>API</p>
-                            </div>
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>Storage</p>
-                            </div>
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>Variable</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="api-view-editor-row-variable" [ngClass]="{ 'visible': dropdownVisible }">
-                        <p class="text">userId</p>
-                    </div>
-                    <div class="api-view-editor-row-service" [ngClass]="{ 'visible': dropdownVisible }">
-                        <p class="text">getUsers.params.userId</p>
-                    </div>
-                    <div class="api-view-editor-row-detail" [ngClass]="{ 'visible': dropdownVisible }">
-                    </div>
-                </div>
-                <div class="api-view-editor-row">
-                    <div class="api-view-editor-row-prefix">
-                        <p [ngClass]="{ 'visible': dropdownVisible }">6</p>
-                    </div>
-                    <div class="api-view-editor-row-select" (click)="toggleDropdown()">
-                        <div class="api-view-editor-row-select-button">
-                            <p [ngClass]="{ 'visible': dropdownVisible }"></p>
-                            <img src="/down.png" [ngClass]="{ 'visible': dropdownVisible }">
-                        </div>
-                        <div class="api-view-editor-row-select-dropdown" *ngIf="dropdownVisible">
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>API</p>
-                            </div>
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>Storage</p>
-                            </div>
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>Variable</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="api-view-editor-row-variable" [ngClass]="{ 'visible': dropdownVisible }">
-                    </div>
-                    <div class="api-view-editor-row-service" [ngClass]="{ 'visible': dropdownVisible }">
-                    </div>
-                    <div class="api-view-editor-row-detail" [ngClass]="{ 'visible': dropdownVisible }">
                     </div>
                 </div>
             </div>
