@@ -23,7 +23,8 @@ export const replaceAPIFn: (state: AppState, api: API) => AppState = (state: App
     if (!api) return { ...state };
 
     const apis = state.api.map((existingAPI) => {
-        return existingAPI;
+        if (existingAPI._id !== api._id) return existingAPI;
+        return api;
     });
 
     return { ...state, api: apis };
@@ -50,7 +51,8 @@ export const replaceStorageFn: (state: AppState, storage: Storage) => AppState =
     if (!storage) return { ...state };
 
     const storages = state.storage.map((existingStorage) => {
-        return existingStorage;
+        if (existingStorage._id !== storage._id) return existingStorage;
+        return storage;
     });
 
     return { ...state, storage: storages };
@@ -77,7 +79,8 @@ export const replaceSchemaFn: (state: AppState, schema: Schema) => AppState = (s
     if (!schema) return { ...state };
 
     const schemas = state.schema.map((existingSchema) => {
-        return existingSchema;
+        if (existingSchema._id !== schema._id) return existingSchema;
+        return schema;
     });
 
     return { ...state, schema: schemas };
@@ -104,7 +107,8 @@ export const replaceValidatorFn: (state: AppState, validator: Validator) => AppS
     if (!validator) return { ...state };
 
     const validators = state.validator.map((existingValidator) => {
-        return existingValidator;
+        if (existingValidator._id !== validator._id) return existingValidator;
+        return validator;
     });
 
     return { ...state, validator: validators };
@@ -131,7 +135,8 @@ export const replaceWorkflowFn: (state: AppState, workflow: Workflow) => AppStat
     if (!workflow) return { ...state };
 
     const workflows = state.workflow.map((existingWorkflow) => {
-        return existingWorkflow;
+        if (existingWorkflow._id !== workflow._id) return existingWorkflow;
+        return workflow;
     });
 
     return { ...state, workflow: workflows };
