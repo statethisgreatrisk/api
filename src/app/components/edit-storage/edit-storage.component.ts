@@ -6,6 +6,7 @@ import { deleteStorage, deselectService, selectWindow, updateStorage } from '../
 import { combineLatest, Subscription } from 'rxjs';
 import { selectUser, selectView, selectStorages } from '../../store/selectors/app.selector';
 import { FormsModule } from '@angular/forms';
+import { DeleteService } from '../../services/delete.service';
 
 @Component({
   selector: 'app-edit-storage',
@@ -25,6 +26,7 @@ export class EditStorageComponent {
 
   constructor(
     private store: Store<AppStateInit>,
+    private deleteService: DeleteService,
   ) {}
 
   ngOnInit() {
@@ -68,10 +70,16 @@ export class EditStorageComponent {
   delete() {
     if (!this.storage) return;
 
-    if (window.confirm('Are you sure you want to delete this Storage?')) {
-      this.store.dispatch(deleteStorage({ userId: this.storage.userId, storageId: this.storage._id }));
-      this.cancel();
-    }
+    const storage = this.storage;
+
+    this.deleteService.initDelete({
+      service: this.view.service,
+      serviceData: storage,
+      deleteFn: () => {
+        this.store.dispatch(deleteStorage({ userId: storage.userId, storageId: storage._id }));
+        this.cancel();
+      },
+    });
   }
 
   toggleDropdown() {

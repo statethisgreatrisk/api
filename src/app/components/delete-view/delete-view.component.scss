@@ -1,0 +1,132 @@
+@import '../../styles/palette.component.scss';
+
+.delete-view {
+    display: flex;
+    flex-direction: column;
+
+    padding: 25px 25px;
+
+    width: 450px;
+
+    text-align: left;
+
+    border-radius: 5px;
+
+    background-color: $surface-dark;
+    border: 1px solid $delete;
+    box-shadow: 0px 0px 3px $delete;
+}
+
+.delete-header {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: start;
+
+    margin-bottom: 15px;
+}
+
+.delete-header img {
+    width: 15px;
+    height: 15px;
+}
+
+.delete-header p {
+    font-size: 17px;
+    font-weight:700;
+
+    margin-left: 10px;
+
+    color: white;
+}
+
+.delete-detail {
+    margin-top: 10px;
+    padding: 2px 10px;
+
+    background-color: $primary-900;
+}
+
+.delete-detail pre {
+    font-size: 11px;
+    font-weight: 800;
+    color: white;
+}
+
+.delete-message {
+    font-size: 13px;
+    font-weight:600;
+
+    color: white;
+}
+
+.delete-buttons {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: end;
+
+    width: 100%;
+}
+
+.delete-buttons-cancel {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 75px;
+    height: 27px;
+
+    margin-top: 15px;
+    margin-right: 10px;
+
+    border: 1px solid $surface-mixed-300;
+    border-radius: 3px;
+
+    cursor: pointer;
+}
+
+.delete-buttons-cancel:hover {
+    background-color: $surface-mixed-200;
+}
+
+.delete-buttons-cancel p {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.delete-buttons-save {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 75px;
+    height: 27px;
+
+    margin-top: 15px;
+    margin-right: 10px;
+
+    border: 1px solid $surface-mixed-300;
+    border-radius: 3px;
+    background-color: $delete;
+
+    cursor: pointer;
+}
+
+.delete-buttons-save:hover {
+    background-color: $dark-delete;
+}
+
+.delete-buttons-save p {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+

@@ -7,6 +7,7 @@ import { selectUser, selectValidators, selectView } from '../../store/selectors/
 import { Store } from '@ngrx/store';
 import { deleteValidator, deselectService, updateValidator } from '../../store/actions/app.action';
 import { CapitalizePipe } from '../../services/capitalize.pipe';
+import { DeleteService } from '../../services/delete.service';
 
 @Component({
   selector: 'app-edit-validator',
@@ -26,6 +27,7 @@ export class EditValidatorComponent {
 
   constructor(
     private store: Store<AppStateInit>,
+    private deleteService: DeleteService,
   ) {}
 
   ngOnInit() {
@@ -69,10 +71,16 @@ export class EditValidatorComponent {
   delete() {
     if (!this.validator) return;
 
-    if (window.confirm('Are you sure you want to delete this Validator?')) {
-      this.store.dispatch(deleteValidator({ userId: this.validator.userId, validatorId: this.validator._id }));
-      this.cancel();
-    }
+    const validator = this.validator;
+
+    this.deleteService.initDelete({
+      service: this.view.service,
+      serviceData: validator,
+      deleteFn: () => {
+        this.store.dispatch(deleteValidator({ userId: validator.userId, validatorId: validator._id }));
+        this.cancel();
+      },
+    });
   }
 
   togglePrefixDropdown() {

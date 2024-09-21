@@ -1,0 +1,21 @@
+<div class="delete-view" *ngIf="deleteData">
+    <div class="delete-header">
+        <img src="/warning.png">
+        <p>Delete {{ deleteData.service }}</p>
+    </div>
+
+    <p class="delete-message">Are you sure you want to delete this {{ deleteData.service }}?</p>
+    
+    <div class="delete-detail">
+        <pre>{{ deleteData.serviceData | json }}</pre>
+    </div>
+    
+    <div class="delete-buttons">
+        <div class="delete-buttons-cancel" (click)="cancel()">
+            <p>Cancel</p>
+        </div>
+        <div class="delete-buttons-save" (click)="delete()">
+            <p>Delete</p>
+        </div>
+    </div>
+</div>

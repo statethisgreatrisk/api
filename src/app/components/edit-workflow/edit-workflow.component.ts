@@ -6,6 +6,7 @@ import { combineLatest, Subscription } from 'rxjs';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { DeleteService } from '../../services/delete.service';
 
 @Component({
   selector: 'app-edit-workflow',
@@ -23,6 +24,7 @@ export class EditWorkflowComponent {
 
   constructor(
     private store: Store<AppStateInit>,
+    private deleteService: DeleteService,
   ) {}
 
   ngOnInit() {
@@ -61,10 +63,16 @@ export class EditWorkflowComponent {
   delete() {
     if (!this.workflow) return;
 
-    if (window.confirm('Are you sure you want to delete this Workflow?')) {
-      this.store.dispatch(deleteWorkflow({ userId: this.workflow.userId, workflowId: this.workflow._id }));
-      this.cancel();
-    }
+    const workflow = this.workflow;
+
+    this.deleteService.initDelete({
+      service: this.view.service,
+      serviceData: workflow,
+      deleteFn: () => {
+        this.store.dispatch(deleteWorkflow({ userId: workflow.userId, workflowId: workflow._id }));
+        this.cancel();
+      },
+    });
   }
 
   openView() {

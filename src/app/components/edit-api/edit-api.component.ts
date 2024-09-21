@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { selectAPIs, selectUser, selectView } from '../../store/selectors/app.selector';
 import { deleteAPI, deselectService, updateAPI } from '../../store/actions/app.action';
 import { UpperCasePipe } from '../../services/uppercase.pipe';
+import { DeleteService } from '../../services/delete.service';
 
 @Component({
   selector: 'app-edit-api',
@@ -26,6 +27,7 @@ export class EditApiComponent {
 
   constructor(
     private store: Store<AppStateInit>,
+    private deleteService: DeleteService,
   ) {}
 
   ngOnInit() {
@@ -69,10 +71,16 @@ export class EditApiComponent {
   delete() {
     if (!this.api) return;
 
-    if (window.confirm('Are you sure you want to delete this API?')) {
-      this.store.dispatch(deleteAPI({ userId: this.api.userId, apiId: this.api._id }));
-      this.cancel();
-    }
+    const api = this.api;
+
+    this.deleteService.initDelete({
+      service: this.view.service,
+      serviceData: api,
+      deleteFn: () => {
+        this.store.dispatch(deleteAPI({ userId: api.userId, apiId: api._id }));
+        this.cancel();
+      },
+    });
   }
 
   togglePrefixDropdown() {

@@ -103,6 +103,12 @@ export interface Toast {
     text: string;
 }
 
+export interface DeleteData {
+    service: string;
+    serviceData: Object;
+    deleteFn: () => void;
+}
+
 export interface AppState {
     apis: API[];
     validators: Validator[];
