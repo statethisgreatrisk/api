@@ -12,10 +12,14 @@
 
 .edit-validator-header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
 
     padding-top: 10px;
     padding-left: 10px;
+    padding-right: 10px;
 }
 
 .edit-validator-header p {
@@ -299,6 +303,29 @@
 
 .edit-validator-list-checkbox.main-option:hover {
     background: none;
+}
+
+.edit-validator-slim-button {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: end;
+
+    width: 100%;
+
+    cursor: pointer;
+}
+
+.edit-validator-slim-button.inline {
+    width: auto;
+}
+
+.edit-validator-slim-button p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-600;
+
+    border-bottom: 1px solid $surface-mixed-600;
 }
 
 .edit-validator-buttons {

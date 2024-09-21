@@ -12,10 +12,14 @@
 
 .edit-api-header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
 
     padding-top: 10px;
     padding-left: 10px;
+    padding-right: 10px;
 }
 
 .edit-api-header p {
@@ -334,6 +338,29 @@
     height: 10px;
 
     margin-right: 5px;
+}
+
+.edit-api-slim-button {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: end;
+
+    width: 100%;
+
+    cursor: pointer;
+}
+
+.edit-api-slim-button.inline {
+    width: auto;
+}
+
+.edit-api-slim-button p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-600;
+
+    border-bottom: 1px solid $surface-mixed-600;
 }
 
 .edit-api-buttons {
