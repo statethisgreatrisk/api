@@ -10,6 +10,7 @@ import { StorageViewComponent } from './components/storage-view/storage-view.com
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
+import { getUser } from './store/actions/app.action';
 
 @Component({
   selector: 'app-root',
@@ -36,6 +37,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.initView();
+    this.dispatchUser();
   }
 
   initView() {
@@ -43,5 +45,9 @@ export class AppComponent {
       if (!view) return;
       this.view = view;
     });
+  }
+
+  dispatchUser() {
+    this.store.dispatch(getUser({ userId: '66e7f036567ffc29c90400f5' }));
   }
 }

@@ -7,5 +7,6 @@ export const appState: AppState = {
     validator: [],
     workflow: [],
 
+    user: null,
     view: { service: '', serviceDataId: '', window: '', windowId: '' },
 };

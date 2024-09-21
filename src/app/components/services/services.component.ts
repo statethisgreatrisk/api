@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow } from '../../store/interfaces/app.interface';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User } from '../../store/interfaces/app.interface';
 import { deselectService, selectService } from '../../store/actions/app.action';
 
 @Component({
@@ -13,6 +13,7 @@ import { deselectService, selectService } from '../../store/actions/app.action';
   styleUrl: './services.component.scss'
 })
 export class ServicesComponent {
+  user: User | null = null;
   view: View = { service: '', serviceDataId: '', window: '', windowId: '' };
 
   api: API[] = [];
@@ -34,6 +35,7 @@ export class ServicesComponent {
   ) {}
 
   ngOnInit() {
+    this.initUser();
     this.initView();
     this.initAPI();
     this.initStorage();
@@ -48,6 +50,12 @@ export class ServicesComponent {
     } else {
       this.store.dispatch(selectService({ serviceName, serviceDataId }));
     }
+  }
+
+  initUser() {
+    this.store.pipe(map((store) => store.app.user)).subscribe((user) => {
+      this.user = user;
+    });
   }
 
   initView() {

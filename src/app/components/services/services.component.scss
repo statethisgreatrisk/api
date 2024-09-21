@@ -92,3 +92,42 @@
 
     margin-right: 5px;
 }
+
+.spacer {
+    flex-grow: 1;
+}
+
+.user-button {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 35px;
+    
+    margin: 0 10px 10px 10px;
+    padding-left: 10px;
+
+    border-radius: 5px;
+    border: 1px solid $primary-600;
+
+    cursor: pointer;
+}
+
+.user-button:hover {
+    background-color: $primary-800;
+}
+
+.user-button img {
+    width: 12px;
+    height: 12px;
+
+    margin-right: 12px;
+}
+
+.user-button p {
+    font-size: 11px;
+    font-weight: 700;
+
+    color: white;
+}

@@ -5,7 +5,6 @@ export interface Service {
 
 export interface User {
     _id: string;
-    date: string;
     name: string;
 }
 
@@ -101,6 +100,7 @@ export interface AppState {
     schema: Schema[];
     workflow: Workflow[];
     
+    user: User | null;
     view: View;
 }
 
