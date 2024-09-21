@@ -12,8 +12,8 @@
             <p>Name</p>
         </div>
         <div class="edit-schema-input-container">
-            <div class="edit-schema-input">
-                <input type="text" placeholder="Enter schema name">
+            <div class="edit-schema-input" *ngIf="schema">
+                <input type="text" placeholder="Enter schema name" [(ngModel)]="schema.name">
             </div>
         </div>
         <div class="edit-schema-label row between">
@@ -28,7 +28,7 @@
                     <p>String</p>
                     <img src="/down.png">
                 </div>
-                <div class="edit-schema-prefix-select-dropdown" *ngIf="prefixDropdownVisible">
+                <div class="edit-schema-prefix-select-dropdown" *ngIf="prefixDropdown">
                     <div class="edit-schema-prefix-select-dropdown-button">
                         <p>String</p>
                     </div>
@@ -62,10 +62,10 @@
             </div>
         </div>
         <div class="edit-schema-buttons">
-            <div class="edit-schema-cancel">
+            <div class="edit-schema-cancel" (click)="cancel()">
                 <p>Cancel</p>
             </div>
-            <div class="edit-schema-save">
+            <div class="edit-schema-save" (click)="save()">
                 <p>Save</p>
             </div>
         </div>
