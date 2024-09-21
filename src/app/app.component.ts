@@ -42,13 +42,13 @@ export class AppComponent {
 
   ngOnInit() {
     this.initView();
+    this.initDeleteView();
     this.dispatchUser();
     this.dispatchAPIs();
     this.dispatchStorages();
     this.dispatchSchemas();
     this.dispatchValidators();
     this.dispatchWorkflows();
-    this.initDeleteView();
   }
 
   initView() {
