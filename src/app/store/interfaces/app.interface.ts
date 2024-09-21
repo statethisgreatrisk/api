@@ -46,7 +46,7 @@ export interface API {
     _id: string;
     date: string;
     name: string;
-    action: string;
+    action: 'get' | 'post' | 'put' | 'delete';
     url: string;
     validators: string[];
 }
