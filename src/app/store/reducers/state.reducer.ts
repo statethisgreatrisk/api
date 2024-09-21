@@ -34,8 +34,8 @@ export const appStateReducer = createReducer(
     on(removeWorkflow, (state, { workflowId }) => removeWorkflowFn(state, workflowId)),
     // Services/View
     on(log, (state, { any }) => logFn(state, any)),
-    on(selectService, (state, { serviceName, serviceDataId }) => selectServiceFn(state, serviceName, serviceDataId)),
-    on(deselectService, (state, { serviceName, serviceDataId }) => deselectServiceFn(state, serviceName, serviceDataId)),
+    on(selectService, (state, { serviceName, serviceId }) => selectServiceFn(state, serviceName, serviceId)),
+    on(deselectService, (state, { serviceName, serviceId }) => deselectServiceFn(state, serviceName, serviceId)),
     on(selectWindow, (state, { windowName, windowId }) => selectWindowFn(state, windowName, windowId)),
     on(deselectWindow, (state, { windowName, windowId }) => deselectWindowFn(state, windowName, windowId)),
 );

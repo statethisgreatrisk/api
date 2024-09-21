@@ -1,7 +1,7 @@
 <div class="root-container">
   <div class="root">
     <app-services></app-services>
-    <app-service-edit *ngIf="view.service !== '' && view.serviceDataId !== ''"></app-service-edit>
+    <app-service-edit *ngIf="view.service !== '' && view.serviceId !== ''"></app-service-edit>
 
     <app-landing-view *ngIf="view.window === ''"></app-landing-view>
     <app-storage-view *ngIf="view.window === 'Storage'"></app-storage-view>

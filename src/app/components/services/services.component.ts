@@ -15,7 +15,7 @@ import { selectAPIs, selectSchemas, selectStorages, selectUser, selectValidators
 })
 export class ServicesComponent {
   user: User | null = null;
-  view: View = { service: '', serviceDataId: '', window: '', windowId: '' };
+  view: View = { service: '', serviceId: '', window: '', windowId: '' };
 
   apis: API[] = [];
   validators: Validator[] = [];
@@ -45,11 +45,11 @@ export class ServicesComponent {
     this.initWorkflows();
   }
 
-  selectService(serviceName: string, serviceDataId: string) {
-    if (serviceName === this.view.service && serviceDataId === this.view.serviceDataId) {
-      this.store.dispatch(deselectService({ serviceName, serviceDataId }));
+  selectService(serviceName: string, serviceId: string) {
+    if (serviceName === this.view.service && serviceId === this.view.serviceId) {
+      this.store.dispatch(deselectService({ serviceName, serviceId }));
     } else {
-      this.store.dispatch(selectService({ serviceName, serviceDataId }));
+      this.store.dispatch(selectService({ serviceName, serviceId }));
     }
   }
 

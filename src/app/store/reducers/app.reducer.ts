@@ -149,14 +149,14 @@ export const removeWorkflowFn: (state: AppState, workflowId: string) => AppState
 
 // Services/View
 
-export const selectServiceFn: (state: AppState, serviceName: string, serviceDataId: string) => AppState = (state: AppState, serviceName: string, serviceDataId: string) => {
-    if (!serviceName || !serviceDataId) return { ...state };
+export const selectServiceFn: (state: AppState, serviceName: string, serviceId: string) => AppState = (state: AppState, serviceName: string, serviceId: string) => {
+    if (!serviceName || !serviceId) return { ...state };
 
-    return { ...state, view: { ...state.view, service: serviceName, serviceDataId } };
+    return { ...state, view: { ...state.view, service: serviceName, serviceId } };
 }
 
-export const deselectServiceFn: (state: AppState, serviceName: string, serviceDataId: string) => AppState = (state: AppState, serviceName: string, serviceDataId: string) => {
-    return { ...state, view: { ...state.view, service: '', serviceDataId: '' } };
+export const deselectServiceFn: (state: AppState, serviceName: string, serviceId: string) => AppState = (state: AppState, serviceName: string, serviceId: string) => {
+    return { ...state, view: { ...state.view, service: '', serviceId: '' } };
 }
 
 export const selectWindowFn: (state: AppState, windowName: string, windowId: string) => AppState = (state: AppState, windowName: string, windowId: string) => {

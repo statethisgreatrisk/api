@@ -16,7 +16,7 @@ import { selectUser, selectView, selectWorkflows } from '../../store/selectors/a
 })
 export class EditWorkflowComponent {
   user: User | null = null;
-  view: View = { service: '', serviceDataId: '', window: '', windowId: '' };
+  view: View = { service: '', serviceId: '', window: '', windowId: '' };
   workflow: Workflow | null = null;
 
   sub: Subscription | null = null;
@@ -42,15 +42,15 @@ export class EditWorkflowComponent {
       this.user = user;
       this.view = view;
 
-      if (this.user && this.view && this.view.serviceDataId) {
-        const workflow = workflows.find((existingWorkflow) => existingWorkflow._id === this.view.serviceDataId);
+      if (this.user && this.view && this.view.serviceId) {
+        const workflow = workflows.find((existingWorkflow) => existingWorkflow._id === this.view.serviceId);
         this.workflow = workflow ? { ...workflow } : null;
       }
     });
   }
 
   cancel() {
-    this.store.dispatch(deselectService({ serviceName: this.view.service, serviceDataId: this.view.serviceDataId }));
+    this.store.dispatch(deselectService({ serviceName: this.view.service, serviceId: this.view.serviceId }));
   }
 
   save() {

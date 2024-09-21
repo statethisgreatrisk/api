@@ -19,7 +19,7 @@ import { selectView } from '../../store/selectors/app.selector';
   styleUrl: './service-edit.component.scss'
 })
 export class ServiceEditComponent {
-  view: View = { service: '', serviceDataId: '', window: '', windowId: '' };
+  view: View = { service: '', serviceId: '', window: '', windowId: '' };
   
   @ViewChild('componentHost', { read: ViewContainerRef, static: true }) componentHost!: ViewContainerRef;
   componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditWorkflowComponent> | null = null;
@@ -37,18 +37,18 @@ export class ServiceEditComponent {
     this.store.select(selectView).subscribe((view) => {
       if (!view) return;
 
-      if (!view.service && !view.serviceDataId) {
-        if (view.service !== this.view.service || view.serviceDataId !== this.view.serviceDataId) {
+      if (!view.service && !view.serviceId) {
+        if (view.service !== this.view.service || view.serviceId !== this.view.serviceId) {
           this.view = view;
           this.closeComponent();
         }
-      } else if (view.service && !view.serviceDataId) {
-        if (view.service !== this.view.service || view.serviceDataId !== this.view.serviceDataId) {
+      } else if (view.service && !view.serviceId) {
+        if (view.service !== this.view.service || view.serviceId !== this.view.serviceId) {
           this.view = view;
           this.closeComponent();
         }
       } else {
-        if (view.service !== this.view.service || view.serviceDataId !== this.view.serviceDataId) {
+        if (view.service !== this.view.service || view.serviceId !== this.view.serviceId) {
           this.view = view;
           this.closeComponent();
           this.createComponent();

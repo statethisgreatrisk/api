@@ -30,7 +30,7 @@ import { selectView } from './store/selectors/app.selector';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  view: View = { service: '', serviceDataId: '', window: '', windowId: '' };
+  view: View = { service: '', serviceId: '', window: '', windowId: '' };
 
   constructor(
     private store: Store<AppStateInit>,
