@@ -15,12 +15,19 @@ import { deselectService, selectService } from '../../store/actions/app.action';
 export class ServicesComponent {
   view: View = { service: '', serviceDataId: '', window: '', windowId: '' };
 
-  services: Service[] = [];
   api: API[] = [];
   validator: Validator[] = [];
   storage: Storage[] = [];
   schema: Schema[] = [];
   workflow: Workflow[] = [];
+
+  services: Service[] =  [
+    { name: 'Workflow', icon: '/workflow.png' },
+    { name: 'API', icon: '/news.png' },
+    { name: 'Storage', icon: '/folder.png' },
+    { name: 'Schema', icon: '/tool.png' },
+    { name: 'Validator', icon: '/binoculars.png' },
+  ];
 
   constructor(
     private store: Store<AppStateInit>,
@@ -28,7 +35,6 @@ export class ServicesComponent {
 
   ngOnInit() {
     this.initView();
-    this.initServices();
     this.initAPI();
     this.initStorage();
     this.initValidator();
@@ -48,13 +54,6 @@ export class ServicesComponent {
     this.store.pipe(map((store) => store.app.view)).subscribe((view) => {
       if (!view) return;
       this.view = view;
-    });
-  }
-
-  initServices() {
-    this.store.pipe(map((store) => store.app.services)).subscribe((services) => {
-      if (!services || !services.length) return;
-      this.services = services;
     });
   }
 

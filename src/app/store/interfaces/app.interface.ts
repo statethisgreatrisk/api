@@ -95,8 +95,6 @@ export interface Toast {
 }
 
 export interface AppState {
-    services: Service[];
-
     api: API[];
     validator: Validator[];
     storage: Storage[];
