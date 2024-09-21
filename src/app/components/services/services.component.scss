@@ -40,7 +40,7 @@
 .service p:nth-child(1) {
     font-size: 11px;
     font-weight: 600;
-    color: white;
+    color: $light-white;
 }
 
 .service p:nth-child(2) {
@@ -66,8 +66,6 @@
     flex-direction: row;
 
     align-items: center;
-    
-    height: 18px;
 
     margin: 0 5px 0 5px;
     padding: 2px 5px 2px 15px;
@@ -82,8 +80,8 @@
 
 .service-data p {
     font-size: 11px;
-    font-weight: 600;
-    color: white;
+    font-weight: 500;
+    color: $light-grey;
 }
 
 .service-data img {

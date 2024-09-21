@@ -6,7 +6,7 @@
         <div *ngFor="let service of services;">
             <div class="service">
                 <p>{{ service.name }}</p>
-                <p>New +</p>
+                <p (click)="create(service.name)">New +</p>
             </div>
             <!-- Workflow -->
             <div class="service-data-list" *ngIf="service.name === 'Workflow'">

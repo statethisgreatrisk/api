@@ -10,7 +10,7 @@ import { StorageViewComponent } from './components/storage-view/storage-view.com
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
-import { getAPIs, getSchemas, getStorages, getUser, getValidators } from './store/actions/app.action';
+import { getAPIs, getSchemas, getStorages, getUser, getValidators, getWorkflows } from './store/actions/app.action';
 
 @Component({
   selector: 'app-root',
@@ -42,6 +42,7 @@ export class AppComponent {
     this.dispatchStorages();
     this.dispatchSchemas();
     this.dispatchValidators();
+    this.dispatchWorkflows();
   }
 
   initView() {
@@ -69,5 +70,9 @@ export class AppComponent {
 
   dispatchValidators() {
     this.store.dispatch(getValidators({ userId: '66e7f036567ffc29c90400f5' }));
+  }
+
+  dispatchWorkflows() {
+    this.store.dispatch(getWorkflows({ userId: '66e7f036567ffc29c90400f5' }));
   }
 }

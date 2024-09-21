@@ -75,7 +75,7 @@ export interface Validator {
     name: string;
     field: 'param' | 'body';
     path: string;
-    validation: string;
+    validation: string | ValidatorOption;
 }
 
 export interface Workflow {

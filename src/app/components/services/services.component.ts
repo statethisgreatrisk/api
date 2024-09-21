@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User } from '../../store/interfaces/app.interface';
-import { deselectService, selectService } from '../../store/actions/app.action';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, SchemaKey, WorkflowRow } from '../../store/interfaces/app.interface';
+import { createAPI, createSchema, createStorage, createValidator, createWorkflow, deselectService, selectService } from '../../store/actions/app.action';
 
 @Component({
   selector: 'app-services',
@@ -98,5 +98,67 @@ export class ServicesComponent {
       if (!workflow || !workflow.length) return;
       this.workflow = workflow;
     });
+  }
+
+  create(service: string) {
+    if (service === 'API') return this.createAPI();
+    if (service === 'Storage') return this.createStorage();
+    if (service === 'Schema') return this.createSchema();
+    if (service === 'Validator') return this.createValidator();
+    if (service === 'Workflow') return this.createWorkflow();
+  }
+
+  createAPI() {
+    const userId = '66e7f036567ffc29c90400f5';
+    const _id = '';
+    const name = 'Endpoint';
+    const date = new Date().toISOString();
+    const action = 'get';
+    const url = '/hello-world';
+    const validators: string[] = [];
+
+    this.store.dispatch(createAPI({ api: { _id, userId, name, date, action, url, validators } }));
+  }
+
+  createStorage() {
+    const userId = '66e7f036567ffc29c90400f5';
+    const _id = '';
+    const name = 'Storage';
+    const date = new Date().toISOString();
+    const schemaId = '';
+
+    this.store.dispatch(createStorage({ storage: { _id, userId, name, date, schemaId } }));
+  }
+
+  createSchema() {
+    const userId = '66e7f036567ffc29c90400f5';
+    const _id = '';
+    const name = 'Schema';
+    const date = new Date().toISOString();
+    const keys: SchemaKey[] = [];
+
+    this.store.dispatch(createSchema({ schema: { _id, userId, name, date, keys } }));
+  }
+
+  createValidator() {
+    const userId = '66e7f036567ffc29c90400f5';
+    const _id = '';
+    const name = 'Validator';
+    const date = new Date().toISOString();
+    const field = 'param';
+    const path = '';
+    const validation = '';
+
+    this.store.dispatch(createValidator({ validator: { _id, userId, name, date, field, path, validation } }));
+  }
+
+  createWorkflow() {
+    const userId = '66e7f036567ffc29c90400f5';
+    const _id = '';
+    const name = 'Workflow';
+    const date = new Date().toISOString();
+    const rows: WorkflowRow[] = [];
+
+    this.store.dispatch(createWorkflow({ workflow: { _id, userId, name, date, rows } }));
   }
 }
