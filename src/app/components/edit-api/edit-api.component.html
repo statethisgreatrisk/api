@@ -12,8 +12,8 @@
             <p>Name</p>
         </div>
         <div class="edit-api-input-container">
-            <div class="edit-api-input">
-                <input type="text" placeholder="Enter API name">
+            <div class="edit-api-input" *ngIf="api">
+                <input type="text" placeholder="Enter API name" [(ngModel)]="api.name">
             </div>
         </div>
         <div class="edit-api-label">
@@ -21,34 +21,34 @@
         </div>
         <div class="edit-api-prefix-container">
             <div class="edit-api-prefix-select" (click)="togglePrefixDropdown()">
-                <div class="edit-api-prefix-select-button">
-                    <p>GET</p>
+                <div class="edit-api-prefix-select-button" *ngIf="api">
+                    <p>{{ api.action | uppercase }}</p>
                     <img src="/down.png">
                 </div>
-                <div class="edit-api-prefix-select-dropdown" *ngIf="prefixDropdownVisible">
-                    <div class="edit-api-prefix-select-dropdown-button">
-                        <p>GET</p>
+                <div class="edit-api-prefix-select-dropdown" *ngIf="prefixDropdown">
+                    <div class="edit-api-prefix-select-dropdown-button" (click)="selectAction('get')">
+                        <p>{{ 'get' | uppercase }}</p>
                     </div>
-                    <div class="edit-api-prefix-select-dropdown-button">
-                        <p>POST</p>
+                    <div class="edit-api-prefix-select-dropdown-button" (click)="selectAction('post')">
+                        <p>{{ 'post' | uppercase }}</p>
                     </div>
-                    <div class="edit-api-prefix-select-dropdown-button">
-                        <p>PUT</p>
+                    <div class="edit-api-prefix-select-dropdown-button" (click)="selectAction('put')">
+                        <p>{{ 'put' | uppercase }}</p>
                     </div>
-                    <div class="edit-api-prefix-select-dropdown-button">
-                        <p>DELETE</p>
+                    <div class="edit-api-prefix-select-dropdown-button" (click)="selectAction('delete')">
+                        <p>{{ 'delete' | uppercase }}</p>
                     </div>
                 </div>
             </div>
-            <div class="edit-api-prefix-input">
-                <input type="text" placeholder="/resource/:resource-id">
+            <div class="edit-api-prefix-input" *ngIf="api">
+                <input type="text" placeholder="/resource/:resource-id" [(ngModel)]="api.url">
             </div>
         </div>
         <div class="edit-api-buttons">
-            <div class="edit-api-cancel">
+            <div class="edit-api-cancel" (click)="cancel()">
                 <p>Cancel</p>
             </div>
-            <div class="edit-api-save">
+            <div class="edit-api-save" (click)="save()">
                 <p>Save</p>
             </div>
         </div>

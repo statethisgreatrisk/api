@@ -1,24 +1,72 @@
 import { NgClass, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { API, AppStateInit, User, View } from '../../store/interfaces/app.interface';
+import { combineLatest, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectAPIs, selectUser, selectView } from '../../store/selectors/app.selector';
+import { deselectService, updateAPI } from '../../store/actions/app.action';
+import { UpperCasePipe } from '../../services/uppercase.pipe';
 
 @Component({
   selector: 'app-edit-api',
   standalone: true,
-  imports: [NgIf, NgClass],
+  imports: [NgIf, NgClass, FormsModule, UpperCasePipe],
   templateUrl: './edit-api.component.html',
   styleUrl: './edit-api.component.scss'
 })
 export class EditApiComponent {
-  prefixDropdownVisible = false;
-  dropdownVisible = false;
+  user: User | null = null;
+  view: View = { service: '', serviceId: '', window: '', windowId: '' };
+  api: API | null = null;
 
-  togglePrefixDropdown() {
-    if (this.dropdownVisible) this.dropdownVisible = false;
-    this.prefixDropdownVisible = !this.prefixDropdownVisible;
+  sub: Subscription | null = null;
+
+  prefixDropdown = false;
+
+  constructor(
+    private store: Store<AppStateInit>,
+  ) {}
+
+  ngOnInit() {
+    this.initLatest();
   }
 
-  toggleDropdown() {
-    if (this.prefixDropdownVisible) this.prefixDropdownVisible = false;
-    this.dropdownVisible = !this.dropdownVisible;
+  ngOnDestroy() {
+    this.sub?.unsubscribe();
+  }
+
+  initLatest() {
+    this.sub = combineLatest([
+      this.store.select(selectUser),
+      this.store.select(selectView),
+      this.store.select(selectAPIs),
+    ]).subscribe(([user, view, apis]) => {
+      this.user = user;
+      this.view = view;
+
+      if (this.user && this.view && this.view.serviceId) {
+        const api = apis.find((existingAPI) => existingAPI._id === this.view.serviceId);
+        this.api = api ? { ...api } : null;
+      }
+    });
+  }
+
+  selectAction(action: API['action']) {
+    if (!this.api) return;
+    this.api.action = action;
+  }
+
+  cancel() {
+    this.store.dispatch(deselectService({ serviceName: this.view.service, serviceId: this.view.serviceId }));
+  }
+
+  save() {
+    if (!this.api) return;
+    this.store.dispatch(updateAPI({ api: this.api }));
+  }
+
+  togglePrefixDropdown() {
+    this.prefixDropdown = !this.prefixDropdown;
   }
 }
