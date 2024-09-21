@@ -13,15 +13,15 @@
             <p>Name</p>
         </div>
         <div class="edit-workflow-input-container">
-            <div class="edit-workflow-input">
-                <input type="text" placeholder="Enter workflow name">
+            <div class="edit-workflow-input" *ngIf="workflow">
+                <input type="text" placeholder="Enter workflow name" [(ngModel)]="workflow.name">
             </div>
         </div>
         <div class="edit-workflow-buttons">
-            <div class="edit-workflow-cancel">
+            <div class="edit-workflow-cancel" (click)="cancel()">
                 <p>Cancel</p>
             </div>
-            <div class="edit-workflow-save">
+            <div class="edit-workflow-save" (click)="save()">
                 <p>Save</p>
             </div>
         </div>
