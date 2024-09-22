@@ -1,17 +1,17 @@
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppStateInit, User, View, Storage } from '../../store/interfaces/app.interface';
+import { AppStateInit, User, View, Storage, Schema } from '../../store/interfaces/app.interface';
 import { deleteStorage, deselectService, selectWindow, updateStorage } from '../../store/actions/app.action';
 import { combineLatest, Subscription } from 'rxjs';
-import { selectUser, selectView, selectStorages } from '../../store/selectors/app.selector';
+import { selectUser, selectView, selectStorages, selectSchemas } from '../../store/selectors/app.selector';
 import { FormsModule } from '@angular/forms';
 import { DeleteService } from '../../services/delete.service';
 
 @Component({
   selector: 'app-edit-storage',
   standalone: true,
-  imports: [NgIf, NgClass, FormsModule],
+  imports: [NgIf, NgFor, NgClass, FormsModule],
   templateUrl: './edit-storage.component.html',
   styleUrl: './edit-storage.component.scss'
 })
@@ -22,6 +22,8 @@ export class EditStorageComponent {
 
   sub: Subscription | null = null;
 
+  schemas: Schema[] = [];
+
   dropdown = false;
 
   constructor(
@@ -31,6 +33,7 @@ export class EditStorageComponent {
 
   ngOnInit() {
     this.initLatest();
+    this.initSchemas();
   }
 
   ngOnDestroy() {
@@ -53,9 +56,31 @@ export class EditStorageComponent {
     });
   }
 
-  selectSchemaId(schemaId: string) {
-    if (!this.storage) return;
+  initSchemas() {
+    this.store.select(selectSchemas).subscribe((schemas) => {
+      this.schemas = schemas;
+    });
+  }
+
+  selectSchema(schemaId: string) {
+    if (!schemaId || !this.storage) return;
+
+    if (this.storage.schemaId === schemaId) return;
     this.storage.schemaId = schemaId;
+  }
+
+  removeSchema() {
+    if (!this.storage) return;
+    this.storage.schemaId = '';
+  }
+
+  findSchema(schemaId: string) {
+    if (!schemaId || !this.storage) return;
+
+    const schema = this.schemas.find((schema) => schema._id === schemaId);
+
+    if (!schema) return '';
+    return schema.name;
   }
 
   cancel() {

@@ -22,21 +22,22 @@
         </div>
         <div class="edit-storage-select-container">
             <div class="edit-storage-select" (click)="toggleDropdown()">
-                <div class="edit-storage-select-button" *ngIf="storage">
-                    <p *ngIf="!storage.schemaId">Select Schema</p>
+                <div class="edit-storage-select-button">
+                    <p>Select Schema</p>
                     <img src="/down.png">
                 </div>
                 <div class="edit-storage-select-dropdown" *ngIf="dropdown && storage">
-                    <div class="edit-storage-select-dropdown-button">
-                        <p>Schema 1</p>
-                    </div>
-                    <div class="edit-storage-select-dropdown-button">
-                        <p>Schema 2</p>
-                    </div>
-                    <div class="edit-storage-select-dropdown-button">
-                        <p>Schema 3</p>
+                    <div class="edit-storage-select-dropdown-button" *ngFor="let s of schemas" (click)="selectSchema(s._id)">
+                        <p>{{ s.name }}</p>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="edit-storage-list-item-container" *ngIf="storage">
+            <div class="edit-storage-list-item" *ngIf="storage.schemaId" (click)="removeSchema()">
+                <img class="check" src="/check.png">
+                <img class="x" src="/x.png">
+                <p>{{ findSchema(storage.schemaId) }}</p>
             </div>
         </div>
         <div class="edit-storage-buttons">
