@@ -178,17 +178,6 @@
     cursor: default;
 }
 
-.edit-schema-editor-row-right p {
-    font-size: 11px;
-    font-weight: 600;
-
-    color: $primary-600;
-
-    font-family: "Roboto Mono", monospace;
-    font-style: normal;
-    font-optical-sizing: auto;
-}
-
 .edit-schema-editor-row-right input {
     font-size: 11px;
     font-weight: 600;
@@ -226,6 +215,20 @@
 
 .edit-schema-editor-row-right input:focus-visible {
     outline: none;
+}
+
+.edit-schema-editor-row-right p {
+    font-size: 11px;
+    font-weight: 600;
+
+    padding: 0;
+    margin: 0 0 0 -1px;
+
+    color: $primary-1000;
+
+    font-family: "Roboto Mono", monospace;
+    font-style: normal;
+    font-optical-sizing: auto;
 }
 
 .edit-schema-editor-row-postfix-container {

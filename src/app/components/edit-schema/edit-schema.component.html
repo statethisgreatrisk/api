@@ -28,7 +28,8 @@
             <div class="edit-schema-editor-row-right-container">
                 <div class="edit-schema-editor-row-right" *ngFor="let row of schema.rows; index as index">
                     <input #rowKeyInputs type="text" placeholder="key" [(ngModel)]="row.key" (input)="adjustKeyWidth(index)">
-                    <input #rowTypeInputs type="text" placeholder="type" [(ngModel)]="row.type" (input)="adjustTypeWidth(index)">
+                    <input #rowTypeInputs type="text" placeholder="type" [(ngModel)]="row.type" (input)="adjustTypeWidth(index)" (keydown)="typeahead($event, index)">
+                    <p>{{ row.placeholder }}</p>
                 </div>
             </div>
             <div class="edit-schema-editor-row-postfix-container">

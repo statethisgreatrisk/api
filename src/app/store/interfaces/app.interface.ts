@@ -12,6 +12,8 @@ export interface SchemaRow {
     _id: string;
     key: string;
     type: string;
+    placeholder?: string;
+    placeholderIndex?: number;
 }
 
 export interface ValidatorOption {

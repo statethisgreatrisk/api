@@ -8,6 +8,7 @@ import { Subscription, combineLatest } from 'rxjs';
 import { deleteSchema, deselectService, updateSchema } from '../../store/actions/app.action';
 import { DeleteService } from '../../services/delete.service';
 import ObjectId from 'bson-objectid';
+import { TypeaheadService } from '../../services/typeahead.service';
 
 @Component({
   selector: 'app-edit-schema',
@@ -33,6 +34,7 @@ export class EditSchemaComponent {
   constructor(
     private store: Store<AppStateInit>,
     private deleteService: DeleteService,
+    private typeaheadService: TypeaheadService,
     private cdr: ChangeDetectorRef,
   ) {}
 
@@ -59,7 +61,11 @@ export class EditSchemaComponent {
         
         if (this.schema && this.schema.rows) this.schema.rows = [...this.schema.rows];
         if (this.schema && this.schema.rows) this.schema.rows = this.schema.rows.map((row) => {
-          return { ...row };
+          let mutableRow = { ...row };
+
+          mutableRow.placeholder = '';
+          mutableRow.placeholderIndex = -1;
+          return mutableRow;
         });
       }
     });
@@ -98,13 +104,38 @@ export class EditSchemaComponent {
     inputElement.style.width = `${width}px`;  
   }
 
+  typeahead(event: KeyboardEvent, index: number) {
+    if (!this.schema || !this.schema.rows.length) return;
+
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      return this.typeaheadService.completeZod(this.schema, index);
+    }
+
+    if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+      event.preventDefault();
+      return this.typeaheadService.determineZod(this.schema, index);
+    }
+
+    this.schema.rows[index].placeholder = '';
+    this.schema.rows[index].placeholderIndex = -1;
+  }
+
   cancel() {
     this.store.dispatch(deselectService({ serviceName: this.view.service, serviceId: this.view.serviceId }));
   }
 
   save() {
     if (!this.schema) return;
-    this.store.dispatch(updateSchema({ schema: this.schema }));
+
+    let schema = { ...this.schema };
+    schema.rows = schema.rows.map((row) => {
+      delete row.placeholder;
+      delete row.placeholderIndex;
+      return row;
+    });
+
+    this.store.dispatch(updateSchema({ schema: schema }));
   }
 
   delete() {
