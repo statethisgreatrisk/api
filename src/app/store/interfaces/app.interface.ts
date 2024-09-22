@@ -8,17 +8,10 @@ export interface User {
     name: string;
 }
 
-export interface SchemaKeyOptions {
-    array: boolean;
-    required: boolean;
-    default: boolean;
-    defaultValue: string;
-}
-
-export interface SchemaKey {
+export interface SchemaRow {
+    _id: string;
     key: string;
-    type: 'string' | 'number' | 'schema' | 'boolean' | 'date' | 'null';
-    options: SchemaKeyOptions
+    type: string;
 }
 
 export interface ValidatorOption {
@@ -68,7 +61,7 @@ export interface Schema {
     date: string;
     active: boolean;
     name: string;
-    keys: SchemaKey[];
+    rows: SchemaRow[];
 }
 
 export interface Validator {

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, SchemaKey, WorkflowRow } from '../../store/interfaces/app.interface';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, SchemaRow } from '../../store/interfaces/app.interface';
 import { createAPI, createSchema, createStorage, createValidator, createWorkflow, deselectService, selectService } from '../../store/actions/app.action';
 import { selectAPIs, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import ObjectId from 'bson-objectid';
 
 @Component({
   selector: 'app-services',
@@ -133,9 +134,9 @@ export class ServicesComponent {
     const name = 'Schema';
     const date = new Date().toISOString();
     const active = true;
-    const keys: SchemaKey[] = [];
+    const rows: SchemaRow[] = [{ _id: new ObjectId().toHexString(), key: '', type: '' }];
 
-    this.store.dispatch(createSchema({ schema: { _id, userId, name, date, active, keys } }));
+    this.store.dispatch(createSchema({ schema: { _id, userId, name, date, active, rows } }));
   }
 
   createValidator() {
