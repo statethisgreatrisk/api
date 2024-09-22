@@ -44,6 +44,29 @@
                 <input type="text" placeholder="/resource/:resource-id" [(ngModel)]="api.url">
             </div>
         </div>
+        <div class="edit-api-label">
+            <p>Validators</p>
+        </div>
+        <div class="edit-api-select-container">
+            <div class="edit-api-select" (click)="toggleDropdown()">
+                <div class="edit-api-select-button">
+                    <p>Select Validator</p>
+                    <img src="/down.png">
+                </div>
+                <div class="edit-api-select-dropdown" *ngIf="dropdown && api">
+                    <div class="edit-api-select-dropdown-button" *ngFor="let v of validators" (click)="selectValidator(v._id)">
+                        <p>{{ v.name }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-api-list-item-container" *ngIf="api">
+            <div class="edit-api-list-item" *ngFor="let v of api.validators" (click)="removeValidator(v)">
+                <img class="check" src="/check.png">
+                <img class="x" src="/x.png">
+                <p>{{ findValidator(v) }}</p>
+            </div>
+        </div>
         <div class="edit-api-buttons">
             <div class="edit-api-cancel" (click)="cancel()">
                 <p>Cancel</p>

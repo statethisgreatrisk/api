@@ -243,6 +243,7 @@
     cursor: pointer;
 
     border-right: 1px solid $surface-mixed-300;
+    background-color: $surface-mixed-000;
 }
 
 .edit-api-select-button {
@@ -257,8 +258,8 @@
 
 .edit-api-select-button p {
     font-size: 12px;
-    font-weight: 500;
-    color: $surface-mixed-600;
+    font-weight: 600;
+    color: $primary-600;
 }
 
 .edit-api-select-button img {
@@ -276,13 +277,8 @@
 
     top: 29px;
     position: absolute;
-    
-    background-color: $surface-mixed-200;
-    border-left: 1px solid $surface-mixed-300;
-    border-right: 1px solid $surface-mixed-300;
-    border-bottom: 1px solid $surface-mixed-300;
 
-    box-shadow: 0px 7px 11px rgba(162, 162, 162, 0.11);
+    background-color: $surface-mixed-000;
 
     z-index: 2;
 }
@@ -299,20 +295,20 @@
 }
 
 .edit-api-select-dropdown-button:hover {
-    background-color: $surface-mixed-300;
+    background-color: $primary-000;
 }
 
 .edit-api-select-dropdown-button p {
     font-size: 12px;
-    font-weight: 500;
-    color: white;
+    font-weight: 600;
+    color: $primary-600;
 }
 
 .edit-api-list-item-container {
     display: flex;
     flex-direction: column;
 
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .edit-api-list-item {
@@ -323,8 +319,8 @@
     
     height: 18px;
 
-    margin: 0 5px 0 5px;
-    padding: 2px 5px 2px 15px;
+    margin: 0 10px 0 10px;
+    padding: 2px 5px 2px 10px;
 
     cursor: pointer;
 }
@@ -344,7 +340,23 @@
     width: 10px;
     height: 10px;
 
-    margin-right: 5px;
+    margin-right: 10px;
+}
+
+.edit-api-list-item img.check {
+    display: flex;
+}
+
+.edit-api-list-item img.x {
+    display: none;
+}
+
+.edit-api-list-item:hover img.check {
+    display: none;
+}
+
+.edit-api-list-item:hover img.x {
+    display: flex;
 }
 
 .edit-api-slim-button {
