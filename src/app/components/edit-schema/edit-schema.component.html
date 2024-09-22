@@ -17,49 +17,7 @@
             </div>
         </div>
         <div class="edit-schema-label row between">
-            <p>Object Key</p>
-            <div class="edit-schema-slim-button inline">
-                <p>Remove key</p>
-            </div>
-        </div>
-        <div class="edit-schema-prefix-container">
-            <div class="edit-schema-prefix-select" (click)="togglePrefixDropdown()">
-                <div class="edit-schema-prefix-select-button">
-                    <p>String</p>
-                    <img src="/down.png">
-                </div>
-                <div class="edit-schema-prefix-select-dropdown" *ngIf="prefixDropdown && schema">
-                    <div class="edit-schema-prefix-select-dropdown-button">
-                        <p>String</p>
-                    </div>
-                    <div class="edit-schema-prefix-select-dropdown-button">
-                        <p>Number</p>
-                    </div>
-                    <div class="edit-schema-prefix-select-dropdown-button">
-                        <p>Schema</p>
-                    </div>
-                    <div class="edit-schema-prefix-select-dropdown-button">
-                        <p>Boolean</p>
-                    </div>
-                    <div class="edit-schema-prefix-select-dropdown-button">
-                        <p>Date</p>
-                    </div>
-                    <div class="edit-schema-prefix-select-dropdown-button">
-                        <p>Null</p>
-                    </div>
-                </div>
-            </div>
-            <div class="edit-schema-prefix-input">
-                <input type="text" placeholder="Enter key name">
-            </div>
-        </div>
-        <div class="edit-schema-label">
-            <p>Options</p>
-        </div>
-        <div class="edit-schema-slim-button-container">
-            <div class="edit-schema-slim-button">
-                <p>Add another key</p>
-            </div>
+            <p>Schema</p>
         </div>
         <div class="edit-schema-buttons">
             <div class="edit-schema-cancel" (click)="cancel()">
