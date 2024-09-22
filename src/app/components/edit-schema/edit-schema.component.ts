@@ -1,5 +1,5 @@
-import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppStateInit, Schema, User, View } from '../../store/interfaces/app.interface';
 import { selectSchemas, selectUser, selectView } from '../../store/selectors/app.selector';
@@ -7,11 +7,12 @@ import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { deleteSchema, deselectService, updateSchema } from '../../store/actions/app.action';
 import { DeleteService } from '../../services/delete.service';
+import ObjectId from 'bson-objectid';
 
 @Component({
   selector: 'app-edit-schema',
   standalone: true,
-  imports: [NgIf, FormsModule],
+  imports: [NgIf, NgFor, FormsModule],
   templateUrl: './edit-schema.component.html',
   styleUrl: './edit-schema.component.scss'
 })
@@ -24,9 +25,15 @@ export class EditSchemaComponent {
 
   prefixDropdown = false;
 
+  @ViewChildren('rowKeyInputs') rowKeyInputs!: QueryList<ElementRef>;
+  @ViewChildren('rowTypeInputs') rowTypeInputs!: QueryList<ElementRef>;
+  @ViewChildren('rowKeySpans') rowKeySpans!: QueryList<ElementRef>;
+  @ViewChildren('rowTypeSpans') rowTypeSpans!: QueryList<ElementRef>;
+
   constructor(
     private store: Store<AppStateInit>,
     private deleteService: DeleteService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -49,8 +56,46 @@ export class EditSchemaComponent {
       if (this.user && this.view && this.view.serviceId) {
         const schema = schemas.find((existingSchema) => existingSchema._id === this.view.serviceId);
         this.schema = schema ? { ...schema } : null;
+        
+        if (this.schema && this.schema.rows) this.schema.rows = [...this.schema.rows];
+        if (this.schema && this.schema.rows) this.schema.rows = this.schema.rows.map((row) => {
+          return { ...row };
+        });
       }
     });
+  }
+
+  addRow() {
+    if (!this.schema) return;
+
+    this.schema.rows.push({ _id: ObjectId().toHexString(), key: '', type: '' });
+  }
+
+  removeRow(_id: string) {
+    if (!this.schema) return;
+    if (this.schema.rows.length === 1) return;
+
+    this.schema.rows = this.schema.rows.filter((row) => row._id !== _id);
+  }
+
+  adjustKeyWidth(index: number) {
+    this.cdr.detectChanges();
+
+    const inputElement = this.rowKeyInputs.toArray()[index].nativeElement;
+    const spanElement = this.rowKeySpans.toArray()[index].nativeElement;
+    const width = spanElement.offsetWidth === 0 ? 27 : spanElement.offsetWidth + 1;
+  
+    inputElement.style.width = `${width}px`;
+  }
+  
+  adjustTypeWidth(index: number) {
+    this.cdr.detectChanges();
+
+    const inputElement = this.rowTypeInputs.toArray()[index].nativeElement;
+    const spanElement = this.rowTypeSpans.toArray()[index].nativeElement;
+    const width = spanElement.offsetWidth === 0 ? 33 : spanElement.offsetWidth + 1;
+
+    inputElement.style.width = `${width}px`;  
   }
 
   cancel() {

@@ -8,5 +8,5 @@ export const appState: AppState = {
     workflows: [],
 
     user: null,
-    view: { service: '', serviceId: '', window: '', windowId: '' },
+    view: { service: '', serviceId: '', window: 'Workflow', windowId: '1' },
 };

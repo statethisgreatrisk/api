@@ -19,32 +19,27 @@
         <div class="edit-schema-label row between">
             <p>Schema</p>
         </div>
-        <div class="edit-schema-editor-container">
+        <div class="edit-schema-editor-container" *ngIf="schema">
             <div class="edit-schema-editor-row-left-container">
-                <div class="edit-schema-editor-row-left">
-                    <p>1</p>
-                </div>
-                <div class="edit-schema-editor-row-left">
-                    <p>2</p>
+                <div class="edit-schema-editor-row-left" *ngFor="let row of schema.rows; index as index">
+                    <p>{{ index + 1 }}</p>
                 </div>
             </div>
             <div class="edit-schema-editor-row-right-container">
-                <div class="edit-schema-editor-row-right">
-                    <input type="text" value="a:" placeholder="key">
-                    <input type="text" value="z.string()" placeholder="type">
-                </div>
-                <div class="edit-schema-editor-row-right">
-                    <input type="text" value="b:" placeholder="key">
-                    <input type="text" value="z.string()" placeholder="type">
+                <div class="edit-schema-editor-row-right" *ngFor="let row of schema.rows; index as index">
+                    <input #rowKeyInputs type="text" placeholder="key" [(ngModel)]="row.key" (input)="adjustKeyWidth(index)">
+                    <input #rowTypeInputs type="text" placeholder="type" [(ngModel)]="row.type" (input)="adjustTypeWidth(index)">
                 </div>
             </div>
             <div class="edit-schema-editor-row-postfix-container">
-                <div class="edit-schema-editor-row-postfix">
+                <div class="edit-schema-editor-row-postfix" *ngFor="let row of schema.rows" (click)="removeRow(row._id)">
                     <img src="/x.png">
                 </div>
-                <div class="edit-schema-editor-row-postfix">
-                    <img src="/x.png">
-                </div>
+            </div>
+        </div>
+        <div class="edit-schema-slim-button-container">
+            <div class="edit-schema-slim-button" (click)="addRow()">
+                <p>Add another row</p>
             </div>
         </div>
         <div class="edit-schema-buttons">
@@ -61,6 +56,12 @@
         <div class="edit-schema-path-docs">
             <div class="edit-schema-path-doc">
                 <p>Schemas are based on Zod 3.x. See the Zod documentation for details.</p>
+            </div>
+        </div>
+        <div class="edit-schema-hidden" *ngIf="schema">
+            <div class="edit-schema-hidden-rows"  *ngFor="let row of schema.rows;">
+                <span #rowKeySpans>{{ row.key }}</span>
+                <span #rowTypeSpans>{{ row.type }}</span>
             </div>
         </div>
     </div>
