@@ -60,7 +60,7 @@
             </div>
         </div>
         <div class="edit-schema-hidden" *ngIf="schema">
-            <div class="edit-schema-hidden-rows"  *ngFor="let row of schema.rows;">
+            <div class="edit-schema-hidden-rows" *ngFor="let row of schema.rows;">
                 <span #rowKeySpans>{{ row.key }}</span>
                 <span #rowTypeSpans>{{ row.type }}</span>
             </div>

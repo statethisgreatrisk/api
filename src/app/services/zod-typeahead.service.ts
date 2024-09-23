@@ -4,28 +4,32 @@ import { Schema } from '../store/interfaces/app.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class TypeaheadService {
+export class ZodTypeaheadService {
 
   zod: any = {
-    'za': {
+    'zod': {
       'string()': {
         'min()': {},
         'max()': {},
+        'length()': {},
+        'email()': {},
+        'url()': {},
+        'uuid()': {},
+        'datetime()': {},
+        'ip()': {},
       },
       'number()': {
-        'min()': {},
-        'max()': {},
-      }
-    },
-    'zz': {
-      'string()': {
-        'min()': {},
-        'max()': {},
+        'gt()': {},
+        'gte()': {},
+        'lt()': {},
+        'lte()': {},
+        'int()': {},
+        'positive()': {},
+        'nonnegative': {},
+        'negative()': {},
+        'nonpositive': {},
       },
-      'number()': {
-        'min()': {},
-        'max()': {},
-      }
+      'boolean()': {},
     },
   };
 
@@ -56,7 +60,7 @@ export class TypeaheadService {
       const split = path.split('.');
       const option = split[level];
 
-      if (!options.includes(option)) options.push(option);
+      if (option && !options.includes(option)) options.push(option);
     }
 
     return options;
@@ -70,7 +74,7 @@ export class TypeaheadService {
     return false;
   }
 
-  determineZod(schema: Schema, index: number) {
+  determine(schema: Schema, index: number) {
     const type = schema.rows[index].type;
     const placeholderIndex = schema.rows[index].placeholderIndex;
     const paths = this.objectPaths(this.zod);
@@ -91,8 +95,13 @@ export class TypeaheadService {
     }
 
     const level = [...type].reduce((acc, char) => (char === '.' ? acc + 1 : acc), 0);
-    const options = this.levelPaths(level, paths);
+    const typePaths = paths.filter((path) => path.startsWith(type));
+    let options = this.levelPaths(level, typePaths);
     const levelType = type.split('.')[level] || '';
+
+    if (options.includes(levelType)) return;
+
+    options = options.filter((option) => option.startsWith(levelType));
 
     let newPlaceholderIndex = Number.isInteger(placeholderIndex) ? Number(placeholderIndex) + 1 : 0;
     newPlaceholderIndex = newPlaceholderIndex === options.length ? 0 : newPlaceholderIndex;
@@ -101,7 +110,7 @@ export class TypeaheadService {
     schema.rows[index].placeholderIndex = newPlaceholderIndex;
   }
 
-  completeZod(schema: Schema, index: number) {
+  complete(schema: Schema, index: number) {
     const placeholder = schema.rows[index].placeholder;
 
     if (!placeholder) return;
@@ -109,7 +118,6 @@ export class TypeaheadService {
     schema.rows[index].type = schema.rows[index].type + schema.rows[index].placeholder;
     schema.rows[index].placeholder = '';
     schema.rows[index].placeholderIndex = -1;
-    return;
   }
 
 }

@@ -8,7 +8,7 @@ import { Subscription, combineLatest } from 'rxjs';
 import { deleteSchema, deselectService, updateSchema } from '../../store/actions/app.action';
 import { DeleteService } from '../../services/delete.service';
 import ObjectId from 'bson-objectid';
-import { TypeaheadService } from '../../services/typeahead.service';
+import { ZodTypeaheadService } from '../../services/zod-typeahead.service';
 
 @Component({
   selector: 'app-edit-schema',
@@ -34,7 +34,7 @@ export class EditSchemaComponent {
   constructor(
     private store: Store<AppStateInit>,
     private deleteService: DeleteService,
-    private typeaheadService: TypeaheadService,
+    private zodTypeaheadService: ZodTypeaheadService,
     private cdr: ChangeDetectorRef,
   ) {}
 
@@ -44,6 +44,10 @@ export class EditSchemaComponent {
 
   ngOnDestroy() {
     this.sub?.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    this.adjustAllInputs();
   }
 
   initLatest() {
@@ -84,6 +88,15 @@ export class EditSchemaComponent {
     this.schema.rows = this.schema.rows.filter((row) => row._id !== _id);
   }
 
+  adjustAllInputs() {
+    if (!this.schema || !this.schema.rows) return;
+
+    Array.from({ length: this.schema.rows.length }).forEach((_, index) => {
+      this.adjustKeyWidth(index);
+      this.adjustTypeWidth(index);
+    });
+  }
+
   adjustKeyWidth(index: number) {
     this.cdr.detectChanges();
 
@@ -109,12 +122,14 @@ export class EditSchemaComponent {
 
     if (event.key === 'Tab') {
       event.preventDefault();
-      return this.typeaheadService.completeZod(this.schema, index);
+      this.zodTypeaheadService.complete(this.schema, index);
+      this.adjustTypeWidth(index);
+      return;
     }
 
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
       event.preventDefault();
-      return this.typeaheadService.determineZod(this.schema, index);
+      return this.zodTypeaheadService.determine(this.schema, index);
     }
 
     this.schema.rows[index].placeholder = '';
@@ -141,7 +156,12 @@ export class EditSchemaComponent {
   delete() {
     if (!this.schema) return;
 
-    const schema = this.schema;
+    const schema = { ...this.schema};
+    schema.rows = schema.rows.map((row) => {
+      delete row.placeholder;
+      delete row.placeholderIndex;
+      return row;
+    });
 
     this.deleteService.initDelete({
       service: this.view.service,
