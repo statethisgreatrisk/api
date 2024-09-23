@@ -13,6 +13,7 @@ import { getAPIs, getSchemas, getStorages, getUser, getValidators, getWorkflows 
 import { selectView } from './store/selectors/app.selector';
 import { DeleteViewComponent } from './components/delete-view/delete-view.component';
 import { DeleteService } from './services/delete.service';
+import { AppViewComponent } from './components/app-view/app-view.component';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ import { DeleteService } from './services/delete.service';
     LandingViewComponent,
     ToastViewComponent,
     DeleteViewComponent,
+    AppViewComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

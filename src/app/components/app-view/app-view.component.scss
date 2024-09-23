@@ -1,0 +1,159 @@
+@import '../../styles/palette.component.scss';
+
+.app-view-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 400px;
+    height: 100%;
+
+    background-color: $surface-mixed-100;
+    border-left: 1px solid $surface-mixed-300;
+    border-right: 1px solid $surface-mixed-300;
+}
+
+.app-view-breadcrumb-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 30px;
+
+    margin-left: 15px;
+    margin-right: 15px;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.app-view-breadcrumb {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.app-view-breadcrumb p {
+    font-size: 11px;
+    font-weight: 600;
+
+    margin-left: 15px;
+
+    color:white;
+
+    cursor: pointer;
+}
+
+.app-view-breadcrumb p.initial {
+    margin-left: 0px;
+}
+
+.app-view-breadcrumb p.active,
+.app-view-breadcrumb p:hover {
+    color: $primary-600;
+
+    cursor: pointer;
+}
+
+.app-view-breadcrumb img {
+    width: 10px;
+    height: 10px;
+
+    margin-left: 15px;
+}
+
+.app-view-button-list {
+    display: flex;
+    flex-direction: column;
+
+    height: 240px;
+
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 10px;
+
+    overflow:scroll;
+}
+
+.app-view-button {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 35px;
+    min-height: 35px;
+    
+    padding-left: 15px;
+    margin-bottom: 5px;
+
+    border-radius: 5px;
+    background-color: $surface-dark;
+
+    cursor: pointer;
+}
+
+.app-view-button:hover {
+    background-color: $primary-800;
+}
+
+.app-view-button img {
+    width: 12px;
+    height: 12px;
+
+    margin-right: 12px;
+}
+
+.app-view-button p {
+    font-size: 11px;
+    font-weight: 700;
+
+    color: white;
+}
+
+.app-view-divider {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    margin-top: 10px;
+}
+
+.app-view-divider .divider {
+    width: 95%;
+    height: 1px;
+
+    border-top: 1px solid $surface-mixed-200;
+}
+
+.app-view-info-container {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 5px;
+}
+
+.app-view-info {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    margin-top: 10px;
+
+    padding: 10px;
+
+    background-color: $surface-mixed-200;
+    border-radius: 4px;
+}
+
+.app-view-info p {
+    font-size: 11px;
+    font-weight: 500;
+    color: $surface-mixed-600;
+}

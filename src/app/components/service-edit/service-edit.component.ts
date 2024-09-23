@@ -5,7 +5,6 @@ import { EditApiComponent } from '../edit-api/edit-api.component';
 import { EditStorageComponent } from '../edit-storage/edit-storage.component';
 import { EditValidatorComponent } from '../edit-validator/edit-validator.component';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
 import { NgIf } from '@angular/common';
 import { EditSchemaComponent } from '../edit-schema/edit-schema.component';
 import { EditWorkflowComponent } from '../edit-workflow/edit-workflow.component';
