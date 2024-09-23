@@ -208,108 +208,129 @@
     outline: none;
 }
 
-.edit-validator-list-checkbox-container {
+.edit-validator-editor-container {
+    display: flex;
+    flex-direction: row;
+
+    flex-grow: 1;
+
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+
+    border: 1px solid $surface-mixed-300;
+}
+
+.edit-validator-editor-row-left-container {
     display: flex;
     flex-direction: column;
 
-    margin-top: 5px;
+    align-items: center;
+
+    width: 45px;
+
+    padding: 0 5px;
 }
 
-.edit-validator-list-checkbox {
+.edit-validator-editor-row-left {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    width: 45px;
+
+    padding: 2px 5px;
+
+    background-color: $surface-mixed-200;
+
+    cursor: default;
+}
+
+.edit-validator-editor-row-left p {
+    font-size: 11px;
+    font-weight: 600;
+
+    color: white;
+
+    font-family: "Roboto Mono", monospace;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+.edit-validator-editor-row-right-container {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    flex-grow: 1;
+
+    overflow-x: scroll;
+
+    scrollbar-width: none;
+}
+
+.edit-validator-editor-row-right-container::-webkit-scrollbar {
+    display: none;
+}
+
+.edit-validator-editor-row-right {
     display: flex;
     flex-direction: row;
 
     align-items: center;
+
+    flex-grow: 1;
+
+    padding: 2px 5px;
+
+    cursor: default;
+}
+
+.edit-validator-editor-row-right input {
+    font-size: 11px;
+    font-weight: 600;
+
+    width: auto;
+    height: 15px;
+
+    box-sizing: content-box;
+    overflow: hidden;
+
+    padding: 0;
+    margin: 0;
+
+    background-color: $surface-dark;
+    border: none;
+
+    font-family: "Roboto Mono", monospace;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+.edit-validator-editor-row-right input {
+    width: 61px;
     
-    height: 18px;
-
-    margin: 0 5px 0 5px;
-    padding: 2px 5px 2px 15px;
+    color: $primary-600;
 }
 
-.edit-validator-list-checkbox.active,
-.edit-validator-list-checkbox:hover {
-    background-color: $surface-mixed-200;
-}
-
-.edit-validator-list-checkbox label {
-    font-size: 11px;
-    font-weight: 600;
-    color: white;
-
-    cursor: pointer;
-}
-
-.edit-validator-list-checkbox input[type=checkbox] {
-    width: 10px;
-    height: 10px;
-
-    margin:0;
-    padding:0;
-
-    margin-right: 5px;
-
-    accent-color: $primary-600;
-
-    cursor: pointer;
-}
-
-.edit-validator-list-checkbox.option input[type=text] {
-    font-size: 11px;
-    font-weight: 600;
-    color: white;
-
-    width: 10%;
-
-    background-color: #2f2b3a;
-    border: none;
-}
-
-.edit-validator-list-checkbox.option input[type=text]:focus-visible {
+.edit-validator-editor-row-right input:focus-visible {
     outline: none;
 }
 
-.edit-validator-list-checkbox.option {
-    margin-left: 30px;
-}
-
-.edit-validator-list-checkbox.option label {
-    width: 35px;
-}
-
-.edit-validator-list-checkbox.option input[type=text] {
-    margin-left: 15px;
-}
-
-.edit-validator-list-checkbox.option:hover {
-    background: none;
-}
-
-.edit-validator-list-checkbox.main-option input[type=text] {
+.edit-validator-editor-row-right p {
     font-size: 11px;
     font-weight: 600;
-    color: white;
 
-    width: 25%;
+    padding: 0;
+    margin: 0 0 0 -1px;
 
-    background-color: #2f2b3a;
-    border: none;
-}
+    color: $primary-1000;
 
-.edit-validator-list-checkbox.main-option input[type=text]:focus-visible {
-    outline: none;
-}
-
-.edit-validator-list-checkbox.main-option label {
-    width: 35px;
-}
-
-.edit-validator-list-checkbox.main-option input[type=text] {
-    margin-left: 15px;
-}
-
-.edit-validator-list-checkbox.main-option:hover {
-    background: none;
+    font-family: "Roboto Mono", monospace;
+    font-style: normal;
+    font-optical-sizing: auto;
 }
 
 .edit-validator-slim-button {
@@ -494,4 +515,30 @@
     font-size: 11px;
     font-weight: 500;
     color: $surface-mixed-600;
+}
+
+.edit-validator-hidden {
+    display: flex;
+    flex-direction: column;
+
+    visibility: hidden;
+}
+
+.edit-validator-hidden-rows {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-validator-hidden-rows span {
+    font-size: 11px;
+    font-weight: 600;
+
+    position: absolute;
+    white-space: pre;
+
+    color: white;
+
+    font-family: "Roboto Mono", monospace;
+    font-style: normal;
+    font-optical-sizing: auto;
 }

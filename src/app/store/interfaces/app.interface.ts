@@ -16,19 +16,6 @@ export interface SchemaRow {
     placeholderIndex?: number;
 }
 
-export interface ValidatorOption {
-    isAlpha: boolean;
-    matches: boolean;
-    matchesValue: string;
-    isUUID: boolean;
-    isMongoId: boolean;
-    isLength: boolean;
-    isLengthMin: boolean;
-    isLengthMinValue: string | number;
-    isLengthMax: boolean;
-    isLengthMaxValue: string | number;
-}
-
 export interface WorkflowRow {
     position: string | number;
     service: string;
@@ -74,7 +61,9 @@ export interface Validator {
     name: string;
     field: 'param' | 'body';
     path: string;
-    validation: string | ValidatorOption;
+    validation: string;
+    placeholder?: string;
+    placeholderIndex?: number;
 }
 
 export interface Workflow {

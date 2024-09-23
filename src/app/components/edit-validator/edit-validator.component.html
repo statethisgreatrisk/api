@@ -41,6 +41,19 @@
         <div class="edit-validator-label">
             <p>Validation</p>
         </div>
+        <div class="edit-validator-editor-container" *ngIf="validator">
+            <div class="edit-validator-editor-row-left-container">
+                <div class="edit-validator-editor-row-left">
+                    <p>1</p>
+                </div>
+            </div>
+            <div class="edit-validator-editor-row-right-container">
+                <div class="edit-validator-editor-row-right">
+                    <input #validationInput type="text" placeholder="validator" [(ngModel)]="validator.validation" (input)="adjustValidationWidth()" (keydown)="typeahead($event)">
+                    <p>{{ validator.placeholder }}</p>
+                </div>
+            </div>
+        </div>
         <div class="edit-validator-buttons">
             <div class="edit-validator-cancel" (click)="cancel()">
                 <p>Cancel</p>
@@ -55,6 +68,11 @@
         <div class="edit-validator-path-docs">
             <div class="edit-validator-path-doc">
                 <p>Field selection and validators are based on express-validator 7.x. See the express-validator documentation for details.</p>
+            </div>
+        </div>
+        <div class="edit-validator-hidden" *ngIf="validator">
+            <div class="edit-validator-hidden-rows">
+                <span #validationSpan>{{ validator.validation }}</span>
             </div>
         </div>
     </div>
