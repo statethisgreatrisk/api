@@ -9,16 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './api-view.component.scss'
 })
 export class ApiViewComponent {
-  dropdownVisible = false;
-  dropdownVisible2 = false;
 
-  toggleDropdown() {
-    if (this.dropdownVisible2) this.dropdownVisible2 = false;
-    this.dropdownVisible = !this.dropdownVisible;
-  }
-
-  toggleDropdown2() {
-    if (this.dropdownVisible) this.dropdownVisible = false;
-    this.dropdownVisible2 = !this.dropdownVisible2;
-  }
 }

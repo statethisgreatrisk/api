@@ -8,51 +8,43 @@
             <div class="api-view-breadcrumb">
                 <p class="active">/commits</p>
             </div>
+            <div class="api-view-slim-button inline">
+                <p>Add another row</p>
+            </div>
+            <div class="spacer"></div>
+            <p class="cancel">Cancel</p>
+            <p class="save">Save</p>
         </div>
         <div class="api-view-editor-container">
             <div class="api-view-editor">
                 <div class="api-view-editor-row">
                     <div class="api-view-editor-row-prefix">
-                        <p [ngClass]="{ 'visible': dropdownVisible2 }">1</p>
+                        <p>1</p>
                     </div>
-                    <div class="api-view-editor-row-select" (click)="toggleDropdown2()">
-                        <div class="api-view-editor-row-select-button">
-                            <p [ngClass]="{ 'visible': dropdownVisible2 }" class="row-service">API</p>
-                            <img src="/down.png" [ngClass]="{ 'visible': dropdownVisible2 }">
-                        </div>
-                        <div class="api-view-editor-row-select-dropdown" *ngIf="dropdownVisible2">
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>API</p>
-                            </div>
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>Storage</p>
-                            </div>
-                            <div class="api-view-editor-row-select-dropdown-button">
-                                <p>Variable</p>
-                            </div>
-                        </div>
+                    <div class="api-view-editor-row-app">
+                        <p>Storage.create</p>
                     </div>
-                    <div class="api-view-editor-row-variable" [ngClass]="{ 'visible': dropdownVisible2 }">
-                        <p class="text">getUsers</p>
-                        <!-- <p class="placeholder">variable</p> -->
-                        <!-- <div class="input">
-                            <input>
-                            <div class="input-dropdown">
-                                <div class="input-dropdown-option">
-                                    <p>dropdownSettings</p>
-                                </div>
-                            </div>
-                        </div> -->
+                    <div class="api-view-editor-row-variable">
+                        <input type="text" value="storeDoc">
                     </div>
-                    <div class="api-view-editor-row-service" [ngClass]="{ 'visible': dropdownVisible2 }">
-                        <p class="text">Get Users</p>
-                        <!-- <p class="placeholder">service</p> -->
-                        <!-- <div class="input">
-                            <input>
-                        </div> -->
+                    <div class="api-view-editor-row-equals">
+                        <p>=</p>
                     </div>
-                    <div class="api-view-editor-row-detail" [ngClass]="{ 'visible': dropdownVisible2 }">
-                        <p class="text">/api/:apiKey/users/:userId</p>
+                    <div class="api-view-editor-row-command-open">
+                        <p>Storage.create(</p>
+                    </div>
+                    <div class="api-view-editor-row-args">
+                        <input type="text" value="document">
+                    </div>
+                    <div class="api-view-editor-row-command-close">
+                        <p>)</p>
+                    </div>
+                    <div class="api-view-editor-row-spacer"></div>
+                    <div class="api-view-editor-row-detail">
+                        <p></p>
+                    </div>
+                    <div class="api-view-editor-row-remove">
+                        <img src="/x.png">
                     </div>
                 </div>
             </div>
