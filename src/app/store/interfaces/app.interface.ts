@@ -17,11 +17,10 @@ export interface SchemaRow {
 }
 
 export interface WorkflowRow {
-    position: string | number;
-    service: string;
+    _id: string;
+    appId: string;
     variable: string;
-    command: string;
-    detail: string;
+    args: string;
 }
 
 export interface API {
