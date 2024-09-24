@@ -31,31 +31,39 @@
                         <p>{{ index + 1 }}</p>
                     </div>
                     <div class="api-view-editor-row-app">
-                        <p>Storage.create</p>
+                        <p *ngIf="row.appId">{{ findAppName(row.appId) }}</p>
                     </div>
                     <div class="api-view-editor-row-variable">
-                        <input type="text" value="storeDoc">
+                        <input #rowVariableInputs *ngIf="!row.appId" type="text" placeholder="" (input)="adjustVariableWidth(index)" disabled>
+                        <input #rowVariableInputs *ngIf="row.appId" type="text" placeholder="variable name" [(ngModel)]="row.variable" (input)="adjustVariableWidth(index)">
                     </div>
                     <div class="api-view-editor-row-equals">
-                        <p>=</p>
+                        <p *ngIf="row.appId">=</p>
                     </div>
                     <div class="api-view-editor-row-command-open">
-                        <p>Storage.create(</p>
+                        <p *ngIf="row.appId">{{ findAppName(row.appId) }}(</p>
                     </div>
                     <div class="api-view-editor-row-args">
-                        <input type="text" value="document">
+                        <input #rowArgsInputs *ngIf="!row.appId" type="text" (input)="adjustArgsWidth(index)" disabled>
+                        <input #rowArgsInputs *ngIf="row.appId" type="text" placeholder="arguments" [(ngModel)]="row.args" (input)="adjustArgsWidth(index)">
                     </div>
                     <div class="api-view-editor-row-command-close">
-                        <p>)</p>
+                        <p *ngIf="row.appId">)</p>
                     </div>
                     <div class="api-view-editor-row-spacer"></div>
                     <div class="api-view-editworkflowsor-row-detail">
-                        <p></p>
+                        <p *ngIf="row.appId"></p>
                     </div>
                     <div class="api-view-editor-row-remove" (click)="removeRow(row._id)">
                         <img src="/x.png">
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="api-view-hidden" *ngIf="workflow">
+            <div class="api-view-hidden-rows" *ngFor="let row of workflow.rows;">
+                <span #rowVariableSpans>{{ row.variable }}</span>
+                <span #rowArgsSpans>{{ row.args }}</span>
             </div>
         </div>
     </div>

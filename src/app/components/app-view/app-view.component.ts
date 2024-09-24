@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { App, AppStateInit } from '../../store/interfaces/app.interface';
 import { selectApps } from '../../store/selectors/app.selector';
+import { SelectAppService } from '../../services/select-app.service';
 
 @Component({
   selector: 'app-app-view',
@@ -16,6 +17,7 @@ export class AppViewComponent {
 
   constructor(
     private store: Store<AppStateInit>,
+    private selectAppService: SelectAppService,
   ) {}
 
   ngOnInit() {
@@ -24,7 +26,12 @@ export class AppViewComponent {
 
   initApps() {
     this.store.select(selectApps).subscribe((apps) => {
-      this.apps = apps;
+      const mutableApps = [...apps];
+      this.apps = mutableApps.sort((a, b) => (a.name + a.method).localeCompare(b.name + b.method));
     });
+  }
+
+  selectApp(app: App) {
+    this.selectAppService.selectApp(app);
   }
 }

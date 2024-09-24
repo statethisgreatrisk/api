@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { App, AppStateInit, User, View, Workflow } from '../../store/interfaces/app.interface';
 import { selectApps, selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
@@ -8,6 +8,7 @@ import ObjectId from 'bson-objectid';
 import { deleteWorkflow, deselectWindow, updateWorkflow } from '../../store/actions/app.action';
 import { DeleteService } from '../../services/delete.service';
 import { FormsModule } from '@angular/forms';
+import { SelectAppService } from '../../services/select-app.service';
 
 @Component({
   selector: 'app-api-view',
@@ -22,6 +23,7 @@ export class ApiViewComponent {
   workflow: Workflow | null = null;
 
   sub: Subscription | null = null;
+  selectAppSub: Subscription | null = null;
 
   apps: App[] = [];
 
@@ -29,18 +31,30 @@ export class ApiViewComponent {
 
   @ViewChild('editNameElement') editNameElement!: ElementRef<HTMLInputElement>;
 
+  @ViewChildren('rowVariableInputs') rowVariableInputs!: QueryList<ElementRef>;
+  @ViewChildren('rowArgsInputs') rowArgsInputs!: QueryList<ElementRef>;
+  @ViewChildren('rowVariableSpans') rowVariableSpans!: QueryList<ElementRef>;
+  @ViewChildren('rowArgsSpans') rowArgsSpans!: QueryList<ElementRef>;
+
   constructor(
     private store: Store<AppStateInit>,
+    private selectAppService: SelectAppService,
     private deleteService: DeleteService,
     private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
     this.initLatest();
+    this.initSelectApp();
   }
 
   ngOnDestroy() {
     this.sub?.unsubscribe();
+    this.selectAppSub?.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    this.adjustAllInputs();
   }
 
   initLatest() {
@@ -63,14 +77,57 @@ export class ApiViewComponent {
           let mutableRow = { ...row };
           return mutableRow;
         });
+        
+        this.adjustAllInputs();
       }
     });
   }
 
-  addRow() {
+  initSelectApp() {
+    this.selectAppSub = this.selectAppService.app$.subscribe((app) => {
+      if (!app) return;
+      
+      this.addRow(app);
+    });
+  }
+
+  adjustAllInputs() {
+    if (!this.workflow || !this.workflow.rows) return;
+
+    Array.from({ length: this.workflow.rows.length }).forEach((_, index) => {
+      this.adjustVariableWidth(index);
+      this.adjustArgsWidth(index);
+    });
+  }
+
+  adjustVariableWidth(index: number) {
+    this.cdr.detectChanges();
+
+    const inputElement = this.rowVariableInputs.toArray()[index].nativeElement;
+    const spanElement = this.rowVariableSpans.toArray()[index].nativeElement;
+    const width = spanElement.offsetWidth === 0 ? 87 : spanElement.offsetWidth + 1;
+  
+    inputElement.style.width = `${width}px`;
+  }
+  
+  adjustArgsWidth(index: number) {
+    this.cdr.detectChanges();
+
+    const inputElement = this.rowArgsInputs.toArray()[index].nativeElement;
+    const spanElement = this.rowArgsSpans.toArray()[index].nativeElement;
+    const width = spanElement.offsetWidth === 0 ? 60 : spanElement.offsetWidth + 1;
+
+    inputElement.style.width = `${width}px`;  
+  }
+
+  addRow(app?: App) {
     if (!this.workflow) return;
 
-    this.workflow.rows.push({ _id: new ObjectId().toHexString(), appId: '', variable: '', args: '' });
+    if (!app) {
+      this.workflow.rows.push({ _id: new ObjectId().toHexString(), appId: '', variable: '', args: '' });
+    } else {
+      this.workflow.rows.push({ _id: new ObjectId().toHexString(), appId: app._id, variable: '', args: '' });
+    }
   }
 
   removeRow(_id: string) {
@@ -104,6 +161,15 @@ export class ApiViewComponent {
         this.cancel();
       },
     });
+  }
+
+  findAppName(appId: string) {
+    if (!appId || !this.workflow) return;
+
+    const app = this.apps.find((app) => app._id === appId);
+
+    if (!app) return '';
+    return app.name + '.' + app.method;
   }
 
   showEditName() {

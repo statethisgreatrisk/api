@@ -9,29 +9,9 @@
         </div>
     </div>
     <div class="app-view-button-list">
-        <div class="app-view-button">
-            <img src="/app.png">
-            <p>Object.create</p>
-        </div>
-        <div class="app-view-button" *ngFor="let app of apps">
+        <div class="app-view-button" *ngFor="let app of apps" (click)="selectApp(app)">
             <img src="/app.png">
             <p>{{ app.name }}.{{ app.method }}</p>
-        </div>
-        <div class="app-view-button">
-            <img src="/app.png">
-            <p>Storage.find</p>
-        </div>
-        <div class="app-view-button">
-            <img src="/app.png">
-            <p>Storage.query</p>
-        </div>
-        <div class="app-view-button">
-            <img src="/app.png">
-            <p>API.status</p>
-        </div>
-        <div class="app-view-button">
-            <img src="/app.png">
-            <p>API.send</p>
         </div>
     </div>
     <div class="app-view-divider">
