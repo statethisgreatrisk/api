@@ -1,0 +1,212 @@
+@import '../../styles/palette.component.scss';
+
+.deploy-select {
+    display: flex;
+    flex-direction: row;
+
+    height: 40px;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.deploy-select p {
+    font-size: 12px;
+    font-weight: 800;
+
+    color: white;
+}
+
+.deploy-select-container {
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+    width: 115px;
+    height: 30px;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: pointer;
+
+    background-color: $primary-1300;
+    border-radius: 3px;
+}
+
+.deploy-select-button {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.deploy-select-button p {
+    font-size: 12px;
+    font-weight: 600;
+    color: $surface-dark;
+}
+
+.deploy-select-button img {
+    width: 15px;
+    height: 15px;
+    padding-left: 5px;
+}
+
+.deploy-select-dropdown {
+    display: flex;
+    flex-direction: column;
+    
+    width: 100%;
+
+    top: 27px;
+
+    position: absolute;
+
+    background-color: $primary-1300;
+    border-radius: 0 0 3px 3px;
+    border: 1px solid $surface-dark;
+
+    z-index: 2;
+}
+
+.deploy-select-dropdown-button {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    height: 30px;
+
+    padding-left: 10px;
+
+    border-top: 1px solid $surface-dark;
+}
+
+.deploy-select-dropdown-button p {
+    font-size: 12px;
+    font-weight: 600;
+    color: $surface-dark;
+}
+
+.deploy-select-dropdown-button:hover {
+    background-color: $surface-dark;
+}
+
+.deploy-select-dropdown-button:hover p {
+    color: $primary-600;
+}
+
+.deploy-start {
+    display: flex;
+    flex-direction: row;
+
+    height: 40px;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.deploy-start p {
+    font-size: 12px;
+    font-weight: 800;
+
+    color: white;
+}
+
+.deploy-start p:nth-child(2) {
+    font-size: 12px;
+    font-weight: 600;
+
+    padding: 5px 15px;
+
+    color: white;
+
+    border-radius: 5px;
+    border: 1px solid $primary-800;
+    background: $primary-800;
+
+    cursor: pointer;
+}
+
+.deploy-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.deploy-name {
+    display: flex;
+    flex-direction: row;
+
+    height: 40px;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.deploy-name-detail {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+}
+
+.deploy-name-detail p:nth-child(2) {
+    font-size: 20px;
+    font-weight: 600;
+
+    margin-left: 10px;
+
+    color: $light-green;
+}
+
+.deploy-name p {
+    font-size: 12px;
+    font-weight: 800;
+
+    color: white;
+}
+
+.deploy-stop {
+    display: flex;
+    flex-direction: row;
+
+    height: 40px;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.deploy-stop p {
+    font-size: 12px;
+    font-weight: 800;
+
+    color: white;
+}
+
+.deploy-stop p:nth-child(2) {
+    font-size: 12px;
+    font-weight: 600;
+
+    padding: 5px 15px;
+
+    color: white;
+
+    border-radius: 5px;
+    border: 1px solid $delete;
+    background: $delete;
+
+    cursor: pointer;
+}

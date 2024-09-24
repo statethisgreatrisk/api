@@ -1,0 +1,45 @@
+<div class="deploy-view">
+    <div class="deploy-select">
+        <p>Container size</p>
+        <div class="deploy-select-container">
+            <div class="deploy-select-button" (click)="toggleDropdown()">
+                <p>container-mini</p>
+                <img src="/down.png">
+            </div>
+            <div class="deploy-select-dropdown" *ngIf="dropdown">
+                <div class="deploy-select-dropdown-button">
+                    <p>container-mini</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="deploy-select">
+        <p>Container expiration</p>
+        <div class="deploy-select-container">
+            <div class="deploy-select-button" (click)="toggleDropdown2()">
+                <p>container-1-hour</p>
+                <img src="/down.png">
+            </div>
+            <div class="deploy-select-dropdown" *ngIf="dropdown2">
+                <div class="deploy-select-dropdown-button">
+                    <p>container-1-hour</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="deploy-start">
+        <p>Start</p>
+        <p>Start Container</p>
+    </div>
+    <div class="deploy-name">
+        <p>Status</p>
+        <div class="deploy-name-detail">
+            <p>Running</p>
+            <p>•</p>
+        </div>
+    </div>
+    <div class="deploy-stop">
+        <p>Stop</p>
+        <p>Stop Container</p>
+    </div>
+</div>
