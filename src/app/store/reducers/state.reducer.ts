@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { appState } from "../states/state";
-import { addAPI, addAPIs, addSchema, addSchemas, addStorage, addStorages, addUser, addValidator, addValidators, addWorkflow, addWorkflows, deselectService, deselectWindow, log, removeAPI, removeSchema, removeStorage, removeValidator, removeWorkflow, replaceAPI, replaceSchema, replaceStorage, replaceValidator, replaceWorkflow, selectService, selectWindow } from "../actions/app.action";
-import { addAPIFn, addAPIsFn, addSchemaFn, addSchemasFn, addStorageFn, addStoragesFn, addUserFn, addValidatorFn, addValidatorsFn, addWorkflowFn, addWorkflowsFn, deselectServiceFn, deselectWindowFn, logFn, removeAPIFn, removeSchemaFn, removeStorageFn, removeValidatorFn, removeWorkflowFn, replaceAPIFn, replaceSchemaFn, replaceStorageFn, replaceValidatorFn, replaceWorkflowFn, selectServiceFn, selectWindowFn } from "./app.reducer";
+import { addAPI, addAPIs, addApps, addSchema, addSchemas, addStorage, addStorages, addUser, addValidator, addValidators, addWorkflow, addWorkflows, deselectService, deselectWindow, log, removeAPI, removeSchema, removeStorage, removeValidator, removeWorkflow, replaceAPI, replaceSchema, replaceStorage, replaceValidator, replaceWorkflow, selectService, selectWindow } from "../actions/app.action";
+import { addAPIFn, addAPIsFn, addAppsFn, addSchemaFn, addSchemasFn, addStorageFn, addStoragesFn, addUserFn, addValidatorFn, addValidatorsFn, addWorkflowFn, addWorkflowsFn, deselectServiceFn, deselectWindowFn, logFn, removeAPIFn, removeSchemaFn, removeStorageFn, removeValidatorFn, removeWorkflowFn, replaceAPIFn, replaceSchemaFn, replaceStorageFn, replaceValidatorFn, replaceWorkflowFn, selectServiceFn, selectWindowFn } from "./app.reducer";
 
 export const appStateReducer = createReducer(
     appState,
@@ -32,6 +32,8 @@ export const appStateReducer = createReducer(
     on(addWorkflow, (state, { workflow }) => addWorkflowFn(state, workflow)),
     on(replaceWorkflow, (state, { workflow }) => replaceWorkflowFn(state, workflow)),
     on(removeWorkflow, (state, { workflowId }) => removeWorkflowFn(state, workflowId)),
+    // App
+    on(addApps, (state, { apps }) => addAppsFn(state, apps)),
     // Services/View
     on(log, (state, { any }) => logFn(state, any)),
     on(selectService, (state, { serviceName, serviceId }) => selectServiceFn(state, serviceName, serviceId)),

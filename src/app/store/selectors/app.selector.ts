@@ -10,3 +10,4 @@ export const selectStorages = createSelector(selectApp, (state: AppState) => sta
 export const selectSchemas = createSelector(selectApp, (state: AppState) => state.schemas);
 export const selectValidators = createSelector(selectApp, (state: AppState) => state.validators);
 export const selectWorkflows = createSelector(selectApp, (state: AppState) => state.workflows);
+export const selectApps = createSelector(selectApp, (state: AppState) => state.apps);

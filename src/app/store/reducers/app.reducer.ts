@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App } from "../interfaces/app.interface";
 
 // User
 
@@ -145,6 +145,13 @@ export const replaceWorkflowFn: (state: AppState, workflow: Workflow) => AppStat
 export const removeWorkflowFn: (state: AppState, workflowId: string) => AppState = (state: AppState, workflowId: string) => {
     if (!workflowId) return { ...state };
     return { ...state, workflows: state.workflows.filter((workflow) => workflow._id !== workflowId) };
+}
+
+// App
+
+export const addAppsFn: (state: AppState, apps: App[]) => AppState = (state: AppState, apps: App[]) => {
+    if (!apps) return { ...state };
+    return { ...state, apps: state.apps.concat(apps) };
 }
 
 // Services/View

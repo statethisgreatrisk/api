@@ -6,6 +6,7 @@ export const appState: AppState = {
     schemas: [],
     validators: [],
     workflows: [],
+    apps: [],
 
     user: null,
     view: { service: '', serviceId: '', window: 'Workflow', windowId: '1' },

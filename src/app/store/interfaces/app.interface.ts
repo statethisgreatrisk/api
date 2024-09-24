@@ -74,6 +74,15 @@ export interface Workflow {
     rows: WorkflowRow[];
 }
 
+export interface App {
+    _id: string;
+    userId: string;
+    date: string;
+    active: boolean;
+    name: string;
+    method: string;
+}
+
 export interface View {
     service: string;
     serviceId: string;
@@ -98,6 +107,7 @@ export interface AppState {
     storages: Storage[];
     schemas: Schema[];
     workflows: Workflow[];
+    apps: App[];
     
     user: User | null;
     view: View;

@@ -9,7 +9,7 @@ import { StorageViewComponent } from './components/storage-view/storage-view.com
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
-import { getAPIs, getSchemas, getStorages, getUser, getValidators, getWorkflows } from './store/actions/app.action';
+import { getAPIs, getApps, getSchemas, getStorages, getUser, getValidators, getWorkflows } from './store/actions/app.action';
 import { selectView } from './store/selectors/app.selector';
 import { DeleteViewComponent } from './components/delete-view/delete-view.component';
 import { DeleteService } from './services/delete.service';
@@ -51,6 +51,7 @@ export class AppComponent {
     this.dispatchSchemas();
     this.dispatchValidators();
     this.dispatchWorkflows();
+    this.dispatchApps();
   }
 
   initView() {
@@ -86,5 +87,9 @@ export class AppComponent {
 
   dispatchWorkflows() {
     this.store.dispatch(getWorkflows({ userId: '66e7f036567ffc29c90400f5' }));
+  }
+
+  dispatchApps() {
+    this.store.dispatch(getApps({ userId: '66e7f036567ffc29c90400f5' }));
   }
 }

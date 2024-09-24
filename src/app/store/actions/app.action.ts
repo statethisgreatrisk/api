@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, Schema, Storage, User, Validator, Workflow } from "../interfaces/app.interface";
+import { API, App, Schema, Storage, User, Validator, Workflow } from "../interfaces/app.interface";
 
 export const getUser = createAction('[GET] User', props<{userId: string}>());
 export const addUser = createAction('[ADD] User', props<{user: User}>());
@@ -53,6 +53,10 @@ export const updateWorkflow = createAction('[UPDATE] Workflow', props<{workflow:
 export const replaceWorkflow = createAction('[REPLACE] Workflow', props<{workflow: Workflow}>());
 export const deleteWorkflow = createAction('[DELETE] Workflow', props<{userId: string, workflowId: string}>());
 export const removeWorkflow = createAction('[REMOVE] Workflow', props<{workflowId: string}>());
+
+// App
+export const getApps = createAction('[GET] Apps', props<{userId: string}>());
+export const addApps = createAction('[ADD] Apps', props<{apps: App[]}>());
 
 export const selectService = createAction('[SELECT] Service', props<{ serviceName: string, serviceId: string }>());
 export const deselectService = createAction('[DESELECT] Service', props<{ serviceName: string, serviceId: string }>());

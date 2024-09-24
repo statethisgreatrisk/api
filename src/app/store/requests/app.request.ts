@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
-import { API, Schema, Storage, User, Validator, Workflow } from "../interfaces/app.interface";
+import { API, App, Schema, Storage, User, Validator, Workflow } from "../interfaces/app.interface";
 
 const url = 'http://localhost:3000/v1';
 
@@ -126,5 +126,12 @@ export class AppRequest {
   deleteWorkflow(userId: string, workflowId: string): Observable<string> {
     const endpoint = `${url}/workflow/:userId/:workflowId`.replace(':userId', userId).replace(':workflowId', workflowId);
     return this.http.delete<string>(endpoint);
+  }
+
+  // App
+
+  getApps(userId: string): Observable<App[]> {
+    const endpoint = `${url}/app/:userId`.replace(':userId', userId);
+    return this.http.get<App[]>(endpoint);
   }
 }
