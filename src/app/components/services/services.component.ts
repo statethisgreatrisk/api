@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, SchemaRow } from '../../store/interfaces/app.interface';
-import { createAPI, createSchema, createStorage, createValidator, createWorkflow, deselectService, selectService } from '../../store/actions/app.action';
+import { createAPI, createSchema, createStorage, createValidator, createWorkflow, deselectService, deselectWindow, selectService, selectWindow } from '../../store/actions/app.action';
 import { selectAPIs, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import ObjectId from 'bson-objectid';
 
@@ -50,6 +50,14 @@ export class ServicesComponent {
       this.store.dispatch(deselectService({ serviceName, serviceId }));
     } else {
       this.store.dispatch(selectService({ serviceName, serviceId }));
+    }
+  }
+
+  selectWorkflow(windowName: string, windowId: string) {
+    if (windowName === this.view.window && windowId === this.view.windowId) {
+      this.store.dispatch(deselectWindow({ windowName, windowId }));
+    } else {
+      this.store.dispatch(selectWindow({ windowName, windowId }));
     }
   }
 

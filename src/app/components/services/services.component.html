@@ -10,7 +10,7 @@
             </div>
             <!-- Workflow -->
             <div class="service-data-list" *ngIf="service.name === 'Workflow'">
-                <div class="service-data" [ngClass]="{ 'active': view.serviceId === w._id }" *ngFor="let w of workflows" (click)="selectService(service.name, w._id)">
+                <div class="service-data" [ngClass]="{ 'active': view.windowId === w._id }" *ngFor="let w of workflows" (click)="selectWorkflow(service.name, w._id)">
                     <img [src]="service.icon">
                     <p>{{ w.name }}</p>
                 </div>

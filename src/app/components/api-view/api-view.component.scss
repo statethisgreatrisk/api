@@ -56,6 +56,26 @@
     cursor: pointer;
 }
 
+.api-view-breadcrumb input {
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+
+    width: 100px;
+    height: 15px;
+
+    padding: 0 4px;
+    margin: 0;
+    margin-left: 15px;
+
+    background-color: $surface-mixed-100;
+    border: 1px solid $primary-600;
+}
+
+.api-view-breadcrumb input:focus-visible {
+    outline: none;
+}
+
 .api-view-breadcrumb p.initial {
     margin-left: 0px;
 }
