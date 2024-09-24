@@ -76,6 +76,8 @@ export class EditWorkflowComponent {
   }
 
   openView() {
-    this.store.dispatch(selectWindow({ windowName: 'Workflow', windowId: '1' }));
+    if (!this.workflow) return;
+
+    this.store.dispatch(selectWindow({ windowName: 'Workflow', windowId: this.workflow._id }));
   }
 }

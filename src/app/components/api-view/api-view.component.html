@@ -5,21 +5,21 @@
                 <p class="initial">API Workflow</p>
                 <img src="/right.png">
             </div>
-            <div class="api-view-breadcrumb">
-                <p class="active">/commits</p>
+            <div class="api-view-breadcrumb" *ngIf="workflow">
+                <p class="active">{{ workflow.name }}</p>
             </div>
             <div class="api-view-slim-button inline">
-                <p>Add another row</p>
+                <p>Add blank row</p>
             </div>
             <div class="spacer"></div>
             <p class="cancel">Cancel</p>
             <p class="save">Save</p>
         </div>
         <div class="api-view-editor-container">
-            <div class="api-view-editor">
-                <div class="api-view-editor-row">
+            <div class="api-view-editor" *ngIf="workflow">
+                <div class="api-view-editor-row" *ngFor="let row of workflow.rows; index as index">
                     <div class="api-view-editor-row-prefix">
-                        <p>1</p>
+                        <p>{{ index + 1 }}</p>
                     </div>
                     <div class="api-view-editor-row-app">
                         <p>Storage.create</p>
@@ -40,7 +40,7 @@
                         <p>)</p>
                     </div>
                     <div class="api-view-editor-row-spacer"></div>
-                    <div class="api-view-editor-row-detail">
+                    <div class="api-view-editworkflowsor-row-detail">
                         <p></p>
                     </div>
                     <div class="api-view-editor-row-remove">

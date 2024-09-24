@@ -112,6 +112,8 @@ export class EditStorageComponent {
   }
 
   openView() {
-    this.store.dispatch(selectWindow({ windowName: 'Storage', windowId: '1' }));
+    if (!this.storage) return;
+
+    this.store.dispatch(selectWindow({ windowName: 'Storage', windowId: this.storage._id }));
   }
 }
