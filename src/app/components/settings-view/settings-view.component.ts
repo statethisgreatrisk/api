@@ -1,11 +1,16 @@
 import { NgClass, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { SettingsService } from '../../services/settings.service';
+import { AccountViewComponent } from '../account-view/account-view.component';
 
 @Component({
   selector: 'app-settings-view',
   standalone: true,
-  imports: [NgIf, NgClass],
+  imports: [
+    NgIf,
+    NgClass,
+    AccountViewComponent,
+  ],
   templateUrl: './settings-view.component.html',
   styleUrl: './settings-view.component.scss'
 })
