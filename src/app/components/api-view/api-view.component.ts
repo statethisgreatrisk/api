@@ -97,7 +97,7 @@ export class ApiViewComponent {
     const workflow = this.workflow;
 
     this.deleteService.initDelete({
-      service: this.view.service,
+      service: this.view.window,
       serviceData: workflow,
       deleteFn: () => {
         this.store.dispatch(deleteWorkflow({ userId: workflow.userId, workflowId: workflow._id }));

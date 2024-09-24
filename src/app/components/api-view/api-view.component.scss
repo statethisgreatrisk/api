@@ -153,12 +153,28 @@
     width: auto;
 }
 
+.api-view-slim-button.text {
+    width: auto;
+
+    margin-left: 5px;
+    
+    cursor: default;
+}
+
 .api-view-slim-button p {
     font-size: 11px;
     font-weight: 600;
     color: $surface-mixed-600;
 
     border-bottom: 1px solid $surface-mixed-600;
+}
+
+.api-view-slim-button.text p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-600;
+
+    border-bottom: 1px solid $surface-mixed-100;
 }
 
 .api-view-editor-container {

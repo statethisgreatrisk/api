@@ -14,6 +14,9 @@
             <div class="api-view-slim-button inline" (click)="addRow()">
                 <p>Add blank row</p>
             </div>
+            <div class="api-view-slim-button text">
+                <p>or select an App</p>
+            </div>
             <div class="spacer"></div>
             <div class="api-view-slim-button inline" (click)="delete()">
                 <p>Delete workflow</p>
@@ -49,7 +52,7 @@
                     <div class="api-view-editworkflowsor-row-detail">
                         <p></p>
                     </div>
-                    <div class="api-view-editor-row-remove">
+                    <div class="api-view-editor-row-remove" (click)="removeRow(row._id)">
                         <img src="/x.png">
                     </div>
                 </div>
