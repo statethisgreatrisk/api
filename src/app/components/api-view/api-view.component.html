@@ -26,9 +26,9 @@
         </div>
         <div class="api-view-editor-container">
             <div class="api-view-editor" *ngIf="workflow">
-                <div class="api-view-editor-row" *ngFor="let row of workflow.rows; index as index">
+                <div class="api-view-editor-row" *ngFor="let row of workflow.rows; index as index" (click)="selectRow(row._id)">
                     <div class="api-view-editor-row-prefix">
-                        <p>{{ index + 1 }}</p>
+                        <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                     </div>
                     <div class="api-view-editor-row-app">
                         <p *ngIf="row.appId">{{ findAppName(row.appId) }}</p>

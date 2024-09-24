@@ -22,10 +22,12 @@ export class ApiViewComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   workflow: Workflow | null = null;
 
+  apps: App[] = [];
+
   sub: Subscription | null = null;
   selectAppSub: Subscription | null = null;
 
-  apps: App[] = [];
+  selectedRowId: string = '';
 
   editingName: boolean = false;
 
@@ -123,17 +125,25 @@ export class ApiViewComponent {
   addRow(app?: App) {
     if (!this.workflow) return;
 
-    if (!app) {
-      this.workflow.rows.push({ _id: new ObjectId().toHexString(), appId: '', variable: '', args: '' });
-    } else {
-      this.workflow.rows.push({ _id: new ObjectId().toHexString(), appId: app._id, variable: '', args: '' });
-    }
+    const selectedRow = this.workflow.rows.findIndex((row) => row._id === this.selectedRowId);
+    const index = selectedRow >= 0 ? selectedRow + 1 : this.workflow.rows.length;
+    const newApp = { _id: new ObjectId().toHexString(), appId: '', variable: '', args: '' };
+
+    if (app) newApp.appId = app._id;
+
+    this.workflow.rows.splice(index, 0, newApp);
+    this.selectRow(newApp._id);
   }
 
   removeRow(_id: string) {
     if (!this.workflow) return;
 
     this.workflow.rows = this.workflow.rows.filter((row) => row._id !== _id);
+  }
+
+  selectRow(_id: string) {
+    if (!this.workflow) return;
+    this.selectedRowId = _id;
   }
 
   cancel() {
