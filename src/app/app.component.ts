@@ -14,6 +14,8 @@ import { selectView } from './store/selectors/app.selector';
 import { DeleteViewComponent } from './components/delete-view/delete-view.component';
 import { DeleteService } from './services/delete.service';
 import { AppViewComponent } from './components/app-view/app-view.component';
+import { SettingsViewComponent } from './components/settings-view/settings-view.component';
+import { SettingsService } from './services/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +31,7 @@ import { AppViewComponent } from './components/app-view/app-view.component';
     ToastViewComponent,
     DeleteViewComponent,
     AppViewComponent,
+    SettingsViewComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -36,15 +39,18 @@ import { AppViewComponent } from './components/app-view/app-view.component';
 export class AppComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   deleteData: DeleteData | null = null;
+  settingsOpen: boolean = false;
 
   constructor(
     private store: Store<AppStateInit>,
     private deleteService: DeleteService,
+    private settingsService: SettingsService,
   ) {}
 
   ngOnInit() {
     this.initView();
     this.initDeleteView();
+    this.initSettingsView();
     this.dispatchUser();
     this.dispatchAPIs();
     this.dispatchStorages();
@@ -63,6 +69,10 @@ export class AppComponent {
 
   initDeleteView() {
     this.deleteService.deleteData$.subscribe((deleteData) => this.deleteData = deleteData);
+  }
+
+  initSettingsView() {
+    this.settingsService.settingsOpen$.subscribe((settingsOpen) => this.settingsOpen = settingsOpen);
   }
 
   dispatchUser() {

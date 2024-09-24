@@ -1,0 +1,116 @@
+@import '../../styles/palette.component.scss';
+
+.settings-view {
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px 20px;
+
+    width: 600px;
+    height: 400px;
+
+    text-align: left;
+
+    border-radius: 5px;
+
+    background-color: $surface-dark;
+    border: 1px solid $primary-600;
+    box-shadow: 0px 0px 3px $primary-600;
+}
+
+.settings-header {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+}
+
+.settings-header p {
+    font-size: 15px;
+    font-weight:700;
+
+    color: white;
+}
+
+.settings-header img {
+    width: 14px;
+    height: 14px;
+
+    cursor: pointer;
+}
+
+.settings-section {
+    display: flex;
+    flex-direction: row;
+}
+
+.settings-buttons {
+    display: flex;
+    flex-direction: column;
+
+    width: 150px;
+    height: 100%;
+}
+
+.settings-button {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    flex-grow: 1;
+
+    padding: 8px 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+
+    border-radius: 5px;
+    
+    cursor: pointer;
+}
+
+.settings-button.active {
+    background-color: $primary-800;
+}
+
+.settings-button:hover {
+    background-color: $primary-800;
+}
+
+.settings-button p {
+    font-size: 11px;
+    font-weight: 600;
+
+    color: white;
+}
+
+.settings-button img {
+    width: 14px;
+    height: 14px;
+
+    margin-left: 3px;
+    margin-right: 10px;
+}
+
+.settings-divider {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.settings-divider .divider {
+    width: 100%;
+    height: 1px;
+
+    border-top: 1px solid $surface-mixed-200;
+}

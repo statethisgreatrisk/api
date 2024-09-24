@@ -1,0 +1,38 @@
+<div class="settings-view">
+    <div class="settings-header">
+        <p>Settings</p>
+        <img src="/x-white.png" (click)="closeSettings()">
+    </div>
+    <div class="settings-divider">
+        <div class="divider"></div>
+    </div>
+    <div class="settings-section">
+        <div class="settings-buttons">
+            <div class="settings-button" [ngClass]="{'active': setting === 'account'}" (click)="selectSetting('account')">
+                <img src="/user.png">
+                <p>Account</p>
+            </div>
+            <div class="settings-button" [ngClass]="{'active': setting === 'deploy'}" (click)="selectSetting('deploy')">
+                <img src="/cloud.png">
+                <p>Deploy</p>
+            </div>
+            <div class="settings-button" [ngClass]="{'active': setting === 'logs'}" (click)="selectSetting('logs')">
+                <img src="/book.png">
+                <p>Logs</p>
+            </div>
+            <div class="settings-button" [ngClass]="{'active': setting === 'apiKeys'}" (click)="selectSetting('apiKeys')">
+                <img src="/key.png">
+                <p>API Keys</p>
+            </div>
+            <div class="settings-button" [ngClass]="{'active': setting === 'billing'}" (click)="selectSetting('billing')">
+                <img src="/billing.png">
+                <p>Billing</p>
+            </div>
+            <div class="settings-button" [ngClass]="{'active': setting === 'usageCosts'}" (click)="selectSetting('usageCosts')">
+                <img src="/cost.png">
+                <p>Usage Costs</p>
+            </div>
+        </div>
+        <div class="settings-content"></div>
+    </div>
+</div>

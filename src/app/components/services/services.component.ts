@@ -5,6 +5,7 @@ import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow,
 import { createAPI, createSchema, createStorage, createValidator, createWorkflow, deselectService, deselectWindow, selectService, selectWindow } from '../../store/actions/app.action';
 import { selectAPIs, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import ObjectId from 'bson-objectid';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-services',
@@ -33,6 +34,7 @@ export class ServicesComponent {
 
   constructor(
     private store: Store<AppStateInit>,
+    private settingsService: SettingsService,
   ) {}
 
   ngOnInit() {
@@ -59,6 +61,10 @@ export class ServicesComponent {
     } else {
       this.store.dispatch(selectWindow({ windowName, windowId }));
     }
+  }
+
+  openSettings() {
+    this.settingsService.openSettings();
   }
 
   initUser() {
