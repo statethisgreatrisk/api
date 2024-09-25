@@ -109,16 +109,18 @@ export class EditValidatorComponent {
 
   save() {
     if (!this.validator) return;
-    this.store.dispatch(updateValidator({ validator: this.validator }));
+
+    const validator = { ...this.validator} ;
+    delete validator.placeholder;
+    delete validator.placeholderIndex;
+
+    this.store.dispatch(updateValidator({ validator: validator }));
   }
 
   delete() {
     if (!this.validator) return;
 
-    const validator = {...this.validator};
-
-    delete validator.placeholder;
-    delete validator.placeholderIndex;
+    const validator = { ...this.validator };
 
     this.deleteService.initDelete({
       service: this.view.service,

@@ -71,6 +71,8 @@ export class EditSchemaComponent {
           mutableRow.placeholderIndex = -1;
           return mutableRow;
         });
+
+        this.adjustAllInputs();
       }
     });
   }

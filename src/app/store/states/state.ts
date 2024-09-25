@@ -15,5 +15,5 @@ export const appState: AppState = {
     usages: [],
 
     user: null,
-    view: { service: '', serviceId: '', window: 'Workflow', windowId: '66eefd5d30c66ed5672a0f7a' },
+    view: { service: '', serviceId: '', window: 'Workflow', windowId: '66f3ff6ecde34d5be4a0e6b5' },
 };
