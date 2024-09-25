@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage } from "../interfaces/app.interface";
 
 // User
 
@@ -145,6 +145,121 @@ export const replaceWorkflowFn: (state: AppState, workflow: Workflow) => AppStat
 export const removeWorkflowFn: (state: AppState, workflowId: string) => AppState = (state: AppState, workflowId: string) => {
     if (!workflowId) return { ...state };
     return { ...state, workflows: state.workflows.filter((workflow) => workflow._id !== workflowId) };
+}
+
+// Deploy
+
+export const addDeploysFn: (state: AppState, deploys: Deploy[]) => AppState = (state: AppState, deploys: Deploy[]) => {
+    if (!deploys) return { ...state };
+    return { ...state, deploys: state.deploys.concat(deploys) };
+}
+
+export const addDeployFn: (state: AppState, deploy: Deploy) => AppState = (state: AppState, deploy: Deploy) => {
+    if (!deploy) return { ...state };
+    return { ...state, deploys: state.deploys.concat([deploy]) };
+}
+
+export const replaceDeployFn: (state: AppState, deploy: Deploy) => AppState = (state: AppState, deploy: Deploy) => {
+    if (!deploy) return { ...state };
+
+    const deploys = state.deploys.map((existingDeploy) => {
+        if (existingDeploy._id !== deploy._id) return existingDeploy;
+        return deploy;
+    });
+
+    return { ...state, deploys: deploys };
+}
+
+// Log
+
+export const addLogsFn: (state: AppState, logs: Log[]) => AppState = (state: AppState, logs: Log[]) => {
+    if (!logs) return { ...state };
+    return { ...state, logs: state.logs.concat(logs) };
+}
+
+export const addLogFn: (state: AppState, log: Log) => AppState = (state: AppState, log: Log) => {
+    if (!log) return { ...state };
+    return { ...state, logs: state.logs.concat([log]) };
+}
+
+export const replaceLogFn: (state: AppState, log: Log) => AppState = (state: AppState, log: Log) => {
+    if (!log) return { ...state };
+
+    const logs = state.logs.map((existingLog) => {
+        if (existingLog._id !== log._id) return existingLog;
+        return log;
+    });
+
+    return { ...state, logs: logs };
+}
+
+// Key
+
+export const addKeysFn: (state: AppState, keys: Key[]) => AppState = (state: AppState, keys: Key[]) => {
+    if (!keys) return { ...state };
+    return { ...state, keys: state.keys.concat(keys) };
+}
+
+export const addKeyFn: (state: AppState, key: Key) => AppState = (state: AppState, key: Key) => {
+    if (!key) return { ...state };
+    return { ...state, keys: state.keys.concat([key]) };
+}
+
+export const replaceKeyFn: (state: AppState, key: Key) => AppState = (state: AppState, key: Key) => {
+    if (!key) return { ...state };
+
+    const keys = state.keys.map((existingKey) => {
+        if (existingKey._id !== key._id) return existingKey;
+        return key;
+    });
+
+    return { ...state, keys: keys };
+}
+
+// Billing
+
+export const addBillingsFn: (state: AppState, billings: Billing[]) => AppState = (state: AppState, billings: Billing[]) => {
+    if (!billings) return { ...state };
+    return { ...state, billings: state.billings.concat(billings) };
+}
+
+export const addBillingFn: (state: AppState, billing: Billing) => AppState = (state: AppState, billing: Billing) => {
+    if (!billing) return { ...state };
+    return { ...state, billings: state.billings.concat([billing]) };
+}
+
+export const replaceBillingFn: (state: AppState, billing: Billing) => AppState = (state: AppState, billing: Billing) => {
+    if (!billing) return { ...state };
+
+    const billings = state.billings.map((existingBilling) => {
+        if (existingBilling._id !== billing._id) return existingBilling;
+        return billing;
+    });
+
+    return { ...state, billings: billings };
+}
+
+// Usage
+
+export const addUsagesFn: (state: AppState, usages: Usage[]) => AppState = (state: AppState, usages: Usage[]) => {
+    if (!usages) return { ...state };
+    return { ...state, usages: state.usages.concat(usages) };
+}
+
+export const addUsageFn: (state: AppState, usage: Usage) => AppState = (state: AppState, usage: Usage) => {
+    if (!usage) return { ...state };
+    return { ...state, usages: state.usages.concat([usage]) };
+}
+
+export const replaceUsageFn: (state: AppState, usage: Usage) => AppState = (state: AppState, usage: Usage) => {
+    if (!usage) return { ...state };
+
+    const usages = state.usages.map((existingUsage) => {
+        if (existingUsage._id !== usage._id) return existingUsage;
+        return usage;
+    });
+
+    return { ...state, usages: usages };
 }
 
 // App

@@ -83,6 +83,55 @@ export interface App {
     method: string;
 }
 
+export interface Deploy {
+    _id: string;
+    userId: string;
+    date: string;
+    active: boolean;
+    size: string;
+    expiration: string;
+    status: string;
+}
+
+export interface Log {
+    _id: string;
+    userId: string;
+    deployId: string;
+    date: string;
+    active: boolean;
+    type: string;
+    info: string;
+}
+
+export interface Key {
+    _id: string;
+    userId: string;
+    keyId: string;
+    date: string;
+    active: boolean;
+    name: string;
+}
+
+export interface Billing {
+    _id: string;
+    userId: string;
+    date: string;
+    active: boolean;
+    debit: number;
+    credit: number;
+}
+
+export interface Usage {
+    _id: string;
+    userId: string;
+    date: string;
+    active: boolean;
+    name: string;
+    type: string;
+    usage: number;
+    rate: number;
+}
+
 export interface View {
     service: string;
     serviceId: string;
@@ -108,6 +157,12 @@ export interface AppState {
     schemas: Schema[];
     workflows: Workflow[];
     apps: App[];
+
+    deploys: Deploy[];
+    logs: Log[];
+    keys: Key[];
+    billings: Billing[];
+    usages: Usage[];
     
     user: User | null;
     view: View;

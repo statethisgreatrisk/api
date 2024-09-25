@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
-import { API, App, Schema, Storage, User, Validator, Workflow } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Key, Log, Schema, Storage, Usage, User, Validator, Workflow } from "../interfaces/app.interface";
 
 const url = 'http://localhost:3000/v1';
 
@@ -133,5 +133,90 @@ export class AppRequest {
   getApps(userId: string): Observable<App[]> {
     const endpoint = `${url}/app/:userId`.replace(':userId', userId);
     return this.http.get<App[]>(endpoint);
+  }
+
+  // Deploy
+
+  getDeploys(userId: string): Observable<Deploy[]> {
+    const endpoint = `${url}/deploy/:userId`.replace(':userId', userId);
+    return this.http.get<Deploy[]>(endpoint);
+  }
+
+  createDeploy(deploy: Deploy): Observable<Deploy> {
+    const endpoint = `${url}/deploy/:userId`.replace(':userId', deploy.userId);
+    return this.http.post<Deploy>(endpoint, { deploy });
+  }
+
+  updateDeploy(deploy: Deploy): Observable<Deploy> {
+    const endpoint = `${url}/deploy/:userId/:deployId`.replace(':userId', deploy.userId).replace(':deployId', deploy._id);
+    return this.http.put<Deploy>(endpoint, { deploy });
+  }
+
+  // Log
+
+  getLogs(userId: string): Observable<Log[]> {
+    const endpoint = `${url}/log/:userId`.replace(':userId', userId);
+    return this.http.get<Log[]>(endpoint);
+  }
+
+  createLog(log: Log): Observable<Log> {
+    const endpoint = `${url}/log/:userId`.replace(':userId', log.userId);
+    return this.http.post<Log>(endpoint, { log });
+  }
+
+  updateLog(log: Log): Observable<Log> {
+    const endpoint = `${url}/log/:userId/:logId`.replace(':userId', log.userId).replace(':logId', log._id);
+    return this.http.put<Log>(endpoint, { log });
+  }
+
+  // Key
+
+  getKeys(userId: string): Observable<Key[]> {
+    const endpoint = `${url}/key/:userId`.replace(':userId', userId);
+    return this.http.get<Key[]>(endpoint);
+  }
+
+  createKey(key: Key): Observable<Key> {
+    const endpoint = `${url}/key/:userId`.replace(':userId', key.userId);
+    return this.http.post<Key>(endpoint, { key });
+  }
+
+  updateKey(key: Key): Observable<Key> {
+    const endpoint = `${url}/key/:userId/:keyId`.replace(':userId', key.userId).replace(':keyId', key._id);
+    return this.http.put<Key>(endpoint, { key });
+  }
+
+  // Billing
+
+  getBillings(userId: string): Observable<Billing[]> {
+    const endpoint = `${url}/billing/:userId`.replace(':userId', userId);
+    return this.http.get<Billing[]>(endpoint);
+  }
+
+  createBilling(billing: Billing): Observable<Billing> {
+    const endpoint = `${url}/billing/:userId`.replace(':userId', billing.userId);
+    return this.http.post<Billing>(endpoint, { billing });
+  }
+
+  updateBilling(billing: Billing): Observable<Billing> {
+    const endpoint = `${url}/billing/:userId/:billingId`.replace(':userId', billing.userId).replace(':billingId', billing._id);
+    return this.http.put<Billing>(endpoint, { billing });
+  }
+
+  // Usage
+
+  getUsages(userId: string): Observable<Usage[]> {
+    const endpoint = `${url}/usage/:userId`.replace(':userId', userId);
+    return this.http.get<Usage[]>(endpoint);
+  }
+
+  createUsage(usage: Usage): Observable<Usage> {
+    const endpoint = `${url}/usage/:userId`.replace(':userId', usage.userId);
+    return this.http.post<Usage>(endpoint, { usage });
+  }
+
+  updateUsage(usage: Usage): Observable<Usage> {
+    const endpoint = `${url}/usage/:userId/:usageId`.replace(':userId', usage.userId).replace(':usageId', usage._id);
+    return this.http.put<Usage>(endpoint, { usage });
   }
 }

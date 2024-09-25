@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Schema, Storage, User, Validator, Workflow } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Key, Log, Schema, Storage, Usage, User, Validator, Workflow } from "../interfaces/app.interface";
 
 export const getUser = createAction('[GET] User', props<{userId: string}>());
 export const addUser = createAction('[ADD] User', props<{user: User}>());
@@ -57,6 +57,46 @@ export const removeWorkflow = createAction('[REMOVE] Workflow', props<{workflowI
 // App
 export const getApps = createAction('[GET] Apps', props<{userId: string}>());
 export const addApps = createAction('[ADD] Apps', props<{apps: App[]}>());
+
+// Deploy
+export const getDeploys = createAction('[GET] Deploys', props<{userId: string}>());
+export const addDeploys = createAction('[ADD] Deploys', props<{deploys: Deploy[]}>());
+export const createDeploy = createAction('[CREATE] Deploy', props<{deploy: Deploy}>());
+export const addDeploy = createAction('[ADD] Deploy', props<{deploy: Deploy}>());
+export const updateDeploy = createAction('[UPDATE] Deploy', props<{deploy: Deploy}>());
+export const replaceDeploy = createAction('[REPLACE] Deploy', props<{deploy: Deploy}>());
+
+// Log
+export const getLogs = createAction('[GET] Logs', props<{userId: string}>());
+export const addLogs = createAction('[ADD] Logs', props<{logs: Log[]}>());
+export const createLog = createAction('[CREATE] Log', props<{log: Log}>());
+export const addLog = createAction('[ADD] Log', props<{log: Log}>());
+export const updateLog = createAction('[UPDATE] Log', props<{log: Log}>());
+export const replaceLog = createAction('[REPLACE] Log', props<{log: Log}>());
+
+// Key
+export const getKeys = createAction('[GET] Keys', props<{userId: string}>());
+export const addKeys = createAction('[ADD] Keys', props<{keys: Key[]}>());
+export const createKey = createAction('[CREATE] Key', props<{key: Key}>());
+export const addKey = createAction('[ADD] Key', props<{key: Key}>());
+export const updateKey = createAction('[UPDATE] Key', props<{key: Key}>());
+export const replaceKey = createAction('[REPLACE] Key', props<{key: Key}>());
+
+// Billing
+export const getBillings = createAction('[GET] Billings', props<{userId: string}>());
+export const addBillings = createAction('[ADD] Billings', props<{billings: Billing[]}>());
+export const createBilling = createAction('[CREATE] Billing', props<{billing: Billing}>());
+export const addBilling = createAction('[ADD] Billing', props<{billing: Billing}>());
+export const updateBilling = createAction('[UPDATE] Billing', props<{billing: Billing}>());
+export const replaceBilling = createAction('[REPLACE] Billing', props<{billing: Billing}>());
+
+// Usage
+export const getUsages = createAction('[GET] Usages', props<{userId: string}>());
+export const addUsages = createAction('[ADD] Usages', props<{usages: Usage[]}>());
+export const createUsage = createAction('[CREATE] Usage', props<{usage: Usage}>());
+export const addUsage = createAction('[ADD] Usage', props<{usage: Usage}>());
+export const updateUsage = createAction('[UPDATE] Usage', props<{usage: Usage}>());
+export const replaceUsage = createAction('[REPLACE] Usage', props<{usage: Usage}>());
 
 export const selectService = createAction('[SELECT] Service', props<{ serviceName: string, serviceId: string }>());
 export const deselectService = createAction('[DESELECT] Service', props<{ serviceName: string, serviceId: string }>());

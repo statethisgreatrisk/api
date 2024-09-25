@@ -3,7 +3,7 @@ import { catchError, exhaustMap, map, of } from "rxjs";
 import { Injectable } from "@angular/core";
 
 import { AppRequest } from "../requests/app.request";
-import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps } from "../actions/app.action";
+import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createDeploy, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateDeploy, updateKey, updateLog, updateUsage } from "../actions/app.action";
 
 @Injectable()
 export class AppEffect {
@@ -238,6 +238,166 @@ export class AppEffect {
             ofType(getApps),
             exhaustMap((action) => this.appRequest.getApps(action.userId).pipe(
                 map(data => addApps({ apps: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    // Deploy
+
+    getDeploys$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(getDeploys),
+            exhaustMap((action) => this.appRequest.getDeploys(action.userId).pipe(
+                map(data => addDeploys({ deploys: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    createDeploy$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(createDeploy),
+            exhaustMap((action) => this.appRequest.createDeploy(action.deploy).pipe(
+                map(data => addDeploy({ deploy: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    updateDeploy$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updateDeploy),
+            exhaustMap((action) => this.appRequest.updateDeploy(action.deploy).pipe(
+                map(data => replaceDeploy({ deploy: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    // Log
+
+    getLogs$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(getLogs),
+            exhaustMap((action) => this.appRequest.getLogs(action.userId).pipe(
+                map(data => addLogs({ logs: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    createLog$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(createLog),
+            exhaustMap((action) => this.appRequest.createLog(action.log).pipe(
+                map(data => addLog({ log: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    updateLog$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updateLog),
+            exhaustMap((action) => this.appRequest.updateLog(action.log).pipe(
+                map(data => replaceLog({ log: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    // Key
+
+    getKeys$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(getKeys),
+            exhaustMap((action) => this.appRequest.getKeys(action.userId).pipe(
+                map(data => addKeys({ keys: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    createKey$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(createKey),
+            exhaustMap((action) => this.appRequest.createKey(action.key).pipe(
+                map(data => addKey({ key: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    updateKey$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updateKey),
+            exhaustMap((action) => this.appRequest.updateKey(action.key).pipe(
+                map(data => replaceKey({ key: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    // Billing
+
+    getBillings$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(getBillings),
+            exhaustMap((action) => this.appRequest.getBillings(action.userId).pipe(
+                map(data => addBillings({ billings: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    createBilling$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(createBilling),
+            exhaustMap((action) => this.appRequest.createBilling(action.billing).pipe(
+                map(data => addBilling({ billing: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    updateBilling$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updateBilling),
+            exhaustMap((action) => this.appRequest.updateBilling(action.billing).pipe(
+                map(data => replaceBilling({ billing: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    // Usage
+
+    getUsages$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(getUsages),
+            exhaustMap((action) => this.appRequest.getUsages(action.userId).pipe(
+                map(data => addUsages({ usages: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    createUsage$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(createUsage),
+            exhaustMap((action) => this.appRequest.createUsage(action.usage).pipe(
+                map(data => addUsage({ usage: data })),
+                catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    updateUsage$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updateUsage),
+            exhaustMap((action) => this.appRequest.updateUsage(action.usage).pipe(
+                map(data => replaceUsage({ usage: data })),
                 catchError(err => of(requestError({ error: err })))
             )),
         );
