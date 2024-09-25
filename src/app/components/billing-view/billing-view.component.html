@@ -1,0 +1,41 @@
+<div class="billing-view">
+    <div class="billing-credit">
+        <p>Remaining credit</p>
+        <p>$10.00</p>
+    </div>
+    <div class="billing-setup">
+        <p>Billing details</p>
+        <div class="billing-input-container">
+            <div class="billing-input">
+                <input type="text" placeholder="Enter card details">
+            </div>
+        </div>
+    </div>
+    <div class="billing-select">
+        <p>Credit amount</p>
+        <div class="billing-select-container">
+            <div class="billing-select-button" (click)="toggleDropdown()">
+                <p>$10.00</p>
+                <img src="/down.png">
+            </div>
+            <div class="billing-select-dropdown" *ngIf="dropdown">
+                <div class="billing-select-dropdown-button">
+                    <p>$10.00</p>
+                </div>
+                <div class="billing-select-dropdown-button">
+                    <p>$25.00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="billing-create">
+        <p>Add credit</p>
+        <p>Buy Now</p>
+    </div>
+    <div class="billing-list-item-container">
+        <div class="billing-list-item">
+            <p>Receipt #1 - $10.00</p>
+            <img src="/check.png">
+        </div>
+    </div>
+</div>
