@@ -1,0 +1,131 @@
+@import '../../styles/palette.component.scss';
+
+.app-view-docs {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    margin-top: 10px;
+
+    padding: 10px;
+
+    background-color: $surface-dark;
+    border-radius: 4px;
+
+    cursor: pointer;
+}
+
+.app-view-docs:hover {
+    background-color: black;
+}
+
+.app-view-docs-method {
+    display: flex;
+    flex-direction: row;
+
+    margin-bottom: 10px;
+}
+
+.app-view-docs-method p {
+    font-size: 13px;
+    font-weight: 800;
+
+    font-family: "Roboto Mono", monospace;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+.app-view-docs-method p:nth-child(1) {
+    color: $primary-600;
+}
+
+.app-view-docs-method p:nth-child(2) {
+    color: white;
+}
+
+.app-view-docs-method p:nth-child(3) {
+    color: $primary-600;
+}
+
+.app-view-docs-args {
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 10px;
+}
+
+.app-view-docs-args p {
+    font-size: 11px;
+    font-weight: 700;
+
+    margin-bottom: 5px;
+
+    font-family: "Roboto Mono", monospace;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+.app-view-docs-args p:nth-child(1) {
+    color: white;
+}
+
+.app-view-docs-args p:nth-child(2) {
+    margin-left: 5px;
+    color: $primary-600;
+}
+
+.app-view-docs-args p:nth-child(3) {
+    margin-left: 5px;
+    color: $primary-600;
+}
+
+.app-view-docs-returns {
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 10px;
+}
+
+.app-view-docs-returns p {
+    font-size: 11px;
+    font-weight: 700;
+
+    font-family: "Roboto Mono", monospace;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+.app-view-docs-returns p:nth-child(1) {
+    color: $primary-600;
+}
+
+.app-view-docs-returns p:nth-child(2) {
+    margin-left: 5px;
+    color: $light-green;
+}
+
+.app-view-docs-info {
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 20px;
+}
+
+.app-view-docs-info p {
+    font-size: 11px;
+    font-weight: 700;
+
+    font-family: "Roboto Mono", monospace;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+.app-view-docs-info p:nth-child(1) {
+    color: $surface-mixed-800
+}
+
+.app-view-docs-info p:nth-child(2) {
+    margin-left: 5px;
+    color: $surface-mixed-800
+}

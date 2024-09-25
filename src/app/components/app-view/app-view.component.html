@@ -9,17 +9,21 @@
         </div>
     </div>
     <div class="app-view-button-list">
-        <div class="app-view-button" *ngFor="let app of apps" (click)="selectApp(app)">
-            <img src="/app.png">
-            <p>{{ app.name }}.{{ app.method }}</p>
+        <div class="app-view-button" *ngFor="let app of apps" (click)="selectInfo(app.name)">
+            <div class="app-view-button-info">
+                <img src="/app.png">
+                <p>{{ app.name }}.{{ app.method }}</p>
+            </div>
         </div>
     </div>
     <div class="app-view-divider">
         <div class="divider"></div>
     </div>
     <div class="app-view-info-container">
-        <div class="app-view-info">
+        <div class="app-view-info" *ngIf="appDocs === ''">
             <p>Click an app to see more information.</p>
         </div>
+
+        <app-api-docs *ngIf="appDocs === 'API'"></app-api-docs>
     </div>
 </div>

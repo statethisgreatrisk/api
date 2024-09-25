@@ -1,23 +1,27 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { App, AppStateInit } from '../../store/interfaces/app.interface';
 import { selectApps } from '../../store/selectors/app.selector';
-import { SelectAppService } from '../../services/select-app.service';
+import { ApiDocsComponent } from '../../docs/api-docs/api-docs.component';
 
 @Component({
   selector: 'app-app-view',
   standalone: true,
-  imports: [NgFor],
+  imports: [
+    NgFor,
+    NgIf,
+    ApiDocsComponent,
+  ],
   templateUrl: './app-view.component.html',
   styleUrl: './app-view.component.scss'
 })
 export class AppViewComponent {
   apps: App[] = [];
+  appDocs: string = '';
 
   constructor(
     private store: Store<AppStateInit>,
-    private selectAppService: SelectAppService,
   ) {}
 
   ngOnInit() {
@@ -31,7 +35,7 @@ export class AppViewComponent {
     });
   }
 
-  selectApp(app: App) {
-    this.selectAppService.selectApp(app);
+  selectInfo(appName: string) {
+    this.appDocs = appName;
   }
 }
