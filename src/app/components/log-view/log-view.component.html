@@ -1,0 +1,19 @@
+<div class="log-view">
+    <div class="log-select">
+        <p>Select log</p>
+        <div class="log-select-container">
+            <div class="log-select-button" (click)="toggleDropdown()">
+                <p>deploy-date</p>
+                <img src="/down.png">
+            </div>
+            <div class="log-select-dropdown" *ngIf="dropdown">
+                <div class="log-select-dropdown-button">
+                    <p>deploy-date</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="log-detail">
+        <pre></pre>
+    </div>
+</div>

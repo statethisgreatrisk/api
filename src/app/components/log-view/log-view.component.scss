@@ -1,0 +1,122 @@
+@import '../../styles/palette.component.scss';
+
+.log-select {
+    display: flex;
+    flex-direction: row;
+
+    height: 40px;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.log-select p {
+    font-size: 12px;
+    font-weight: 800;
+
+    color: white;
+}
+
+.log-select-container {
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+    width: 185px;
+    height: 30px;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: pointer;
+
+    background-color: $primary-1300;
+    border-radius: 3px;
+}
+
+.log-select-button {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.log-select-button p {
+    font-size: 12px;
+    font-weight: 600;
+    color: $surface-dark;
+}
+
+.log-select-button img {
+    width: 15px;
+    height: 15px;
+    padding-left: 5px;
+}
+
+.log-select-dropdown {
+    display: flex;
+    flex-direction: column;
+    
+    width: 100%;
+
+    top: 27px;
+
+    position: absolute;
+
+    background-color: $primary-1300;
+    border-radius: 0 0 3px 3px;
+    border: 1px solid $surface-dark;
+
+    z-index: 2;
+}
+
+.log-select-dropdown-button {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    height: 30px;
+
+    padding-left: 10px;
+
+    border-top: 1px solid $surface-dark;
+}
+
+.log-select-dropdown-button p {
+    font-size: 12px;
+    font-weight: 600;
+    color: $surface-dark;
+}
+
+.log-select-dropdown-button:hover {
+    background-color: $surface-dark;
+}
+
+.log-select-dropdown-button:hover p {
+    color: $primary-600;
+}
+
+.log-detail {
+    height: 300px;
+    overflow-y: scroll;
+
+    margin-top: 10px;
+    padding: 2px 10px;
+
+    background-color: $primary-900;
+
+    border-radius: 2px;
+}
+
+.log-detail pre {
+    font-size: 11px;
+    font-weight: 800;
+    color: white;
+}

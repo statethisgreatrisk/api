@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { SettingsService } from '../../services/settings.service';
 import { AccountViewComponent } from '../account-view/account-view.component';
 import { DeployViewComponent } from '../deploy-view/deploy-view.component';
+import { LogViewComponent } from '../log-view/log-view.component';
 
 @Component({
   selector: 'app-settings-view',
@@ -12,12 +13,13 @@ import { DeployViewComponent } from '../deploy-view/deploy-view.component';
     NgClass,
     AccountViewComponent,
     DeployViewComponent,
+    LogViewComponent,
   ],
   templateUrl: './settings-view.component.html',
   styleUrl: './settings-view.component.scss'
 })
 export class SettingsViewComponent {
-  setting: string = 'deploy';
+  setting: string = 'logs';
 
   constructor(private settingsService: SettingsService) {}
 
