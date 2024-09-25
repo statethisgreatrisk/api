@@ -1,0 +1,22 @@
+<div class="usage-view">
+    <div class="usage-select">
+        <p>Select deployment</p>
+        <div class="usage-select-container">
+            <div class="usage-select-button" (click)="toggleDropdown()">
+                <p>deploy-id</p>
+                <img src="/down.png">
+            </div>
+            <div class="usage-select-dropdown" *ngIf="dropdown">
+                <div class="usage-select-dropdown-button">
+                    <p>deploy-id</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="usage-list-item-container">
+        <div class="usage-list-item">
+            <p>Container - 10 minutes</p>
+            <p>$0.010</p>
+        </div>
+    </div>
+</div>

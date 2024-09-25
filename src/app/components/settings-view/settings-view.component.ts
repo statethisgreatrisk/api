@@ -6,6 +6,7 @@ import { DeployViewComponent } from '../deploy-view/deploy-view.component';
 import { LogViewComponent } from '../log-view/log-view.component';
 import { KeyViewComponent } from '../key-view/key-view.component';
 import { BillingViewComponent } from '../billing-view/billing-view.component';
+import { UsageViewComponent } from '../usage-view/usage-view.component';
 
 @Component({
   selector: 'app-settings-view',
@@ -18,12 +19,13 @@ import { BillingViewComponent } from '../billing-view/billing-view.component';
     LogViewComponent,
     KeyViewComponent,
     BillingViewComponent,
+    UsageViewComponent,
   ],
   templateUrl: './settings-view.component.html',
   styleUrl: './settings-view.component.scss'
 })
 export class SettingsViewComponent {
-  setting: string = 'billing';
+  setting: string = 'account';
 
   constructor(private settingsService: SettingsService) {}
 

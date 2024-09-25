@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SettingsService {
-  private settingsOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  private settingsOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public settingsOpen$: Observable<boolean> = this.settingsOpen.asObservable();
 
   constructor() {}
