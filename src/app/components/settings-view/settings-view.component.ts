@@ -4,6 +4,7 @@ import { SettingsService } from '../../services/settings.service';
 import { AccountViewComponent } from '../account-view/account-view.component';
 import { DeployViewComponent } from '../deploy-view/deploy-view.component';
 import { LogViewComponent } from '../log-view/log-view.component';
+import { KeyViewComponent } from '../key-view/key-view.component';
 
 @Component({
   selector: 'app-settings-view',
@@ -14,12 +15,13 @@ import { LogViewComponent } from '../log-view/log-view.component';
     AccountViewComponent,
     DeployViewComponent,
     LogViewComponent,
+    KeyViewComponent,
   ],
   templateUrl: './settings-view.component.html',
   styleUrl: './settings-view.component.scss'
 })
 export class SettingsViewComponent {
-  setting: string = 'logs';
+  setting: string = 'apiKeys';
 
   constructor(private settingsService: SettingsService) {}
 

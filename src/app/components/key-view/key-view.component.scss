@@ -1,0 +1,128 @@
+@import '../../styles/palette.component.scss';
+
+.key-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.key-setup {
+    display: flex;
+    flex-direction: row;
+
+    height: 40px;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.key-setup > p {
+    font-size: 12px;
+    font-weight: 800;
+
+    color: white;
+}
+
+.key-input-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 20px;
+
+    padding-bottom: 3px;
+
+    background-color: #2f2b3a;
+    border: 1px solid #46424f;
+    border-radius: 2px;
+}
+
+.key-input {
+    width: 100%;
+    margin-left: 5px;
+}
+
+.key-input input {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+
+    width: 97%;
+
+    background-color: #2f2b3a;
+    border: none;
+}
+
+.key-input input:focus-visible {
+    outline: none;
+}
+
+.key-create {
+    display: flex;
+    flex-direction: row;
+
+    height: 40px;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.key-create p {
+    font-size: 12px;
+    font-weight: 800;
+
+    color: white;
+}
+
+.key-create p:nth-child(2) {
+    font-size: 12px;
+    font-weight: 600;
+
+    padding: 3px 15px;
+
+    color: white;
+
+    border-radius: 5px;
+    border: 1px solid $primary-800;
+    background: $primary-800;
+
+    cursor: pointer;
+}
+
+.key-list-item-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.key-list-item {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    height: 18px;
+
+    padding: 2px 5px 2px 5px;
+
+    cursor: pointer;
+}
+
+.key-list-item:hover {
+    background-color: $surface-mixed-200;
+}
+
+.key-list-item p {
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+}
+
+.key-list-item img {
+    width: 10px;
+    height: 10px;
+}
