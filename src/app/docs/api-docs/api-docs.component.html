@@ -1,18 +1,14 @@
 <div class="app-view-docs" (click)="selectApp('API', 'get')">
     <div class="app-view-docs-method">
-        <p>API.get(</p>
+        <p>API</p>
+        <p>.get(</p>
         <p>argument</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
         <p>argument:</p>
         <p>string:</p>
-        <p>API Name</p>
-    </div>
-    <div class="app-view-docs-args">
-        <p>argument:</p>
-        <p>string:</p>
-        <p>Context variable that returns an API name</p>
+        <p>Context variable that returns the string of an API name</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
@@ -20,7 +16,7 @@
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>false: if API not found</p>
+        <p>null if API not found</p>
     </div>
     <div class="app-view-docs-info">
         <p>info:</p>
@@ -29,7 +25,8 @@
 </div>
 <div class="app-view-docs" (click)="selectApp('API', 'set')">
     <div class="app-view-docs-method">
-        <p>API.set(</p>
+        <p>API</p>
+        <p>.set(</p>
         <p>argument</p>
         <p>)</p>
     </div>
@@ -40,86 +37,64 @@
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>true: if API.url matches request path</p>
+        <p>the API path</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>false: if API.url does not match request path</p>
+        <p>null if the context variable does not return an API object</p>
     </div>
     <div class="app-view-docs-info">
         <p>info:</p>
-        <p>This app defines the workflow endpoint. Must be called once per workflow.</p>
+        <p>This app defines the workflow endpoint. The workflow endpoint will not be defined if the context variable does not return an API object. Must be called once per workflow before any other request/response apps are called.</p>
     </div>
 </div>
-<div class="app-view-docs" (click)="selectApp('API', 'set')">
+<div class="app-view-docs" (click)="selectApp('API', 'status')">
     <div class="app-view-docs-method">
-        <p>API.set(</p>
+        <p>API</p>
+        <p>.status(</p>
         <p>argument</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
         <p>argument:</p>
-        <p>string:</p>
-        <p>Context variable that returns an API object</p>
+        <p>number:</p>
+        <p>a status code</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>true if API.url matches request path</p>
+        <p>the status code if the argument is a number</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>false if API.url does not match request path</p>
+        <p>null if the argument is not a number</p>
     </div>
     <div class="app-view-docs-info">
         <p>info:</p>
-        <p>This app defines the workflow endpoint. Must be called once per workflow.</p>
+        <p>This app sets the request.statusCode property. Request.statusCode will not be set if the argument is not a number.</p>
     </div>
 </div>
-<div class="app-view-docs" (click)="selectApp('API', 'set')">
+<div class="app-view-docs" (click)="selectApp('API', 'send')">
     <div class="app-view-docs-method">
-        <p>API.set(</p>
+        <p>API</p>
+        <p>.send(</p>
         <p>argument</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
         <p>argument:</p>
         <p>string:</p>
-        <p>Context variable that returns an API object</p>
+        <p>Context variable that returns a String or Boolean</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>true if API.url matches request path</p>
+        <p>the value at the given context variable</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>false if API.url does not match request path</p>
+        <p>null if there is no value at the given context variable or if the value is not a String or Boolean</p>
     </div>
     <div class="app-view-docs-info">
         <p>info:</p>
-        <p>This app defines the workflow endpoint. Must be called once per workflow.</p>
-    </div>
-</div>
-<div class="app-view-docs" (click)="selectApp('API', 'set')">
-    <div class="app-view-docs-method">
-        <p>API.set(</p>
-        <p>argument</p>
-        <p>)</p>
-    </div>
-    <div class="app-view-docs-args">
-        <p>argument:</p>
-        <p>string:</p>
-        <p>Context variable that returns an API object</p>
-    </div>
-    <div class="app-view-docs-returns">
-        <p>returns:</p>
-        <p>true if API.url matches request path</p>
-    </div>
-    <div class="app-view-docs-returns">
-        <p>returns:</p>
-        <p>false if API.url does not match request path</p>
-    </div>
-    <div class="app-view-docs-info">
-        <p>info:</p>
-        <p>This app defines the workflow endpoint. Must be called once per workflow.</p>
+        <p>This app ends the request workflow. Any rows after API.send() are not processed.</p>
     </div>
 </div>
