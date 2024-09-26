@@ -1,8 +1,20 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Billing, Deploy, Key, Log, Schema, Storage, Usage, User, Validator, Workflow } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Key, Log, Schema, Storage, Usage, User, Validator, Workflow } from "../interfaces/app.interface";
 
 export const getUser = createAction('[GET] User', props<{userId: string}>());
 export const addUser = createAction('[ADD] User', props<{user: User}>());
+
+// Auth
+export const signupUser = createAction('[SIGNUP] User', props<{email: string, password: string}>());
+export const resendUser = createAction('[RESEND] User', props<{email: string}>());
+export const confirmUser = createAction('[CONFIRM] User', props<{email: string, confirmationCode: string}>());
+export const forgotUser = createAction('[FORGOT] User', props<{email: string}>());
+export const resetUser = createAction('[RESET] User', props<{email: string, password: string, confirmationCode: string}>());
+export const loginUser = createAction('[LOGIN] User', props<{email: string, password: string}>());
+export const refreshUser = createAction('[REFRESH] User', props<{email: string, refreshToken: string}>());
+export const logoutUser = createAction('[LOGOUT] User', props<{email: string, accessToken: string}>());
+export const authSuccess = createAction('[SUCCESS] Auth', props<{action: Auth['action'], success: boolean, message: string }>());
+export const authError = createAction('[ERROR] Auth', props<{action: Auth['action'], success: boolean, message: string }>());
 
 // API
 export const getAPIs = createAction('[GET] APIs', props<{userId: string}>());

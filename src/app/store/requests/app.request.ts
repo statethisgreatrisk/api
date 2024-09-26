@@ -18,6 +18,48 @@ export class AppRequest {
     return this.http.get<User>(endpoint);
   }
 
+  // Auth
+
+  authSignup(email: string, password: string): Observable<string> {
+    const endpoint = `${url}/auth/signup`;
+    return this.http.post<string>(endpoint, { signup: { email, password } });
+  }
+
+  authResend(email: string): Observable<string> {
+    const endpoint = `${url}/auth/resend`;
+    return this.http.post<string>(endpoint, { resend: { email } });
+  }
+
+  authConfirm(email: string, confirmationCode: string): Observable<string> {
+    const endpoint = `${url}/auth/confirm`;
+    return this.http.post<string>(endpoint, { confirm: { email, confirmationCode } });
+  }
+
+  authForgot(email: string): Observable<string> {
+    const endpoint = `${url}/auth/forgot`;
+    return this.http.post<string>(endpoint, { forgot: { email } });
+  }
+
+  authReset(email: string, password: string, confirmationCode: string): Observable<string> {
+    const endpoint = `${url}/auth/reset`;
+    return this.http.post<string>(endpoint, { reset: { email, password, confirmationCode } });
+  }
+
+  authLogin(email: string, password: string): Observable<string> {
+    const endpoint = `${url}/auth/login`;
+    return this.http.post<string>(endpoint, { login: { email, password } });
+  }
+
+  authRefresh(email: string, refreshToken: string): Observable<string> {
+    const endpoint = `${url}/auth/refresh`;
+    return this.http.post<string>(endpoint, { refresh: { email, refreshToken } });
+  }
+
+  authLogout(email: string, accessToken: string): Observable<string> {
+    const endpoint = `${url}/auth/logout`;
+    return this.http.post<string>(endpoint, { logout: { email, accessToken } });
+  }
+
   // API
 
   getAPIs(userId: string): Observable<API[]> {

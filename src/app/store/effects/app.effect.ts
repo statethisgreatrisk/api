@@ -1,9 +1,8 @@
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, of } from "rxjs";
 import { Injectable } from "@angular/core";
-
 import { AppRequest } from "../requests/app.request";
-import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createDeploy, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateDeploy, updateKey, updateLog, updateUsage } from "../actions/app.action";
+import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createDeploy, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateDeploy, updateKey, updateLog, updateUsage, signupUser, authError, authSuccess, resendUser, confirmUser, forgotUser, resetUser, loginUser, logoutUser, refreshUser } from "../actions/app.action";
 
 @Injectable()
 export class AppEffect {
@@ -17,6 +16,88 @@ export class AppEffect {
             exhaustMap((action) => this.appRequest.getUser(action.userId).pipe(
                 map(data => addUser({ user: data })),
                 catchError(err => of(requestError({ error: err })))
+            )),
+        );
+    });
+
+    // Auth
+
+    authSignup$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(signupUser),
+            exhaustMap((action) => this.appRequest.authSignup(action.email, action.password).pipe(
+                map(data => authSuccess({ action: 'signup', success: true, message: data })),
+                catchError(err => of(authError({ action: 'signup', success: false, message: err })))
+            )),
+        );
+    });
+
+    authResend$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(resendUser),
+            exhaustMap((action) => this.appRequest.authResend(action.email).pipe(
+                map(data => authSuccess({ action: 'resend', success: true, message: data })),
+                catchError(err => of(authError({ action: 'resend', success: false, message: err })))
+            )),
+        );
+    });
+
+    authConfirm$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(confirmUser),
+            exhaustMap((action) => this.appRequest.authConfirm(action.email, action.confirmationCode).pipe(
+                map(data => authSuccess({ action: 'confirm', success: true, message: data })),
+                catchError(err => of(authError({ action: 'confirm', success: false, message: err })))
+            )),
+        );
+    });
+
+    authForgot$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(forgotUser),
+            exhaustMap((action) => this.appRequest.authForgot(action.email).pipe(
+                map(data => authSuccess({ action: 'forgot', success: true, message: data })),
+                catchError(err => of(authError({ action: 'forgot', success: false, message: err })))
+            )),
+        );
+    });
+
+    authReset$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(resetUser),
+            exhaustMap((action) => this.appRequest.authReset(action.email, action.password, action.confirmationCode).pipe(
+                map(data => authSuccess({ action: 'reset', success: true, message: data })),
+                catchError(err => of(authError({ action: 'reset', success: false, message: err })))
+            )),
+        );
+    });
+
+    authLogin$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(loginUser),
+            exhaustMap((action) => this.appRequest.authLogin(action.email, action.password).pipe(
+                map(data => authSuccess({ action: 'login', success: true, message: data })),
+                catchError(err => of(authError({ action: 'login', success: false, message: err })))
+            )),
+        );
+    });
+
+    authRefresh$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(refreshUser),
+            exhaustMap((action) => this.appRequest.authRefresh(action.email, action.refreshToken).pipe(
+                map(data => authSuccess({ action: 'refresh', success: true, message: data })),
+                catchError(err => of(authError({ action: 'refresh', success: false, message: err })))
+            )),
+        );
+    });
+
+    authLogout$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(logoutUser),
+            exhaustMap((action) => this.appRequest.authLogout(action.email, action.accessToken).pipe(
+                map(data => authSuccess({ action: 'logout', success: true, message: data })),
+                catchError(err => of(authError({ action: 'logout', success: false, message: err })))
             )),
         );
     });

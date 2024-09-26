@@ -1,3 +1,158 @@
+<!-- Signup -->
+<div class="login-view" *ngIf="view === 'signup'">
+    <div class="login-header">
+        <p>Create account</p>
+    </div>
+    <div class="login-divider">
+        <div class="divider"></div>
+    </div>
+    <div class="login-label">
+        <p>Email</p>
+    </div>
+    <div class="login-input-container">
+        <div class="login-input">
+            <input type="text" [(ngModel)]="email" placeholder="user@email.com">
+        </div>
+    </div>
+    <div class="login-label">
+        <p>Password</p>
+    </div>
+    <div class="login-input-container">
+        <div class="login-input">
+            <input type="password" [(ngModel)]="password" placeholder="••••••••">
+        </div>
+    </div>
+    <div class="login-slim-button inline">
+        <p (click)="openLogin()">Existing user? Log in</p>
+    </div>
+    <div class="login-info-container" *ngIf="message">
+        <div class="login-info">
+            <p>{{ message }}</p>
+        </div>
+    </div>
+    <div class="login-buttons">
+        <div class="login-save" *ngIf="!loading" (click)="signup()">
+            <p>Create Account</p>
+        </div>
+        <div class="login-save" *ngIf="loading">
+            <p>Loading...</p>
+        </div>
+    </div>
+</div>
+
+<!-- Resend view not necessary -->
+
+<!-- Confirm -->
+<div class="login-view" *ngIf="view === 'confirm'">
+    <div class="login-header">
+        <p>Confirm account</p>
+    </div>
+    <div class="login-divider">
+        <div class="divider"></div>
+    </div>
+    <div class="login-label">
+        <p>Confirmation Code</p>
+    </div>
+    <div class="login-input-container">
+        <div class="login-input">
+            <input type="text" [(ngModel)]="confirmationCode" placeholder="123456">
+        </div>
+    </div>
+    <div class="login-slim-button inline">
+        <p (click)="resend()">Resend code</p>
+    </div>
+    <div class="login-info-container">
+        <div class="login-info">
+            <p>Check your email for the confirmation code.</p>
+        </div>
+    </div>
+    <div class="login-buttons">
+        <div class="login-save" *ngIf="!loading" (click)="confirm()">
+            <p>Confirm</p>
+        </div>
+        <div class="login-save" *ngIf="loading">
+            <p>Loading...</p>
+        </div>
+    </div>
+</div>
+
+<!-- Forgot -->
+<div class="login-view" *ngIf="view === 'forgot'">
+    <div class="login-header">
+        <p>Reset password</p>
+    </div>
+    <div class="login-divider">
+        <div class="divider"></div>
+    </div>
+    <div class="login-label">
+        <p>Email</p>
+    </div>
+    <div class="login-input-container">
+        <div class="login-input">
+            <input type="text" [(ngModel)]="email" placeholder="user@email.com">
+        </div>
+    </div>
+    <div class="login-slim-button inline">
+        <p (click)="openLogin()">Existing user? Log in</p>
+    </div>
+    <div class="login-slim-button inline">
+        <p (click)="openSignup()">New user? Create account</p>
+    </div>
+    <div class="login-info-container" *ngIf="message">
+        <div class="login-info">
+            <p>{{ message }}</p>
+        </div>
+    </div>
+    <div class="login-buttons">
+        <div class="login-save" *ngIf="!loading" (click)="forgot()">
+            <p>Send Reset Email</p>
+        </div>
+        <div class="login-save" *ngIf="loading">
+            <p>Loading...</p>
+        </div>
+    </div>
+</div>
+
+<!-- Reset -->
+<div class="login-view" *ngIf="view === 'reset'">
+    <div class="login-header">
+        <p>Reset password</p>
+    </div>
+    <div class="login-divider">
+        <div class="divider"></div>
+    </div>
+    <div class="login-label">
+        <p>New Password</p>
+    </div>
+    <div class="login-input-container">
+        <div class="login-input">
+            <input type="password" [(ngModel)]="password" placeholder="•••••••">
+        </div>
+    </div>
+    <div class="login-label">
+        <p>Confirmation Code</p>
+    </div>
+    <div class="login-input-container">
+        <div class="login-input">
+            <input type="text" [(ngModel)]="confirmationCode" placeholder="123456">
+        </div>
+    </div>
+    <div class="login-info-container">
+        <div class="login-info">
+            <p>Check your email for the confirmation code.</p>
+        </div>
+    </div>
+    <div class="login-buttons">
+        <div class="login-save" *ngIf="!loading" (click)="reset()">
+            <p>Reset Password</p>
+        </div>
+        <div class="login-save" *ngIf="loading">
+            <p>Loading...</p>
+        </div>
+    </div>
+</div>
+
+<!-- Login -->
 <div class="login-view" *ngIf="view === 'login'">
     <div class="login-header">
         <p>Sign in</p>
@@ -10,7 +165,7 @@
     </div>
     <div class="login-input-container">
         <div class="login-input">
-            <input type="text" [(ngModel)]="email">
+            <input type="text" [(ngModel)]="email" placeholder="user@email.com">
         </div>
     </div>
     <div class="login-label">
@@ -18,14 +173,14 @@
     </div>
     <div class="login-input-container">
         <div class="login-input">
-            <input type="text" [(ngModel)]="password">
+            <input type="password" [(ngModel)]="password" placeholder="••••••••">
         </div>
     </div>
     <div class="login-slim-button inline">
-        <p (click)="openForgotPassword()">Forgot password?</p>
+        <p (click)="openForgot()">Forgot password?</p>
     </div>
     <div class="login-slim-button inline">
-        <p (click)="openSignUp()">New user? Create account</p>
+        <p (click)="openSignup()">New user? Create account</p>
     </div>
     <div class="login-info-container" *ngIf="message">
         <div class="login-info">
@@ -33,77 +188,11 @@
         </div>
     </div>
     <div class="login-buttons">
-        <div class="login-save">
-            <p>Login</p>
+        <div class="login-save" *ngIf="!loading" (click)="login()">
+            <p>Sign in</p>
         </div>
-    </div>
-</div>
-<div class="login-view" *ngIf="view === 'forgotPassword'">
-    <div class="login-header">
-        <p>Reset password</p>
-    </div>
-    <div class="login-divider">
-        <div class="divider"></div>
-    </div>
-    <div class="login-label">
-        <p>Email</p>
-    </div>
-    <div class="login-input-container">
-        <div class="login-input">
-            <input type="text" [(ngModel)]="email">
-        </div>
-    </div>
-    <div class="login-slim-button inline">
-        <p (click)="openLogin()">Existing user? Sign in</p>
-    </div>
-    <div class="login-slim-button inline">
-        <p (click)="openSignUp()">New user? Create account</p>
-    </div>
-    <div class="login-info-container" *ngIf="message">
-        <div class="login-info">
-            <p>{{ message }}</p>
-        </div>
-    </div>
-    <div class="login-buttons">
-        <div class="login-save">
-            <p>Send Reset Email</p>
-        </div>
-    </div>
-</div>
-<div class="login-view" *ngIf="view === 'signUp'">
-    <div class="login-header">
-        <p>Create account</p>
-    </div>
-    <div class="login-divider">
-        <div class="divider"></div>
-    </div>
-    <div class="login-label">
-        <p>Email</p>
-    </div>
-    <div class="login-input-container">
-        <div class="login-input">
-            <input type="text" [(ngModel)]="email">
-        </div>
-    </div>
-    <div class="login-label">
-        <p>Password</p>
-    </div>
-    <div class="login-input-container">
-        <div class="login-input">
-            <input type="text" [(ngModel)]="password">
-        </div>
-    </div>
-    <div class="login-slim-button inline">
-        <p (click)="openLogin()">Existing user? Sign in</p>
-    </div>
-    <div class="login-info-container" *ngIf="message">
-        <div class="login-info">
-            <p>{{ message }}</p>
-        </div>
-    </div>
-    <div class="login-buttons">
-        <div class="login-save">
-            <p>Create Account</p>
+        <div class="login-save" *ngIf="loading">
+            <p>Loading...</p>
         </div>
     </div>
 </div>

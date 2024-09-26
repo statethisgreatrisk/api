@@ -1,3 +1,9 @@
+export interface Auth {
+    action: 'signup' | 'resend' | 'confirm' | 'forgot' | 'reset' | 'login' | 'refresh' | 'logout';
+    success: boolean;
+    message: string;
+}
+
 export interface Service {
     name: string;
     icon: string;
