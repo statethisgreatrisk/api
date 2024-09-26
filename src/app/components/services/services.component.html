@@ -46,9 +46,12 @@
         </div>
     </div>
     <div class="spacer"></div>
-    <div class="user-button" (click)="openSettings()">
+    <div class="user-button" *ngIf="!user" (click)="openLogin()">
         <img src="/user.png">
-        <p *ngIf="!user">Login</p>
-        <p *ngIf="user">{{ user.name }}</p>
+        <p>Login</p>
+    </div>
+    <div class="user-button" *ngIf="user" (click)="openSettings()">
+        <img src="/user.png">
+        <p>{{ user.name }}</p>
     </div>
 </div>

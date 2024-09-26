@@ -1,0 +1,109 @@
+<div class="login-view" *ngIf="view === 'login'">
+    <div class="login-header">
+        <p>Sign in</p>
+    </div>
+    <div class="login-divider">
+        <div class="divider"></div>
+    </div>
+    <div class="login-label">
+        <p>Email</p>
+    </div>
+    <div class="login-input-container">
+        <div class="login-input">
+            <input type="text" [(ngModel)]="email">
+        </div>
+    </div>
+    <div class="login-label">
+        <p>Password</p>
+    </div>
+    <div class="login-input-container">
+        <div class="login-input">
+            <input type="text" [(ngModel)]="password">
+        </div>
+    </div>
+    <div class="login-slim-button inline">
+        <p (click)="openForgotPassword()">Forgot password?</p>
+    </div>
+    <div class="login-slim-button inline">
+        <p (click)="openSignUp()">New user? Create account</p>
+    </div>
+    <div class="login-info-container" *ngIf="message">
+        <div class="login-info">
+            <p>{{ message }}</p>
+        </div>
+    </div>
+    <div class="login-buttons">
+        <div class="login-save">
+            <p>Login</p>
+        </div>
+    </div>
+</div>
+<div class="login-view" *ngIf="view === 'forgotPassword'">
+    <div class="login-header">
+        <p>Reset password</p>
+    </div>
+    <div class="login-divider">
+        <div class="divider"></div>
+    </div>
+    <div class="login-label">
+        <p>Email</p>
+    </div>
+    <div class="login-input-container">
+        <div class="login-input">
+            <input type="text" [(ngModel)]="email">
+        </div>
+    </div>
+    <div class="login-slim-button inline">
+        <p (click)="openLogin()">Existing user? Sign in</p>
+    </div>
+    <div class="login-slim-button inline">
+        <p (click)="openSignUp()">New user? Create account</p>
+    </div>
+    <div class="login-info-container" *ngIf="message">
+        <div class="login-info">
+            <p>{{ message }}</p>
+        </div>
+    </div>
+    <div class="login-buttons">
+        <div class="login-save">
+            <p>Send Reset Email</p>
+        </div>
+    </div>
+</div>
+<div class="login-view" *ngIf="view === 'signUp'">
+    <div class="login-header">
+        <p>Create account</p>
+    </div>
+    <div class="login-divider">
+        <div class="divider"></div>
+    </div>
+    <div class="login-label">
+        <p>Email</p>
+    </div>
+    <div class="login-input-container">
+        <div class="login-input">
+            <input type="text" [(ngModel)]="email">
+        </div>
+    </div>
+    <div class="login-label">
+        <p>Password</p>
+    </div>
+    <div class="login-input-container">
+        <div class="login-input">
+            <input type="text" [(ngModel)]="password">
+        </div>
+    </div>
+    <div class="login-slim-button inline">
+        <p (click)="openLogin()">Existing user? Sign in</p>
+    </div>
+    <div class="login-info-container" *ngIf="message">
+        <div class="login-info">
+            <p>{{ message }}</p>
+        </div>
+    </div>
+    <div class="login-buttons">
+        <div class="login-save">
+            <p>Create Account</p>
+        </div>
+    </div>
+</div>

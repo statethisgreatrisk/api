@@ -16,6 +16,8 @@ import { DeleteService } from './services/delete.service';
 import { AppViewComponent } from './components/app-view/app-view.component';
 import { SettingsViewComponent } from './components/settings-view/settings-view.component';
 import { SettingsService } from './services/settings.service';
+import { LoginViewComponent } from './components/login-view/login-view.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -32,6 +34,7 @@ import { SettingsService } from './services/settings.service';
     DeleteViewComponent,
     AppViewComponent,
     SettingsViewComponent,
+    LoginViewComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -40,18 +43,21 @@ export class AppComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   deleteData: DeleteData | null = null;
   settingsOpen: boolean = false;
+  loginOpen: boolean = false;
 
   constructor(
     private store: Store<AppStateInit>,
     private deleteService: DeleteService,
     private settingsService: SettingsService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
     this.initView();
     this.initDeleteView();
     this.initSettingsView();
-    this.dispatchUser();
+    this.initLoginView();
+    // this.dispatchUser();
     this.dispatchAPIs();
     this.dispatchStorages();
     this.dispatchSchemas();
@@ -78,6 +84,10 @@ export class AppComponent {
 
   initSettingsView() {
     this.settingsService.settingsOpen$.subscribe((settingsOpen) => this.settingsOpen = settingsOpen);
+  }
+
+  initLoginView() {
+    this.authService.loginOpen$.subscribe((loginOpen) => this.loginOpen = loginOpen);
   }
 
   dispatchUser() {

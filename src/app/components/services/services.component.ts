@@ -6,6 +6,7 @@ import { createAPI, createSchema, createStorage, createValidator, createWorkflow
 import { selectAPIs, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import ObjectId from 'bson-objectid';
 import { SettingsService } from '../../services/settings.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-services',
@@ -35,6 +36,7 @@ export class ServicesComponent {
   constructor(
     private store: Store<AppStateInit>,
     private settingsService: SettingsService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
@@ -65,6 +67,10 @@ export class ServicesComponent {
 
   openSettings() {
     this.settingsService.openSettings();
+  }
+
+  openLogin() {
+    this.authService.openLogin();
   }
 
   initUser() {
