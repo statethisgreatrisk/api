@@ -1,11 +1,11 @@
 <div class="toast-view info" *ngIf="toast && toast.type === 'info'">
-    <p>This is a toast info.a sdflkajs d;lfkjas;dlfkjsadf alskdjf lk jasldfk asdlfkj alsdkf j</p>
+    <p>{{ toast.text }}</p>
 </div>
 
 <div class="toast-view success" *ngIf="toast && toast.type === 'success'">
-    <p>This is a toast success.</p>
+    <p>{{ toast.text }}</p>
 </div>
 
 <div class="toast-view alert" *ngIf="toast && toast.type === 'alert'">
-    <p>This is a toast alert.</p>
+    <p>{{ toast.text }}</p>
 </div>

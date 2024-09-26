@@ -18,6 +18,8 @@
     background-color: $surface-dark;
     border: 1px solid $primary-600;
     box-shadow: 0px 0px 3px $primary-600;
+
+    z-index: 3;
 }
 
 .toast-view.info p {
@@ -31,6 +33,8 @@
     background-color: $post;
     border: 1px solid $surface-dark;
     box-shadow: 0px 0px 3px $post;
+
+    z-index: 3;
 }
 
 .toast-view.success p {
@@ -44,6 +48,8 @@
     background-color: $delete;
     border: 1px solid $surface-dark;
     box-shadow: 0px 0px 3px $delete;
+
+    z-index: 3;
 }
 
 .toast-view.alert p {

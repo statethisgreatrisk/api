@@ -7,6 +7,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { authError, authSuccess, confirmUser, forgotUser, loginUser, resendUser, resetUser, signupUser } from '../../store/actions/app.action';
 import { Store } from '@ngrx/store';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-login-view',
@@ -29,7 +30,7 @@ export class LoginViewComponent {
   authSuccessSub: Subscription | null = null;
   authErrorSub: Subscription | null = null;
 
-  constructor(private actions$: Actions, private store: Store<AppStateInit>, private authService: AuthService) {}
+  constructor(private actions$: Actions, private store: Store<AppStateInit>, private authService: AuthService, private toastService: ToastService) {}
 
   ngOnInit() {
     this.authSuccessSub = this.actions$.pipe((ofType(authSuccess))).subscribe((authResponse) => {
@@ -155,25 +156,31 @@ export class LoginViewComponent {
 
   signupError(authResponse: Auth) {
     this.loading = false;
+    this.toastService.addToast({ type: 'alert', text: authResponse.message });
   }
 
   resendError(authResponse: Auth) {
     this.loading = false;
+    this.toastService.addToast({ type: 'alert', text: authResponse.message });
   }
 
   confirmError(authResponse: Auth) {
     this.loading = false;
+    this.toastService.addToast({ type: 'alert', text: authResponse.message });
   }
 
   forgotError(authResponse: Auth) {
     this.loading = false;
+    this.toastService.addToast({ type: 'alert', text: authResponse.message });
   }
 
   resetError(authResponse: Auth) {
     this.loading = false;
+    this.toastService.addToast({ type: 'alert', text: authResponse.message });
   }
 
   loginError(authResponse: Auth) {
     this.loading = false;
+    this.toastService.addToast({ type: 'alert', text: authResponse.message });
   }
 }

@@ -27,7 +27,7 @@ export class AppEffect {
             ofType(signupUser),
             exhaustMap((action) => this.appRequest.authSignup(action.email, action.password).pipe(
                 map(data => authSuccess({ action: 'signup', success: true, message: data })),
-                catchError(err => of(authError({ action: 'signup', success: false, message: err })))
+                catchError(err => of(authError({ action: 'signup', success: false, message: err.error })))
             )),
         );
     });
@@ -37,7 +37,7 @@ export class AppEffect {
             ofType(resendUser),
             exhaustMap((action) => this.appRequest.authResend(action.email).pipe(
                 map(data => authSuccess({ action: 'resend', success: true, message: data })),
-                catchError(err => of(authError({ action: 'resend', success: false, message: err })))
+                catchError(err => of(authError({ action: 'resend', success: false, message: err.error })))
             )),
         );
     });
@@ -47,7 +47,7 @@ export class AppEffect {
             ofType(confirmUser),
             exhaustMap((action) => this.appRequest.authConfirm(action.email, action.confirmationCode).pipe(
                 map(data => authSuccess({ action: 'confirm', success: true, message: data })),
-                catchError(err => of(authError({ action: 'confirm', success: false, message: err })))
+                catchError(err => of(authError({ action: 'confirm', success: false, message: err.error })))
             )),
         );
     });
@@ -57,7 +57,7 @@ export class AppEffect {
             ofType(forgotUser),
             exhaustMap((action) => this.appRequest.authForgot(action.email).pipe(
                 map(data => authSuccess({ action: 'forgot', success: true, message: data })),
-                catchError(err => of(authError({ action: 'forgot', success: false, message: err })))
+                catchError(err => of(authError({ action: 'forgot', success: false, message: err.error })))
             )),
         );
     });
@@ -67,7 +67,7 @@ export class AppEffect {
             ofType(resetUser),
             exhaustMap((action) => this.appRequest.authReset(action.email, action.password, action.confirmationCode).pipe(
                 map(data => authSuccess({ action: 'reset', success: true, message: data })),
-                catchError(err => of(authError({ action: 'reset', success: false, message: err })))
+                catchError(err => of(authError({ action: 'reset', success: false, message: err.error })))
             )),
         );
     });
@@ -77,7 +77,7 @@ export class AppEffect {
             ofType(loginUser),
             exhaustMap((action) => this.appRequest.authLogin(action.email, action.password).pipe(
                 map(data => authSuccess({ action: 'login', success: true, message: data })),
-                catchError(err => of(authError({ action: 'login', success: false, message: err })))
+                catchError(err => of(authError({ action: 'login', success: false, message: err.error })))
             )),
         );
     });
@@ -87,7 +87,7 @@ export class AppEffect {
             ofType(refreshUser),
             exhaustMap((action) => this.appRequest.authRefresh(action.email, action.refreshToken).pipe(
                 map(data => authSuccess({ action: 'refresh', success: true, message: data })),
-                catchError(err => of(authError({ action: 'refresh', success: false, message: err })))
+                catchError(err => of(authError({ action: 'refresh', success: false, message: err.error })))
             )),
         );
     });
@@ -97,7 +97,7 @@ export class AppEffect {
             ofType(logoutUser),
             exhaustMap((action) => this.appRequest.authLogout(action.email, action.accessToken).pipe(
                 map(data => authSuccess({ action: 'logout', success: true, message: data })),
-                catchError(err => of(authError({ action: 'logout', success: false, message: err })))
+                catchError(err => of(authError({ action: 'logout', success: false, message: err.error })))
             )),
         );
     });
