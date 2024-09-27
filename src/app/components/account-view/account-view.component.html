@@ -1,14 +1,15 @@
 <div class="account-view">
-    <div class="account-name">
+    <div class="account-name" *ngIf="user">
         <p>Name</p>
-        <p>debussy</p>
+        <p>{{ user.name }}</p>
     </div>
-    <div class="account-email">
+    <div class="account-email" *ngIf="user">
         <p>Email</p>
-        <p>debussy&#64;email.com</p>
+        <p>{{ user.email }}</p>
     </div>
     <div class="account-logout">
         <p>Log out</p>
-        <p>Log out</p>
+        <p (click)="logout()" *ngIf="!loading">Log out</p>
+        <p (click)="logout()" *ngIf="loading">Logging out...</p>
     </div>
 </div>

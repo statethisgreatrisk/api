@@ -294,3 +294,23 @@ export const deselectWindowFn: (state: AppState, windowName: string, windowId: s
 export const logFn: (state: AppState, any: any) => AppState = (state: AppState, any: any) => {
     return { ...state };
 }
+
+export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => {
+    return {
+        apis: [],
+        storages: [],
+        schemas: [],
+        validators: [],
+        workflows: [],
+        apps: [],
+
+        deploys: [],
+        logs: [],
+        keys: [],
+        billings: [],
+        usages: [],
+
+        user: null,
+        view: { service: '', serviceId: '', window: 'Workflow', windowId: '' },
+    };
+}

@@ -119,3 +119,4 @@ export const deselectWindow = createAction('[DESELECT] Window', props<{ windowNa
 
 export const log = createAction('[LOG]', props<{ any: any }>())
 export const requestError = createAction('[ERROR] Request', props<{ message: string, error: any }>());
+export const clearStore = createAction('[CLEAR] Store');
