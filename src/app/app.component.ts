@@ -9,7 +9,7 @@ import { StorageViewComponent } from './components/storage-view/storage-view.com
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
-import { authError, authSuccess, checkUser, clearStore, getAPIs, getApps, getBillings, getDeploys, getKeys, getLogs, getSchemas, getStorages, getUsages, getUser, getValidators, getWorkflows, requestError } from './store/actions/app.action';
+import { authError, authSuccess, checkUser, clearStore, getAPIs, getApps, getSchemas, getStorages, getUser, getValidators, getWorkflows, requestError } from './store/actions/app.action';
 import { selectView } from './store/selectors/app.selector';
 import { DeleteViewComponent } from './components/delete-view/delete-view.component';
 import { DeleteService } from './services/delete.service';
@@ -114,23 +114,29 @@ export class AppComponent {
     });
   }
 
-  dispatchCheck() {
-    this.store.dispatch(checkUser());
+  dispatchV1 = async () => {
+    const delay = (ms: number) => {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    };
+
+    const actions = [
+      this.dispatchUser,
+      this.dispatchAPIs,
+      this.dispatchStorages,
+      this.dispatchSchemas,
+      this.dispatchValidators,
+      this.dispatchWorkflows,
+      this.dispatchApps,
+    ];
+
+    for (const dispatch of actions) {
+      dispatch.bind(this)();
+      await delay(500);
+    }
   }
 
-  dispatchV1() {
-    this.dispatchUser();
-    this.dispatchAPIs();
-    this.dispatchStorages();
-    this.dispatchSchemas();
-    this.dispatchValidators();
-    this.dispatchWorkflows();
-    this.dispatchApps();
-    this.dispatchDeploys();
-    this.dispatchLogs();
-    this.dispatchKeys();
-    this.dispatchBillings();
-    this.dispatchUsages();
+  dispatchCheck() {
+    this.store.dispatch(checkUser());
   }
 
   dispatchUser() {
@@ -159,26 +165,6 @@ export class AppComponent {
 
   dispatchApps() {
     this.store.dispatch(getApps());
-  }
-
-  dispatchDeploys() {
-    this.store.dispatch(getDeploys());
-  }
-
-  dispatchLogs() {
-    this.store.dispatch(getLogs());
-  }
-
-  dispatchKeys() {
-    this.store.dispatch(getKeys());
-  }
-
-  dispatchBillings() {
-    this.store.dispatch(getBillings());
-  }
-
-  dispatchUsages() {
-    this.store.dispatch(getUsages());
   }
 
   clearStore() {

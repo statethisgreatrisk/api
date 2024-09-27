@@ -7,6 +7,9 @@ import { LogViewComponent } from '../log-view/log-view.component';
 import { KeyViewComponent } from '../key-view/key-view.component';
 import { BillingViewComponent } from '../billing-view/billing-view.component';
 import { UsageViewComponent } from '../usage-view/usage-view.component';
+import { Store } from '@ngrx/store';
+import { getDeploys, getLogs, getKeys, getBillings, getUsages } from '../../store/actions/app.action';
+import { AppStateInit } from '../../store/interfaces/app.interface';
 
 @Component({
   selector: 'app-settings-view',
@@ -27,7 +30,50 @@ import { UsageViewComponent } from '../usage-view/usage-view.component';
 export class SettingsViewComponent {
   setting: string = 'account';
 
-  constructor(private settingsService: SettingsService) {}
+  constructor(private settingsService: SettingsService, private store: Store<AppStateInit>,) {}
+
+  ngOnInit() {
+    this.dispatchV1();
+  }
+
+  dispatchV1 = async () => {
+    const delay = (ms: number) => {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    };
+
+    const actions = [
+      this.dispatchDeploys,
+      this.dispatchLogs,
+      this.dispatchKeys,
+      this.dispatchBillings,
+      this.dispatchUsages,
+    ];
+
+    for (const dispatch of actions) {
+      dispatch.bind(this)();
+      await delay(500);
+    }
+  }
+
+  dispatchDeploys() {
+    this.store.dispatch(getDeploys());
+  }
+
+  dispatchLogs() {
+    this.store.dispatch(getLogs());
+  }
+
+  dispatchKeys() {
+    this.store.dispatch(getKeys());
+  }
+
+  dispatchBillings() {
+    this.store.dispatch(getBillings());
+  }
+
+  dispatchUsages() {
+    this.store.dispatch(getUsages());
+  }
 
   closeSettings() {
     this.settingsService.closeSettings();
