@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
-import { API, App, Billing, Deploy, Key, Log, Schema, Storage, Usage, User, Validator, Workflow } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Key, Log, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow } from "../interfaces/app.interface";
 
 const url = 'http://localhost:3000/v1';
 
@@ -13,8 +13,8 @@ export class AppRequest {
 
   // User
 
-  getUser(userId: string): Observable<User> {
-    const endpoint = `${url}/user/:userId`.replace(':userId', userId);
+  getUser(): Observable<User> {
+    const endpoint = `${url}/user`;
     return this.http.get<User>(endpoint, { withCredentials: true });
   }
 
@@ -67,203 +67,203 @@ export class AppRequest {
 
   // API
 
-  getAPIs(userId: string): Observable<API[]> {
-    const endpoint = `${url}/api/:userId`.replace(':userId', userId);
+  getAPIs(): Observable<API[]> {
+    const endpoint = `${url}/api`;
     return this.http.get<API[]>(endpoint, { withCredentials: true });
   }
 
   createAPI(api: API): Observable<API> {
-    const endpoint = `${url}/api/:userId`.replace(':userId', api.userId);
+    const endpoint = `${url}/api`;
     return this.http.post<API>(endpoint, { api }, { withCredentials: true });
   }
 
   updateAPI(api: API): Observable<API> {
-    const endpoint = `${url}/api/:userId/:apiId`.replace(':userId', api.userId).replace(':apiId', api._id);
+    const endpoint = `${url}/api`;
     return this.http.put<API>(endpoint, { api }, { withCredentials: true });
   }
 
-  deleteAPI(userId: string, apiId: string): Observable<string> {
-    const endpoint = `${url}/api/:userId/:apiId`.replace(':userId', userId).replace(':apiId', apiId);
-    return this.http.delete<string>(endpoint, { withCredentials: true });
+  deleteAPI(apiId: string): Observable<ResponseMessage> {
+    const endpoint = `${url}/api/:apiId`.replace(':apiId', apiId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 
   // Storage
 
-  getStorages(userId: string): Observable<Storage[]> {
-    const endpoint = `${url}/storage/:userId`.replace(':userId', userId);
+  getStorages(): Observable<Storage[]> {
+    const endpoint = `${url}/storage`;
     return this.http.get<Storage[]>(endpoint, { withCredentials: true });
   }
   
   createStorage(storage: Storage): Observable<Storage> {
-    const endpoint = `${url}/storage/:userId`.replace(':userId', storage.userId);
+    const endpoint = `${url}/storage`;
     return this.http.post<Storage>(endpoint, { storage }, { withCredentials: true });
   }
   
   updateStorage(storage: Storage): Observable<Storage> {
-    const endpoint = `${url}/storage/:userId/:storageId`.replace(':userId', storage.userId).replace(':storageId', storage._id);
+    const endpoint = `${url}/storage`;
     return this.http.put<Storage>(endpoint, { storage }, { withCredentials: true });
   }
   
-  deleteStorage(userId: string, storageId: string): Observable<string> {
-    const endpoint = `${url}/storage/:userId/:storageId`.replace(':userId', userId).replace(':storageId', storageId);
-    return this.http.delete<string>(endpoint, { withCredentials: true });
+  deleteStorage(storageId: string): Observable<ResponseMessage> {
+    const endpoint = `${url}/storage/:storageId`.replace(':storageId', storageId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 
   // Schema
 
-  getSchemas(userId: string): Observable<Schema[]> {
-    const endpoint = `${url}/schema/:userId`.replace(':userId', userId);
+  getSchemas(): Observable<Schema[]> {
+    const endpoint = `${url}/schema`;
     return this.http.get<Schema[]>(endpoint, { withCredentials: true });
   }
   
   createSchema(schema: Schema): Observable<Schema> {
-    const endpoint = `${url}/schema/:userId`.replace(':userId', schema.userId);
+    const endpoint = `${url}/schema`;
     return this.http.post<Schema>(endpoint, { schema }, { withCredentials: true });
   }
   
   updateSchema(schema: Schema): Observable<Schema> {
-    const endpoint = `${url}/schema/:userId/:schemaId`.replace(':userId', schema.userId).replace(':schemaId', schema._id);
+    const endpoint = `${url}/schema`;
     return this.http.put<Schema>(endpoint, { schema }, { withCredentials: true });
   }
   
-  deleteSchema(userId: string, schemaId: string): Observable<string> {
-    const endpoint = `${url}/schema/:userId/:schemaId`.replace(':userId', userId).replace(':schemaId', schemaId);
-    return this.http.delete<string>(endpoint, { withCredentials: true });
+  deleteSchema(schemaId: string): Observable<ResponseMessage> {
+    const endpoint = `${url}/schema/:schemaId`.replace(':schemaId', schemaId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 
   // Validator
 
-  getValidators(userId: string): Observable<Validator[]> {
-    const endpoint = `${url}/validator/:userId`.replace(':userId', userId);
+  getValidators(): Observable<Validator[]> {
+    const endpoint = `${url}/validator`;
     return this.http.get<Validator[]>(endpoint, { withCredentials: true });
   }
   
   createValidator(validator: Validator): Observable<Validator> {
-    const endpoint = `${url}/validator/:userId`.replace(':userId', validator.userId);
+    const endpoint = `${url}/validator`;
     return this.http.post<Validator>(endpoint, { validator }, { withCredentials: true });
   }
   
   updateValidator(validator: Validator): Observable<Validator> {
-    const endpoint = `${url}/validator/:userId/:validatorId`.replace(':userId', validator.userId).replace(':validatorId', validator._id);
+    const endpoint = `${url}/validator`;
     return this.http.put<Validator>(endpoint, { validator }, { withCredentials: true });
   }
   
-  deleteValidator(userId: string, validatorId: string): Observable<string> {
-    const endpoint = `${url}/validator/:userId/:validatorId`.replace(':userId', userId).replace(':validatorId', validatorId);
-    return this.http.delete<string>(endpoint, { withCredentials: true });
+  deleteValidator(validatorId: string): Observable<ResponseMessage> {
+    const endpoint = `${url}/validator/:validatorId`.replace(':validatorId', validatorId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 
   // Workflow
 
-  getWorkflows(userId: string): Observable<Workflow[]> {
-    const endpoint = `${url}/workflow/:userId`.replace(':userId', userId);
+  getWorkflows(): Observable<Workflow[]> {
+    const endpoint = `${url}/workflow`;
     return this.http.get<Workflow[]>(endpoint, { withCredentials: true });
   }
   
   createWorkflow(workflow: Workflow): Observable<Workflow> {
-    const endpoint = `${url}/workflow/:userId`.replace(':userId', workflow.userId);
+    const endpoint = `${url}/workflow`;
     return this.http.post<Workflow>(endpoint, { workflow }, { withCredentials: true });
   }
   
   updateWorkflow(workflow: Workflow): Observable<Workflow> {
-    const endpoint = `${url}/workflow/:userId/:workflowId`.replace(':userId', workflow.userId).replace(':workflowId', workflow._id);
+    const endpoint = `${url}/workflow`;
     return this.http.put<Workflow>(endpoint, { workflow }, { withCredentials: true });
   }
   
-  deleteWorkflow(userId: string, workflowId: string): Observable<string> {
-    const endpoint = `${url}/workflow/:userId/:workflowId`.replace(':userId', userId).replace(':workflowId', workflowId);
-    return this.http.delete<string>(endpoint, { withCredentials: true });
+  deleteWorkflow(workflowId: string): Observable<ResponseMessage> {
+    const endpoint = `${url}/workflow/:workflowId`.replace(':workflowId', workflowId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 
   // App
 
-  getApps(userId: string): Observable<App[]> {
-    const endpoint = `${url}/app/:userId`.replace(':userId', userId);
+  getApps(): Observable<App[]> {
+    const endpoint = `${url}/app`;
     return this.http.get<App[]>(endpoint, { withCredentials: true });
   }
 
   // Deploy
 
-  getDeploys(userId: string): Observable<Deploy[]> {
-    const endpoint = `${url}/deploy/:userId`.replace(':userId', userId);
+  getDeploys(): Observable<Deploy[]> {
+    const endpoint = `${url}/deploy`;
     return this.http.get<Deploy[]>(endpoint, { withCredentials: true });
   }
 
   createDeploy(deploy: Deploy): Observable<Deploy> {
-    const endpoint = `${url}/deploy/:userId`.replace(':userId', deploy.userId);
+    const endpoint = `${url}/deploy`;
     return this.http.post<Deploy>(endpoint, { deploy }, { withCredentials: true });
   }
 
   updateDeploy(deploy: Deploy): Observable<Deploy> {
-    const endpoint = `${url}/deploy/:userId/:deployId`.replace(':userId', deploy.userId).replace(':deployId', deploy._id);
+    const endpoint = `${url}/deploy`;
     return this.http.put<Deploy>(endpoint, { deploy }, { withCredentials: true });
   }
 
   // Log
 
-  getLogs(userId: string): Observable<Log[]> {
-    const endpoint = `${url}/log/:userId`.replace(':userId', userId);
+  getLogs(): Observable<Log[]> {
+    const endpoint = `${url}/log`;
     return this.http.get<Log[]>(endpoint, { withCredentials: true });
   }
 
   createLog(log: Log): Observable<Log> {
-    const endpoint = `${url}/log/:userId`.replace(':userId', log.userId);
+    const endpoint = `${url}/log`;
     return this.http.post<Log>(endpoint, { log }, { withCredentials: true });
   }
 
   updateLog(log: Log): Observable<Log> {
-    const endpoint = `${url}/log/:userId/:logId`.replace(':userId', log.userId).replace(':logId', log._id);
+    const endpoint = `${url}/log`;
     return this.http.put<Log>(endpoint, { log }, { withCredentials: true });
   }
 
   // Key
 
-  getKeys(userId: string): Observable<Key[]> {
-    const endpoint = `${url}/key/:userId`.replace(':userId', userId);
+  getKeys(): Observable<Key[]> {
+    const endpoint = `${url}/key`;
     return this.http.get<Key[]>(endpoint, { withCredentials: true });
   }
 
   createKey(key: Key): Observable<Key> {
-    const endpoint = `${url}/key/:userId`.replace(':userId', key.userId);
+    const endpoint = `${url}/key`;
     return this.http.post<Key>(endpoint, { key }, { withCredentials: true });
   }
 
   updateKey(key: Key): Observable<Key> {
-    const endpoint = `${url}/key/:userId/:keyId`.replace(':userId', key.userId).replace(':keyId', key._id);
+    const endpoint = `${url}/key`;
     return this.http.put<Key>(endpoint, { key }, { withCredentials: true });
   }
 
   // Billing
 
-  getBillings(userId: string): Observable<Billing[]> {
-    const endpoint = `${url}/billing/:userId`.replace(':userId', userId);
+  getBillings(): Observable<Billing[]> {
+    const endpoint = `${url}/billing`;
     return this.http.get<Billing[]>(endpoint, { withCredentials: true });
   }
 
   createBilling(billing: Billing): Observable<Billing> {
-    const endpoint = `${url}/billing/:userId`.replace(':userId', billing.userId);
+    const endpoint = `${url}/billing`;
     return this.http.post<Billing>(endpoint, { billing }, { withCredentials: true });
   }
 
   updateBilling(billing: Billing): Observable<Billing> {
-    const endpoint = `${url}/billing/:userId/:billingId`.replace(':userId', billing.userId).replace(':billingId', billing._id);
+    const endpoint = `${url}/billing`;
     return this.http.put<Billing>(endpoint, { billing }, { withCredentials: true });
   }
 
   // Usage
 
-  getUsages(userId: string): Observable<Usage[]> {
-    const endpoint = `${url}/usage/:userId`.replace(':userId', userId);
+  getUsages(): Observable<Usage[]> {
+    const endpoint = `${url}/usage`;
     return this.http.get<Usage[]>(endpoint, { withCredentials: true });
   }
 
   createUsage(usage: Usage): Observable<Usage> {
-    const endpoint = `${url}/usage/:userId`.replace(':userId', usage.userId);
+    const endpoint = `${url}/usage`;
     return this.http.post<Usage>(endpoint, { usage }, { withCredentials: true });
   }
 
   updateUsage(usage: Usage): Observable<Usage> {
-    const endpoint = `${url}/usage/:userId/:usageId`.replace(':userId', usage.userId).replace(':usageId', usage._id);
+    const endpoint = `${url}/usage`;
     return this.http.put<Usage>(endpoint, { usage }, { withCredentials: true });
   }
 }

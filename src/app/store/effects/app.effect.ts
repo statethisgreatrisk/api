@@ -13,7 +13,7 @@ export class AppEffect {
     getUser$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(getUser),
-            exhaustMap((action) => this.appRequest.getUser(action.userId).pipe(
+            exhaustMap((action) => this.appRequest.getUser().pipe(
                 map(data => addUser({ user: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
@@ -117,7 +117,7 @@ export class AppEffect {
     getAPIs$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(getAPIs),
-            exhaustMap((action) => this.appRequest.getAPIs(action.userId).pipe(
+            exhaustMap((action) => this.appRequest.getAPIs().pipe(
                 map(data => addAPIs({ apis: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
@@ -147,8 +147,8 @@ export class AppEffect {
     deleteAPI$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(deleteAPI),
-            exhaustMap((action) => this.appRequest.deleteAPI(action.userId, action.apiId).pipe(
-                map(data => removeAPI({ apiId: data })),
+            exhaustMap((action) => this.appRequest.deleteAPI(action.apiId).pipe(
+                map(data => removeAPI({ apiId: data.message })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
         );
@@ -159,7 +159,7 @@ export class AppEffect {
     getStorages$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(getStorages),
-            exhaustMap((action) => this.appRequest.getStorages(action.userId).pipe(
+            exhaustMap((action) => this.appRequest.getStorages().pipe(
                 map(data => addStorages({ storages: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
@@ -189,8 +189,8 @@ export class AppEffect {
     deleteStorage$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(deleteStorage),
-            exhaustMap((action) => this.appRequest.deleteStorage(action.userId, action.storageId).pipe(
-                map(data => removeStorage({ storageId: data })),
+            exhaustMap((action) => this.appRequest.deleteStorage(action.storageId).pipe(
+                map(data => removeStorage({ storageId: data.message })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
         );
@@ -201,7 +201,7 @@ export class AppEffect {
     getSchemas$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(getSchemas),
-            exhaustMap((action) => this.appRequest.getSchemas(action.userId).pipe(
+            exhaustMap((action) => this.appRequest.getSchemas().pipe(
                 map(data => addSchemas({ schemas: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
@@ -231,8 +231,8 @@ export class AppEffect {
     deleteSchema$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(deleteSchema),
-            exhaustMap((action) => this.appRequest.deleteSchema(action.userId, action.schemaId).pipe(
-                map(data => removeSchema({ schemaId: data })),
+            exhaustMap((action) => this.appRequest.deleteSchema(action.schemaId).pipe(
+                map(data => removeSchema({ schemaId: data.message })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
         );
@@ -243,7 +243,7 @@ export class AppEffect {
     getValidators$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(getValidators),
-            exhaustMap((action) => this.appRequest.getValidators(action.userId).pipe(
+            exhaustMap((action) => this.appRequest.getValidators().pipe(
                 map(data => addValidators({ validators: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
@@ -273,8 +273,8 @@ export class AppEffect {
     deleteValidator$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(deleteValidator),
-            exhaustMap((action) => this.appRequest.deleteValidator(action.userId, action.validatorId).pipe(
-                map(data => removeValidator({ validatorId: data })),
+            exhaustMap((action) => this.appRequest.deleteValidator(action.validatorId).pipe(
+                map(data => removeValidator({ validatorId: data.message })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
         );
@@ -285,7 +285,7 @@ export class AppEffect {
     getWorkflows$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(getWorkflows),
-            exhaustMap((action) => this.appRequest.getWorkflows(action.userId).pipe(
+            exhaustMap((action) => this.appRequest.getWorkflows().pipe(
                 map(data => addWorkflows({ workflows: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
@@ -315,8 +315,8 @@ export class AppEffect {
     deleteWorkflow$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(deleteWorkflow),
-            exhaustMap((action) => this.appRequest.deleteWorkflow(action.userId, action.workflowId).pipe(
-                map(data => removeWorkflow({ workflowId: data })),
+            exhaustMap((action) => this.appRequest.deleteWorkflow(action.workflowId).pipe(
+                map(data => removeWorkflow({ workflowId: data.message })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
         );
@@ -327,7 +327,7 @@ export class AppEffect {
     getApps$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(getApps),
-            exhaustMap((action) => this.appRequest.getApps(action.userId).pipe(
+            exhaustMap((action) => this.appRequest.getApps().pipe(
                 map(data => addApps({ apps: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
@@ -339,7 +339,7 @@ export class AppEffect {
     getDeploys$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(getDeploys),
-            exhaustMap((action) => this.appRequest.getDeploys(action.userId).pipe(
+            exhaustMap((action) => this.appRequest.getDeploys().pipe(
                 map(data => addDeploys({ deploys: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
@@ -371,7 +371,7 @@ export class AppEffect {
     getLogs$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(getLogs),
-            exhaustMap((action) => this.appRequest.getLogs(action.userId).pipe(
+            exhaustMap((action) => this.appRequest.getLogs().pipe(
                 map(data => addLogs({ logs: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
@@ -403,7 +403,7 @@ export class AppEffect {
     getKeys$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(getKeys),
-            exhaustMap((action) => this.appRequest.getKeys(action.userId).pipe(
+            exhaustMap((action) => this.appRequest.getKeys().pipe(
                 map(data => addKeys({ keys: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
@@ -435,7 +435,7 @@ export class AppEffect {
     getBillings$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(getBillings),
-            exhaustMap((action) => this.appRequest.getBillings(action.userId).pipe(
+            exhaustMap((action) => this.appRequest.getBillings().pipe(
                 map(data => addBillings({ billings: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
@@ -467,7 +467,7 @@ export class AppEffect {
     getUsages$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(getUsages),
-            exhaustMap((action) => this.appRequest.getUsages(action.userId).pipe(
+            exhaustMap((action) => this.appRequest.getUsages().pipe(
                 map(data => addUsages({ usages: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),

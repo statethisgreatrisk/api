@@ -9,7 +9,7 @@ import { StorageViewComponent } from './components/storage-view/storage-view.com
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
-import { checkUser, getAPIs, getApps, getBillings, getDeploys, getKeys, getLogs, getSchemas, getStorages, getUsages, getUser, getValidators, getWorkflows, requestError } from './store/actions/app.action';
+import { authError, authSuccess, checkUser, getAPIs, getApps, getBillings, getDeploys, getKeys, getLogs, getSchemas, getStorages, getUsages, getUser, getValidators, getWorkflows, requestError } from './store/actions/app.action';
 import { selectView } from './store/selectors/app.selector';
 import { DeleteViewComponent } from './components/delete-view/delete-view.component';
 import { DeleteService } from './services/delete.service';
@@ -62,19 +62,9 @@ export class AppComponent {
     this.initSettingsView();
     this.initLoginView();
     this.initRequestErrors();
-    // this.dispatchUser();
+    this.initAuthSuccessResponses();
+    this.initAuthErrors();
     this.dispatchCheck();
-    this.dispatchAPIs();
-    this.dispatchStorages();
-    this.dispatchSchemas();
-    this.dispatchValidators();
-    this.dispatchWorkflows();
-    this.dispatchApps();
-    this.dispatchDeploys();
-    this.dispatchLogs();
-    this.dispatchKeys();
-    this.dispatchBillings();
-    this.dispatchUsages();
   }
 
   initView() {
@@ -95,6 +85,19 @@ export class AppComponent {
   initLoginView() {
     this.authService.loginOpen$.subscribe((loginOpen) => this.loginOpen = loginOpen);
   }
+  
+  initAuthSuccessResponses() {
+    this.actions$.pipe((ofType(authSuccess))).subscribe((authResponse) => {
+      if (authResponse.action === 'login') this.dispatchV1();
+      if (authResponse.action === 'check') this.dispatchV1();
+    });
+  }
+
+  initAuthErrors() {
+    this.actions$.pipe((ofType(authError))).subscribe((authResponse) => {
+      if (authResponse.action === 'check') this.authService.openLogin();
+    });
+  }
 
   initRequestErrors() {
     this.actions$.pipe((ofType(requestError))).subscribe((requestError) => {
@@ -107,54 +110,68 @@ export class AppComponent {
   }
 
   dispatchUser() {
-    this.store.dispatch(getUser({ userId: '66e7f036567ffc29c90400f5' }));
+    this.store.dispatch(getUser());
   }
 
   dispatchCheck() {
     this.store.dispatch(checkUser());
   }
 
+  dispatchV1() {
+    this.dispatchAPIs();
+    this.dispatchStorages();
+    this.dispatchSchemas();
+    this.dispatchValidators();
+    this.dispatchWorkflows();
+    this.dispatchApps();
+    this.dispatchDeploys();
+    this.dispatchLogs();
+    this.dispatchKeys();
+    this.dispatchBillings();
+    this.dispatchUsages();
+  }
+
   dispatchAPIs() {
-    this.store.dispatch(getAPIs({ userId: '66e7f036567ffc29c90400f5' }));
+    this.store.dispatch(getAPIs());
   }
 
   dispatchStorages() {
-    this.store.dispatch(getStorages({ userId: '66e7f036567ffc29c90400f5' }));
+    this.store.dispatch(getStorages());
   }
 
   dispatchSchemas() {
-    this.store.dispatch(getSchemas({ userId: '66e7f036567ffc29c90400f5' }));
+    this.store.dispatch(getSchemas());
   }
 
   dispatchValidators() {
-    this.store.dispatch(getValidators({ userId: '66e7f036567ffc29c90400f5' }));
+    this.store.dispatch(getValidators());
   }
 
   dispatchWorkflows() {
-    this.store.dispatch(getWorkflows({ userId: '66e7f036567ffc29c90400f5' }));
+    this.store.dispatch(getWorkflows());
   }
 
   dispatchApps() {
-    this.store.dispatch(getApps({ userId: '66e7f036567ffc29c90400f5' }));
+    this.store.dispatch(getApps());
   }
 
   dispatchDeploys() {
-    this.store.dispatch(getDeploys({ userId: '66e7f036567ffc29c90400f5' }));
+    this.store.dispatch(getDeploys());
   }
 
   dispatchLogs() {
-    this.store.dispatch(getLogs({ userId: '66e7f036567ffc29c90400f5' }));
+    this.store.dispatch(getLogs());
   }
 
   dispatchKeys() {
-    this.store.dispatch(getKeys({ userId: '66e7f036567ffc29c90400f5' }));
+    this.store.dispatch(getKeys());
   }
 
   dispatchBillings() {
-    this.store.dispatch(getBillings({ userId: '66e7f036567ffc29c90400f5' }));
+    this.store.dispatch(getBillings());
   }
 
   dispatchUsages() {
-    this.store.dispatch(getUsages({ userId: '66e7f036567ffc29c90400f5' }));
+    this.store.dispatch(getUsages());
   }
 }

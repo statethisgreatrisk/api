@@ -167,7 +167,7 @@ export class ApiViewComponent {
       service: this.view.window,
       serviceData: workflow,
       deleteFn: () => {
-        this.store.dispatch(deleteWorkflow({ userId: workflow.userId, workflowId: workflow._id }));
+        this.store.dispatch(deleteWorkflow({ workflowId: workflow._id }));
         this.cancel();
       },
     });

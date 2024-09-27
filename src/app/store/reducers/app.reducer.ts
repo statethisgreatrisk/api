@@ -11,7 +11,7 @@ export const addUserFn: (state: AppState, user: User) => AppState = (state: AppS
 
 export const addAPIsFn: (state: AppState, apis: API[]) => AppState = (state: AppState, apis: API[]) => {
     if (!apis) return { ...state };
-    return { ...state, apis: state.apis.concat(apis) };
+    return { ...state, apis: apis };
 }
 
 export const addAPIFn: (state: AppState, api: API) => AppState = (state: AppState, api: API) => {
@@ -39,7 +39,7 @@ export const removeAPIFn: (state: AppState, apiId: string) => AppState = (state:
 
 export const addStoragesFn: (state: AppState, storages: Storage[]) => AppState = (state: AppState, storages: Storage[]) => {
     if (!storages) return { ...state };
-    return { ...state, storages: state.storages.concat(storages) };
+    return { ...state, storages: storages };
 }
 
 export const addStorageFn: (state: AppState, storage: Storage) => AppState = (state: AppState, storage: Storage) => {
@@ -67,7 +67,7 @@ export const removeStorageFn: (state: AppState, storageId: string) => AppState =
 
 export const addSchemasFn: (state: AppState, schemas: Schema[]) => AppState = (state: AppState, schemas: Schema[]) => {
     if (!schemas) return { ...state };
-    return { ...state, schemas: state.schemas.concat(schemas) };
+    return { ...state, schemas: schemas };
 }
 
 export const addSchemaFn: (state: AppState, schema: Schema) => AppState = (state: AppState, schema: Schema) => {
@@ -95,7 +95,7 @@ export const removeSchemaFn: (state: AppState, schemaId: string) => AppState = (
 
 export const addValidatorsFn: (state: AppState, validators: Validator[]) => AppState = (state: AppState, validators: Validator[]) => {
     if (!validators) return { ...state };
-    return { ...state, validators: state.validators.concat(validators) };
+    return { ...state, validators: validators };
 }
 
 export const addValidatorFn: (state: AppState, validator: Validator) => AppState = (state: AppState, validator: Validator) => {
@@ -123,7 +123,7 @@ export const removeValidatorFn: (state: AppState, validatorId: string) => AppSta
 
 export const addWorkflowsFn: (state: AppState, workflows: Workflow[]) => AppState = (state: AppState, workflows: Workflow[]) => {
     if (!workflows) return { ...state };
-    return { ...state, workflows: state.workflows.concat(workflows) };
+    return { ...state, workflows: workflows };
 }
 
 export const addWorkflowFn: (state: AppState, workflow: Workflow) => AppState = (state: AppState, workflow: Workflow) => {
@@ -151,7 +151,7 @@ export const removeWorkflowFn: (state: AppState, workflowId: string) => AppState
 
 export const addDeploysFn: (state: AppState, deploys: Deploy[]) => AppState = (state: AppState, deploys: Deploy[]) => {
     if (!deploys) return { ...state };
-    return { ...state, deploys: state.deploys.concat(deploys) };
+    return { ...state, deploys: deploys };
 }
 
 export const addDeployFn: (state: AppState, deploy: Deploy) => AppState = (state: AppState, deploy: Deploy) => {
@@ -174,7 +174,7 @@ export const replaceDeployFn: (state: AppState, deploy: Deploy) => AppState = (s
 
 export const addLogsFn: (state: AppState, logs: Log[]) => AppState = (state: AppState, logs: Log[]) => {
     if (!logs) return { ...state };
-    return { ...state, logs: state.logs.concat(logs) };
+    return { ...state, logs: logs };
 }
 
 export const addLogFn: (state: AppState, log: Log) => AppState = (state: AppState, log: Log) => {
@@ -197,7 +197,7 @@ export const replaceLogFn: (state: AppState, log: Log) => AppState = (state: App
 
 export const addKeysFn: (state: AppState, keys: Key[]) => AppState = (state: AppState, keys: Key[]) => {
     if (!keys) return { ...state };
-    return { ...state, keys: state.keys.concat(keys) };
+    return { ...state, keys: keys };
 }
 
 export const addKeyFn: (state: AppState, key: Key) => AppState = (state: AppState, key: Key) => {
@@ -220,7 +220,7 @@ export const replaceKeyFn: (state: AppState, key: Key) => AppState = (state: App
 
 export const addBillingsFn: (state: AppState, billings: Billing[]) => AppState = (state: AppState, billings: Billing[]) => {
     if (!billings) return { ...state };
-    return { ...state, billings: state.billings.concat(billings) };
+    return { ...state, billings: billings };
 }
 
 export const addBillingFn: (state: AppState, billing: Billing) => AppState = (state: AppState, billing: Billing) => {
@@ -243,7 +243,7 @@ export const replaceBillingFn: (state: AppState, billing: Billing) => AppState =
 
 export const addUsagesFn: (state: AppState, usages: Usage[]) => AppState = (state: AppState, usages: Usage[]) => {
     if (!usages) return { ...state };
-    return { ...state, usages: state.usages.concat(usages) };
+    return { ...state, usages: usages };
 }
 
 export const addUsageFn: (state: AppState, usage: Usage) => AppState = (state: AppState, usage: Usage) => {
@@ -266,7 +266,7 @@ export const replaceUsageFn: (state: AppState, usage: Usage) => AppState = (stat
 
 export const addAppsFn: (state: AppState, apps: App[]) => AppState = (state: AppState, apps: App[]) => {
     if (!apps) return { ...state };
-    return { ...state, apps: state.apps.concat(apps) };
+    return { ...state, apps: apps };
 }
 
 // Services/View

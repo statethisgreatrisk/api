@@ -126,7 +126,7 @@ export class EditValidatorComponent {
       service: this.view.service,
       serviceData: validator,
       deleteFn: () => {
-        this.store.dispatch(deleteValidator({ userId: validator.userId, validatorId: validator._id }));
+        this.store.dispatch(deleteValidator({ validatorId: validator._id }));
         this.cancel();
       },
     });

@@ -113,7 +113,7 @@ export class EditApiComponent {
       service: this.view.service,
       serviceData: api,
       deleteFn: () => {
-        this.store.dispatch(deleteAPI({ userId: api.userId, apiId: api._id }));
+        this.store.dispatch(deleteAPI({ apiId: api._id }));
         this.cancel();
       },
     });

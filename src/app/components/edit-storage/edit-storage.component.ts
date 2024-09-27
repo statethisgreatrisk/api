@@ -101,7 +101,7 @@ export class EditStorageComponent {
       service: this.view.service,
       serviceData: storage,
       deleteFn: () => {
-        this.store.dispatch(deleteStorage({ userId: storage.userId, storageId: storage._id }));
+        this.store.dispatch(deleteStorage({ storageId: storage._id }));
         this.cancel();
       },
     });

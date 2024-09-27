@@ -156,6 +156,10 @@ export interface DeleteData {
     deleteFn: () => void;
 }
 
+export interface ResponseMessage {
+    message: string;
+}
+
 export interface AppState {
     apis: API[];
     validators: Validator[];

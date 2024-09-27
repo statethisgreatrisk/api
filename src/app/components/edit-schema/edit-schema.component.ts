@@ -169,7 +169,7 @@ export class EditSchemaComponent {
       service: this.view.service,
       serviceData: schema,
       deleteFn: () => {
-        this.store.dispatch(deleteSchema({ userId: schema.userId, schemaId: schema._id }));
+        this.store.dispatch(deleteSchema({ schemaId: schema._id }));
         this.cancel();
       },
     });
