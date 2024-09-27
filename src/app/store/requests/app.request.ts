@@ -50,14 +50,19 @@ export class AppRequest {
     return this.http.post<string>(endpoint, { login: { email, password } });
   }
 
-  authRefresh(email: string, refreshToken: string): Observable<string> {
+  authRefresh(): Observable<string> {
     const endpoint = `${url}/auth/refresh`;
-    return this.http.post<string>(endpoint, { refresh: { email, refreshToken } });
+    return this.http.post<string>(endpoint, {});
   }
 
-  authLogout(email: string, accessToken: string): Observable<string> {
+  authLogout(email: string): Observable<string> {
     const endpoint = `${url}/auth/logout`;
-    return this.http.post<string>(endpoint, { logout: { email, accessToken } });
+    return this.http.post<string>(endpoint, { logout: { email } });
+  }
+  
+  authCheck(): Observable<string> {
+    const endpoint = `${url}/auth/check`;
+    return this.http.post<string>(endpoint, {});
   }
 
   // API

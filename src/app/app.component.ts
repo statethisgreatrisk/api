@@ -9,7 +9,7 @@ import { StorageViewComponent } from './components/storage-view/storage-view.com
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
-import { getAPIs, getApps, getBillings, getDeploys, getKeys, getLogs, getSchemas, getStorages, getUsages, getUser, getValidators, getWorkflows, requestError } from './store/actions/app.action';
+import { checkUser, getAPIs, getApps, getBillings, getDeploys, getKeys, getLogs, getSchemas, getStorages, getUsages, getUser, getValidators, getWorkflows, requestError } from './store/actions/app.action';
 import { selectView } from './store/selectors/app.selector';
 import { DeleteViewComponent } from './components/delete-view/delete-view.component';
 import { DeleteService } from './services/delete.service';
@@ -63,6 +63,7 @@ export class AppComponent {
     this.initLoginView();
     this.initRequestErrors();
     // this.dispatchUser();
+    this.dispatchCheck();
     this.dispatchAPIs();
     this.dispatchStorages();
     this.dispatchSchemas();
@@ -107,6 +108,10 @@ export class AppComponent {
 
   dispatchUser() {
     this.store.dispatch(getUser({ userId: '66e7f036567ffc29c90400f5' }));
+  }
+
+  dispatchCheck() {
+    this.store.dispatch(checkUser());
   }
 
   dispatchAPIs() {

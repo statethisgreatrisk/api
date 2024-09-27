@@ -1,5 +1,5 @@
 export interface Auth {
-    action: 'signup' | 'resend' | 'confirm' | 'forgot' | 'reset' | 'login' | 'refresh' | 'logout';
+    action: 'signup' | 'resend' | 'confirm' | 'forgot' | 'reset' | 'login' | 'refresh' | 'logout' | 'check';
     success: boolean;
     message: string;
 }

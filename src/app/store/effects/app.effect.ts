@@ -2,7 +2,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, of } from "rxjs";
 import { Injectable } from "@angular/core";
 import { AppRequest } from "../requests/app.request";
-import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createDeploy, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateDeploy, updateKey, updateLog, updateUsage, signupUser, authError, authSuccess, resendUser, confirmUser, forgotUser, resetUser, loginUser, logoutUser, refreshUser } from "../actions/app.action";
+import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createDeploy, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateDeploy, updateKey, updateLog, updateUsage, signupUser, authError, authSuccess, resendUser, confirmUser, forgotUser, resetUser, loginUser, logoutUser, refreshUser, checkUser } from "../actions/app.action";
 
 @Injectable()
 export class AppEffect {
@@ -85,7 +85,7 @@ export class AppEffect {
     authRefresh$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(refreshUser),
-            exhaustMap((action) => this.appRequest.authRefresh(action.email, action.refreshToken).pipe(
+            exhaustMap((action) => this.appRequest.authRefresh().pipe(
                 map(data => authSuccess({ action: 'refresh', success: true, message: data })),
                 catchError(err => of(authError({ action: 'refresh', success: false, message: err.error })))
             )),
@@ -95,9 +95,19 @@ export class AppEffect {
     authLogout$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(logoutUser),
-            exhaustMap((action) => this.appRequest.authLogout(action.email, action.accessToken).pipe(
+            exhaustMap((action) => this.appRequest.authLogout(action.email).pipe(
                 map(data => authSuccess({ action: 'logout', success: true, message: data })),
                 catchError(err => of(authError({ action: 'logout', success: false, message: err.error })))
+            )),
+        );
+    });
+
+    authCheck$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(checkUser),
+            exhaustMap((action) => this.appRequest.authCheck().pipe(
+                map(data => authSuccess({ action: 'check', success: true, message: data })),
+                catchError(err => of(authError({ action: 'check', success: false, message: err.error })))
             )),
         );
     });

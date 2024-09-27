@@ -11,8 +11,9 @@ export const confirmUser = createAction('[CONFIRM] User', props<{email: string, 
 export const forgotUser = createAction('[FORGOT] User', props<{email: string}>());
 export const resetUser = createAction('[RESET] User', props<{email: string, password: string, confirmationCode: string}>());
 export const loginUser = createAction('[LOGIN] User', props<{email: string, password: string}>());
-export const refreshUser = createAction('[REFRESH] User', props<{email: string, refreshToken: string}>());
-export const logoutUser = createAction('[LOGOUT] User', props<{email: string, accessToken: string}>());
+export const refreshUser = createAction('[REFRESH] User');
+export const logoutUser = createAction('[LOGOUT] User', props<{email: string}>());
+export const checkUser = createAction('[CHECK] User');
 export const authSuccess = createAction('[SUCCESS] Auth', props<{action: Auth['action'], success: boolean, message: string }>());
 export const authError = createAction('[ERROR] Auth', props<{action: Auth['action'], success: boolean, message: string }>());
 
