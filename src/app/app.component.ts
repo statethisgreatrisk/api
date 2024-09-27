@@ -109,15 +109,12 @@ export class AppComponent {
     });
   }
 
-  dispatchUser() {
-    this.store.dispatch(getUser());
-  }
-
   dispatchCheck() {
     this.store.dispatch(checkUser());
   }
 
   dispatchV1() {
+    this.dispatchUser();
     this.dispatchAPIs();
     this.dispatchStorages();
     this.dispatchSchemas();
@@ -129,6 +126,10 @@ export class AppComponent {
     this.dispatchKeys();
     this.dispatchBillings();
     this.dispatchUsages();
+  }
+
+  dispatchUser() {
+    this.store.dispatch(getUser());
   }
 
   dispatchAPIs() {
