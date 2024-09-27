@@ -121,6 +121,8 @@ export class EditValidatorComponent {
     if (!this.validator) return;
 
     const validator = { ...this.validator };
+    delete validator.placeholder;
+    delete validator.placeholderIndex;
 
     this.deleteService.initDelete({
       service: this.view.service,

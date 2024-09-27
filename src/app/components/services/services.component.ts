@@ -125,7 +125,9 @@ export class ServicesComponent {
   }
 
   createAPI() {
-    const userId = '66e7f036567ffc29c90400f5';
+    if (!this.user) return;
+
+    const userId = this.user._id;
     const _id = '';
     const name = 'Endpoint';
     const date = new Date().toISOString();
@@ -138,7 +140,9 @@ export class ServicesComponent {
   }
 
   createStorage() {
-    const userId = '66e7f036567ffc29c90400f5';
+    if (!this.user) return;
+
+    const userId = this.user._id;
     const _id = '';
     const name = 'Storage';
     const date = new Date().toISOString();
@@ -149,7 +153,9 @@ export class ServicesComponent {
   }
 
   createSchema() {
-    const userId = '66e7f036567ffc29c90400f5';
+    if (!this.user) return;
+
+    const userId = this.user._id;
     const _id = '';
     const name = 'Schema';
     const date = new Date().toISOString();
@@ -160,7 +166,9 @@ export class ServicesComponent {
   }
 
   createValidator() {
-    const userId = '66e7f036567ffc29c90400f5';
+    if (!this.user) return;
+
+    const userId = this.user._id;
     const _id = '';
     const name = 'Validator';
     const date = new Date().toISOString();
@@ -173,7 +181,9 @@ export class ServicesComponent {
   }
 
   createWorkflow() {
-    const userId = '66e7f036567ffc29c90400f5';
+    if (!this.user) return;
+
+    const userId = this.user._id;
     const _id = '';
     const name = 'Workflow';
     const date = new Date().toISOString();

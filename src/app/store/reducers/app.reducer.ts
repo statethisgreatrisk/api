@@ -311,6 +311,6 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         usages: [],
 
         user: null,
-        view: { service: '', serviceId: '', window: 'Workflow', windowId: '' },
+        view: { service: '', serviceId: '', window: '', windowId: '' },
     };
 }

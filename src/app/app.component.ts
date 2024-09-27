@@ -131,7 +131,7 @@ export class AppComponent {
 
     for (const dispatch of actions) {
       dispatch.bind(this)();
-      await delay(500);
+      await delay(250);
     }
   }
 
