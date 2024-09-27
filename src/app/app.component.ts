@@ -9,7 +9,7 @@ import { StorageViewComponent } from './components/storage-view/storage-view.com
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
-import { getAPIs, getApps, getBillings, getDeploys, getKeys, getLogs, getSchemas, getStorages, getUsages, getUser, getValidators, getWorkflows } from './store/actions/app.action';
+import { getAPIs, getApps, getBillings, getDeploys, getKeys, getLogs, getSchemas, getStorages, getUsages, getUser, getValidators, getWorkflows, requestError } from './store/actions/app.action';
 import { selectView } from './store/selectors/app.selector';
 import { DeleteViewComponent } from './components/delete-view/delete-view.component';
 import { DeleteService } from './services/delete.service';
@@ -18,6 +18,8 @@ import { SettingsViewComponent } from './components/settings-view/settings-view.
 import { SettingsService } from './services/settings.service';
 import { LoginViewComponent } from './components/login-view/login-view.component';
 import { AuthService } from './services/auth.service';
+import { Actions, ofType } from '@ngrx/effects';
+import { ToastService } from './services/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -50,6 +52,8 @@ export class AppComponent {
     private deleteService: DeleteService,
     private settingsService: SettingsService,
     private authService: AuthService,
+    private toastService: ToastService,
+    private actions$: Actions,
   ) {}
 
   ngOnInit() {
@@ -57,6 +61,7 @@ export class AppComponent {
     this.initDeleteView();
     this.initSettingsView();
     this.initLoginView();
+    this.initRequestErrors();
     // this.dispatchUser();
     this.dispatchAPIs();
     this.dispatchStorages();
@@ -88,6 +93,16 @@ export class AppComponent {
 
   initLoginView() {
     this.authService.loginOpen$.subscribe((loginOpen) => this.loginOpen = loginOpen);
+  }
+
+  initRequestErrors() {
+    this.actions$.pipe((ofType(requestError))).subscribe((requestError) => {
+      const statusCode = requestError.error.status;
+      const errorMessage = requestError.message;
+
+      if (statusCode === 401 && errorMessage === 'Unauthorized') this.authService.openLogin();
+      else this.toastService.addToast({ type: 'alert', text: errorMessage });
+    });
   }
 
   dispatchUser() {
