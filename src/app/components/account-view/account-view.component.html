@@ -7,9 +7,4 @@
         <p>Email</p>
         <p>{{ user.email }}</p>
     </div>
-    <div class="account-logout">
-        <p>Log out</p>
-        <p (click)="logout()" *ngIf="!loading">Log out</p>
-        <p (click)="logout()" *ngIf="loading">Logging out...</p>
-    </div>
 </div>

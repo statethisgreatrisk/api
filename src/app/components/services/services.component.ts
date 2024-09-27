@@ -4,9 +4,9 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
 import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, SchemaRow } from '../../store/interfaces/app.interface';
 import { createAPI, createSchema, createStorage, createValidator, createWorkflow, deselectService, deselectWindow, selectService, selectWindow } from '../../store/actions/app.action';
 import { selectAPIs, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
-import ObjectId from 'bson-objectid';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth.service';
+import ObjectId from 'bson-objectid';
 
 @Component({
   selector: 'app-services',
@@ -32,6 +32,8 @@ export class ServicesComponent {
     { name: 'Schema', icon: '/tool.png' },
     { name: 'Validator', icon: '/binoculars.png' },
   ];
+
+  dropdown: boolean = false;
 
   constructor(
     private store: Store<AppStateInit>,
@@ -63,6 +65,10 @@ export class ServicesComponent {
     } else {
       this.store.dispatch(selectWindow({ windowName, windowId }));
     }
+  }
+
+  toggleDropdown() {
+    this.dropdown = !this.dropdown;
   }
 
   openSettings() {

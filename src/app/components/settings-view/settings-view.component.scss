@@ -96,11 +96,11 @@
 }
 
 .settings-button.active {
-    background-color: $primary-800;
+    background-color: $primary-1600;
 }
 
 .settings-button:hover {
-    background-color: $primary-800;
+    background-color: $primary-1600;
 }
 
 .settings-button p {
@@ -127,4 +127,53 @@
     margin-top: 5px;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.section-divider {
+    margin-top: 10px;
+    margin-bottom: 5px;
+
+    border-bottom: 1px solid $dark-purple;
+}
+
+.logout-button {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    flex-grow: 1;
+
+    height: 30px;
+    max-height: 30px;
+
+    padding: 0 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+
+    border-radius: 5px;
+
+    // background: $primary-800;
+    border: 1px solid $primary-800;
+    
+    cursor: pointer;
+}
+
+.logout-button p {
+    font-size: 11px;
+    font-weight: 600;
+
+    color: white;
+}
+
+.logout-button img {
+    width: 14px;
+    height: 14px;
+
+    margin-left: 3px;
+    margin-right: 10px;
+}
+
+.flex-grow {
+    height: 60px;
 }

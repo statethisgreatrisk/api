@@ -1,0 +1,87 @@
+@import '../../styles/palette.component.scss';
+
+.project-detail-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-detail-setup {
+    display: flex;
+    flex-direction: row;
+
+    height: 40px;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-detail-setup > p {
+    font-size: 12px;
+    font-weight: 800;
+
+    color: white;
+}
+
+.project-detail-input-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 20px;
+
+    padding-bottom: 3px;
+
+    background-color: #2f2b3a;
+    border: 1px solid #46424f;
+    border-radius: 2px;
+}
+
+.project-detail-input {
+    width: 100%;
+    margin-left: 5px;
+}
+
+.project-detail-input input {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+
+    width: 97%;
+
+    background-color: #2f2b3a;
+    border: none;
+}
+
+.project-detail-input input:focus-visible {
+    outline: none;
+}
+
+.project-detail-save {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: end;
+
+    height: 40px;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.project-detail-save p {
+    font-size: 12px;
+    font-weight: 600;
+
+    padding: 3px 15px;
+
+    color: white;
+
+    border-radius: 5px;
+    border: 1px solid $primary-800;
+    background: $primary-800;
+
+    cursor: pointer;
+}
+
+

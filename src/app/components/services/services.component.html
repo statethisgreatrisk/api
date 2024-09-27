@@ -2,6 +2,18 @@
     <div class="services-header">
         <p>Services</p>
     </div>
+    <div class="project-container">
+        <div class="project-button" (click)="toggleDropdown()">
+            <img src="/project.png">
+            <p>Project Name</p>
+        </div>
+        <div class="project-button-dropdown" *ngIf="dropdown">
+            <div class="project-button">
+                <img src="/plus.png">
+                <p>Create New Project</p>
+            </div>
+        </div>
+    </div>
     <div class="services">
         <div *ngFor="let service of services;">
             <div class="service">

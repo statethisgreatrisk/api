@@ -1,6 +1,12 @@
 <div class="settings-view">
     <div class="settings-header">
-        <p>Settings</p>
+        <p *ngIf="setting === 'project'">Project Settings</p>
+        <p *ngIf="setting === 'deploy'">Deploy Settings</p>
+        <p *ngIf="setting === 'logs'">Logs</p>
+        <p *ngIf="setting === 'apiKeys'">API Keys</p>
+        <p *ngIf="setting === 'usageCosts'">Usage Costs</p>
+        <p *ngIf="setting === 'account'">Account Settings</p>
+        <p *ngIf="setting === 'billing'">Billing</p>
         <img src="/x-white.png" (click)="closeSettings()">
     </div>
     <div class="settings-divider">
@@ -8,9 +14,9 @@
     </div>
     <div class="settings-section">
         <div class="settings-buttons">
-            <div class="settings-button" [ngClass]="{'active': setting === 'account'}" (click)="selectSetting('account')">
-                <img src="/user.png">
-                <p>Account</p>
+            <div class="settings-button" [ngClass]="{'active': setting === 'project'}" (click)="selectSetting('project')">
+                <img src="/project-white.png">
+                <p>Project</p>
             </div>
             <div class="settings-button" [ngClass]="{'active': setting === 'deploy'}" (click)="selectSetting('deploy')">
                 <img src="/cloud.png">
@@ -24,13 +30,27 @@
                 <img src="/key.png">
                 <p>API Keys</p>
             </div>
+            <div class="settings-button" [ngClass]="{'active': setting === 'usageCosts'}" (click)="selectSetting('usageCosts')">
+                <img src="/cost.png">
+                <p>Usage Costs</p>
+            </div>
+            <div class="section-divider"></div>
+            <div class="settings-button" [ngClass]="{'active': setting === 'account'}" (click)="selectSetting('account')">
+                <img src="/user.png">
+                <p>Account</p>
+            </div>
             <div class="settings-button" [ngClass]="{'active': setting === 'billing'}" (click)="selectSetting('billing')">
                 <img src="/billing.png">
                 <p>Billing</p>
             </div>
-            <div class="settings-button" [ngClass]="{'active': setting === 'usageCosts'}" (click)="selectSetting('usageCosts')">
-                <img src="/cost.png">
-                <p>Usage Costs</p>
+            <div class="flex-grow"></div>
+            <div class="logout-button" (click)="logout()" *ngIf="!loading">
+                <img src="/billing.png">
+                <p>Log out</p>
+            </div>
+            <div class="logout-button" *ngIf="loading">
+                <img src="/billing.png">
+                <p>Logging out...</p>
             </div>
         </div>
         <div class="settings-content">
@@ -40,6 +60,7 @@
             <app-key-view *ngIf="setting === 'apiKeys'"></app-key-view>
             <app-billing-view *ngIf="setting === 'billing'"></app-billing-view>
             <app-usage-view *ngIf="setting === 'usageCosts'"></app-usage-view>
+            <app-project-detail-view *ngIf="setting === 'project'"></app-project-detail-view>
         </div>
     </div>
 </div>
