@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private loginOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  private loginOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public loginOpen$: Observable<boolean> = this.loginOpen.asObservable();
 
   constructor() {

@@ -40,6 +40,7 @@ export class LoginViewComponent {
       if (authResponse.action === 'forgot') this.forgotSuccess(authResponse);
       if (authResponse.action === 'reset') this.resetSuccess(authResponse);
       if (authResponse.action === 'login') this.loginSuccess(authResponse);
+      if (authResponse.action === 'check') this.checkSuccess(authResponse);
     });
     
     this.authErrorSub = this.actions$.pipe((ofType(authError))).subscribe((authResponse) => {
@@ -147,6 +148,14 @@ export class LoginViewComponent {
   }
 
   loginSuccess(authResponse: Auth) {
+    this.loading = false;
+    this.email = '';
+    this.password = '';
+    this.confirmationCode = '';
+    this.authService.closeLogin();
+  }
+
+  checkSuccess(authResponse: Auth) {
     this.loading = false;
     this.email = '';
     this.password = '';
