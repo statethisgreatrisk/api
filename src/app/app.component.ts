@@ -9,7 +9,7 @@ import { StorageViewComponent } from './components/storage-view/storage-view.com
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
-import { authError, authSuccess, checkUser, clearStore, getAPIs, getApps, getProjects, getSchemas, getStorages, getUser, getValidators, getWorkflows, requestError } from './store/actions/app.action';
+import { addProject, authError, authSuccess, changeProject, checkUser, clearData, clearStore, getAPIs, getApps, getProjects, getSchemas, getStorages, getUser, getValidators, getWorkflows, requestError } from './store/actions/app.action';
 import { selectMainProject, selectView } from './store/selectors/app.selector';
 import { DeleteViewComponent } from './components/delete-view/delete-view.component';
 import { DeleteService } from './services/delete.service';
@@ -67,6 +67,8 @@ export class AppComponent {
     this.initRequestErrors();
     this.initAuthSuccessResponses();
     this.initAuthErrors();
+    this.initProjectAdded();
+    this.initProjectChanged();
     this.dispatchCheck();
   }
 
@@ -117,7 +119,23 @@ export class AppComponent {
     });
   }
 
-  dispatchV1 = async () => {
+  initProjectAdded() {
+    this.actions$.pipe((ofType(addProject))).subscribe((project) => {
+      localStorage.setItem('mainProject', project.project._id);
+      this.store.dispatch(clearData());
+      this.dispatchV1(project.project._id);
+    });
+  }
+
+  initProjectChanged() {
+    this.actions$.pipe((ofType(changeProject))).subscribe((project) => {
+      localStorage.setItem('mainProject', project.projectId);
+      this.store.dispatch(clearData());
+      this.dispatchV1(project.projectId);
+    });
+  }
+
+  dispatchV1 = async (projectId?: string) => {
     const delay = (ms: number) => {
       return new Promise(resolve => setTimeout(resolve, ms));
     };
@@ -129,29 +147,37 @@ export class AppComponent {
     ];
 
     const projectActions = [
+      this.dispatchWorkflows,
       this.dispatchAPIs,
       this.dispatchStorages,
       this.dispatchSchemas,
       this.dispatchValidators,
-      this.dispatchWorkflows,
     ];
 
-    for (const dispatch of actions) {
-      dispatch.bind(this)();
-      await delay(250);
-    }
-
-    this.projectsSub = this.store.select(selectMainProject).subscribe(async (project) => {
-      if (!project) return;
-
-      for (const dispatch of projectActions) {
-        const dispatchAction: (projectId: string) => void = dispatch;
-        dispatchAction.bind(this)(project!._id);
-        await delay(250);
+    if (!projectId) {
+      for (const dispatch of actions) {
+        dispatch.bind(this)();
+        await delay(100);
       }
 
-      this.projectsSub?.unsubscribe();
-    });
+      this.projectsSub = this.store.select(selectMainProject).subscribe(async (project) => {
+        if (!project) return;
+  
+        for (const dispatch of projectActions) {
+          const dispatchAction: (projectId: string) => void = dispatch;
+          dispatchAction.bind(this)(project!._id);
+          await delay(100);
+        }
+  
+        this.projectsSub?.unsubscribe();
+      });
+    } else {
+      for (const dispatch of projectActions) {
+        const dispatchAction: (projectId: string) => void = dispatch;
+        dispatchAction.bind(this)(projectId);
+        await delay(100);
+      }
+    }
   }
 
   dispatchCheck() {

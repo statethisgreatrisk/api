@@ -79,8 +79,8 @@ export class AppRequest {
     return this.http.get<Project[]>(endpoint, { withCredentials: true });
   }
 
-  createProject(projectId: string, project: Project): Observable<Project> {
-    const endpoint = `${url}/project/:projectId`.replace(':projectId', projectId);
+  createProject(project: Project): Observable<Project> {
+    const endpoint = `${url}/project`;
     return this.http.post<Project>(endpoint, { project }, { withCredentials: true });
   }
 

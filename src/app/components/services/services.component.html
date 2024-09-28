@@ -7,8 +7,12 @@
             <img src="/project.png">
             <p>{{ project.name }}</p>
         </div>
-        <div class="project-button-dropdown" *ngIf="dropdown">
-            <div class="project-button">
+        <div class="project-button-dropdown" *ngIf="dropdown && allProjects && project">
+            <div class="project-button" *ngFor="let p of allProjects"  [ngClass]="{ 'active': project._id === p._id }" (click)="changeProject(p._id)">
+                <img src="/project.png">
+                <p>{{ p.name }}</p>
+            </div>
+            <div class="project-button" (click)="create('Project')">
                 <img src="/plus.png">
                 <p>Create New Project</p>
             </div>

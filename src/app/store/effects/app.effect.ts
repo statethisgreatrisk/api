@@ -139,7 +139,7 @@ export class AppEffect {
     createProject$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(createProject),
-            exhaustMap((action) => this.appRequest.createProject(action.projectId, action.project).pipe(
+            exhaustMap((action) => this.appRequest.createProject(action.project).pipe(
                 map(data => addProject({ project: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, SchemaRow, Project } from '../../store/interfaces/app.interface';
-import { createAPI, createSchema, createStorage, createValidator, createWorkflow, deselectService, deselectWindow, selectService, selectWindow } from '../../store/actions/app.action';
-import { selectAPIs, selectMainProject, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { changeProject, clearData, createAPI, createProject, createSchema, createStorage, createValidator, createWorkflow, deselectService, deselectWindow, selectService, selectWindow } from '../../store/actions/app.action';
+import { selectAPIs, selectMainProject, selectProjects, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth.service';
 import ObjectId from 'bson-objectid';
@@ -19,6 +19,7 @@ import { combineLatest, Subscription } from 'rxjs';
 export class ServicesComponent {
   user: User | null = null;
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
+  allProjects: Project[] | null = null;
   project: Project | null = null;
 
   sub: Subscription | null = null;
@@ -73,6 +74,16 @@ export class ServicesComponent {
     this.dropdown = !this.dropdown;
   }
 
+  changeProject(projectId: string) {
+    if (!this.project || projectId === this.project._id) {
+      this.toggleDropdown();
+      return;
+    }
+
+    this.toggleDropdown();
+    this.store.dispatch(changeProject({ projectId }));
+  }
+
   openSettings() {
     this.settingsService.openSettings();
   }
@@ -85,15 +96,17 @@ export class ServicesComponent {
     this.sub = combineLatest([
       this.store.select(selectUser),
       this.store.select(selectView),
+      this.store.select(selectProjects),
       this.store.select(selectMainProject),
       this.store.select(selectAPIs),
       this.store.select(selectStorages),
       this.store.select(selectValidators),
       this.store.select(selectSchemas),
       this.store.select(selectWorkflows),
-    ]).subscribe(([user, view, project, apis, storages, validators, schemas, workflows]) => {
+    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows]) => {
       this.user = user;
       this.view = view;
+      this.allProjects = allProjects;
       this.project = project;
       this.apis = apis;
       this.storages = storages;
@@ -109,6 +122,21 @@ export class ServicesComponent {
     if (service === 'Schema') return this.createSchema();
     if (service === 'Validator') return this.createValidator();
     if (service === 'Workflow') return this.createWorkflow();
+    if (service === 'Project') return this.createProject();
+  }
+
+  createProject() {
+    if (!this.user) return;
+
+    const userId = this.user._id;
+    const _id = '';
+    const name = 'New Project';
+    const date = new Date().toISOString();
+    const active = true;
+
+    this.toggleDropdown();
+    this.store.dispatch(clearData());
+    this.store.dispatch(createProject({ project: { _id, userId, name, date, active }}));
   }
 
   createAPI() {

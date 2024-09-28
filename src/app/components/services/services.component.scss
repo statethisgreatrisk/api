@@ -201,6 +201,22 @@
     cursor: pointer;
 }
 
+.project-button-dropdown > .project-button:hover {
+    background: $primary-1600;
+}
+
+.project-button-dropdown > .project-button:hover p {
+    color: white;
+}
+
+.project-button-dropdown > .project-button.active {
+    background: $primary-1600;
+}
+
+.project-button-dropdown > .project-button.active p {
+    color: white;
+}
+
 .project-button-dropdown > .project-button img {
     width: 12px;
     height: 12px;

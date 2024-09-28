@@ -25,12 +25,14 @@ export const authError = createAction('[ERROR] Auth', props<{action: Auth['actio
 // Project
 export const getProjects = createAction('[GET] Projects');
 export const addProjects = createAction('[ADD] Projects', props<{projects: Project[]}>());
-export const createProject = createAction('[CREATE] Project', props<{projectId: string, project: Project}>());
+export const createProject = createAction('[CREATE] Project', props<{project: Project}>());
 export const addProject = createAction('[ADD] Project', props<{project: Project}>());
 export const updateProject = createAction('[UPDATE] Project', props<{projectId: string, project: Project}>());
 export const replaceProject = createAction('[REPLACE] Project', props<{project: Project}>());
 export const deleteProject = createAction('[DELETE] Project', props<{projectId: string}>());
 export const removeProject = createAction('[REMOVE] Project', props<{projectId: string}>());
+
+export const changeProject = createAction('[CHANGE] Project', props<{projectId: string}>());
 
 // API
 export const getAPIs = createAction('[GET] APIs', props<{projectId: string}>());
@@ -131,3 +133,4 @@ export const deselectWindow = createAction('[DESELECT] Window', props<{ windowNa
 export const log = createAction('[LOG]', props<{ any: any }>())
 export const requestError = createAction('[ERROR] Request', props<{ message: string, error: any }>());
 export const clearStore = createAction('[CLEAR] Store');
+export const clearData = createAction('[CLEAR] Data');

@@ -344,3 +344,28 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         view: { service: '', serviceId: '', window: '', windowId: '' },
     };
 }
+
+export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
+    return {
+        ...state,
+
+        // user not deleted
+        // projects not deleted
+        // apps: apps not deleted
+        
+        apis: [],
+        storages: [],
+        schemas: [],
+        validators: [],
+        workflows: [],
+        
+
+        deploys: [],
+        logs: [],
+        keys: [],
+        billings: [],
+        usages: [],
+
+        view: { service: '', serviceId: '', window: '', windowId: '' },
+    };
+}

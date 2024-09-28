@@ -8,7 +8,22 @@ export const selectView = createSelector(selectApp, (state: AppState) => state.v
 export const selectApps = createSelector(selectApp, (state: AppState) => state.apps);
 
 export const selectProjects = createSelector(selectApp, (state: AppState) => state.projects);
-export const selectMainProject = createSelector(selectApp, (state: AppState) => state.projects[0]);
+export const selectMainProject = createSelector(selectApp, (state: AppState) => {
+    const localStorageProjectValue = localStorage.getItem('mainProject');
+    const foundProject = state.projects.find((project) => project._id === localStorageProjectValue);
+
+    if (localStorageProjectValue && foundProject) {
+        return foundProject;
+    }
+
+    const projects = [...state.projects].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
+    const project = projects[0];
+
+    if (!project) return null;
+    
+    localStorage.setItem('mainProject', project._id);
+    return project;
+});
 
 export const selectAPIs = createSelector(selectApp, (state: AppState) => state.apis);
 export const selectStorages = createSelector(selectApp, (state: AppState) => state.storages);
