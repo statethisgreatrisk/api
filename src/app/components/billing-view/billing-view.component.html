@@ -1,7 +1,7 @@
 <div class="billing-view">
     <div class="billing-credit">
         <p>Remaining credit</p>
-        <p>$10.00</p>
+        <p>${{ dollarAmount(balance) }}</p>
     </div>
     <div class="billing-setup">
         <p>Billing details</p>
@@ -12,29 +12,31 @@
         </div>
     </div>
     <div class="billing-select">
-        <p>Credit amount</p>
+        <p>Amount</p>
         <div class="billing-select-container">
             <div class="billing-select-button" (click)="toggleDropdown()">
-                <p>$10.00</p>
+                <p>${{ dollarAmount(amount) }}</p>
                 <img src="/down.png">
             </div>
             <div class="billing-select-dropdown" *ngIf="dropdown">
-                <div class="billing-select-dropdown-button">
+                <div class="billing-select-dropdown-button" (click)="selectAmount(1000)">
                     <p>$10.00</p>
                 </div>
-                <div class="billing-select-dropdown-button">
+                <div class="billing-select-dropdown-button" (click)="selectAmount(2500)">
                     <p>$25.00</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="billing-create">
-        <p>Add credit</p>
-        <p>Buy Now</p>
+        <p>Add to Account</p>
+        <p *ngIf="!loading" (click)="charge()">Buy Now</p>
+        <p *ngIf="loading">Loading...</p>
     </div>
     <div class="billing-list-item-container">
-        <div class="billing-list-item">
-            <p>Receipt #1 - $10.00</p>
+        <div class="billing-list-item" *ngFor="let billing of billings">
+            <p *ngIf="billing.debit">Receipt - ${{ dollarAmount(billing.debit) }}</p>
+            <p *ngIf="billing.credit">Receipt - ${{ dollarAmount(billing.credit) }}</p>
             <img src="/check.png">
         </div>
     </div>

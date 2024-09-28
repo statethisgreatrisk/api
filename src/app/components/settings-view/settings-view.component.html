@@ -1,12 +1,12 @@
 <div class="settings-view">
-    <div class="settings-header">
-        <p *ngIf="setting === 'project'">Project Settings</p>
-        <p *ngIf="setting === 'deploy'">Deploy Settings</p>
-        <p *ngIf="setting === 'logs'">Logs</p>
-        <p *ngIf="setting === 'apiKeys'">API Keys</p>
-        <p *ngIf="setting === 'usageCosts'">Usage Costs</p>
+    <div class="settings-header" *ngIf="project">
+        <p *ngIf="setting === 'project'">Project Settings - {{ project.name }}</p>
+        <p *ngIf="setting === 'deploy'">Deploy Settings - {{ project.name }}</p>
+        <p *ngIf="setting === 'logs'">Logs - {{ project.name }}</p>
+        <p *ngIf="setting === 'apiKeys'">API Keys - {{ project.name }}</p>
+        <p *ngIf="setting === 'usageCosts'">Usage Costs - {{ project.name }}</p>
         <p *ngIf="setting === 'account'">Account Settings</p>
-        <p *ngIf="setting === 'billing'">Billing</p>
+        <p *ngIf="setting === 'billing'">Account Billing</p>
         <img src="/x-white.png" (click)="closeSettings()">
     </div>
     <div class="settings-divider">

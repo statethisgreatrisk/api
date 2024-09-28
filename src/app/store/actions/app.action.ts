@@ -117,6 +117,8 @@ export const createBilling = createAction('[CREATE] Billing', props<{projectId: 
 export const addBilling = createAction('[ADD] Billing', props<{billing: Billing}>());
 export const updateBilling = createAction('[UPDATE] Billing', props<{projectId: string, billing: Billing}>());
 export const replaceBilling = createAction('[REPLACE] Billing', props<{billing: Billing}>());
+export const billingSuccess = createAction('[SUCCESS] Billing');
+export const billingError = createAction('[ERROR] Billing');
 
 // Usage
 export const getUsages = createAction('[GET] Usages', props<{projectId: string}>());
