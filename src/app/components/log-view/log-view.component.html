@@ -1,19 +1,20 @@
 <div class="log-view">
     <div class="log-select">
-        <p>Select log</p>
+        <p>Select deploy</p>
         <div class="log-select-container">
-            <div class="log-select-button" (click)="toggleDropdown()">
-                <p>deploy-date</p>
+            <div class="log-select-button" (click)="toggleDropdown()" *ngIf="deploys">
+                <p *ngIf="deploy">{{ deploy.date }}</p>
+                <p *ngIf="!deploy">No deployments</p>
                 <img src="/down.png">
             </div>
-            <div class="log-select-dropdown" *ngIf="dropdown">
-                <div class="log-select-dropdown-button">
-                    <p>deploy-date</p>
+            <div class="log-select-dropdown" *ngIf="dropdown && deploys">
+                <div class="log-select-dropdown-button" *ngFor="let deploy of deploys">
+                    <p>{{ deploy.date }}</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="log-detail">
-        <pre></pre>
+        <pre *ngFor="let log of logs">{{ log.info }}</pre>
     </div>
 </div>

@@ -83,28 +83,24 @@ export class DeployViewComponent {
 
   initDeployStartSuccess() {
     this.deployStartSuccessSub = this.actions$.pipe((ofType(deployStartSuccess))).subscribe(() => {
-      console.log('deploy start success')
       this.loadingStart = false;
     });
   }
 
   initDeployStartError() {
     this.deployStartErrorSub = this.actions$.pipe((ofType(deployStartError))).subscribe(() => {
-      console.log('deploy start error')
       this.loadingStart = false;
     });
   }
 
   initDeployStopSuccess() {
     this.deployStopSuccessSub = this.actions$.pipe((ofType(deployStopSuccess))).subscribe(() => {
-      console.log('deploy stop success')
       this.loadingStop = false;
     });
   }
 
   initDeployStopError() {
     this.deployStopErrorSub = this.actions$.pipe((ofType(deployStopError))).subscribe(() => {
-      console.log('deploy stop error')
       this.loadingStop = false;
     });
   }
