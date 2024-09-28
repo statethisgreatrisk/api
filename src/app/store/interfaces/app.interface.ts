@@ -129,7 +129,8 @@ export interface Key {
     _id: string;
     userId: string;
     projectId: string;
-    keyId: string;
+    apiKey: string;
+    apiHash: string;
     date: string;
     active: boolean;
     name: string;

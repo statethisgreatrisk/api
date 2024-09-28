@@ -107,6 +107,8 @@ export const createKey = createAction('[CREATE] Key', props<{projectId: string, 
 export const addKey = createAction('[ADD] Key', props<{key: Key}>());
 export const updateKey = createAction('[UPDATE] Key', props<{projectId: string, key: Key}>());
 export const replaceKey = createAction('[REPLACE] Key', props<{key: Key}>());
+export const deleteKey = createAction('[DELETE] Key', props<{projectId: string, keyId: string}>());
+export const removeKey = createAction('[REMOVE] Key', props<{keyId: string}>());
 
 // Billing
 export const getBillings = createAction('[GET] Billings', props<{projectId: string}>());

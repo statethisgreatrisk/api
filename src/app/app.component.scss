@@ -126,6 +126,8 @@ app-delete-view {
     right: 0;
 
     background-color: $transparent-background;
+    
+    z-index: 1;
 }
 
 app-settings-view {

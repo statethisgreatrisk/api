@@ -3,18 +3,18 @@
         <p>API Key</p>
         <div class="key-input-container">
             <div class="key-input">
-                <input type="text" placeholder="Enter api key name">
+                <input type="text" placeholder="Enter api key name" [(ngModel)]="name">
             </div>
         </div>
     </div>
     <div class="key-create">
         <p>Generate</p>
-        <p>Generate API Key</p>
+        <p (click)="createKey()">Generate API Key</p>
     </div>
-    <div class="key-list-item-container">
-        <div class="key-list-item">
-            <p>API Key</p>
-            <img src="/check.png">
+    <div class="key-list-item-container" *ngIf="keys">
+        <div class="key-list-item" *ngFor="let key of keys">
+            <p>{{ key.name }} - {{ key.apiKey }}</p>
+            <img src="/x.png" (click)="deleteKey(key._id)">
         </div>
     </div>
 </div>

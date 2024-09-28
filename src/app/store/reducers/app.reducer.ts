@@ -244,6 +244,11 @@ export const replaceKeyFn: (state: AppState, key: Key) => AppState = (state: App
     return { ...state, keys: keys };
 }
 
+export const removeKeyFn: (state: AppState, keyId: string) => AppState = (state: AppState, keyId: string) => {
+    if (!keyId) return { ...state };
+    return { ...state, keys: state.keys.filter((key) => key._id !== keyId) };
+}
+
 // Billing
 
 export const addBillingsFn: (state: AppState, billings: Billing[]) => AppState = (state: AppState, billings: Billing[]) => {

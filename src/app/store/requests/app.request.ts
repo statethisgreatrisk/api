@@ -255,6 +255,11 @@ export class AppRequest {
     return this.http.put<Key>(endpoint, { key }, { withCredentials: true });
   }
 
+  deleteKey(projectId: string, keyId: string): Observable<ResponseMessage> {
+    const endpoint = `${url}/key/:projectId/:keyId`.replace(':keyId', keyId).replace(':projectId', projectId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
+  }
+
   // Billing
 
   getBillings(projectId: string): Observable<Billing[]> {
