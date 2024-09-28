@@ -91,6 +91,10 @@ export const createDeploy = createAction('[CREATE] Deploy', props<{projectId: st
 export const addDeploy = createAction('[ADD] Deploy', props<{deploy: Deploy}>());
 export const updateDeploy = createAction('[UPDATE] Deploy', props<{projectId: string, deploy: Deploy}>());
 export const replaceDeploy = createAction('[REPLACE] Deploy', props<{deploy: Deploy}>());
+export const deployStartSuccess = createAction('[SUCCESS] Deploy Start');
+export const deployStartError = createAction('[ERROR] Deploy Start');
+export const deployStopSuccess = createAction('[SUCCESS] Deploy Stop');
+export const deployStopError = createAction('[ERROR] Deploy Stop');
 
 // Log
 export const getLogs = createAction('[GET] Logs', props<{projectId: string}>());

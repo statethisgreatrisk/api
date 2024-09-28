@@ -75,14 +75,12 @@ export class BillingViewComponent {
 
   initBillingSuccess() {
     this.billingSuccessSub = this.actions$.pipe((ofType(billingSuccess))).subscribe(() => {
-      console.log('billing success')
       this.loading = false;
     });
   }
 
   initBillingError() {
     this.billingSuccessSub = this.actions$.pipe((ofType(billingError))).subscribe(() => {
-      console.log('billing error')
       this.loading = false;
     });
   }

@@ -3,12 +3,12 @@
         <p>Deploy size</p>
         <div class="deploy-select-container">
             <div class="deploy-select-button" (click)="toggleDropdown()">
-                <p>container-mini</p>
+                <p>{{ convertToSize(size) }}</p>
                 <img src="/down.png">
             </div>
             <div class="deploy-select-dropdown" *ngIf="dropdown">
-                <div class="deploy-select-dropdown-button">
-                    <p>container-mini</p>
+                <div class="deploy-select-dropdown-button" (click)="selectSize('1gb')">
+                    <p>1 GB</p>
                 </div>
             </div>
         </div>
@@ -17,29 +17,53 @@
         <p>Expiration</p>
         <div class="deploy-select-container">
             <div class="deploy-select-button" (click)="toggleDropdown2()">
-                <p>container-1-hour</p>
+                <p>{{ convertToExpiration(expiration) }}</p>
                 <img src="/down.png">
             </div>
             <div class="deploy-select-dropdown" *ngIf="dropdown2">
-                <div class="deploy-select-dropdown-button">
-                    <p>container-1-hour</p>
+                <div class="deploy-select-dropdown-button" (click)="selectExpiration(1)">
+                    <p>1 hour</p>
+                </div>
+                <div class="deploy-select-dropdown-button" (click)="selectExpiration(2)">
+                    <p>2 hours</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="deploy-start">
         <p>Start</p>
-        <p>Start Deployment</p>
+        <p (click)="startDeployment()" *ngIf="!loadingStart">Start Deployment</p>
+        <p *ngIf="loadingStart">Loading...</p>
     </div>
     <div class="deploy-name">
         <p>Status</p>
-        <div class="deploy-name-detail">
+        <div class="deploy-name-detail" *ngIf="!deploy">
+            <p>No Deployment</p>
+        </div>
+        <div class="deploy-name-detail" *ngIf="deploy && deploy.status === 'starting'">
+            <p>Starting</p>
+            <p class="white">•</p>
+        </div>
+        <div class="deploy-name-detail" *ngIf="deploy && deploy.status === 'running'">
             <p>Running</p>
-            <p>•</p>
+            <p class="green">•</p>
+        </div>
+        <div class="deploy-name-detail" *ngIf="deploy && deploy.status === 'stopping'">
+            <p>Stopping</p>
+            <p class="yellow">•</p>
+        </div>
+        <div class="deploy-name-detail" *ngIf="deploy && deploy.status === 'stopped'">
+            <p>Stopped</p>
+            <p class="white">•</p>
+        </div>
+        <div class="deploy-name-detail" *ngIf="deploy && deploy.status === 'error'">
+            <p>Errored</p>
+            <p class="red">•</p>
         </div>
     </div>
     <div class="deploy-stop">
         <p>Stop</p>
-        <p>Stop Deployment</p>
+        <p (click)="stopDeployment()" *ngIf="!loadingStop">Stop Deployment</p>
+        <p *ngIf="loadingStop">Stop Deployment</p>
     </div>
 </div>

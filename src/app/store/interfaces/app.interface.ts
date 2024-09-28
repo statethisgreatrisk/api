@@ -110,7 +110,7 @@ export interface Deploy {
     date: string;
     active: boolean;
     size: string;
-    expiration: string;
+    expiration: number;
     status: string;
 }
 

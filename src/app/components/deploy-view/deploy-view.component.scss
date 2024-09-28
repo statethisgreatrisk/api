@@ -161,13 +161,40 @@
     align-items: center;
 }
 
-.deploy-name-detail p:nth-child(2) {
+.deploy-name-detail p.white {
+    font-size: 20px;
+    font-weight: 600;
+
+    margin-left: 10px;
+
+    color: white;
+}
+
+.deploy-name-detail p.green {
     font-size: 20px;
     font-weight: 600;
 
     margin-left: 10px;
 
     color: $light-green;
+}
+
+.deploy-name-detail p.yellow {
+    font-size: 20px;
+    font-weight: 600;
+
+    margin-left: 10px;
+
+    color: $light-yellow;
+}
+
+.deploy-name-detail p.red {
+    font-size: 20px;
+    font-weight: 600;
+
+    margin-left: 10px;
+
+    color: $delete;
 }
 
 .deploy-name p {
