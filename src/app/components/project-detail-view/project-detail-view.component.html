@@ -2,12 +2,12 @@
     <div class="project-detail-setup">
         <p>Name</p>
         <div class="project-detail-input-container">
-            <div class="project-detail-input">
-                <input type="text" placeholder="Enter project name">
+            <div class="project-detail-input" *ngIf="project">
+                <input type="text" placeholder="Enter project name" [(ngModel)]="project.name">
             </div>
         </div>
     </div>
     <div class="project-detail-save">
-        <p>Save</p>
+        <p (click)="save()">Save</p>
     </div>
 </div>
