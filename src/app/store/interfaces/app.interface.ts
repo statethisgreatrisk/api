@@ -150,6 +150,7 @@ export interface Usage {
     _id: string;
     userId: string;
     projectId: string;
+    deployId: string;
     date: string;
     active: boolean;
     name: string;

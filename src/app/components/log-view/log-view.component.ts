@@ -68,6 +68,7 @@ export class LogViewComponent {
   }
 
   selectDeploy(deployId: string) {
+    this.toggleDropdown();
     if (!this.deploys) return;
 
     const deploy = this.deploys.find((deploy) => deploy._id === deployId);

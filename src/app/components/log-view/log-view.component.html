@@ -1,6 +1,6 @@
 <div class="log-view">
     <div class="log-select">
-        <p>Select deploy</p>
+        <p>Select deployment</p>
         <div class="log-select-container">
             <div class="log-select-button" (click)="toggleDropdown()" *ngIf="deploys">
                 <p *ngIf="deploy">{{ deploy.date }}</p>
@@ -8,7 +8,7 @@
                 <img src="/down.png">
             </div>
             <div class="log-select-dropdown" *ngIf="dropdown && deploys">
-                <div class="log-select-dropdown-button" *ngFor="let deploy of deploys">
+                <div class="log-select-dropdown-button" *ngFor="let deploy of deploys" (click)="selectDeploy(deploy._id)">
                     <p>{{ deploy.date }}</p>
                 </div>
             </div>
