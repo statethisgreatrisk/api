@@ -1,10 +1,10 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppStateInit, User, View, Storage, Schema } from '../../store/interfaces/app.interface';
+import { AppStateInit, User, View, Storage, Schema, Project } from '../../store/interfaces/app.interface';
 import { deleteStorage, deselectService, selectWindow, updateStorage } from '../../store/actions/app.action';
 import { combineLatest, Subscription } from 'rxjs';
-import { selectUser, selectView, selectStorages, selectSchemas } from '../../store/selectors/app.selector';
+import { selectUser, selectView, selectStorages, selectSchemas, selectMainProject } from '../../store/selectors/app.selector';
 import { FormsModule } from '@angular/forms';
 import { DeleteService } from '../../services/delete.service';
 
@@ -19,6 +19,7 @@ export class EditStorageComponent {
   user: User | null = null;
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   storage: Storage | null = null;
+  project: Project | null = null;
 
   sub: Subscription | null = null;
 
@@ -44,10 +45,12 @@ export class EditStorageComponent {
     this.sub = combineLatest([
       this.store.select(selectUser),
       this.store.select(selectView),
+      this.store.select(selectMainProject),
       this.store.select(selectStorages),
-    ]).subscribe(([user, view, storages]) => {
+    ]).subscribe(([user, view, project, storages]) => {
       this.user = user;
       this.view = view;
+      this.project = project;
 
       if (this.user && this.view && this.view.serviceId) {
         const storage = storages.find((existingStorage) => existingStorage._id === this.view.serviceId);
@@ -88,11 +91,13 @@ export class EditStorageComponent {
   }
 
   save() {
+    if (!this.project) return;
     if (!this.storage) return;
-    this.store.dispatch(updateStorage({ storage: this.storage }));
+    this.store.dispatch(updateStorage({ projectId: this.project._id, storage: this.storage }));
   }
 
   delete() {
+    if (!this.project) return;
     if (!this.storage) return;
 
     const storage = this.storage;
@@ -101,7 +106,7 @@ export class EditStorageComponent {
       service: this.view.service,
       serviceData: storage,
       deleteFn: () => {
-        this.store.dispatch(deleteStorage({ storageId: storage._id }));
+        this.store.dispatch(deleteStorage({ projectId: this.project!._id, storageId: storage._id }));
         this.cancel();
       },
     });

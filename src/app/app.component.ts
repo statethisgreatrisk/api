@@ -9,8 +9,8 @@ import { StorageViewComponent } from './components/storage-view/storage-view.com
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
-import { authError, authSuccess, checkUser, clearStore, getAPIs, getApps, getSchemas, getStorages, getUser, getValidators, getWorkflows, requestError } from './store/actions/app.action';
-import { selectView } from './store/selectors/app.selector';
+import { authError, authSuccess, checkUser, clearStore, getAPIs, getApps, getProjects, getSchemas, getStorages, getUser, getValidators, getWorkflows, requestError } from './store/actions/app.action';
+import { selectMainProject, selectView } from './store/selectors/app.selector';
 import { DeleteViewComponent } from './components/delete-view/delete-view.component';
 import { DeleteService } from './services/delete.service';
 import { AppViewComponent } from './components/app-view/app-view.component';
@@ -20,6 +20,7 @@ import { LoginViewComponent } from './components/login-view/login-view.component
 import { AuthService } from './services/auth.service';
 import { Actions, ofType } from '@ngrx/effects';
 import { ToastService } from './services/toast.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -46,6 +47,8 @@ export class AppComponent {
   deleteData: DeleteData | null = null;
   settingsOpen: boolean = false;
   loginOpen: boolean = false;
+  
+  projectsSub: Subscription | null = null;
 
   constructor(
     private store: Store<AppStateInit>,
@@ -121,18 +124,34 @@ export class AppComponent {
 
     const actions = [
       this.dispatchUser,
+      this.dispatchApps,
+      this.dispatchProjects,
+    ];
+
+    const projectActions = [
       this.dispatchAPIs,
       this.dispatchStorages,
       this.dispatchSchemas,
       this.dispatchValidators,
       this.dispatchWorkflows,
-      this.dispatchApps,
     ];
 
     for (const dispatch of actions) {
       dispatch.bind(this)();
       await delay(250);
     }
+
+    this.projectsSub = this.store.select(selectMainProject).subscribe(async (project) => {
+      if (!project) return;
+
+      for (const dispatch of projectActions) {
+        const dispatchAction: (projectId: string) => void = dispatch;
+        dispatchAction.bind(this)(project!._id);
+        await delay(250);
+      }
+
+      this.projectsSub?.unsubscribe();
+    });
   }
 
   dispatchCheck() {
@@ -143,28 +162,32 @@ export class AppComponent {
     this.store.dispatch(getUser());
   }
 
-  dispatchAPIs() {
-    this.store.dispatch(getAPIs());
-  }
-
-  dispatchStorages() {
-    this.store.dispatch(getStorages());
-  }
-
-  dispatchSchemas() {
-    this.store.dispatch(getSchemas());
-  }
-
-  dispatchValidators() {
-    this.store.dispatch(getValidators());
-  }
-
-  dispatchWorkflows() {
-    this.store.dispatch(getWorkflows());
+  dispatchProjects() {
+    this.store.dispatch(getProjects());
   }
 
   dispatchApps() {
     this.store.dispatch(getApps());
+  }
+
+  dispatchAPIs(projectId: string) {
+    this.store.dispatch(getAPIs({ projectId: projectId }));
+  }
+
+  dispatchStorages(projectId: string) {
+    this.store.dispatch(getStorages({ projectId: projectId }));
+  }
+
+  dispatchSchemas(projectId: string) {
+    this.store.dispatch(getSchemas({ projectId: projectId }));
+  }
+
+  dispatchValidators(projectId: string) {
+    this.store.dispatch(getValidators({ projectId: projectId }));
+  }
+
+  dispatchWorkflows(projectId: string) {
+    this.store.dispatch(getWorkflows({ projectId: projectId }));
   }
 
   clearStore() {

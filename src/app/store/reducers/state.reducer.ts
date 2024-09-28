@@ -1,12 +1,17 @@
 import { createReducer, on } from "@ngrx/store";
 import { appState } from "../states/state";
-import { addAPI, addAPIs, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addSchema, addSchemas, addStorage, addStorages, addUsage, addUsages, addUser, addValidator, addValidators, addWorkflow, addWorkflows, clearStore, deselectService, deselectWindow, log, removeAPI, removeSchema, removeStorage, removeValidator, removeWorkflow, replaceAPI, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceSchema, replaceStorage, replaceUsage, replaceValidator, replaceWorkflow, selectService, selectWindow } from "../actions/app.action";
-import { addAPIFn, addAPIsFn, addAppsFn, addBillingFn, addBillingsFn, addDeployFn, addDeploysFn, addKeyFn, addKeysFn, addLogFn, addLogsFn, addSchemaFn, addSchemasFn, addStorageFn, addStoragesFn, addUsageFn, addUsagesFn, addUserFn, addValidatorFn, addValidatorsFn, addWorkflowFn, addWorkflowsFn, clearStoreFn, deselectServiceFn, deselectWindowFn, logFn, removeAPIFn, removeSchemaFn, removeStorageFn, removeValidatorFn, removeWorkflowFn, replaceAPIFn, replaceBillingFn, replaceDeployFn, replaceKeyFn, replaceLogFn, replaceSchemaFn, replaceStorageFn, replaceUsageFn, replaceValidatorFn, replaceWorkflowFn, selectServiceFn, selectWindowFn } from "./app.reducer";
+import { addAPI, addAPIs, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addProject, addProjects, addSchema, addSchemas, addStorage, addStorages, addUsage, addUsages, addUser, addValidator, addValidators, addWorkflow, addWorkflows, clearStore, deselectService, deselectWindow, log, removeAPI, removeProject, removeSchema, removeStorage, removeValidator, removeWorkflow, replaceAPI, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceProject, replaceSchema, replaceStorage, replaceUsage, replaceValidator, replaceWorkflow, selectService, selectWindow } from "../actions/app.action";
+import { addAPIFn, addAPIsFn, addAppsFn, addBillingFn, addBillingsFn, addDeployFn, addDeploysFn, addKeyFn, addKeysFn, addLogFn, addLogsFn, addProjectFn, addProjectsFn, addSchemaFn, addSchemasFn, addStorageFn, addStoragesFn, addUsageFn, addUsagesFn, addUserFn, addValidatorFn, addValidatorsFn, addWorkflowFn, addWorkflowsFn, clearStoreFn, deselectServiceFn, deselectWindowFn, logFn, removeAPIFn, removeProjectFn, removeSchemaFn, removeStorageFn, removeValidatorFn, removeWorkflowFn, replaceAPIFn, replaceBillingFn, replaceDeployFn, replaceKeyFn, replaceLogFn, replaceProjectFn, replaceSchemaFn, replaceStorageFn, replaceUsageFn, replaceValidatorFn, replaceWorkflowFn, selectServiceFn, selectWindowFn } from "./app.reducer";
 
 export const appStateReducer = createReducer(
     appState,
     // User
     on(addUser, (state, { user }) => addUserFn(state, user)),
+    // Project
+    on(addProjects, (state, { projects }) => addProjectsFn(state, projects)),
+    on(addProject, (state, { project }) => addProjectFn(state, project)),
+    on(replaceProject, (state, { project }) => replaceProjectFn(state, project)),
+    on(removeProject, (state, { projectId }) => removeProjectFn(state, projectId)),
     // API
     on(addAPIs, (state, { apis }) => addAPIsFn(state, apis)),
     on(addAPI, (state, { api }) => addAPIFn(state, api)),

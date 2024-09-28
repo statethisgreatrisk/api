@@ -9,11 +9,11 @@ import { BillingViewComponent } from '../billing-view/billing-view.component';
 import { UsageViewComponent } from '../usage-view/usage-view.component';
 import { Store } from '@ngrx/store';
 import { getDeploys, getLogs, getKeys, getBillings, getUsages, authSuccess, logoutUser } from '../../store/actions/app.action';
-import { AppStateInit, User } from '../../store/interfaces/app.interface';
+import { AppStateInit, Project, User } from '../../store/interfaces/app.interface';
 import { ProjectDetailViewComponent } from '../project-detail-view/project-detail-view.component';
 import { Subscription } from 'rxjs';
 import { Actions, ofType } from '@ngrx/effects';
-import { selectUser } from '../../store/selectors/app.selector';
+import { selectMainProject, selectUser } from '../../store/selectors/app.selector';
 
 @Component({
   selector: 'app-settings-view',
@@ -35,6 +35,9 @@ import { selectUser } from '../../store/selectors/app.selector';
 export class SettingsViewComponent {
   user: User | null = null;
   userSub: Subscription | null = null;
+  project: Project | null = null;
+  projectSub: Subscription | null = null;
+
   logoutSub: Subscription | null = null;
 
   loading: boolean = false;
@@ -70,7 +73,7 @@ export class SettingsViewComponent {
       return new Promise(resolve => setTimeout(resolve, ms));
     };
 
-    const actions = [
+    const projectActions = [
       this.dispatchDeploys,
       this.dispatchLogs,
       this.dispatchKeys,
@@ -78,30 +81,39 @@ export class SettingsViewComponent {
       this.dispatchUsages,
     ];
 
-    for (const dispatch of actions) {
-      dispatch.bind(this)();
-      await delay(250);
-    }
+    this.projectSub = this.store.select(selectMainProject).subscribe(async (project) => {
+      if (!project) return;
+
+      this.project = project;
+
+      for (const dispatch of projectActions) {
+        const dispatchAction: (projectId: string) => void = dispatch;
+        dispatchAction.bind(this)(project!._id);
+        await delay(250);
+      }
+
+      this.projectSub?.unsubscribe();
+    });
   }
 
-  dispatchDeploys() {
-    this.store.dispatch(getDeploys());
+  dispatchDeploys(projectId: string) {
+    this.store.dispatch(getDeploys({ projectId: projectId }));
   }
 
-  dispatchLogs() {
-    this.store.dispatch(getLogs());
+  dispatchLogs(projectId: string) {
+    this.store.dispatch(getLogs({ projectId: projectId }));
   }
 
-  dispatchKeys() {
-    this.store.dispatch(getKeys());
+  dispatchKeys(projectId: string) {
+    this.store.dispatch(getKeys({ projectId: projectId }));
   }
 
-  dispatchBillings() {
-    this.store.dispatch(getBillings());
+  dispatchBillings(projectId: string) {
+    this.store.dispatch(getBillings({ projectId: projectId }));
   }
 
-  dispatchUsages() {
-    this.store.dispatch(getUsages());
+  dispatchUsages(projectId: string) {
+    this.store.dispatch(getUsages({ projectId: projectId }));
   }
 
   closeSettings() {

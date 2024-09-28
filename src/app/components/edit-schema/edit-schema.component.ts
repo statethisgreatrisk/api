@@ -1,8 +1,8 @@
 import { NgFor, NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AppStateInit, Schema, User, View } from '../../store/interfaces/app.interface';
-import { selectSchemas, selectUser, selectView } from '../../store/selectors/app.selector';
+import { AppStateInit, Project, Schema, User, View } from '../../store/interfaces/app.interface';
+import { selectMainProject, selectSchemas, selectUser, selectView } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { deleteSchema, deselectService, updateSchema } from '../../store/actions/app.action';
@@ -21,6 +21,7 @@ export class EditSchemaComponent {
   user: User | null = null;
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   schema: Schema | null = null;
+  project: Project | null = null;
 
   sub: Subscription | null = null;
 
@@ -54,10 +55,12 @@ export class EditSchemaComponent {
     this.sub = combineLatest([
       this.store.select(selectUser),
       this.store.select(selectView),
+      this.store.select(selectMainProject),
       this.store.select(selectSchemas),
-    ]).subscribe(([user, view, schemas]) => {
+    ]).subscribe(([user, view, project, schemas]) => {
       this.user = user;
       this.view = view;
+      this.project = project;
 
       if (this.user && this.view && this.view.serviceId) {
         const schema = schemas.find((existingSchema) => existingSchema._id === this.view.serviceId);
@@ -143,6 +146,7 @@ export class EditSchemaComponent {
   }
 
   save() {
+    if (!this.project) return;
     if (!this.schema) return;
 
     let schema = { ...this.schema };
@@ -152,10 +156,11 @@ export class EditSchemaComponent {
       return row;
     });
 
-    this.store.dispatch(updateSchema({ schema: schema }));
+    this.store.dispatch(updateSchema({ projectId: this.project._id, schema: schema }));
   }
 
   delete() {
+    if (!this.project) return;
     if (!this.schema) return;
 
     const schema = { ...this.schema};
@@ -169,7 +174,7 @@ export class EditSchemaComponent {
       service: this.view.service,
       serviceData: schema,
       deleteFn: () => {
-        this.store.dispatch(deleteSchema({ schemaId: schema._id }));
+        this.store.dispatch(deleteSchema({ projectId: this.project!._id, schemaId: schema._id }));
         this.cancel();
       },
     });

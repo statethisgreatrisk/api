@@ -1,10 +1,38 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project } from "../interfaces/app.interface";
 
 // User
 
 export const addUserFn: (state: AppState, user: User) => AppState = (state: AppState, user: User) => {
     if (!user) return { ...state };
     return { ...state, user };
+}
+
+// Project
+
+export const addProjectsFn: (state: AppState, projects: Project[]) => AppState = (state: AppState, projects: Project[]) => {
+    if (!projects) return { ...state };
+    return { ...state, projects: projects };
+}
+
+export const addProjectFn: (state: AppState, project: Project) => AppState = (state: AppState, project: Project) => {
+    if (!project) return { ...state };
+    return { ...state, projects: state.projects.concat([project]) };
+}
+
+export const replaceProjectFn: (state: AppState, project: Project) => AppState = (state: AppState, project: Project) => {
+    if (!project) return { ...state };
+
+    const projects = state.projects.map((existingProject) => {
+        if (existingProject._id !== project._id) return existingProject;
+        return project;
+    });
+
+    return { ...state, projects: projects };
+}
+
+export const removeProjectFn: (state: AppState, projectId: string) => AppState = (state: AppState, projectId: string) => {
+    if (!projectId) return { ...state };
+    return { ...state, projects: state.projects.filter((project) => project._id !== projectId) };
 }
 
 // API
@@ -297,6 +325,8 @@ export const logFn: (state: AppState, any: any) => AppState = (state: AppState, 
 
 export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => {
     return {
+        projects: [],
+        
         apis: [],
         storages: [],
         schemas: [],

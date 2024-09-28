@@ -1,7 +1,7 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { App, AppStateInit, User, View, Workflow } from '../../store/interfaces/app.interface';
-import { selectApps, selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { App, AppStateInit, Project, User, View, Workflow } from '../../store/interfaces/app.interface';
+import { selectApps, selectMainProject, selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import ObjectId from 'bson-objectid';
@@ -21,6 +21,7 @@ export class ApiViewComponent {
   user: User | null = null;
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   workflow: Workflow | null = null;
+  project: Project | null = null;
 
   apps: App[] = [];
 
@@ -64,10 +65,12 @@ export class ApiViewComponent {
       this.store.select(selectUser),
       this.store.select(selectView),
       this.store.select(selectApps),
+      this.store.select(selectMainProject),
       this.store.select(selectWorkflows),
-    ]).subscribe(([user, view, apps, workflows]) => {
+    ]).subscribe(([user, view, apps, project, workflows]) => {
       this.user = user;
       this.view = view;
+      this.project = project;
       this.apps = apps;
 
       if (this.user && this.view && this.view.windowId) {
@@ -151,14 +154,16 @@ export class ApiViewComponent {
   }
 
   save() {
+    if (!this.project) return;
     if (!this.workflow) return;
 
     let workflow = { ...this.workflow };
 
-    this.store.dispatch(updateWorkflow({ workflow: workflow }));
+    this.store.dispatch(updateWorkflow({ projectId: this.project._id, workflow: workflow }));
   }
 
   delete() {
+    if (!this.project) return;
     if (!this.workflow) return;
 
     const workflow = this.workflow;
@@ -167,7 +172,7 @@ export class ApiViewComponent {
       service: this.view.window,
       serviceData: workflow,
       deleteFn: () => {
-        this.store.dispatch(deleteWorkflow({ workflowId: workflow._id }));
+        this.store.dispatch(deleteWorkflow({ projectId: this.project!._id, workflowId: workflow._id }));
         this.cancel();
       },
     });

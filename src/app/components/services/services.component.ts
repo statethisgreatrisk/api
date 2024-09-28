@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, SchemaRow } from '../../store/interfaces/app.interface';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, SchemaRow, Project } from '../../store/interfaces/app.interface';
 import { createAPI, createSchema, createStorage, createValidator, createWorkflow, deselectService, deselectWindow, selectService, selectWindow } from '../../store/actions/app.action';
-import { selectAPIs, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { selectAPIs, selectMainProject, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth.service';
 import ObjectId from 'bson-objectid';
+import { combineLatest, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-services',
@@ -18,6 +19,9 @@ import ObjectId from 'bson-objectid';
 export class ServicesComponent {
   user: User | null = null;
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
+  project: Project | null = null;
+
+  sub: Subscription | null = null;
 
   apis: API[] = [];
   validators: Validator[] = [];
@@ -42,13 +46,11 @@ export class ServicesComponent {
   ) {}
 
   ngOnInit() {
-    this.initUser();
-    this.initView();
-    this.initAPIs();
-    this.initStorages();
-    this.initValidators();
-    this.initSchemas();
-    this.initWorkflows();
+    this.initLatest();
+  }
+
+  ngOnDestroy() {
+    this.sub?.unsubscribe();
   }
 
   selectService(serviceName: string, serviceId: string) {
@@ -79,45 +81,24 @@ export class ServicesComponent {
     this.authService.openLogin();
   }
 
-  initUser() {
-    this.store.select(selectUser).subscribe((user) => {
+  initLatest() {
+    this.sub = combineLatest([
+      this.store.select(selectUser),
+      this.store.select(selectView),
+      this.store.select(selectMainProject),
+      this.store.select(selectAPIs),
+      this.store.select(selectStorages),
+      this.store.select(selectValidators),
+      this.store.select(selectSchemas),
+      this.store.select(selectWorkflows),
+    ]).subscribe(([user, view, project, apis, storages, validators, schemas, workflows]) => {
       this.user = user;
-    });
-  }
-
-  initView() {
-    this.store.select(selectView).subscribe((view) => {
-      if (!view) return;
       this.view = view;
-    });
-  }
-
-  initAPIs() {
-    this.store.select(selectAPIs).subscribe((apis) => {
+      this.project = project;
       this.apis = apis;
-    });
-  }
-
-  initStorages() {
-    this.store.select(selectStorages).subscribe((storages) => {
       this.storages = storages;
-    });
-  }
-
-  initValidators() {
-    this.store.select(selectValidators).subscribe((validators) => {
       this.validators = validators;
-    });
-  }
-
-  initSchemas() {
-    this.store.select(selectSchemas).subscribe((schemas) => {
       this.schemas = schemas;
-    });
-  }
-
-  initWorkflows() {
-    this.store.select(selectWorkflows).subscribe((workflows) => {
       this.workflows = workflows;
     });
   }
@@ -131,9 +112,11 @@ export class ServicesComponent {
   }
 
   createAPI() {
+    if (!this.project) return;
     if (!this.user) return;
 
     const userId = this.user._id;
+    const projectId = this.project._id;
     const _id = '';
     const name = 'Endpoint';
     const date = new Date().toISOString();
@@ -142,39 +125,45 @@ export class ServicesComponent {
     const url = '/hello-world';
     const validators: string[] = [];
 
-    this.store.dispatch(createAPI({ api: { _id, userId, name, date, active, action, url, validators } }));
+    this.store.dispatch(createAPI({ projectId, api: { _id, projectId, userId, name, date, active, action, url, validators } }));
   }
 
   createStorage() {
+    if (!this.project) return;
     if (!this.user) return;
 
     const userId = this.user._id;
+    const projectId = this.project._id;
     const _id = '';
     const name = 'Storage';
     const date = new Date().toISOString();
     const active = true;
     const schemaId = '';
 
-    this.store.dispatch(createStorage({ storage: { _id, userId, name, date, active, schemaId } }));
+    this.store.dispatch(createStorage({ projectId, storage: { _id, projectId, userId, name, date, active, schemaId } }));
   }
 
   createSchema() {
+    if (!this.project) return;
     if (!this.user) return;
 
     const userId = this.user._id;
+    const projectId = this.project._id;
     const _id = '';
     const name = 'Schema';
     const date = new Date().toISOString();
     const active = true;
     const rows: SchemaRow[] = [{ _id: new ObjectId().toHexString(), key: '', type: '' }];
 
-    this.store.dispatch(createSchema({ schema: { _id, userId, name, date, active, rows } }));
+    this.store.dispatch(createSchema({ projectId, schema: { _id, projectId, userId, name, date, active, rows } }));
   }
 
   createValidator() {
+    if (!this.project) return;
     if (!this.user) return;
 
     const userId = this.user._id;
+    const projectId = this.project._id;
     const _id = '';
     const name = 'Validator';
     const date = new Date().toISOString();
@@ -183,19 +172,21 @@ export class ServicesComponent {
     const path = '';
     const validation = '';
 
-    this.store.dispatch(createValidator({ validator: { _id, userId, name, date, active, field, path, validation } }));
+    this.store.dispatch(createValidator({ projectId, validator: { _id, projectId, userId, name, date, active, field, path, validation } }));
   }
 
   createWorkflow() {
+    if (!this.project) return;
     if (!this.user) return;
 
     const userId = this.user._id;
+    const projectId = this.project._id;
     const _id = '';
     const name = 'Workflow';
     const date = new Date().toISOString();
     const active = true;
     const rows: WorkflowRow[] = [];
 
-    this.store.dispatch(createWorkflow({ workflow: { _id, userId, name, date, active, rows } }));
+    this.store.dispatch(createWorkflow({ projectId, workflow: { _id, projectId, userId, name, date, active, rows } }));
   }
 }

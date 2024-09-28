@@ -30,9 +30,27 @@ export interface WorkflowRow {
     args: string;
 }
 
+export interface App {
+    _id: string;
+    userId: string;
+    date: string;
+    active: boolean;
+    name: string;
+    method: string;
+}
+
+export interface Project {
+    _id: string;
+    userId: string;
+    date: string;
+    active: boolean;
+    name: string;
+}
+
 export interface API {
     _id: string;
     userId: string;
+    projectId: string;
     date: string;
     active: boolean;
     name: string;
@@ -44,6 +62,7 @@ export interface API {
 export interface Storage {
     _id: string;
     userId: string;
+    projectId: string;
     date: string;
     active: boolean;
     name: string;
@@ -53,6 +72,7 @@ export interface Storage {
 export interface Schema {
     _id: string;
     userId: string;
+    projectId: string;
     date: string;
     active: boolean;
     name: string;
@@ -62,6 +82,7 @@ export interface Schema {
 export interface Validator {
     _id: string;
     userId: string;
+    projectId: string;
     date: string;
     active: boolean;
     name: string;
@@ -75,24 +96,17 @@ export interface Validator {
 export interface Workflow {
     _id: string;
     userId: string;
+    projectId: string;
     date: string;
     active: boolean;
     name: string;
     rows: WorkflowRow[];
 }
 
-export interface App {
-    _id: string;
-    userId: string;
-    date: string;
-    active: boolean;
-    name: string;
-    method: string;
-}
-
 export interface Deploy {
     _id: string;
     userId: string;
+    projectId: string;
     date: string;
     active: boolean;
     size: string;
@@ -103,6 +117,7 @@ export interface Deploy {
 export interface Log {
     _id: string;
     userId: string;
+    projectId: string;
     deployId: string;
     date: string;
     active: boolean;
@@ -113,6 +128,7 @@ export interface Log {
 export interface Key {
     _id: string;
     userId: string;
+    projectId: string;
     keyId: string;
     date: string;
     active: boolean;
@@ -122,6 +138,7 @@ export interface Key {
 export interface Billing {
     _id: string;
     userId: string;
+    projectId: string;
     date: string;
     active: boolean;
     debit: number;
@@ -131,6 +148,7 @@ export interface Billing {
 export interface Usage {
     _id: string;
     userId: string;
+    projectId: string;
     date: string;
     active: boolean;
     name: string;
@@ -162,6 +180,8 @@ export interface ResponseMessage {
 }
 
 export interface AppState {
+    projects: Project[];
+    
     apis: API[];
     validators: Validator[];
     storages: Storage[];

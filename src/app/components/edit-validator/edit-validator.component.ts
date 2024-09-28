@@ -1,9 +1,9 @@
 import { NgIf, NgClass } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AppStateInit, User, Validator, View } from '../../store/interfaces/app.interface';
+import { AppStateInit, Project, User, Validator, View } from '../../store/interfaces/app.interface';
 import { combineLatest, Subscription } from 'rxjs';
-import { selectUser, selectValidators, selectView } from '../../store/selectors/app.selector';
+import { selectMainProject, selectUser, selectValidators, selectView } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { deleteValidator, deselectService, updateValidator } from '../../store/actions/app.action';
 import { CapitalizePipe } from '../../services/capitalize.pipe';
@@ -21,6 +21,7 @@ export class EditValidatorComponent {
   user: User | null = null;
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   validator: Validator | null = null;
+  project: Project | null = null;
 
   sub: Subscription | null = null;
 
@@ -52,10 +53,12 @@ export class EditValidatorComponent {
     this.sub = combineLatest([
       this.store.select(selectUser),
       this.store.select(selectView),
+      this.store.select(selectMainProject),
       this.store.select(selectValidators),
-    ]).subscribe(([user, view, validators]) => {
+    ]).subscribe(([user, view, project, validators]) => {
       this.user = user;
       this.view = view;
+      this.project = project;
 
       if (this.user && this.view && this.view.serviceId) {
         const validator = validators.find((existingValidator) => existingValidator._id === this.view.serviceId);
@@ -108,16 +111,18 @@ export class EditValidatorComponent {
   }
 
   save() {
+    if (!this.project) return;
     if (!this.validator) return;
 
     const validator = { ...this.validator} ;
     delete validator.placeholder;
     delete validator.placeholderIndex;
 
-    this.store.dispatch(updateValidator({ validator: validator }));
+    this.store.dispatch(updateValidator({ projectId: this.project._id, validator: validator }));
   }
 
   delete() {
+    if (!this.project) return;
     if (!this.validator) return;
 
     const validator = { ...this.validator };
@@ -128,7 +133,7 @@ export class EditValidatorComponent {
       service: this.view.service,
       serviceData: validator,
       deleteFn: () => {
-        this.store.dispatch(deleteValidator({ validatorId: validator._id }));
+        this.store.dispatch(deleteValidator({ projectId: this.project!._id, validatorId: validator._id }));
         this.cancel();
       },
     });
