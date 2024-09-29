@@ -99,6 +99,8 @@
 
     background-color: $surface-mixed-200;
     border: none;
+
+    font-family: "Roboto", sans-serif;
 }
 
 .edit-obj-input input:focus-visible {
@@ -111,8 +113,6 @@
 
     align-items: center;
 
-    // height: 28px;
-
     margin-top: 10px;
     margin-left: 10px;
     margin-right: 10px;
@@ -120,6 +120,8 @@
     background-color: $surface-dark;
     border: 1px solid $surface-mixed-300;
     border-radius: 2px;
+
+    overflow-x: scroll;
 }
 
 .edit-obj-slim-button {

@@ -67,7 +67,7 @@ export class ServicesComponent {
   }
 
   selectWorkflow(windowName: string, windowId: string) {
-    if (windowName === this.view.window && windowId === this.view.windowId) {
+    if (windowName.slice(0, this.view.service.length - 1) === this.view.window && windowId === this.view.windowId) {
       this.store.dispatch(deselectWindow({ windowName: windowName.slice(0, this.view.service.length - 1), windowId }));
     } else {
       this.store.dispatch(selectWindow({ windowName: windowName.slice(0, this.view.service.length - 1), windowId }));

@@ -61,14 +61,14 @@
             </div>
             <!-- Fn -->
             <div class="service-data-list" *ngIf="service.name === 'Functions'">
-                <div class="service-data" [ngClass]="{ 'active': view.windowId === f._id }" *ngFor="let f of fns" (click)="selectService(service.name, f._id)">
+                <div class="service-data" [ngClass]="{ 'active': view.serviceId === f._id }" *ngFor="let f of fns" (click)="selectService(service.name, f._id)">
                     <img [src]="service.icon">
                     <p>{{ f.name }}</p>
                 </div>
             </div>
             <!-- Obj -->
             <div class="service-data-list" *ngIf="service.name === 'Objects'">
-                <div class="service-data" [ngClass]="{ 'active': view.windowId === o._id }" *ngFor="let o of objs" (click)="selectService(service.name, o._id)">
+                <div class="service-data" [ngClass]="{ 'active': view.serviceId === o._id }" *ngFor="let o of objs" (click)="selectService(service.name, o._id)">
                     <img [src]="service.icon">
                     <p>{{ o.name }}</p>
                 </div>
