@@ -105,6 +105,22 @@
     outline: none;
 }
 
+.edit-fn-code-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    // height: 28px;
+
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    background-color: $surface-dark;
+    border: 1px solid $surface-mixed-300;
+    border-radius: 2px;
+}
 
 .edit-fn-slim-button {
     display: flex;

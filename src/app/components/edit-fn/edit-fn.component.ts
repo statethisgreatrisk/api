@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { selectFns, selectMainProject, selectUser, selectView } from '../../store/selectors/app.selector';
 import { deleteFn, deselectService, updateFn } from '../../store/actions/app.action';
 import { Store } from '@ngrx/store';
@@ -7,6 +8,11 @@ import { DeleteService } from '../../services/delete.service';
 import { User, View, Project, Fn, AppStateInit } from '../../store/interfaces/app.interface';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { basicSetup } from 'codemirror';
+import { javascript } from '@codemirror/lang-javascript';
+import { EditorState, Extension } from '@codemirror/state';
+import { EditorView } from '@codemirror/view';
+import { oneDarkSmall } from '../../styles/one-dark-small';
 
 @Component({
   selector: 'app-edit-fn',
@@ -23,9 +29,14 @@ export class EditFnComponent {
 
   sub: Subscription | null = null;
 
+  @ViewChild('codeEditor') codeEditor: any;
+  editorState!: EditorState;
+  editorView!: EditorView;
+
   constructor(
     private store: Store<AppStateInit>,
     private deleteService: DeleteService,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit() {
@@ -54,6 +65,38 @@ export class EditFnComponent {
     });
   }
 
+  ngAfterViewInit() {
+    this.createEditor();
+  }
+
+  createEditor() {
+    let codeEditorElement = this.codeEditor.nativeElement;
+    let myExt: Extension = [basicSetup, javascript(), oneDarkSmall];
+    
+    try {
+      this.editorState = EditorState.create({
+        doc: '',
+        extensions: myExt,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
+    this.editorView = new EditorView({
+      state: this.editorState,
+      parent: codeEditorElement,
+    });
+
+    this.editorView.focus();
+  }
+
+  parseEditor(): string {
+    if (!this.editorView || !this.editorView.state) return '';
+
+    const fn = this.editorView.state.doc.toString();
+    return fn;
+  }
+
   cancel() {
     this.store.dispatch(deselectService({ serviceName: this.view.service, serviceId: this.view.serviceId }));
   }
@@ -61,6 +104,8 @@ export class EditFnComponent {
   save() {
     if (!this.project) return;
     if (!this.fn) return;
+
+    this.fn.fn = this.parseEditor();
     this.store.dispatch(updateFn({ projectId: this.project._id, fn: this.fn }));
   }
 

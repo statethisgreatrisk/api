@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { selectObjs, selectMainProject, selectUser, selectView } from '../../store/selectors/app.selector';
 import { deleteObj, deselectService, updateObj } from '../../store/actions/app.action';
 import { Store } from '@ngrx/store';
@@ -7,6 +8,11 @@ import { DeleteService } from '../../services/delete.service';
 import { User, View, Project, Obj, AppStateInit } from '../../store/interfaces/app.interface';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { basicSetup } from 'codemirror';
+import { javascript } from '@codemirror/lang-javascript';
+import { EditorState, Extension } from '@codemirror/state';
+import { EditorView } from '@codemirror/view';
+import { oneDarkSmall } from '../../styles/one-dark-small';
 
 @Component({
   selector: 'app-edit-obj',
@@ -23,9 +29,14 @@ export class EditObjComponent {
 
   sub: Subscription | null = null;
 
+  @ViewChild('codeEditor') codeEditor: any;
+  editorState!: EditorState;
+  editorView!: EditorView;
+
   constructor(
     private store: Store<AppStateInit>,
     private deleteService: DeleteService,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit() {
@@ -54,6 +65,38 @@ export class EditObjComponent {
     });
   }
 
+  ngAfterViewInit() {
+    this.createEditor();
+  }
+
+  createEditor() {
+    let codeEditorElement = this.codeEditor.nativeElement;
+    let myExt: Extension = [basicSetup, javascript(), oneDarkSmall];
+    
+    try {
+      this.editorState = EditorState.create({
+        doc: '',
+        extensions: myExt,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
+    this.editorView = new EditorView({
+      state: this.editorState,
+      parent: codeEditorElement,
+    });
+
+    this.editorView.focus();
+  }
+
+  parseEditor(): string {
+    if (!this.editorView || !this.editorView.state) return '';
+
+    const obj = this.editorView.state.doc.toString();
+    return obj;
+  }
+
   cancel() {
     this.store.dispatch(deselectService({ serviceName: this.view.service, serviceId: this.view.serviceId }));
   }
@@ -61,6 +104,8 @@ export class EditObjComponent {
   save() {
     if (!this.project) return;
     if (!this.obj) return;
+
+    this.obj.obj = this.parseEditor();
     this.store.dispatch(updateObj({ projectId: this.project._id, obj: this.obj }));
   }
 
