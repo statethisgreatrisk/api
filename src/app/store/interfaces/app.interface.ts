@@ -103,6 +103,26 @@ export interface Workflow {
     rows: WorkflowRow[];
 }
 
+export interface Fn {
+    _id: string;
+    userId: string;
+    projectId: string;
+    date: string;
+    active: boolean;
+    name: string;
+    fn: string;
+}
+
+export interface Obj {
+    _id: string;
+    userId: string;
+    projectId: string;
+    date: string;
+    active: boolean;
+    name: string;
+    obj: string;
+}
+
 export interface Deploy {
     _id: string;
     userId: string;
@@ -183,13 +203,15 @@ export interface ResponseMessage {
 
 export interface AppState {
     projects: Project[];
+    apps: App[];
     
     apis: API[];
     validators: Validator[];
     storages: Storage[];
     schemas: Schema[];
     workflows: Workflow[];
-    apps: App[];
+    fns: Fn[];
+    objs: Obj[];
 
     deploys: Deploy[];
     logs: Log[];

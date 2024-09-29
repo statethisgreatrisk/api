@@ -1,0 +1,36 @@
+<div class="edit-fn-container">
+    <div class="edit-fn">
+        <div class="edit-fn-header-container">
+            <div class="edit-fn-header">
+                <p>Function</p>
+            </div>
+            <div class="edit-fn-slim-button inline" (click)="delete()">
+                <p>Delete</p>
+            </div>
+        </div>
+        <div class="edit-fn-label">
+            <p>Name</p>
+        </div>
+        <div class="edit-fn-input-container">
+            <div class="edit-fn-input" *ngIf="fn">
+                <input type="text" placeholder="Enter collection name" [(ngModel)]="fn.name">
+            </div>
+        </div>
+        <div class="edit-fn-buttons">
+            <div class="edit-fn-cancel" (click)="cancel()">
+                <p>Cancel</p>
+            </div>
+            <div class="edit-fn-save" (click)="save()">
+                <p>Save</p>
+            </div>
+        </div>
+        <!-- <div class="edit-fn-divider">
+            <div class="divider"></div>
+        </div>
+        <div class="edit-fn-path-docs">
+            <div class="edit-fn-path-doc">
+                <p>Collection names are based on MongoDB 7.x. See the MongoDB restriction on collection names for details.</p>
+            </div>
+        </div> -->
+    </div>
+</div>

@@ -70,12 +70,16 @@ export class KeyViewComponent {
   deleteKey(keyId: string) {
     if (!keyId) return;
     if (!this.project) return;
+    if (!this.keys) return;
 
     const project = this.project;
+    const key = this.keys.find((key) => key._id === keyId);
+
+    if (!key) return;
 
     this.deleteService.initDelete({
-      service: this.view.service,
-      serviceData: project,
+      service: 'Key',
+      serviceData: key,
       deleteFn: () => {
         this.store.dispatch(deleteKey({ projectId: project._id, keyId }));
       },

@@ -1,0 +1,36 @@
+<div class="edit-obj-container">
+    <div class="edit-obj">
+        <div class="edit-obj-header-container">
+            <div class="edit-obj-header">
+                <p>Object</p>
+            </div>
+            <div class="edit-obj-slim-button inline" (click)="delete()">
+                <p>Delete</p>
+            </div>
+        </div>
+        <div class="edit-obj-label">
+            <p>Name</p>
+        </div>
+        <div class="edit-obj-input-container">
+            <div class="edit-obj-input" *ngIf="obj">
+                <input type="text" placeholder="Enter collection name" [(ngModel)]="obj.name">
+            </div>
+        </div>
+        <div class="edit-obj-buttons">
+            <div class="edit-obj-cancel" (click)="cancel()">
+                <p>Cancel</p>
+            </div>
+            <div class="edit-obj-save" (click)="save()">
+                <p>Save</p>
+            </div>
+        </div>
+        <!-- <div class="edit-obj-divider">
+            <div class="divider"></div>
+        </div>
+        <div class="edit-obj-path-docs">
+            <div class="edit-obj-path-doc">
+                <p>Collection names are based on MongoDB 7.x. See the MongoDB restriction on collection names for details.</p>
+            </div>
+        </div> -->
+    </div>
+</div>

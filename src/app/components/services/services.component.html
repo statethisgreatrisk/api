@@ -12,7 +12,7 @@
                 <img src="/project.png">
                 <p>{{ p.name }}</p>
             </div>
-            <div class="project-button" (click)="create('Project')">
+            <div class="project-button" (click)="create('Projects')">
                 <img src="/plus.png">
                 <p>Create New Project</p>
             </div>
@@ -25,38 +25,52 @@
                 <p (click)="create(service.name)">New +</p>
             </div>
             <!-- Workflow -->
-            <div class="service-data-list" *ngIf="service.name === 'Workflow'">
+            <div class="service-data-list" *ngIf="service.name === 'Workflows'">
                 <div class="service-data" [ngClass]="{ 'active': view.windowId === w._id }" *ngFor="let w of workflows" (click)="selectWorkflow(service.name, w._id)">
                     <img [src]="service.icon">
                     <p>{{ w.name }}</p>
                 </div>
             </div>
             <!-- API -->
-            <div class="service-data-list" *ngIf="service.name === 'API'">
+            <div class="service-data-list" *ngIf="service.name === 'APIs'">
                 <div class="service-data" [ngClass]="{ 'active': view.serviceId === a._id }" *ngFor="let a of apis" (click)="selectService(service.name, a._id)">
                     <img [src]="service.icon">
                     <p>{{ a.name }}</p>
                 </div>
             </div>
             <!-- Storage -->
-            <div class="service-data-list" *ngIf="service.name === 'Storage'">
+            <div class="service-data-list" *ngIf="service.name === 'Storages'">
                 <div class="service-data" [ngClass]="{ 'active': view.serviceId === s._id }" *ngFor="let s of storages" (click)="selectService(service.name, s._id)">
                     <img [src]="service.icon">
                     <p>{{ s.name }}</p>
                 </div>
             </div>
             <!-- Schema -->
-            <div class="service-data-list" *ngIf="service.name === 'Schema'">
+            <div class="service-data-list" *ngIf="service.name === 'Schemas'">
                 <div class="service-data" [ngClass]="{ 'active': view.serviceId === s._id }" *ngFor="let s of schemas" (click)="selectService(service.name, s._id)">
                     <img [src]="service.icon">
                     <p>{{ s.name }}</p>
                 </div>
             </div>
             <!-- Validator -->
-            <div class="service-data-list" *ngIf="service.name === 'Validator'">
+            <div class="service-data-list" *ngIf="service.name === 'Validators'">
                 <div class="service-data" [ngClass]="{ 'active': view.serviceId === v._id }" *ngFor="let v of validators" (click)="selectService(service.name, v._id)">
                     <img [src]="service.icon">
                     <p>{{ v.name }}</p>
+                </div>
+            </div>
+            <!-- Fn -->
+            <div class="service-data-list" *ngIf="service.name === 'Functions'">
+                <div class="service-data" [ngClass]="{ 'active': view.windowId === f._id }" *ngFor="let f of fns" (click)="selectService(service.name, f._id)">
+                    <img [src]="service.icon">
+                    <p>{{ f.name }}</p>
+                </div>
+            </div>
+            <!-- Obj -->
+            <div class="service-data-list" *ngIf="service.name === 'Objects'">
+                <div class="service-data" [ngClass]="{ 'active': view.windowId === o._id }" *ngFor="let o of objs" (click)="selectService(service.name, o._id)">
+                    <img [src]="service.icon">
+                    <p>{{ o.name }}</p>
                 </div>
             </div>
         </div>

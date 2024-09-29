@@ -8,6 +8,8 @@ import { Store } from '@ngrx/store';
 import { NgIf } from '@angular/common';
 import { EditSchemaComponent } from '../edit-schema/edit-schema.component';
 import { selectView } from '../../store/selectors/app.selector';
+import { EditFnComponent } from '../edit-fn/edit-fn.component';
+import { EditObjComponent } from '../edit-obj/edit-obj.component';
 
 @Component({
   selector: 'app-service-edit',
@@ -20,7 +22,7 @@ export class ServiceEditComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   
   @ViewChild('componentHost', { read: ViewContainerRef, static: true }) componentHost!: ViewContainerRef;
-  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent> | null = null;
+  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditFnComponent | EditObjComponent> | null = null;
   
   constructor(
     private store: Store<AppStateInit>,
@@ -56,18 +58,24 @@ export class ServiceEditComponent {
   }
 
   createComponent() {
-    if (this.view.service === 'API') {
+    if (this.view.service === 'APIs') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditApiComponent, { injector: componentInjector });
-    } else if (this.view.service === 'Storage') {
+    } else if (this.view.service === 'Storages') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditStorageComponent, { injector: componentInjector });
-    } else if (this.view.service === 'Validator') {
+    } else if (this.view.service === 'Validators') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditValidatorComponent, { injector: componentInjector });
-    } else if (this.view.service === 'Schema') {
+    } else if (this.view.service === 'Schemas') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditSchemaComponent, { injector: componentInjector });
+    } else if (this.view.service === 'Functions') {
+      const componentInjector = this.componentInjector.createServiceEditInjector();
+      this.componentHostRef = this.componentHost.createComponent(EditFnComponent, { injector: componentInjector });
+    } else if (this.view.service === 'Objects') {
+      const componentInjector = this.componentInjector.createServiceEditInjector();
+      this.componentHostRef = this.componentHost.createComponent(EditObjComponent, { injector: componentInjector });
     }
   }
 

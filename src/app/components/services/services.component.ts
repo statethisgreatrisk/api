@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, SchemaRow, Project } from '../../store/interfaces/app.interface';
-import { changeProject, clearData, createAPI, createProject, createSchema, createStorage, createValidator, createWorkflow, deselectService, deselectWindow, selectService, selectWindow } from '../../store/actions/app.action';
-import { selectAPIs, selectMainProject, selectProjects, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, SchemaRow, Project, Obj, Fn } from '../../store/interfaces/app.interface';
+import { changeProject, clearData, createAPI, createFn, createObj, createProject, createSchema, createStorage, createValidator, createWorkflow, deselectService, deselectWindow, selectService, selectWindow } from '../../store/actions/app.action';
+import { selectAPIs, selectFns, selectMainProject, selectObjs, selectProjects, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth.service';
 import ObjectId from 'bson-objectid';
@@ -29,13 +29,17 @@ export class ServicesComponent {
   storages: Storage[] = [];
   schemas: Schema[] = [];
   workflows: Workflow[] = [];
+  fns: Fn[] = [];
+  objs: Obj[] = [];
 
   services: Service[] =  [
-    { name: 'Workflow', icon: '/workflow.png' },
-    { name: 'API', icon: '/news.png' },
-    { name: 'Storage', icon: '/folder.png' },
-    { name: 'Schema', icon: '/tool.png' },
-    { name: 'Validator', icon: '/binoculars.png' },
+    { name: 'Workflows', icon: '/workflow.png' },
+    { name: 'APIs', icon: '/news.png' },
+    { name: 'Storages', icon: '/folder.png' },
+    { name: 'Schemas', icon: '/tool.png' },
+    { name: 'Validators', icon: '/binoculars.png' },
+    { name: 'Functions', icon: '/tool.png' },
+    { name: 'Objects', icon: '/tool.png' },
   ];
 
   dropdown: boolean = false;
@@ -64,9 +68,9 @@ export class ServicesComponent {
 
   selectWorkflow(windowName: string, windowId: string) {
     if (windowName === this.view.window && windowId === this.view.windowId) {
-      this.store.dispatch(deselectWindow({ windowName, windowId }));
+      this.store.dispatch(deselectWindow({ windowName: windowName.slice(0, this.view.service.length - 1), windowId }));
     } else {
-      this.store.dispatch(selectWindow({ windowName, windowId }));
+      this.store.dispatch(selectWindow({ windowName: windowName.slice(0, this.view.service.length - 1), windowId }));
     }
   }
 
@@ -103,7 +107,9 @@ export class ServicesComponent {
       this.store.select(selectValidators),
       this.store.select(selectSchemas),
       this.store.select(selectWorkflows),
-    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows]) => {
+      this.store.select(selectFns),
+      this.store.select(selectObjs),
+    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, fns, objs]) => {
       this.user = user;
       this.view = view;
       this.allProjects = allProjects;
@@ -113,16 +119,20 @@ export class ServicesComponent {
       this.validators = validators;
       this.schemas = schemas;
       this.workflows = workflows;
+      this.fns = fns;
+      this.objs = objs;
     });
   }
 
   create(service: string) {
-    if (service === 'API') return this.createAPI();
-    if (service === 'Storage') return this.createStorage();
-    if (service === 'Schema') return this.createSchema();
-    if (service === 'Validator') return this.createValidator();
-    if (service === 'Workflow') return this.createWorkflow();
-    if (service === 'Project') return this.createProject();
+    if (service === 'APIs') return this.createAPI();
+    if (service === 'Storages') return this.createStorage();
+    if (service === 'Schemas') return this.createSchema();
+    if (service === 'Validators') return this.createValidator();
+    if (service === 'Workflows') return this.createWorkflow();
+    if (service === 'Functions') return this.createFn();
+    if (service === 'Objects') return this.createObj();
+    if (service === 'Projects') return this.createProject();
   }
 
   createProject() {
@@ -216,5 +226,35 @@ export class ServicesComponent {
     const rows: WorkflowRow[] = [];
 
     this.store.dispatch(createWorkflow({ projectId, workflow: { _id, projectId, userId, name, date, active, rows } }));
+  }
+
+  createFn() {
+    if (!this.project) return;
+    if (!this.user) return;
+
+    const userId = this.user._id;
+    const projectId = this.project._id;
+    const _id = '';
+    const name = 'Function';
+    const date = new Date().toISOString();
+    const active = true;
+    const fn = '';
+
+    this.store.dispatch(createFn({ projectId, fn: { _id, projectId, userId, name, date, active, fn } }));
+  }
+
+  createObj() {
+    if (!this.project) return;
+    if (!this.user) return;
+
+    const userId = this.user._id;
+    const projectId = this.project._id;
+    const _id = '';
+    const name = 'Object';
+    const date = new Date().toISOString();
+    const active = true;
+    const obj = '';
+
+    this.store.dispatch(createObj({ projectId, obj: { _id, projectId, userId, name, date, active, obj } }));
   }
 }

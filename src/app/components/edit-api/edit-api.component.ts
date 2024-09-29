@@ -115,7 +115,7 @@ export class EditApiComponent {
     const api = this.api;
 
     this.deleteService.initDelete({
-      service: this.view.service,
+      service: this.view.service.slice(0, this.view.service.length - 1),
       serviceData: api,
       deleteFn: () => {
         this.store.dispatch(deleteAPI({ projectId: this.project!._id, apiId: api._id }));

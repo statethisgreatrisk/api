@@ -130,7 +130,7 @@ export class EditValidatorComponent {
     delete validator.placeholderIndex;
 
     this.deleteService.initDelete({
-      service: this.view.service,
+      service: this.view.service.slice(0, this.view.service.length - 1),
       serviceData: validator,
       deleteFn: () => {
         this.store.dispatch(deleteValidator({ projectId: this.project!._id, validatorId: validator._id }));

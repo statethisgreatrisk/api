@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj } from "../interfaces/app.interface";
 
 // User
 
@@ -175,6 +175,62 @@ export const removeWorkflowFn: (state: AppState, workflowId: string) => AppState
     return { ...state, workflows: state.workflows.filter((workflow) => workflow._id !== workflowId) };
 }
 
+// Fn
+
+export const addFnsFn: (state: AppState, fns: Fn[]) => AppState = (state: AppState, fns: Fn[]) => {
+    if (!fns) return { ...state };
+    return { ...state, fns: fns };
+}
+
+export const addFnFn: (state: AppState, fn: Fn) => AppState = (state: AppState, fn: Fn) => {
+    if (!fn) return { ...state };
+    return { ...state, fns: state.fns.concat([fn]) };
+}
+
+export const replaceFnFn: (state: AppState, fn: Fn) => AppState = (state: AppState, fn: Fn) => {
+    if (!fn) return { ...state };
+
+    const fns = state.fns.map((existingFn) => {
+        if (existingFn._id !== fn._id) return existingFn;
+        return fn;
+    });
+
+    return { ...state, fns: fns };
+}
+
+export const removeFnFn: (state: AppState, fnId: string) => AppState = (state: AppState, fnId: string) => {
+    if (!fnId) return { ...state };
+    return { ...state, fns: state.fns.filter((fn) => fn._id !== fnId) };
+}
+
+// Obj
+
+export const addObjsFn: (state: AppState, objs: Obj[]) => AppState = (state: AppState, objs: Obj[]) => {
+    if (!objs) return { ...state };
+    return { ...state, objs: objs };
+}
+
+export const addObjFn: (state: AppState, obj: Obj) => AppState = (state: AppState, obj: Obj) => {
+    if (!obj) return { ...state };
+    return { ...state, objs: state.objs.concat([obj]) };
+}
+
+export const replaceObjFn: (state: AppState, obj: Obj) => AppState = (state: AppState, obj: Obj) => {
+    if (!obj) return { ...state };
+
+    const objs = state.objs.map((existingObj) => {
+        if (existingObj._id !== obj._id) return existingObj;
+        return obj;
+    });
+
+    return { ...state, objs: objs };
+}
+
+export const removeObjFn: (state: AppState, objId: string) => AppState = (state: AppState, objId: string) => {
+    if (!objId) return { ...state };
+    return { ...state, objs: state.objs.filter((obj) => obj._id !== objId) };
+}
+
 // Deploy
 
 export const addDeploysFn: (state: AppState, deploys: Deploy[]) => AppState = (state: AppState, deploys: Deploy[]) => {
@@ -331,13 +387,15 @@ export const logFn: (state: AppState, any: any) => AppState = (state: AppState, 
 export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => {
     return {
         projects: [],
+        apps: [],
         
         apis: [],
         storages: [],
         schemas: [],
         validators: [],
         workflows: [],
-        apps: [],
+        fns: [],
+        objs: [],
 
         deploys: [],
         logs: [],
@@ -363,7 +421,8 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         schemas: [],
         validators: [],
         workflows: [],
-        
+        fns: [],
+        objs: [],
 
         deploys: [],
         logs: [],

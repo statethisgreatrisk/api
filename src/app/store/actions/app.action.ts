@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Key, Log, Project, Schema, Storage, Usage, User, Validator, Workflow } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -83,6 +83,26 @@ export const updateWorkflow = createAction('[UPDATE] Workflow', props<{projectId
 export const replaceWorkflow = createAction('[REPLACE] Workflow', props<{workflow: Workflow}>());
 export const deleteWorkflow = createAction('[DELETE] Workflow', props<{projectId: string, workflowId: string}>());
 export const removeWorkflow = createAction('[REMOVE] Workflow', props<{workflowId: string}>());
+
+// Fn
+export const getFns = createAction('[GET] Fns', props<{projectId: string}>());
+export const addFns = createAction('[ADD] Fns', props<{fns: Fn[]}>());
+export const createFn = createAction('[CREATE] Fn', props<{projectId: string, fn: Fn}>());
+export const addFn = createAction('[ADD] Fn', props<{fn: Fn}>());
+export const updateFn = createAction('[UPDATE] Fn', props<{projectId: string, fn: Fn}>());
+export const replaceFn = createAction('[REPLACE] Fn', props<{fn: Fn}>());
+export const deleteFn = createAction('[DELETE] Fn', props<{projectId: string, fnId: string}>());
+export const removeFn = createAction('[REMOVE] Fn', props<{fnId: string}>());
+
+// Obj
+export const getObjs = createAction('[GET] Objs', props<{projectId: string}>());
+export const addObjs = createAction('[ADD] Objs', props<{objs: Obj[]}>());
+export const createObj = createAction('[CREATE] Obj', props<{projectId: string, obj: Obj}>());
+export const addObj = createAction('[ADD] Obj', props<{obj: Obj}>());
+export const updateObj = createAction('[UPDATE] Obj', props<{projectId: string, obj: Obj}>());
+export const replaceObj = createAction('[REPLACE] Obj', props<{obj: Obj}>());
+export const deleteObj = createAction('[DELETE] Obj', props<{projectId: string, objId: string}>());
+export const removeObj = createAction('[REMOVE] Obj', props<{objId: string}>());
 
 // Deploy
 export const getDeploys = createAction('[GET] Deploys', props<{projectId: string}>());

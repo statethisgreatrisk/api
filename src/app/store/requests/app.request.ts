@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
-import { API, App, Billing, Deploy, Key, Log, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow } from "../interfaces/app.interface";
 
 const url = 'http://localhost:3000/v1/dashboard';
 
@@ -201,6 +201,50 @@ export class AppRequest {
   
   deleteWorkflow(projectId: string, workflowId: string): Observable<ResponseMessage> {
     const endpoint = `${url}/workflow/:projectId/:workflowId`.replace(':workflowId', workflowId).replace(':projectId', projectId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
+  }
+
+  // Fn
+
+  getFns(projectId: string): Observable<Fn[]> {
+    const endpoint = `${url}/fn/:projectId`.replace(':projectId', projectId);
+    return this.http.get<Fn[]>(endpoint, { withCredentials: true });
+  }
+  
+  createFn(projectId: string, fn: Fn): Observable<Fn> {
+    const endpoint = `${url}/fn/:projectId`.replace(':projectId', projectId);
+    return this.http.post<Fn>(endpoint, { fn }, { withCredentials: true });
+  }
+  
+  updateFn(projectId: string, fn: Fn): Observable<Fn> {
+    const endpoint = `${url}/fn/:projectId`.replace(':projectId', projectId);
+    return this.http.put<Fn>(endpoint, { fn }, { withCredentials: true });
+  }
+  
+  deleteFn(projectId: string, fnId: string): Observable<ResponseMessage> {
+    const endpoint = `${url}/fn/:projectId/:fnId`.replace(':fnId', fnId).replace(':projectId', projectId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
+  }
+
+  // Obj
+
+  getObjs(projectId: string): Observable<Obj[]> {
+    const endpoint = `${url}/obj/:projectId`.replace(':projectId', projectId);
+    return this.http.get<Obj[]>(endpoint, { withCredentials: true });
+  }
+  
+  createObj(projectId: string, obj: Obj): Observable<Obj> {
+    const endpoint = `${url}/obj/:projectId`.replace(':projectId', projectId);
+    return this.http.post<Obj>(endpoint, { obj }, { withCredentials: true });
+  }
+  
+  updateObj(projectId: string, obj: Obj): Observable<Obj> {
+    const endpoint = `${url}/obj/:projectId`.replace(':projectId', projectId);
+    return this.http.put<Obj>(endpoint, { obj }, { withCredentials: true });
+  }
+  
+  deleteObj(projectId: string, objId: string): Observable<ResponseMessage> {
+    const endpoint = `${url}/obj/:projectId/:objId`.replace(':objId', objId).replace(':projectId', projectId);
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 

@@ -2,13 +2,15 @@ import { AppState } from "../interfaces/app.interface";
 
 export const appState: AppState = {
     projects: [],
+    apps: [],
     
     apis: [],
     storages: [],
     schemas: [],
     validators: [],
     workflows: [],
-    apps: [],
+    fns: [],
+    objs: [],
 
     deploys: [],
     logs: [],

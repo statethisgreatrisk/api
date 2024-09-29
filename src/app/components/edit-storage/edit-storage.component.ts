@@ -103,7 +103,7 @@ export class EditStorageComponent {
     const storage = this.storage;
 
     this.deleteService.initDelete({
-      service: this.view.service,
+      service: this.view.service.slice(0, this.view.service.length - 1),
       serviceData: storage,
       deleteFn: () => {
         this.store.dispatch(deleteStorage({ projectId: this.project!._id, storageId: storage._id }));
