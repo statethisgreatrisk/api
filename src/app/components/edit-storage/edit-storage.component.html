@@ -20,7 +20,7 @@
         <div class="edit-storage-label">
             <p>Schema</p>
         </div>
-        <div class="edit-storage-select-container">
+        <div class="edit-storage-select-container" *ngIf="storage && !storage.schemaId">
             <div class="edit-storage-select" (click)="toggleDropdown()">
                 <div class="edit-storage-select-button">
                     <p>Select Schema</p>

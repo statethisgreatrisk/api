@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, SchemaRow, Project, Obj, Fn } from '../../store/interfaces/app.interface';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn } from '../../store/interfaces/app.interface';
 import { changeProject, clearData, createAPI, createFn, createObj, createProject, createSchema, createStorage, createValidator, createWorkflow, deselectService, deselectWindow, selectService, selectWindow } from '../../store/actions/app.action';
 import { selectAPIs, selectFns, selectMainProject, selectObjs, selectProjects, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth.service';
-import ObjectId from 'bson-objectid';
 import { combineLatest, Subscription } from 'rxjs';
 
 @Component({
@@ -67,10 +66,10 @@ export class ServicesComponent {
   }
 
   selectWorkflow(windowName: string, windowId: string) {
-    if (windowName.slice(0, this.view.service.length - 1) === this.view.window && windowId === this.view.windowId) {
-      this.store.dispatch(deselectWindow({ windowName: windowName.slice(0, this.view.service.length - 1), windowId }));
+    if (windowName === this.view.window && windowId === this.view.windowId) {
+      this.store.dispatch(deselectWindow({ windowName, windowId }));
     } else {
-      this.store.dispatch(selectWindow({ windowName: windowName.slice(0, this.view.service.length - 1), windowId }));
+      this.store.dispatch(selectWindow({ windowName, windowId }));
     }
   }
 
@@ -191,9 +190,9 @@ export class ServicesComponent {
     const name = 'Schema';
     const date = new Date().toISOString();
     const active = true;
-    const rows: SchemaRow[] = [{ _id: new ObjectId().toHexString(), key: '', type: '' }];
+    const schema = '';
 
-    this.store.dispatch(createSchema({ projectId, schema: { _id, projectId, userId, name, date, active, rows } }));
+    this.store.dispatch(createSchema({ projectId, schema: { _id, projectId, userId, name, date, active, schema } }));
   }
 
   createValidator() {
@@ -206,11 +205,9 @@ export class ServicesComponent {
     const name = 'Validator';
     const date = new Date().toISOString();
     const active = true;
-    const field = 'param';
-    const path = '';
-    const validation = '';
+    const validator = '';
 
-    this.store.dispatch(createValidator({ projectId, validator: { _id, projectId, userId, name, date, active, field, path, validation } }));
+    this.store.dispatch(createValidator({ projectId, validator: { _id, projectId, userId, name, date, active, validator } }));
   }
 
   createWorkflow() {

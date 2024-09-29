@@ -15,14 +15,6 @@ export interface User {
     email: string;
 }
 
-export interface SchemaRow {
-    _id: string;
-    key: string;
-    type: string;
-    placeholder?: string;
-    placeholderIndex?: number;
-}
-
 export interface WorkflowRow {
     _id: string;
     appId: string;
@@ -76,7 +68,7 @@ export interface Schema {
     date: string;
     active: boolean;
     name: string;
-    rows: SchemaRow[];
+    schema: string;
 }
 
 export interface Validator {
@@ -86,11 +78,7 @@ export interface Validator {
     date: string;
     active: boolean;
     name: string;
-    field: 'param' | 'body';
-    path: string;
-    validation: string;
-    placeholder?: string;
-    placeholderIndex?: number;
+    validator: string;
 }
 
 export interface Workflow {
