@@ -16,6 +16,9 @@
                 <input type="text" placeholder="Enter collection name" [(ngModel)]="fn.name">
             </div>
         </div>
+        <div class="edit-fn-code-container">
+            <div #codeEditor></div>
+        </div>
         <div class="edit-fn-buttons">
             <div class="edit-fn-cancel" (click)="cancel()">
                 <p>Cancel</p>
@@ -23,9 +26,6 @@
             <div class="edit-fn-save" (click)="save()">
                 <p>Save</p>
             </div>
-        </div>
-        <div class="edit-fn-code-container">
-            <div #codeEditor></div>
         </div>
         <!-- <div class="edit-fn-divider">
             <div class="divider"></div>

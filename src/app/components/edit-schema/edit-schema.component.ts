@@ -1,5 +1,5 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { DOCUMENT, NgFor, NgIf } from '@angular/common';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppStateInit, Project, Schema, User, View } from '../../store/interfaces/app.interface';
 import { selectMainProject, selectSchemas, selectUser, selectView } from '../../store/selectors/app.selector';
@@ -7,6 +7,10 @@ import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { deleteSchema, deselectService, updateSchema } from '../../store/actions/app.action';
 import { DeleteService } from '../../services/delete.service';
+import { javascript } from '@codemirror/lang-javascript';
+import { EditorState, Extension } from '@codemirror/state';
+import { EditorView, basicSetup } from 'codemirror';
+import { oneDarkSmall } from '../../styles/one-dark-small';
 
 @Component({
   selector: 'app-edit-schema',
@@ -23,9 +27,14 @@ export class EditSchemaComponent {
 
   sub: Subscription | null = null;
 
+  @ViewChild('codeEditor') codeEditor: any;
+  editorState!: EditorState;
+  editorView!: EditorView;
+
   constructor(
     private store: Store<AppStateInit>,
     private deleteService: DeleteService,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit() {
@@ -34,6 +43,10 @@ export class EditSchemaComponent {
 
   ngOnDestroy() {
     this.sub?.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    this.createEditor();
   }
 
   initLatest() {
@@ -54,6 +67,35 @@ export class EditSchemaComponent {
     });
   }
 
+  createEditor() {
+    let codeEditorElement = this.codeEditor.nativeElement;
+    let myExt: Extension = [basicSetup, javascript(), oneDarkSmall];
+    const schema = this.schema?.schema ? this.schema.schema : 'function fn(req, res, context, variable, args) {\n  \n}';
+    
+    try {
+      this.editorState = EditorState.create({
+        doc: schema,
+        extensions: myExt,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
+    this.editorView = new EditorView({
+      state: this.editorState,
+      parent: codeEditorElement,
+    });
+
+    this.editorView.focus();
+  }
+
+  parseEditor(): string {
+    if (!this.editorView || !this.editorView.state) return '';
+
+    const schema = this.editorView.state.doc.toString();
+    return schema;
+  }
+
   cancel() {
     this.store.dispatch(deselectService({ serviceName: this.view.service, serviceId: this.view.serviceId }));
   }
@@ -63,7 +105,7 @@ export class EditSchemaComponent {
     if (!this.schema) return;
 
     let schema = { ...this.schema };
-    // parse code
+    schema.schema = this.parseEditor();
 
     this.store.dispatch(updateSchema({ projectId: this.project._id, schema: schema }));
   }

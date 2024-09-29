@@ -117,11 +117,21 @@
     margin-left: 10px;
     margin-right: 10px;
 
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+
     background-color: $surface-dark;
     border: 1px solid $surface-mixed-300;
     border-radius: 2px;
 
     overflow-x: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.edit-obj-code-container::-webkit-scrollbar {
+    display: none;
 }
 
 .edit-obj-slim-button {

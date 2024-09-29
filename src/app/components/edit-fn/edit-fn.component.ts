@@ -47,6 +47,10 @@ export class EditFnComponent {
     this.sub?.unsubscribe();
   }
 
+  ngAfterViewInit() {
+    this.createEditor();
+  }
+
   initLatest() {
     this.sub = combineLatest([
       this.store.select(selectUser),
@@ -63,10 +67,6 @@ export class EditFnComponent {
         this.fn = fn ? { ...fn } : null;
       }
     });
-  }
-
-  ngAfterViewInit() {
-    this.createEditor();
   }
 
   createEditor() {

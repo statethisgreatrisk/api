@@ -1,5 +1,5 @@
-import { NgIf, NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { NgIf, NgClass, DOCUMENT } from '@angular/common';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppStateInit, Project, User, Validator, View } from '../../store/interfaces/app.interface';
 import { combineLatest, Subscription } from 'rxjs';
@@ -8,6 +8,10 @@ import { Store } from '@ngrx/store';
 import { deleteValidator, deselectService, updateValidator } from '../../store/actions/app.action';
 import { CapitalizePipe } from '../../services/capitalize.pipe';
 import { DeleteService } from '../../services/delete.service';
+import { javascript } from '@codemirror/lang-javascript';
+import { EditorState, Extension } from '@codemirror/state';
+import { EditorView, basicSetup } from 'codemirror';
+import { oneDarkSmall } from '../../styles/one-dark-small';
 
 @Component({
   selector: 'app-edit-validator',
@@ -24,9 +28,14 @@ export class EditValidatorComponent {
 
   sub: Subscription | null = null;
 
+  @ViewChild('codeEditor') codeEditor: any;
+  editorState!: EditorState;
+  editorView!: EditorView;
+
   constructor(
     private store: Store<AppStateInit>,
     private deleteService: DeleteService,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit() {
@@ -35,6 +44,10 @@ export class EditValidatorComponent {
 
   ngOnDestroy() {
     this.sub?.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    this.createEditor();
   }
 
   initLatest() {
@@ -55,6 +68,35 @@ export class EditValidatorComponent {
     });
   }
 
+  createEditor() {
+    let codeEditorElement = this.codeEditor.nativeElement;
+    let myExt: Extension = [basicSetup, javascript(), oneDarkSmall];
+    const validator = this.validator?.validator ? this.validator.validator : 'function fn(req, res, context, variable, args) {\n  \n}';
+    
+    try {
+      this.editorState = EditorState.create({
+        doc: validator,
+        extensions: myExt,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
+    this.editorView = new EditorView({
+      state: this.editorState,
+      parent: codeEditorElement,
+    });
+
+    this.editorView.focus();
+  }
+
+  parseEditor(): string {
+    if (!this.editorView || !this.editorView.state) return '';
+
+    const fn = this.editorView.state.doc.toString();
+    return fn;
+  }
+
   cancel() {
     this.store.dispatch(deselectService({ serviceName: this.view.service, serviceId: this.view.serviceId }));
   }
@@ -64,7 +106,7 @@ export class EditValidatorComponent {
     if (!this.validator) return;
 
     const validator = { ...this.validator} ;
-    // parse code
+    validator.validator = this.parseEditor();
 
     this.store.dispatch(updateValidator({ projectId: this.project._id, validator: validator }));
   }

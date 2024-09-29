@@ -16,8 +16,8 @@
                 <input type="text" placeholder="Enter validator name" [(ngModel)]="validator.name">
             </div>
         </div>
-        <div class="edit-validator-label">
-            <p>Validator</p>
+        <div class="edit-validator-code-container">
+            <div #codeEditor></div>
         </div>
         <div class="edit-validator-buttons">
             <div class="edit-validator-cancel" (click)="cancel()">

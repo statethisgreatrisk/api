@@ -16,6 +16,9 @@
                 <input type="text" placeholder="Enter collection name" [(ngModel)]="obj.name">
             </div>
         </div>
+        <div class="edit-obj-code-container">
+            <div #codeEditor></div>
+        </div>
         <div class="edit-obj-buttons">
             <div class="edit-obj-cancel" (click)="cancel()">
                 <p>Cancel</p>
@@ -23,9 +26,6 @@
             <div class="edit-obj-save" (click)="save()">
                 <p>Save</p>
             </div>
-        </div>
-        <div class="edit-obj-code-container">
-            <div #codeEditor></div>
         </div>
         <!-- <div class="edit-obj-divider">
             <div class="divider"></div>

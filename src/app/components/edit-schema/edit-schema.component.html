@@ -16,10 +16,9 @@
                 <input type="text" placeholder="Enter schema name" [(ngModel)]="schema.name">
             </div>
         </div>
-        <div class="edit-schema-label row between">
-            <p>Schema</p>
+        <div class="edit-schema-code-container">
+            <div #codeEditor></div>
         </div>
-
         <div class="edit-schema-buttons">
             <div class="edit-schema-cancel" (click)="cancel()">
                 <p>Cancel</p>
