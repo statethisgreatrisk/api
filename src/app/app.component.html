@@ -4,7 +4,11 @@
     <app-service-edit *ngIf="view.service !== '' && view.serviceId !== ''"></app-service-edit>
 
     <app-landing-view *ngIf="view.window === ''"></app-landing-view>
-    <app-storage-view *ngIf="view.window === 'Storage'"></app-storage-view>
+
+    <div class="storage-view-container" *ngIf="view.window === 'Storage'">
+      <app-storage-view></app-storage-view>
+      <app-document-edit></app-document-edit>
+    </div>
     <app-api-view *ngIf="view.window === 'Workflows'"></app-api-view>
     <app-app-view *ngIf="view.window === 'Workflows'"></app-app-view>
 

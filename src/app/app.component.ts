@@ -21,6 +21,7 @@ import { AuthService } from './services/auth.service';
 import { Actions, ofType } from '@ngrx/effects';
 import { ToastService } from './services/toast.service';
 import { Subscription } from 'rxjs';
+import { DocumentEditComponent } from './components/document-edit/document-edit.component';
 
 @Component({
   selector: 'app-root',
@@ -38,6 +39,7 @@ import { Subscription } from 'rxjs';
     AppViewComponent,
     SettingsViewComponent,
     LoginViewComponent,
+    DocumentEditComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

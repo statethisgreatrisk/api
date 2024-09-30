@@ -6,6 +6,7 @@ import { Subscription, combineLatest } from 'rxjs';
 import { DeleteService } from '../../services/delete.service';
 import { NgFor, NgIf } from '@angular/common';
 import { deselectWindow } from '../../store/actions/app.action';
+import { DocumentService } from '../../services/document.service';
 
 interface Header {
   key: string;
@@ -27,6 +28,7 @@ export class StorageViewComponent {
 
   storages: Storage[] = [];
   documents: Document[] = [];
+  documentsParsed: any[] = [];
 
   headers: Header[] = [];
 
@@ -34,6 +36,7 @@ export class StorageViewComponent {
 
   constructor(
     private store: Store<AppStateInit>,
+    private documentService: DocumentService,
     private deleteService: DeleteService,
   ) {}
 
@@ -64,12 +67,17 @@ export class StorageViewComponent {
 
         if (this.storage) {
           const storageDocuments = documents.filter((document) => document.storageId === this.storage!._id);
-          this.documents = storageDocuments || [];
-          console.log('documents', this.documents)
 
-          if (this.documents.length) {
-            const sampleDocument = this.documents[0];
-            console.log('sample doc', sampleDocument)
+          this.documents = storageDocuments || [];
+          this.documentsParsed = this.documents.map((document) => {
+            let subDoc = {};
+            try { subDoc = JSON.parse(document.document); } catch(error) {}
+
+            return { _id: document._id, date: document.date, ...subDoc };
+          });
+
+          if (this.documentsParsed.length) {
+            const sampleDocument = this.documentsParsed[0];
             const headers = Object.keys(sampleDocument).map((key) => {
               const value = key.charAt(0).toUpperCase() + key.slice(1);
               return { key, value };
@@ -84,22 +92,14 @@ export class StorageViewComponent {
   }
 
   cellValue(document: any, headerKey: string) {
-    return document[headerKey] || '';
+    return String(document[headerKey]) || '';
+  }
+
+  editDocument(documentParsed: any) {
+    this.documentService.selectDocument(documentParsed);
   }
 
   close() {
     this.store.dispatch(deselectWindow({ windowName: this.view.window, windowId: this.view.windowId }));
-  }
-
-  cancel() {
-    // Cancel editing document
-  }
-  
-  save() {
-    // Save edited document
-  }
-
-  delete() {
-    // Delete document
   }
 }

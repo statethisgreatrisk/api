@@ -1,0 +1,14 @@
+<div class="document-edit-code-header" *ngIf="!documentParsed">
+    <p>Select a document to edit</p>
+</div>
+<div class="document-edit-code-buttons" *ngIf="documentParsed">
+    <p class="id">Document id: {{ documentParsed._id }}</p>
+    <p class="cancel" (click)="cancel()">Cancel</p>
+    <p class="save" (click)="save()">Save</p>
+    <div class="document-edit-slim-button inline" (click)="delete()">
+        <p>Delete document</p>
+    </div>
+</div>
+<div class="document-edit-code-container">
+    <div #codeEditor></div>
+</div>

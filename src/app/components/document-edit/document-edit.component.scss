@@ -1,0 +1,140 @@
+@import '../../styles/palette.component.scss';
+
+.document-edit-code-header {
+    display: flex;
+    flex-direction: row;
+
+    align-items: start;
+
+    padding-left: 10px;
+    padding-top: 10px;
+
+    background-color: $surface-dark;
+}
+
+.document-edit-code-header p {
+    font-size: 12px;
+    font-weight: 600;
+    color: $grey-purple;
+}
+
+.document-edit-code-buttons {
+    display: flex;
+    flex-direction: row;
+
+    align-items: start;
+
+    padding-left: 10px;
+    padding-top: 10px;
+
+    background-color: $surface-dark;
+}
+
+.document-edit-code-buttons p.id {
+    font-size: 11px;
+    font-weight: 600;
+    color: $grey-purple;
+}
+
+.document-edit-code-buttons p.cancel {
+    font-size: 10px;
+    font-weight:700;
+
+    width: 45px;
+    text-align: center;
+    
+    margin-left: 15px;
+    padding: 0 10px;
+
+    color: #eae1ff;
+
+    border: 1px solid #eae1ff;
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.document-edit-code-buttons p.save {
+    font-size: 10px;
+    font-weight:700;
+
+    width: 45px;
+    text-align: center;
+    
+    margin-left: 15px;
+    padding: 0 10px;
+
+    color: $primary-600;
+
+    border: 1px solid $primary-600;
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.document-edit-slim-button {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: end;
+
+    width: 100%;
+
+    margin-left: 20px;
+
+    cursor: pointer;
+}
+
+.document-edit-slim-button.inline {
+    width: auto;
+}
+
+.document-edit-slim-button.text {
+    width: auto;
+
+    margin-left: 5px;
+    
+    cursor: default;
+}
+
+.document-edit-slim-button p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-600;
+
+    border-bottom: 1px solid $surface-mixed-600;
+}
+
+.document-edit-slim-button.text p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-600;
+
+    border-bottom: 1px solid $surface-mixed-100;
+}
+
+.document-edit-code-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: start;
+
+    height: 300px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+
+    background-color: $surface-dark;
+
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.document-edit-code-container::-webkit-scrollbar {
+    display: none;
+}
+
+.document-edit-code-container > :first-child {
+    width: 100%;
+}

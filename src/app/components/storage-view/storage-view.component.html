@@ -8,10 +8,12 @@
             <div class="storage-view-breadcrumb" *ngIf="storage">
                 <p class="active">{{ storage.name }}</p>
             </div>
+            <div class="storage-view-slim-button inline" (click)="close()">
+                <p>Close View</p>
+            </div>
         </div>
         <div class="storage-view-header" *ngIf="storage">
             <p>{{ storage.name }}</p>
-            <p>id: {{ storage._id }}</p>
         </div>
         <div class="storage-view-table-container">
             <!-- Table header -->
@@ -23,7 +25,7 @@
                 </div>
             </div>
             <!-- Table Rows -->
-            <div class="storage-view-table-row table-row" *ngFor="let document of documents">
+            <div class="storage-view-table-row table-row" *ngFor="let document of documentsParsed" (click)="editDocument(document)">
                 <div class="storage-view-table-column" *ngFor="let header of headers">
                     <div class="storage-view-table-data">
                         <p>{{ cellValue(document, header.key) }}</p>
