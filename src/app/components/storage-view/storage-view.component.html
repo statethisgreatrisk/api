@@ -5,54 +5,28 @@
                 <p class="initial">Storage</p>
                 <img src="/right.png">
             </div>
-            <div class="storage-view-breadcrumb">
-                <p>Commits</p>
-                <img src="/right.png">
-            </div>
-            <div class="storage-view-breadcrumb">
-                <p class="active">5449-DUDE-2840-WOWE</p>
+            <div class="storage-view-breadcrumb" *ngIf="storage">
+                <p class="active">{{ storage.name }}</p>
             </div>
         </div>
-        <div class="storage-view-header">
-            <p>Commits</p>
-            <p>id: 5449-DUDE-2840-WOWE</p>
+        <div class="storage-view-header" *ngIf="storage">
+            <p>{{ storage.name }}</p>
+            <p>id: {{ storage._id }}</p>
         </div>
         <div class="storage-view-table-container">
             <!-- Table header -->
             <div class="storage-view-table-row">
-                <div class="storage-view-table-column">
+                <div class="storage-view-table-column" *ngFor="let header of headers">
                     <div class="storage-view-table-header">
-                        <p>Column 1</p>
-                    </div>
-                </div>
-                <div class="storage-view-table-column">
-                    <div class="storage-view-table-header">
-                        <p>Column 2</p>
+                        <p>{{ header.value }}</p>
                     </div>
                 </div>
             </div>
             <!-- Table Rows -->
-            <div class="storage-view-table-row table-row">
-                <div class="storage-view-table-column">
+            <div class="storage-view-table-row table-row" *ngFor="let document of documents">
+                <div class="storage-view-table-column" *ngFor="let header of headers">
                     <div class="storage-view-table-data">
-                        <p>Data 1</p>
-                    </div>
-                </div>
-                <div class="storage-view-table-column">
-                    <div class="storage-view-table-data">
-                        <p>Data 2</p>
-                    </div>
-                </div>
-            </div>
-            <div class="storage-view-table-row table-row">
-                <div class="storage-view-table-column">
-                    <div class="storage-view-table-data">
-                        <p>Data 1</p>
-                    </div>
-                </div>
-                <div class="storage-view-table-column">
-                    <div class="storage-view-table-data">
-                        <p>Data 2</p>
+                        <p>{{ cellValue(document, header.key) }}</p>
                     </div>
                 </div>
             </div>

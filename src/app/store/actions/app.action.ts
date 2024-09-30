@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document} from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -103,6 +103,16 @@ export const updateObj = createAction('[UPDATE] Obj', props<{projectId: string, 
 export const replaceObj = createAction('[REPLACE] Obj', props<{obj: Obj}>());
 export const deleteObj = createAction('[DELETE] Obj', props<{projectId: string, objId: string}>());
 export const removeObj = createAction('[REMOVE] Obj', props<{objId: string}>());
+
+// Document
+export const getDocuments = createAction('[GET] Documents', props<{projectId: string}>());
+export const addDocuments = createAction('[ADD] Documents', props<{documents: Document[]}>());
+export const createDocument = createAction('[CREATE] Document', props<{projectId: string, document: Document}>());
+export const addDocument = createAction('[ADD] Document', props<{document: Document}>());
+export const updateDocument = createAction('[UPDATE] Document', props<{projectId: string, document: Document}>());
+export const replaceDocument = createAction('[REPLACE] Document', props<{document: Document}>());
+export const deleteDocument = createAction('[DELETE] Document', props<{projectId: string, documentId: string}>());
+export const removeDocument = createAction('[REMOVE] Document', props<{documentId: string}>());
 
 // Deploy
 export const getDeploys = createAction('[GET] Deploys', props<{projectId: string}>());

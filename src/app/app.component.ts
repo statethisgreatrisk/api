@@ -9,7 +9,7 @@ import { StorageViewComponent } from './components/storage-view/storage-view.com
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
-import { addProject, authError, authSuccess, changeProject, checkUser, clearData, clearStore, getAPIs, getApps, getFns, getObjs, getProjects, getSchemas, getStorages, getUser, getValidators, getWorkflows, requestError } from './store/actions/app.action';
+import { addProject, authError, authSuccess, changeProject, checkUser, clearData, clearStore, getAPIs, getApps, getDocuments, getFns, getObjs, getProjects, getSchemas, getStorages, getUser, getValidators, getWorkflows, requestError } from './store/actions/app.action';
 import { selectMainProject, selectView } from './store/selectors/app.selector';
 import { DeleteViewComponent } from './components/delete-view/delete-view.component';
 import { DeleteService } from './services/delete.service';
@@ -154,6 +154,7 @@ export class AppComponent {
       this.dispatchValidators,
       this.dispatchFns,
       this.dispatchObjs,
+      this.dispatchDocuments,
     ];
 
     if (!projectId) {
@@ -224,6 +225,10 @@ export class AppComponent {
 
   dispatchObjs(projectId: string) {
     this.store.dispatch(getObjs({ projectId: projectId }));
+  }
+
+  dispatchDocuments(projectId: string) {
+    this.store.dispatch(getDocuments({ projectId: projectId }));
   }
 
   clearStore() {

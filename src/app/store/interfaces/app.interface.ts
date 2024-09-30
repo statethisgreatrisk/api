@@ -111,6 +111,16 @@ export interface Obj {
     obj: string;
 }
 
+export interface Document {
+    _id: string;
+    userId: string;
+    projectId: string;
+    storageId: string;
+    date: string;
+    active: boolean;
+    document: string;
+}
+
 export interface Deploy {
     _id: string;
     userId: string;
@@ -200,6 +210,7 @@ export interface AppState {
     workflows: Workflow[];
     fns: Fn[];
     objs: Obj[];
+    documents: Document[];
 
     deploys: Deploy[];
     logs: Log[];

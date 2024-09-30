@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { appState } from "../states/state";
-import { addAPI, addAPIs, addApps, addBilling, addBillings, addDeploy, addDeploys, addFn, addFns, addKey, addKeys, addLog, addLogs, addObj, addObjs, addProject, addProjects, addSchema, addSchemas, addStorage, addStorages, addUsage, addUsages, addUser, addValidator, addValidators, addWorkflow, addWorkflows, clearData, clearStore, deselectService, deselectWindow, log, removeAPI, removeFn, removeKey, removeObj, removeProject, removeSchema, removeStorage, removeValidator, removeWorkflow, replaceAPI, replaceBilling, replaceDeploy, replaceFn, replaceKey, replaceLog, replaceObj, replaceProject, replaceSchema, replaceStorage, replaceUsage, replaceValidator, replaceWorkflow, selectService, selectWindow } from "../actions/app.action";
-import { addAPIFn, addAPIsFn, addAppsFn, addBillingFn, addBillingsFn, addDeployFn, addDeploysFn, addFnFn, addFnsFn, addKeyFn, addKeysFn, addLogFn, addLogsFn, addObjFn, addObjsFn, addProjectFn, addProjectsFn, addSchemaFn, addSchemasFn, addStorageFn, addStoragesFn, addUsageFn, addUsagesFn, addUserFn, addValidatorFn, addValidatorsFn, addWorkflowFn, addWorkflowsFn, clearDataFn, clearStoreFn, deselectServiceFn, deselectWindowFn, logFn, removeAPIFn, removeFnFn, removeKeyFn, removeObjFn, removeProjectFn, removeSchemaFn, removeStorageFn, removeValidatorFn, removeWorkflowFn, replaceAPIFn, replaceBillingFn, replaceDeployFn, replaceFnFn, replaceKeyFn, replaceLogFn, replaceObjFn, replaceProjectFn, replaceSchemaFn, replaceStorageFn, replaceUsageFn, replaceValidatorFn, replaceWorkflowFn, selectServiceFn, selectWindowFn } from "./app.reducer";
+import { addAPI, addAPIs, addApps, addBilling, addBillings, addDeploy, addDeploys, addDocument, addDocuments, addFn, addFns, addKey, addKeys, addLog, addLogs, addObj, addObjs, addProject, addProjects, addSchema, addSchemas, addStorage, addStorages, addUsage, addUsages, addUser, addValidator, addValidators, addWorkflow, addWorkflows, clearData, clearStore, deselectService, deselectWindow, log, removeAPI, removeDocument, removeFn, removeKey, removeObj, removeProject, removeSchema, removeStorage, removeValidator, removeWorkflow, replaceAPI, replaceBilling, replaceDeploy, replaceDocument, replaceFn, replaceKey, replaceLog, replaceObj, replaceProject, replaceSchema, replaceStorage, replaceUsage, replaceValidator, replaceWorkflow, selectService, selectWindow } from "../actions/app.action";
+import { addAPIFn, addAPIsFn, addAppsFn, addBillingFn, addBillingsFn, addDeployFn, addDeploysFn, addDocumentFn, addDocumentsFn, addFnFn, addFnsFn, addKeyFn, addKeysFn, addLogFn, addLogsFn, addObjFn, addObjsFn, addProjectFn, addProjectsFn, addSchemaFn, addSchemasFn, addStorageFn, addStoragesFn, addUsageFn, addUsagesFn, addUserFn, addValidatorFn, addValidatorsFn, addWorkflowFn, addWorkflowsFn, clearDataFn, clearStoreFn, deselectServiceFn, deselectWindowFn, logFn, removeAPIFn, removeDocumentFn, removeFnFn, removeKeyFn, removeObjFn, removeProjectFn, removeSchemaFn, removeStorageFn, removeValidatorFn, removeWorkflowFn, replaceAPIFn, replaceBillingFn, replaceDeployFn, replaceDocumentFn, replaceFnFn, replaceKeyFn, replaceLogFn, replaceObjFn, replaceProjectFn, replaceSchemaFn, replaceStorageFn, replaceUsageFn, replaceValidatorFn, replaceWorkflowFn, selectServiceFn, selectWindowFn } from "./app.reducer";
 
 export const appStateReducer = createReducer(
     appState,
@@ -47,6 +47,11 @@ export const appStateReducer = createReducer(
     on(addObj, (state, { obj }) => addObjFn(state, obj)),
     on(replaceObj, (state, { obj }) => replaceObjFn(state, obj)),
     on(removeObj, (state, { objId }) => removeObjFn(state, objId)),
+    // Document
+    on(addDocuments, (state, { documents }) => addDocumentsFn(state, documents)),
+    on(addDocument, (state, { document }) => addDocumentFn(state, document)),
+    on(replaceDocument, (state, { document }) => replaceDocumentFn(state, document)),
+    on(removeDocument, (state, { documentId }) => removeDocumentFn(state, documentId)),
     // App
     on(addApps, (state, { apps }) => addAppsFn(state, apps)),
     // Deploy

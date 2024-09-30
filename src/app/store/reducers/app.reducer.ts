@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document } from "../interfaces/app.interface";
 
 // User
 
@@ -231,6 +231,34 @@ export const removeObjFn: (state: AppState, objId: string) => AppState = (state:
     return { ...state, objs: state.objs.filter((obj) => obj._id !== objId) };
 }
 
+// Document
+
+export const addDocumentsFn: (state: AppState, documents: Document[]) => AppState = (state: AppState, documents: Document[]) => {
+    if (!documents) return { ...state };
+    return { ...state, documents: documents };
+}
+
+export const addDocumentFn: (state: AppState, document: Document) => AppState = (state: AppState, document: Document) => {
+    if (!document) return { ...state };
+    return { ...state, documents: state.documents.concat([document]) };
+}
+
+export const replaceDocumentFn: (state: AppState, document: Document) => AppState = (state: AppState, document: Document) => {
+    if (!document) return { ...state };
+
+    const documents = state.documents.map((existingDocument) => {
+        if (existingDocument._id !== document._id) return existingDocument;
+        return document;
+    });
+
+    return { ...state, documents: documents };
+}
+
+export const removeDocumentFn: (state: AppState, documentId: string) => AppState = (state: AppState, documentId: string) => {
+    if (!documentId) return { ...state };
+    return { ...state, documents: state.documents.filter((document) => document._id !== documentId) };
+}
+
 // Deploy
 
 export const addDeploysFn: (state: AppState, deploys: Deploy[]) => AppState = (state: AppState, deploys: Deploy[]) => {
@@ -396,6 +424,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         workflows: [],
         fns: [],
         objs: [],
+        documents: [],
 
         deploys: [],
         logs: [],
@@ -423,6 +452,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         workflows: [],
         fns: [],
         objs: [],
+        documents: [],
 
         deploys: [],
         logs: [],

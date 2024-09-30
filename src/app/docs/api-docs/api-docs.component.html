@@ -48,6 +48,58 @@
         <p>This app defines the workflow endpoint. The workflow endpoint will not be defined if the context variable does not return an API object. Must be called once per workflow before any other request/response apps are called.</p>
     </div>
 </div>
+<div class="app-view-docs" (click)="selectApp('API', 'params')">
+    <div class="app-view-docs-method">
+        <p>API</p>
+        <p>.params(</p>
+        <p>argument</p>
+        <p>)</p>
+    </div>
+    <div class="app-view-docs-args">
+        <p>argument:</p>
+        <p>string:</p>
+        <p>Context variable that returns the name of a request.params field</p>
+    </div>
+    <div class="app-view-docs-args">
+        <p>argument:</p>
+        <p>null:</p>
+        <p></p>
+    </div>
+    <div class="app-view-docs-returns">
+        <p>returns:</p>
+        <p>the route.params field value</p>
+    </div>
+    <div class="app-view-docs-returns">
+        <p>returns:</p>
+        <p>the request.params object if null </p>
+    </div>
+</div>
+<div class="app-view-docs" (click)="selectApp('API', 'body')">
+    <div class="app-view-docs-method">
+        <p>API</p>
+        <p>.body(</p>
+        <p>argument</p>
+        <p>)</p>
+    </div>
+    <div class="app-view-docs-args">
+        <p>argument:</p>
+        <p>string:</p>
+        <p>Context variable that returns the name of a request.body field</p>
+    </div>
+    <div class="app-view-docs-args">
+        <p>argument:</p>
+        <p>null:</p>
+        <p></p>
+    </div>
+    <div class="app-view-docs-returns">
+        <p>returns:</p>
+        <p>the route.body field value</p>
+    </div>
+    <div class="app-view-docs-returns">
+        <p>returns:</p>
+        <p>the request.body object if null </p>
+    </div>
+</div>
 <div class="app-view-docs" (click)="selectApp('API', 'status')">
     <div class="app-view-docs-method">
         <p>API</p>

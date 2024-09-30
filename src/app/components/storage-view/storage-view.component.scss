@@ -90,7 +90,7 @@
     margin-left: 15px;
     margin-top: 15px;
 
-    color:$surface-mixed-600;
+    color: white;
 }
 
 .storage-view-header p:nth-child(2) {
@@ -100,7 +100,7 @@
     margin-left: 15px;
     margin-top: 15px;
 
-    color:$surface-mixed-600;
+    color: white;
 }
 
 .storage-view-table-container {
@@ -112,7 +112,7 @@
     margin-left: 15px;
     margin-right: 15px;
 
-    border-top: 1px solid $surface-mixed-400;
+    border-top: 1px solid $dark-blue;
 }
 
 .storage-view-table-row {
@@ -121,16 +121,16 @@
 
     align-items: start;
 
-    border-left: 1px solid $surface-mixed-400;
+    border-left: 1px solid $dark-blue;
 }
 
 .storage-view-table-row.table-row {
     &:nth-child(even) {
-        background-color: $surface-mixed-200;
+        background-color: $surface-dark;
     }
 
     &:hover {
-        background-color: $surface-mixed-200;
+        background-color: $surface-dark;
         cursor: pointer;
     }
 }
@@ -145,8 +145,8 @@
 
     width: 20%;
 
-    border-bottom: 1px solid $surface-mixed-400;
-    border-right: 1px solid $surface-mixed-400;
+    border-bottom: 1px solid $dark-blue;
+    border-right: 1px solid $dark-blue;
 }
 
 .storage-view-table-column:last-child {
@@ -166,7 +166,7 @@
     font-size: 11px;
     font-weight: 800;
 
-    color: $surface-mixed-700;
+    color: white;
 }
 
 .storage-view-table-data {
@@ -180,7 +180,7 @@
 
 .storage-view-table-data p {
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 800;
 
-    color: $surface-mixed-700;
+    color: white;
 }

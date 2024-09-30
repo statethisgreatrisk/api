@@ -1,9 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document } from "../interfaces/app.interface";
 
 const url = 'http://localhost:3000/v1/dashboard';
+const serviceUrl = 'http://localhost:3000/v1/service'
 
 @Injectable({
   providedIn: 'root'
@@ -245,6 +246,29 @@ export class AppRequest {
   
   deleteObj(projectId: string, objId: string): Observable<ResponseMessage> {
     const endpoint = `${url}/obj/:projectId/:objId`.replace(':objId', objId).replace(':projectId', projectId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
+  }
+
+
+  // Document
+
+  getDocuments(projectId: string): Observable<Document[]> {
+    const endpoint = `${serviceUrl}/document/:projectId`.replace(':projectId', projectId);
+    return this.http.get<Document[]>(endpoint, { withCredentials: true });
+  }
+  
+  createDocument(projectId: string, document: Document): Observable<Document> {
+    const endpoint = `${serviceUrl}/document/:projectId`.replace(':projectId', projectId);
+    return this.http.post<Document>(endpoint, { document }, { withCredentials: true });
+  }
+  
+  updateDocument(projectId: string, document: Document): Observable<Document> {
+    const endpoint = `${serviceUrl}/document/:projectId`.replace(':projectId', projectId);
+    return this.http.put<Document>(endpoint, { document }, { withCredentials: true });
+  }
+  
+  deleteDocument(projectId: string, documentId: string): Observable<ResponseMessage> {
+    const endpoint = `${serviceUrl}/document/:projectId/:documentId`.replace(':documentId', documentId).replace(':projectId', projectId);
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 
