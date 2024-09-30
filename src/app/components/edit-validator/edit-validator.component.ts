@@ -71,7 +71,7 @@ export class EditValidatorComponent {
   createEditor() {
     let codeEditorElement = this.codeEditor.nativeElement;
     let myExt: Extension = [basicSetup, javascript(), oneDarkSmall];
-    const validator = this.validator?.validator ? this.validator.validator : 'function cb(check, body, cookie, header, param, query) {\n\n}';
+    const validator = this.validator?.validator ? this.validator.validator : 'function cb(check, body, cookie, header, param, query, ObjectId) {\n\n}';
     
     try {
       this.editorState = EditorState.create({
