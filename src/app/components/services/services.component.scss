@@ -95,6 +95,25 @@
     flex-grow: 1;
 }
 
+.small-spacer.short {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.small-spacer.tall {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.small-spacer p {
+    margin-left: 10px;
+
+    font-size: 9px;
+    font-weight: 700;
+    font-style: italic;
+    color: $surface-mixed-700;
+}
+
 .user-button {
     display: flex;
     flex-direction: row;

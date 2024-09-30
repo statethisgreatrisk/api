@@ -70,7 +70,7 @@ export class EditSchemaComponent {
   createEditor() {
     let codeEditorElement = this.codeEditor.nativeElement;
     let myExt: Extension = [basicSetup, javascript(), oneDarkSmall];
-    const schema = this.schema?.schema ? this.schema.schema : 'function fn(req, res, context, variable, args) {\n  \n}';
+    const schema = this.schema?.schema ? this.schema.schema : 'function fn(zod) {\n  \n}';
     
     try {
       this.editorState = EditorState.create({

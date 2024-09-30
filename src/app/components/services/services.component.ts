@@ -34,8 +34,8 @@ export class ServicesComponent {
   services: Service[] =  [
     { name: 'Workflows', icon: '/workflow.png' },
     { name: 'APIs', icon: '/news.png' },
-    { name: 'Validators', icon: '/binoculars.png' },
     { name: 'Storages', icon: '/folder.png' },
+    { name: 'Validators', icon: '/binoculars.png' },
     { name: 'Schemas', icon: '/tool.png' },
     { name: 'Functions', icon: '/tool.png' },
     { name: 'Objects', icon: '/tool.png' },

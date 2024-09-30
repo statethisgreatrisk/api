@@ -18,10 +18,14 @@
             </div>
         </div>
     </div>
+    <div class="small-spacer short">
+        <p>Services</p>
+    </div>
     <div class="services">
         <div *ngFor="let service of services;">
-            <div class="service">
-                <p>{{ service.name }}</p>
+            <div class="service" *ngIf="service.name === 'Workflows' || service.name === 'APIs' || service.name === 'Storages'">
+                <p *ngIf="service.name === 'Storages'">Storage</p>
+                <p *ngIf="service.name === 'Workflows' || service.name === 'APIs'">{{ service.name }}</p>
                 <p (click)="create(service.name)">New +</p>
             </div>
             <!-- Workflow -->
@@ -44,6 +48,17 @@
                     <img [src]="service.icon">
                     <p>{{ s.name }}</p>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="small-spacer tall">
+        <p>Functions</p>
+    </div>
+    <div class="services">
+        <div *ngFor="let service of services;">
+            <div class="service" *ngIf="service.name === 'Schemas' || service.name === 'Validators' || service.name === 'Functions' || service.name === 'Objects'">
+                <p>{{ service.name }}</p>
+                <p (click)="create(service.name)">New +</p>
             </div>
             <!-- Schema -->
             <div class="service-data-list" *ngIf="service.name === 'Schemas'">
