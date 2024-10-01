@@ -5,6 +5,7 @@ import { App, AppStateInit } from '../../store/interfaces/app.interface';
 import { selectApps } from '../../store/selectors/app.selector';
 import { ApiDocsComponent } from '../../docs/api-docs/api-docs.component';
 import { StringDocsComponent } from '../../docs/string-docs/string-docs.component';
+import { StorageDocsComponent } from '../../docs/storage-docs/storage-docs.component';
 
 @Component({
   selector: 'app-app-view',
@@ -14,6 +15,7 @@ import { StringDocsComponent } from '../../docs/string-docs/string-docs.componen
     NgIf,
     ApiDocsComponent,
     StringDocsComponent,
+    StorageDocsComponent,
   ],
   templateUrl: './app-view.component.html',
   styleUrl: './app-view.component.scss'
