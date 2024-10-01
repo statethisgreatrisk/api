@@ -193,8 +193,9 @@ export class ServicesComponent {
     const date = new Date().toISOString();
     const active = true;
     const schema = '';
+    const version = 0;
 
-    this.store.dispatch(createSchema({ projectId, schema: { _id, projectId, userId, name, date, active, schema } }));
+    this.store.dispatch(createSchema({ projectId, schema: { _id, projectId, userId, name, date, active, schema, version } }));
   }
 
   createValidator() {

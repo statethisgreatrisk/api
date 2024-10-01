@@ -69,6 +69,7 @@ export interface Schema {
     active: boolean;
     name: string;
     schema: string;
+    version: number;
 }
 
 export interface Validator {
