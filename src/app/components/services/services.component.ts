@@ -60,9 +60,11 @@ export class ServicesComponent {
   selectService(serviceName: string, serviceId: string) {
     if (serviceName === this.view.service && serviceId === this.view.serviceId) {
       this.store.dispatch(deselectService({ serviceName, serviceId }));
-    } else {
-      this.store.dispatch(selectService({ serviceName, serviceId }));
+      return;
     }
+
+    this.store.dispatch(selectService({ serviceName, serviceId }));
+    if (serviceName === 'Storages') this.store.dispatch(selectWindow({ windowName: 'Storage', windowId: serviceId }));
   }
 
   selectWorkflow(windowName: string, windowId: string) {

@@ -75,14 +75,15 @@ export class DocumentEditComponent {
 
   initDocument() {
     this.documentSub = this.documentService.document$.subscribe((document) => {
-      this.documentParsed = document;
-      this.documentString = JSON.stringify(document, null, 2);
+      this.documentParsed = { ...document };
 
-      let currentText = this.editorView.state.doc.toString() || '';
+      const documentString = { ...document };
+      delete documentString._id;
+      delete documentString.date;
+      this.documentString = JSON.stringify(documentString, null, 2);
 
-      this.editorView.dispatch({
-        changes: { from: 0, to: currentText.length, insert: this.documentString },
-      })
+      let currentText = this.editorView.state.doc.toString();
+      this.editorView.dispatch({ changes: { from: 0, to: currentText.length, insert: this.documentString } });
     });
   }
 
@@ -108,50 +109,44 @@ export class DocumentEditComponent {
     this.editorView.focus();
   }
 
-  parseEditor(): string {
-    if (!this.editorView || !this.editorView.state) return '';
-
-    const fn = this.editorView.state.doc.toString();
-    return fn;
-  }
-
   cancel() {
-    this.documentString = JSON.stringify(this.documentParsed, null, 2);
+    const document = { ...this.documentParsed };
+    delete document._id;
+    delete document.date;
 
-    let currentText = this.editorView.state.doc.toString() || '{}';
+    this.documentString = JSON.stringify(document, null, 2);
 
-    this.editorView.dispatch({
-      changes: { from: 0, to: currentText.length, insert: this.documentString },
-    });
+    let currentText = this.editorView.state.doc.toString();
+    this.editorView.dispatch({ changes: { from: 0, to: currentText.length, insert: this.documentString } });
   }
 
   clear() {
     this.documentParsed = null;
     this.documentString = '{}';
 
-    let currentText = this.editorView.state.doc.toString() || '{}';
-
-    this.editorView.dispatch({
-      changes: { from: 0, to: currentText.length, insert: this.documentString },
-    })
+    let currentText = this.editorView.state.doc.toString();
+    this.editorView.dispatch({ changes: { from: 0, to: currentText.length, insert: this.documentString } });
   }
   
   save() {
     if (!this.project) return;
+    if (!this.documentParsed) return;
+    if (!this.documentString) return;
+    if (!this.editorView) return;
 
-    const actualDocument = this.documents.find((document) => document._id === this.documentParsed._id);
-    if (!actualDocument) return;
+    let jsonParsable = true;
+    let update = this.editorView.state.doc.toString();
 
-    const document = { ...actualDocument };
-    const update = this.editorView.state.doc.toString() || '{}';
+    try { JSON.parse(update); } catch (error) { jsonParsable = false; }
+    if (!jsonParsable) return;
 
-    const parsedUpdate = JSON.parse(update);
-    delete parsedUpdate._id;
-    delete parsedUpdate.date;
+    const originalDocument = this.documents.find((document) => document._id === this.documentParsed._id);
+    if (!originalDocument) return;
 
-    document.document = JSON.stringify(parsedUpdate);
+    const updatedDocument = {...originalDocument };
+    updatedDocument.document = update;
 
-    this.store.dispatch(updateDocument({ projectId: this.project._id, document }));
+    this.store.dispatch(updateDocument({ projectId: this.project._id, document: updatedDocument }));
   }
 
   delete() {

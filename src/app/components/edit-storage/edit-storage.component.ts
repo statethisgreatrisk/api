@@ -115,10 +115,4 @@ export class EditStorageComponent {
   toggleDropdown() {
     this.dropdown = !this.dropdown;
   }
-
-  openView() {
-    if (!this.storage) return;
-
-    this.store.dispatch(selectWindow({ windowName: 'Storage', windowId: this.storage._id }));
-  }
 }

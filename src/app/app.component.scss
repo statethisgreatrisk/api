@@ -31,7 +31,8 @@
     height: 100%;
 }
 
-::ng-deep p, ::ng-deep span {
+::ng-deep p, ::ng-deep span, 
+::ng-deep th, ::ng-deep td {
     margin:0;
     padding: 0;
 

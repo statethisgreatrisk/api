@@ -8,30 +8,32 @@
             <div class="storage-view-breadcrumb" *ngIf="storage">
                 <p class="active">{{ storage.name }}</p>
             </div>
+            <div class="spacer"></div>
             <div class="storage-view-slim-button inline" (click)="close()">
                 <p>Close View</p>
             </div>
+            <p class="add">Add Document</p>
         </div>
         <div class="storage-view-header" *ngIf="storage">
             <p>{{ storage.name }}</p>
         </div>
         <div class="storage-view-table-container">
-            <!-- Table header -->
-            <div class="storage-view-table-row">
-                <div class="storage-view-table-column" *ngFor="let header of headers">
-                    <div class="storage-view-table-header">
-                        <p>{{ header.value }}</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Table Rows -->
-            <div class="storage-view-table-row table-row" *ngFor="let document of documentsParsed" (click)="editDocument(document)">
-                <div class="storage-view-table-column" *ngFor="let header of headers">
-                    <div class="storage-view-table-data">
-                        <p>{{ cellValue(document, header.key) }}</p>
-                    </div>
-                </div>
-            </div>
+            <table>
+                <thead>
+                    <tr class="storage-view-table-row">
+                        <th class="storage-view-table-header" *ngFor="let header of headers">
+                            {{ header.value }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="storage-view-table-row" *ngFor="let document of documentsParsed" (click)="editDocument(document)">
+                        <td class="storage-view-table-data" *ngFor="let header of headers">
+                            {{ cellValue(document, header.key) }}
+                        </td>
+                    </tr>
+                </tbody>
+             </table>
         </div>
     </div>
 </div>
