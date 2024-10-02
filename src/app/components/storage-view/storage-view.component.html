@@ -1,10 +1,6 @@
 <div class="storage-view-outer-container">
     <div class="storage-view-container">
         <div class="storage-view-breadcrumb-container">
-            <div class="storage-view-breadcrumb">
-                <p class="initial">Storage</p>
-                <img src="/right.png">
-            </div>
             <div class="storage-view-breadcrumb" *ngIf="storage">
                 <p class="active">{{ storage.name }}</p>
             </div>
@@ -13,9 +9,6 @@
                 <p>Close View</p>
             </div>
             <p class="add">Add Document</p>
-        </div>
-        <div class="storage-view-header" *ngIf="storage">
-            <p>{{ storage.name }}</p>
         </div>
         <div class="storage-view-table-container">
             <table>

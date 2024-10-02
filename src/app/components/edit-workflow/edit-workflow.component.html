@@ -1,0 +1,51 @@
+<div class="edit-workflow-container">
+    <div class="edit-workflow">
+        <div class="edit-workflow-header-container">
+            <div class="edit-workflow-header">
+                <p>Workflow</p>
+            </div>
+            <div class="edit-workflow-slim-button inline" (click)="delete()">
+                <p>Delete</p>
+            </div>
+        </div>
+        <div class="edit-workflow-label">
+            <p>Name</p>
+        </div>
+        <div class="edit-workflow-input-container">
+            <div class="edit-workflow-input" *ngIf="workflow">
+                <input type="text" placeholder="Enter collection name" [(ngModel)]="workflow.name">
+            </div>
+        </div>
+        <div class="edit-workflow-label">
+            <p>API</p>
+        </div>
+        <div class="edit-workflow-select-container" *ngIf="workflow && !workflow.apiId">
+            <div class="edit-workflow-select" (click)="toggleDropdown()">
+                <div class="edit-workflow-select-button">
+                    <p>Select API</p>
+                    <img src="/down.png">
+                </div>
+                <div class="edit-workflow-select-dropdown" *ngIf="dropdown && workflow">
+                    <div class="edit-workflow-select-dropdown-button" *ngFor="let a of apis" (click)="selectAPI(a._id)">
+                        <p>{{ a.name }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-workflow-list-item-container" *ngIf="workflow">
+            <div class="edit-workflow-list-item" *ngIf="workflow.apiId" (click)="removeAPI()">
+                <img class="check" src="/check.png">
+                <img class="x" src="/x.png">
+                <p>{{ findAPI(workflow.apiId) }}</p>
+            </div>
+        </div>
+        <div class="edit-workflow-buttons">
+            <div class="edit-workflow-cancel" (click)="cancel()">
+                <p>Cancel</p>
+            </div>
+            <div class="edit-workflow-save" (click)="save()">
+                <p>Save</p>
+            </div>
+        </div>
+    </div>
+</div>

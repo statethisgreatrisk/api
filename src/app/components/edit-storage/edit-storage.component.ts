@@ -1,8 +1,8 @@
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppStateInit, User, View, Storage, Schema, Project } from '../../store/interfaces/app.interface';
-import { deleteStorage, deselectService, selectWindow, updateStorage } from '../../store/actions/app.action';
+import { deleteStorage, deselectService, updateStorage } from '../../store/actions/app.action';
 import { combineLatest, Subscription } from 'rxjs';
 import { selectUser, selectView, selectStorages, selectSchemas, selectMainProject } from '../../store/selectors/app.selector';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { DeleteService } from '../../services/delete.service';
 @Component({
   selector: 'app-edit-storage',
   standalone: true,
-  imports: [NgIf, NgFor, NgClass, FormsModule],
+  imports: [NgIf, NgFor, FormsModule],
   templateUrl: './edit-storage.component.html',
   styleUrl: './edit-storage.component.scss'
 })
@@ -68,7 +68,6 @@ export class EditStorageComponent {
   selectSchema(schemaId: string) {
     if (!schemaId || !this.storage) return;
 
-    if (this.storage.schemaId === schemaId) return;
     this.storage.schemaId = schemaId;
   }
 

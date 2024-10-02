@@ -49,11 +49,7 @@
     font-size: 11px;
     font-weight: 600;
 
-    margin-left: 15px;
-
     color:white;
-
-    cursor: pointer;
 }
 
 .api-view-breadcrumb input {
@@ -83,8 +79,6 @@
 .api-view-breadcrumb p.active,
 .api-view-breadcrumb p:hover {
     color: $primary-600;
-
-    cursor: pointer;
 }
 
 .api-view-breadcrumb img {

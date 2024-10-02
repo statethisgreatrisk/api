@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { App, AppStateInit, Project, User, View, Workflow } from '../../store/interfaces/app.interface';
 import { selectApps, selectMainProject, selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
@@ -29,10 +29,6 @@ export class ApiViewComponent {
   selectAppSub: Subscription | null = null;
 
   selectedRowId: string = '';
-
-  editingName: boolean = false;
-
-  @ViewChild('editNameElement') editNameElement!: ElementRef<HTMLInputElement>;
 
   @ViewChildren('rowVariableInputs') rowVariableInputs!: QueryList<ElementRef>;
   @ViewChildren('rowArgsInputs') rowArgsInputs!: QueryList<ElementRef>;
@@ -162,22 +158,6 @@ export class ApiViewComponent {
     this.store.dispatch(updateWorkflow({ projectId: this.project._id, workflow: workflow }));
   }
 
-  delete() {
-    if (!this.project) return;
-    if (!this.workflow) return;
-
-    const workflow = this.workflow;
-
-    this.deleteService.initDelete({
-      service: this.view.window,
-      serviceData: workflow,
-      deleteFn: () => {
-        this.store.dispatch(deleteWorkflow({ projectId: this.project!._id, workflowId: workflow._id }));
-        this.cancel();
-      },
-    });
-  }
-
   findAppName(appId: string) {
     if (!appId || !this.workflow) return;
 
@@ -185,20 +165,5 @@ export class ApiViewComponent {
 
     if (!app) return '';
     return app.name + '.' + app.method;
-  }
-
-  showEditName() {
-    this.editingName = true;
-    this.cdr.detectChanges();
-
-    const input = this.editNameElement.nativeElement;
-    input.focus();
-
-    const length = input.value.length;
-    input.setSelectionRange(length, length);
-  }
-
-  hideEditName() {
-    this.editingName = false;
   }
 }

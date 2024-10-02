@@ -1,15 +1,8 @@
 <div class="api-view-outer-container">
     <div class="api-view-container">
         <div class="api-view-breadcrumb-container">
-            <div class="api-view-breadcrumb">
-                <p class="initial">API Workflows</p>
-                <img src="/right.png">
-            </div>
-            <div class="api-view-breadcrumb" *ngIf="workflow && !editingName" (click)="showEditName()">
+            <div class="api-view-breadcrumb" *ngIf="workflow">
                 <p class="active">{{ workflow.name }}</p>
-            </div>
-            <div class="api-view-breadcrumb" *ngIf="workflow && editingName">
-                <input type="text" #editNameElement placeholder="Workflow Name" [(ngModel)]="workflow.name" (blur)="hideEditName()">
             </div>
             <div class="api-view-slim-button inline" (click)="addRow()">
                 <p>Add blank row</p>
@@ -18,9 +11,6 @@
                 <p>or select an App</p>
             </div>
             <div class="spacer"></div>
-            <div class="api-view-slim-button inline" (click)="delete()">
-                <p>Delete workflow</p>
-            </div>
             <p class="cancel" (click)="cancel()">Cancel</p>
             <p class="save" (click)="save()">Save</p>
         </div>

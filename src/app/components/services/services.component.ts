@@ -64,15 +64,11 @@ export class ServicesComponent {
     }
 
     this.store.dispatch(selectService({ serviceName, serviceId }));
-    if (serviceName === 'Storages') this.store.dispatch(selectWindow({ windowName: 'Storage', windowId: serviceId }));
-  }
 
-  selectWorkflow(windowName: string, windowId: string) {
-    if (windowName === this.view.window && windowId === this.view.windowId) {
-      this.store.dispatch(deselectWindow({ windowName, windowId }));
-    } else {
-      this.store.dispatch(selectWindow({ windowName, windowId }));
-    }
+    console.log('servicename', serviceName)
+
+    if (serviceName === 'Storages') this.store.dispatch(selectWindow({ windowName: 'Storage', windowId: serviceId }));
+    if (serviceName === 'Workflows') this.store.dispatch(selectWindow({ windowName: 'Workflows', windowId: serviceId }));
   }
 
   toggleDropdown() {
@@ -224,8 +220,9 @@ export class ServicesComponent {
     const date = new Date().toISOString();
     const active = true;
     const rows: WorkflowRow[] = [];
+    const apiId = '';
 
-    this.store.dispatch(createWorkflow({ projectId, workflow: { _id, projectId, userId, name, date, active, rows } }));
+    this.store.dispatch(createWorkflow({ projectId, workflow: { _id, projectId, userId, apiId, name, date, active, rows } }));
   }
 
   createFn() {
