@@ -121,6 +121,7 @@ export interface Document {
     date: string;
     active: boolean;
     document: string;
+    version: number;
 }
 
 export interface Deploy {

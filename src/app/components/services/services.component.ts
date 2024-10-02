@@ -65,8 +65,6 @@ export class ServicesComponent {
 
     this.store.dispatch(selectService({ serviceName, serviceId }));
 
-    console.log('servicename', serviceName)
-
     if (serviceName === 'Storages') this.store.dispatch(selectWindow({ windowName: 'Storage', windowId: serviceId }));
     if (serviceName === 'Workflows') this.store.dispatch(selectWindow({ windowName: 'Workflows', windowId: serviceId }));
   }

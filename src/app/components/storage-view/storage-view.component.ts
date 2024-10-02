@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AppStateInit, Document, Project, Storage, User, View } from '../../store/interfaces/app.interface';
-import { selectDocuments, selectMainProject, selectStorages, selectUser, selectView } from '../../store/selectors/app.selector';
+import { AppStateInit, Document, Project, Schema, Storage, User, View } from '../../store/interfaces/app.interface';
+import { selectDocuments, selectMainProject, selectSchemas, selectStorages, selectUser, selectView } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { DeleteService } from '../../services/delete.service';
@@ -27,6 +27,7 @@ export class StorageViewComponent {
   storage: Storage | null = null;
 
   storages: Storage[] = [];
+  schemas: Schema[] = [];
   documents: Document[] = [];
   documentsParsed: any[] = [];
 
@@ -54,19 +55,25 @@ export class StorageViewComponent {
       this.store.select(selectView),
       this.store.select(selectMainProject),
       this.store.select(selectStorages),
+      this.store.select(selectSchemas),
       this.store.select(selectDocuments),
-    ]).subscribe(([user, view, project, storages, documents]) => {
+    ]).subscribe(([user, view, project, storages, schemas, documents]) => {
       this.user = user;
       this.view = view;
       this.project = project;
       this.storages = storages;
+      this.schemas = schemas;
 
       if (this.user && this.view && this.view.windowId) {
         const storage = storages.find((existingStorage) => existingStorage._id === this.view.windowId);
         this.storage = storage ? { ...storage } : null;
 
-        if (this.storage) {
-          const storageDocuments = documents.filter((document) => document.storageId === this.storage!._id);
+        if (this.storage && this.storage.schemaId) {
+          const schema = schemas.find((schema) => schema._id === this.storage!.schemaId);
+          if (!schema) return;
+
+          const version = schema.version;
+          const storageDocuments = documents.filter((document) => document.storageId === this.storage!._id && document.version === version);
 
           this.documents = storageDocuments || [];
           this.documentsParsed = this.documents.map((document) => {
