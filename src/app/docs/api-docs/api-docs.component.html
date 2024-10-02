@@ -2,58 +2,38 @@
     <div class="app-view-docs-method">
         <p>API</p>
         <p>.params(</p>
-        <p>argument</p>
+        <p>field?</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
-        <p>argument:</p>
-        <p>string:</p>
-        <p>Context variable that returns the request.params field as a string</p>
-    </div>
-    <div class="app-view-docs-args">
-        <p>argument:</p>
-        <p>string:</p>
-        <p>the request.params field as a string</p>
-    </div>
-    <div class="app-view-docs-args">
-        <p>argument:</p>
-        <p>null:</p>
+        <p>field:</p>
+        <p>the request.param field as a string</p>
         <p></p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the request.params field</p>
+        <p>the value of the request.params field</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the request.params object if null </p>
+        <p>the request.params object if null</p>
     </div>
 </div>
 <div class="app-view-docs" (click)="selectApp('API', 'body')">
     <div class="app-view-docs-method">
         <p>API</p>
         <p>.body(</p>
-        <p>argument</p>
+        <p>field?</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
-        <p>argument:</p>
-        <p>string:</p>
-        <p>Context variable that returns the request.body field as a string</p>
-    </div>
-    <div class="app-view-docs-args">
-        <p>argument:</p>
-        <p>string:</p>
+        <p>field:</p>
         <p>the request.body field as a string</p>
-    </div>
-    <div class="app-view-docs-args">
-        <p>argument:</p>
-        <p>null:</p>
         <p></p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the route.body field</p>
+        <p>the value of the request.body field</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
@@ -64,26 +44,21 @@
     <div class="app-view-docs-method">
         <p>API</p>
         <p>.status(</p>
-        <p>argument</p>
+        <p>statusCode</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
-        <p>argument:</p>
-        <p>string:</p>
-        <p>Context variable that returns the status code as a number</p>
-    </div>
-    <div class="app-view-docs-args">
-        <p>argument:</p>
-        <p>number:</p>
+        <p>statusCode:</p>
         <p>the status code as a number</p>
+        <p></p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the status code if the argument is a number</p>
+        <p>the status code</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>null if the status code is not a valid status code</p>
+        <p>null if the argument is not a valid status code</p>
     </div>
     <div class="app-view-docs-info">
         <p>info:</p>
@@ -94,29 +69,35 @@
     <div class="app-view-docs-method">
         <p>API</p>
         <p>.send(</p>
-        <p>argument</p>
+        <p>responseValue?</p>
+        <p>)</p>
+    </div>
+    <div class="app-view-docs-method">
+        <p>API</p>
+        <p>.send(</p>
+        <p>responseBody?</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
-        <p>argument:</p>
-        <p>string:</p>
-        <p>Context variable that returns a string or boolean</p>
+        <p>responseValue:</p>
+        <p>a string or boolean</p>
+        <p></p>
     </div>
     <div class="app-view-docs-args">
-        <p>argument:</p>
-        <p>string:boolean:</p>
-        <p>a string or boolean</p>
+        <p>responseBody:</p>
+        <p>an object function or context variable that returns an object function</p>
+        <p></p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the value at the given context variable</p>
+        <p>the responseValue or responseBody</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>null if there is no value at the given context variable or if the value is not a string or boolean</p>
+        <p>an empty object if there is no value, or if the value is not a string, boolean, or JSON parseable object.</p>
     </div>
     <div class="app-view-docs-info">
         <p>info:</p>
-        <p>This app ends the request workflow. The value is set in a standard JSON response body (message: value). Any rows after API.send() are not processed.</p>
+        <p>This app ends the request workflow. The responseValue is set in a standard JSON response body (message: value), and the responseBody is set as the response body. Any rows after API.send() are not processed.</p>
     </div>
 </div>

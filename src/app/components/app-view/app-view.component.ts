@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { App, AppStateInit } from '../../store/interfaces/app.interface';
 import { selectApps } from '../../store/selectors/app.selector';
 import { ApiDocsComponent } from '../../docs/api-docs/api-docs.component';
-import { StringDocsComponent } from '../../docs/string-docs/string-docs.component';
 import { StorageDocsComponent } from '../../docs/storage-docs/storage-docs.component';
+import { ObjectDocsComponent } from '../../docs/object-docs/object-docs.component';
 
 @Component({
   selector: 'app-app-view',
@@ -14,8 +14,8 @@ import { StorageDocsComponent } from '../../docs/storage-docs/storage-docs.compo
     NgFor,
     NgIf,
     ApiDocsComponent,
-    StringDocsComponent,
     StorageDocsComponent,
+    ObjectDocsComponent,
   ],
   templateUrl: './app-view.component.html',
   styleUrl: './app-view.component.scss'

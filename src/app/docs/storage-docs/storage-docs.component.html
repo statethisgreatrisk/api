@@ -1,24 +1,40 @@
+<div class="app-view-docs" (click)="selectApp('Storage', 'get')">
+    <div class="app-view-docs-method">
+        <p>Storage</p>
+        <p>.get(</p>
+        <p>storage</p>
+        <p>)</p>
+    </div>
+    <div class="app-view-docs-args">
+        <p>storage:</p>
+        <p>a storage object</p>
+        <p></p>
+    </div>
+    <div class="app-view-docs-returns">
+        <p>returns:</p>
+        <p>the storage object</p>
+    </div>
+    <div class="app-view-docs-returns">
+        <p>returns:</p>
+        <p>null if no storage object</p>
+    </div>
+</div>
 <div class="app-view-docs" (click)="selectApp('Storage', 'addDocument')">
     <div class="app-view-docs-method">
         <p>Storage</p>
         <p>.addDocument(</p>
-        <p>argument, argument2</p>
+        <p>storage | object</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
-        <p>argument1:</p>
-        <p>string:</p>
-        <p>Context variable that returns the name of a storage</p>
+        <p>storage:</p>
+        <p>a storage object or context variable that returns a storage object</p>
+        <p></p>
     </div>
     <div class="app-view-docs-args">
-        <p>argument1:</p>
-        <p>string:</p>
-        <p>the name of a storage</p>
-    </div>
-    <div class="app-view-docs-args">
-        <p>argument2:</p>
         <p>object:</p>
-        <p>an object that passes the storage schema</p>
+        <p>an object function or context variable that returns an object function</p>
+        <p></p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
