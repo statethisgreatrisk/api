@@ -72,7 +72,7 @@ export class EditFnComponent {
   createEditor() {
     let codeEditorElement = this.codeEditor.nativeElement;
     let myExt: Extension = [basicSetup, javascript(), oneDarkSmall];
-    const fn = this.fn?.fn ? this.fn.fn : 'function fn(context, variable, args) {\n  \n}';
+    const fn = this.fn?.fn ? this.fn.fn : 'function fn(context) {\n  \n}';
     
     try {
       this.editorState = EditorState.create({
