@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub } from "../interfaces/app.interface";
 
 const url = 'http://localhost:3000/v1/dashboard';
 const serviceUrl = 'http://localhost:3000/v1/service'
@@ -360,5 +360,27 @@ export class AppRequest {
   updateUsage(projectId: string, usage: Usage): Observable<Usage> {
     const endpoint = `${url}/usage/:projectId`.replace(':projectId', projectId);
     return this.http.put<Usage>(endpoint, { usage }, { withCredentials: true });
+  }
+
+  // Sub
+
+  getSubs(projectId: string): Observable<Sub[]> {
+    const endpoint = `${serviceUrl}/sub/:projectId`.replace(':projectId', projectId);
+    return this.http.get<Sub[]>(endpoint, { withCredentials: true });
+  }
+  
+  createSub(projectId: string, sub: Sub): Observable<Sub> {
+    const endpoint = `${serviceUrl}/sub/:projectId`.replace(':projectId', projectId);
+    return this.http.post<Sub>(endpoint, { sub }, { withCredentials: true });
+  }
+  
+  updateSub(projectId: string, sub: Sub): Observable<Sub> {
+    const endpoint = `${serviceUrl}/sub/:projectId`.replace(':projectId', projectId);
+    return this.http.put<Sub>(endpoint, { sub }, { withCredentials: true });
+  }
+  
+  deleteSub(projectId: string, subId: string): Observable<ResponseMessage> {
+    const endpoint = `${serviceUrl}/sub/:projectId/:subId`.replace(':subId', subId).replace(':projectId', projectId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 }

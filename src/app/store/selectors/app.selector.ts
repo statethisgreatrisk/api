@@ -1,5 +1,5 @@
 import { createSelector } from "@ngrx/store";
-import { API, Storage, AppState, AppStateInit, Schema, Validator, Billing, Deploy, Key, Log, Usage, Workflow, Fn, Obj, Document } from "../interfaces/app.interface";
+import { API, Storage, AppState, AppStateInit, Schema, Validator, Billing, Deploy, Key, Log, Usage, Workflow, Fn, Obj, Document, Sub } from "../interfaces/app.interface";
 
 export const selectApp = (state: AppStateInit) => state.app;
 
@@ -38,6 +38,7 @@ export const selectLogs = createSelector(selectApp, (state: AppState) => state.l
 export const selectKeys = createSelector(selectApp, (state: AppState) => state.keys);
 export const selectBillings = createSelector(selectApp, (state: AppState) => state.billings);
 export const selectUsages = createSelector(selectApp, (state: AppState) => state.usages);
+export const selectSubs = createSelector(selectApp, (state: AppState) => state.subs);
 
 export const selectProjectAPIs = (projectId: string) => createSelector(selectAPIs, (apis: API[]) => apis.filter((api) => projectId === api.projectId));
 export const selectProjectStorages = (projectId: string) => createSelector(selectStorages, (storages: Storage[]) => storages.filter((storage) => projectId === storage.projectId));
@@ -52,3 +53,4 @@ export const selectProjectLogs = (projectId: string) => createSelector(selectLog
 export const selectProjectKeys = (projectId: string) => createSelector(selectKeys, (keys: Key[]) => keys.filter((key) => projectId === key.projectId));
 export const selectProjectBillings = (projectId: string) => createSelector(selectBillings, (billings: Billing[]) => billings.filter((billing) => projectId === billing.projectId));
 export const selectProjectUsages = (projectId: string) => createSelector(selectUsages, (usages: Usage[]) => usages.filter((usage) => projectId === usage.projectId));
+export const selectProjectSubs = (projectId: string) => createSelector(selectSubs, (subs: Sub[]) => subs.filter((sub) => projectId === sub.projectId));

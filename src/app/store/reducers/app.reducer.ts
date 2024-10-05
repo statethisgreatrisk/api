@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub } from "../interfaces/app.interface";
 
 // User
 
@@ -379,6 +379,34 @@ export const replaceUsageFn: (state: AppState, usage: Usage) => AppState = (stat
     return { ...state, usages: usages };
 }
 
+// Sub
+
+export const addSubsFn: (state: AppState, subs: Sub[]) => AppState = (state: AppState, subs: Sub[]) => {
+    if (!subs) return { ...state };
+    return { ...state, subs: subs };
+}
+
+export const addSubFn: (state: AppState, sub: Sub) => AppState = (state: AppState, sub: Sub) => {
+    if (!sub) return { ...state };
+    return { ...state, subs: state.subs.concat([sub]) };
+}
+
+export const replaceSubFn: (state: AppState, sub: Sub) => AppState = (state: AppState, sub: Sub) => {
+    if (!sub) return { ...state };
+
+    const subs = state.subs.map((existingSub) => {
+        if (existingSub._id !== sub._id) return existingSub;
+        return sub;
+    });
+
+    return { ...state, subs: subs };
+}
+
+export const removeSubFn: (state: AppState, subId: string) => AppState = (state: AppState, subId: string) => {
+    if (!subId) return { ...state };
+    return { ...state, subs: state.subs.filter((sub) => sub._id !== subId) };
+}
+
 // App
 
 export const addAppsFn: (state: AppState, apps: App[]) => AppState = (state: AppState, apps: App[]) => {
@@ -431,6 +459,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         keys: [],
         billings: [],
         usages: [],
+        subs: [],
 
         user: null,
         view: { service: '', serviceId: '', window: '', windowId: '' },
@@ -459,6 +488,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         keys: [],
         billings: [],
         usages: [],
+        subs: [],
 
         view: { service: '', serviceId: '', window: '', windowId: '' },
     };

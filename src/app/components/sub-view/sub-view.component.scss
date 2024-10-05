@@ -1,0 +1,76 @@
+@import '../../styles/palette.component.scss';
+
+.sub-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-create {
+    display: flex;
+    flex-direction: row;
+
+    height: 40px;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.sub-create p {
+    font-size: 12px;
+    font-weight: 800;
+
+    color: white;
+}
+
+.sub-create p:nth-child(2) {
+    font-size: 12px;
+    font-weight: 600;
+
+    padding: 3px 15px;
+
+    color: white;
+
+    border-radius: 5px;
+    border: 1px solid $primary-800;
+    background: $primary-800;
+
+    cursor: pointer;
+}
+
+.sub-list-item-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.sub-list-item {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    height: 18px;
+
+    padding: 2px 5px 2px 5px;
+
+    cursor: pointer;
+}
+
+.sub-list-item:hover {
+    background-color: $surface-mixed-200;
+}
+
+.sub-list-item p {
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+}
+
+.sub-list-item img {
+    width: 10px;
+    height: 10px;
+}

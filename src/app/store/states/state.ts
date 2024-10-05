@@ -18,6 +18,7 @@ export const appState: AppState = {
     keys: [],
     billings: [],
     usages: [],
+    subs: [],
 
     user: null,
     view: { service: '', serviceId: '', window: '', windowId: '' },

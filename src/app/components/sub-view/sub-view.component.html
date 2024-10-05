@@ -1,0 +1,12 @@
+<div class="sub-view">
+    <div class="sub-create">
+        <p>Activate</p>
+        <p>Activate User Pool</p>
+    </div>
+    <div class="sub-list-item-container" *ngIf="subs">
+        <div class="sub-list-item" *ngFor="let sub of subs">
+            <p>{{ sub.name }} - {{ sub.sub }}</p>
+            <img src="/x.png">
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document} from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub} from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -161,6 +161,16 @@ export const createUsage = createAction('[CREATE] Usage', props<{projectId: stri
 export const addUsage = createAction('[ADD] Usage', props<{usage: Usage}>());
 export const updateUsage = createAction('[UPDATE] Usage', props<{projectId: string, usage: Usage}>());
 export const replaceUsage = createAction('[REPLACE] Usage', props<{usage: Usage}>());
+
+// Sub
+export const getSubs = createAction('[GET] Subs', props<{projectId: string}>());
+export const addSubs = createAction('[ADD] Subs', props<{subs: Sub[]}>());
+export const createSub = createAction('[CREATE] Sub', props<{projectId: string, sub: Sub}>());
+export const addSub = createAction('[ADD] Sub', props<{sub: Sub}>());
+export const updateSub = createAction('[UPDATE] Sub', props<{projectId: string, sub: Sub}>());
+export const replaceSub = createAction('[REPLACE] Sub', props<{sub: Sub}>());
+export const deleteSub = createAction('[DELETE] Sub', props<{projectId: string, subId: string}>());
+export const removeSub = createAction('[REMOVE] Sub', props<{subId: string}>());
 
 export const selectService = createAction('[SELECT] Service', props<{ serviceName: string, serviceId: string }>());
 export const deselectService = createAction('[DESELECT] Service', props<{ serviceName: string, serviceId: string }>());

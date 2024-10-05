@@ -2,7 +2,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, mergeMap, of } from "rxjs";
 import { Injectable } from "@angular/core";
 import { AppRequest } from "../requests/app.request";
-import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createDeploy, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateDeploy, updateKey, updateLog, updateUsage, signupUser, authError, authSuccess, resendUser, confirmUser, forgotUser, resetUser, loginUser, logoutUser, refreshUser, checkUser, addProject, addProjects, createProject, deleteProject, getProjects, removeProject, replaceProject, updateProject, deleteKey, removeKey, billingError, billingSuccess, deployStartSuccess, deployStartError, deployStopSuccess, deployStopError, addFn, addFns, addObj, addObjs, createFn, createObj, deleteFn, deleteObj, getFns, getObjs, removeFn, removeObj, replaceFn, replaceObj, updateFn, updateObj, addDocument, addDocuments, createDocument, deleteDocument, getDocuments, removeDocument, replaceDocument, updateDocument } from "../actions/app.action";
+import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createDeploy, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateDeploy, updateKey, updateLog, updateUsage, signupUser, authError, authSuccess, resendUser, confirmUser, forgotUser, resetUser, loginUser, logoutUser, refreshUser, checkUser, addProject, addProjects, createProject, deleteProject, getProjects, removeProject, replaceProject, updateProject, deleteKey, removeKey, billingError, billingSuccess, deployStartSuccess, deployStartError, deployStopSuccess, deployStopError, addFn, addFns, addObj, addObjs, createFn, createObj, deleteFn, deleteObj, getFns, getObjs, removeFn, removeObj, replaceFn, replaceObj, updateFn, updateObj, addDocument, addDocuments, createDocument, deleteDocument, getDocuments, removeDocument, replaceDocument, updateDocument, addSub, addSubs, createSub, deleteSub, getSubs, removeSub, replaceSub, updateSub } from "../actions/app.action";
 
 @Injectable()
 export class AppEffect {
@@ -667,6 +667,48 @@ export class AppEffect {
             ofType(updateUsage),
             exhaustMap((action) => this.appRequest.updateUsage(action.projectId, action.usage).pipe(
                 map(data => replaceUsage({ usage: data })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    // Sub
+
+    getSubs$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(getSubs),
+            exhaustMap((action) => this.appRequest.getSubs(action.projectId).pipe(
+                map(data => addSubs({ subs: data })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    createSub$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(createSub),
+            exhaustMap((action) => this.appRequest.createSub(action.projectId, action.sub).pipe(
+                map(data => addSub({ sub: data })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    updateSub$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updateSub),
+            exhaustMap((action) => this.appRequest.updateSub(action.projectId, action.sub).pipe(
+                map(data => replaceSub({ sub: data })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    deleteSub$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(deleteSub),
+            exhaustMap((action) => this.appRequest.deleteSub(action.projectId, action.subId).pipe(
+                map(data => removeSub({ subId: data.message })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
         );

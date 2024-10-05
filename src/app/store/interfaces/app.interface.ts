@@ -180,6 +180,18 @@ export interface Usage {
     rate: number;
 }
 
+export interface Sub {
+    _id: string;
+    userId: string;
+    projectId: string;
+    poolId: string;
+    sub: string;
+    date: string;
+    active: boolean;
+    name: string;
+    email: string;
+}
+
 export interface View {
     service: string;
     serviceId: string;
@@ -220,6 +232,7 @@ export interface AppState {
     keys: Key[];
     billings: Billing[];
     usages: Usage[];
+    subs: Sub[];
     
     user: User | null;
     view: View;

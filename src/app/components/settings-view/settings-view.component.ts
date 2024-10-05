@@ -8,12 +8,13 @@ import { KeyViewComponent } from '../key-view/key-view.component';
 import { BillingViewComponent } from '../billing-view/billing-view.component';
 import { UsageViewComponent } from '../usage-view/usage-view.component';
 import { Store } from '@ngrx/store';
-import { getDeploys, getLogs, getKeys, getBillings, getUsages, authSuccess, logoutUser } from '../../store/actions/app.action';
+import { getDeploys, getLogs, getKeys, getBillings, getUsages, authSuccess, logoutUser, getSubs } from '../../store/actions/app.action';
 import { AppStateInit, Project, User } from '../../store/interfaces/app.interface';
 import { ProjectDetailViewComponent } from '../project-detail-view/project-detail-view.component';
 import { Subscription } from 'rxjs';
 import { Actions, ofType } from '@ngrx/effects';
 import { selectMainProject, selectUser } from '../../store/selectors/app.selector';
+import { SubViewComponent } from '../sub-view/sub-view.component';
 
 @Component({
   selector: 'app-settings-view',
@@ -28,6 +29,7 @@ import { selectMainProject, selectUser } from '../../store/selectors/app.selecto
     BillingViewComponent,
     UsageViewComponent,
     ProjectDetailViewComponent,
+    SubViewComponent,
   ],
   templateUrl: './settings-view.component.html',
   styleUrl: './settings-view.component.scss'
@@ -79,6 +81,7 @@ export class SettingsViewComponent {
       this.dispatchKeys,
       this.dispatchBillings,
       this.dispatchUsages,
+      this.dispatchSubs,
     ];
 
     this.projectSub = this.store.select(selectMainProject).subscribe(async (project) => {
@@ -116,6 +119,10 @@ export class SettingsViewComponent {
     this.store.dispatch(getUsages({ projectId: projectId }));
   }
 
+  dispatchSubs(projectId: string) {
+    this.store.dispatch(getSubs({ projectId: projectId }));
+  }
+  
   closeSettings() {
     this.settingsService.closeSettings();
   }
