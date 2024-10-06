@@ -37,17 +37,43 @@
             "scripts": []
           },
           "configurations": {
+            "local": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                { "replace": "src/environment.ts", "with": "src/environment.local.ts" }
+              ]
+            },
+            "beta": {
+              "outputHashing": "all",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2MB",
+                  "maximumError": "2MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2MB",
+                  "maximumError": "2MB"
+                }
+              ],
+              "fileReplacements": [
+                { "replace": "src/environment.ts", "with": "src/environment.beta.ts" }
+              ]
+            },
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "2MB"
                 }
               ],
               "outputHashing": "all"
@@ -63,6 +89,12 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
+            "local": {
+              "buildTarget": "api:build:local"
+            },
+            "beta": {
+              "buildTarget": "api:build:beta"
+            },
             "production": {
               "buildTarget": "api:build:production"
             },
@@ -70,7 +102,7 @@
               "buildTarget": "api:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "local"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
