@@ -133,6 +133,8 @@ export interface Deploy {
     size: string;
     expiration: number;
     status: string;
+    received: number;
+    transmitted: number;
 }
 
 export interface Log {

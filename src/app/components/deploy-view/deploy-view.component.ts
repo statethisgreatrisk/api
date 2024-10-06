@@ -121,9 +121,11 @@ export class DeployViewComponent {
     const size = this.size;
     const expiration = this.expiration;
     const status = 'starting';
+    const received = 0;
+    const transmitted = 0;
 
     this.loadingStart = true;
-    this.store.dispatch(createDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, date, active, size, expiration, status }}));
+    this.store.dispatch(createDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, date, active, size, expiration, status, received, transmitted }}));
   }
 
   stopDeployment() {
