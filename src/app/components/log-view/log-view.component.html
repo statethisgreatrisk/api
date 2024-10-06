@@ -14,7 +14,9 @@
             </div>
         </div>
     </div>
-    <div class="log-detail">
-        <pre *ngFor="let log of logs">{{ log.info }}</pre>
+    <div class="log-detail" *ngIf="logs">
+        <ng-content *ngFor="let log of logs">
+            <pre *ngFor="let logString of log.logs">{{ log }}</pre>
+        </ng-content>
     </div>
 </div>

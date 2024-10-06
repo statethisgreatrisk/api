@@ -111,8 +111,6 @@ export class EditObjComponent {
   }
 
   delete() {
-    console.log(this.project)
-    console.log(this.obj)
     if (!this.project) return;
     if (!this.obj) return;
 

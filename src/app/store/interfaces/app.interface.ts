@@ -142,8 +142,7 @@ export interface Log {
     deployId: string;
     date: string;
     active: boolean;
-    type: string;
-    info: string;
+    logs: string[];
 }
 
 export interface Key {
