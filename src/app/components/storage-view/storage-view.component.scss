@@ -208,8 +208,12 @@ tr:nth-child(even) {
     background-color: $primary-1500;
 }
 
-tr:hover {
-    background-color: $primary-1500;
+tbody tr:hover {
+    background-color: $primary-1600;
+}
+
+tbody tr.active {
+    background-color: $primary-1600;
 }
 
 .storage-view-table-header {

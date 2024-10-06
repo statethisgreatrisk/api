@@ -44,7 +44,7 @@
             </div>
             <!-- Storage -->
             <div class="service-data-list" *ngIf="service.name === 'Storages'">
-                <div class="service-data" [ngClass]="{ 'active': view.serviceId === s._id }" *ngFor="let s of storages" (click)="selectService(service.name, s._id)">
+                <div class="service-data" [ngClass]="{ 'active': view.windowId === s._id }" *ngFor="let s of storages" (click)="selectService(service.name, s._id)">
                     <img [src]="service.icon">
                     <p>{{ s.name }}</p>
                 </div>

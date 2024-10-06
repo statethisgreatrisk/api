@@ -4,8 +4,8 @@ import { selectDocuments, selectMainProject, selectSchemas, selectStorages, sele
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { DeleteService } from '../../services/delete.service';
-import { NgFor, NgIf } from '@angular/common';
-import { deselectWindow } from '../../store/actions/app.action';
+import { NgClass, NgFor, NgIf } from '@angular/common';
+import { deselectService, deselectWindow } from '../../store/actions/app.action';
 import { DocumentService } from '../../services/document.service';
 
 interface Header {
@@ -16,7 +16,7 @@ interface Header {
 @Component({
   selector: 'app-storage-view',
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [NgIf, NgFor, NgClass],
   templateUrl: './storage-view.component.html',
   styleUrl: './storage-view.component.scss'
 })
@@ -34,6 +34,8 @@ export class StorageViewComponent {
   headers: Header[] = [];
 
   sub: Subscription | null = null;
+
+  selectedRowId: string = '';
 
   constructor(
     private store: Store<AppStateInit>,
@@ -103,10 +105,12 @@ export class StorageViewComponent {
   }
 
   editDocument(documentParsed: any) {
+    this.selectedRowId = documentParsed._id;
     this.documentService.selectDocument(documentParsed);
   }
 
   close() {
+    if (this.view.service === 'Storages') this.store.dispatch(deselectService({ serviceName: '', serviceId: '' }));
     this.store.dispatch(deselectWindow({ windowName: this.view.window, windowId: this.view.windowId }));
   }
 }

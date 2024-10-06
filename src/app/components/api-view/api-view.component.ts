@@ -5,7 +5,7 @@ import { selectApps, selectMainProject, selectUser, selectView, selectWorkflows 
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import ObjectId from 'bson-objectid';
-import { deleteWorkflow, deselectWindow, updateWorkflow } from '../../store/actions/app.action';
+import { deleteWorkflow, deselectService, deselectWindow, updateWorkflow } from '../../store/actions/app.action';
 import { DeleteService } from '../../services/delete.service';
 import { FormsModule } from '@angular/forms';
 import { SelectAppService } from '../../services/select-app.service';
@@ -165,5 +165,10 @@ export class ApiViewComponent {
 
     if (!app) return '';
     return app.name + '.' + app.method;
+  }
+
+  close() {
+    if (this.view.service === 'Workflows') this.store.dispatch(deselectService({ serviceName: '', serviceId: '' }));
+    this.store.dispatch(deselectWindow({ windowName: this.view.window, windowId: this.view.windowId }));
   }
 }

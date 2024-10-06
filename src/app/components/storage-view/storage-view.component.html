@@ -20,7 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="storage-view-table-row" *ngFor="let document of documentsParsed" (click)="editDocument(document)">
+                    <tr class="storage-view-table-row" *ngFor="let document of documentsParsed" (click)="editDocument(document)" [ngClass]="{ 'active': selectedRowId === document._id }">
                         <td class="storage-view-table-data" *ngFor="let header of headers">
                             {{ cellValue(document, header.key) }}
                         </td>
