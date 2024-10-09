@@ -63,8 +63,9 @@ export class KeyViewComponent {
     const date = new Date().toISOString();
     const active = true;
     const name = this.name;
+    const admin = false;
 
-    this.store.dispatch(createKey({ projectId: this.project._id, key: { _id, userId, projectId, date, active, name, apiKey: '', apiHash: ''  }}))
+    this.store.dispatch(createKey({ projectId: this.project._id, key: { _id, userId, projectId, date, active, name, admin, apiKey: '', apiHash: ''  }}))
   }
 
   deleteKey(keyId: string) {

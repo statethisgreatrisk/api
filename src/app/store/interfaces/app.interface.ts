@@ -158,6 +158,7 @@ export interface Key {
     date: string;
     active: boolean;
     name: string;
+    admin: boolean;
 }
 
 export interface Billing {
