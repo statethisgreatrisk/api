@@ -103,6 +103,14 @@
     color: $primary-600;
 }
 
+.deploy-select-dropdown-button.active {
+    background-color: $surface-dark;
+}
+
+.deploy-select-dropdown-button.active p {
+    color: $primary-600;
+}
+
 .deploy-start {
     display: flex;
     flex-direction: row;
@@ -128,11 +136,15 @@
 
     padding: 3px 15px;
 
-    color: white;
+    color: $dark-purple;
+
+    width: 140px;
+
+    text-align: center;
 
     border-radius: 5px;
-    border: 1px solid $primary-800;
-    background: $primary-800;
+    border: 1px solid $light-green;
+    background: $light-green;
 
     cursor: pointer;
 }
@@ -204,6 +216,90 @@
     color: white;
 }
 
+.deploy-name-detail img {
+    width: 15px;
+    height: 15px;
+    margin-left: 10px;
+    margin-right: 5px;
+
+    cursor: pointer;
+}
+
+.deploy-server-name p {
+    font-size: 13px;
+    color: $light-green;
+}
+
+.deploy-info {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    min-height: 40px;
+
+    padding-bottom: 15px;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.deploy-info p {
+    font-size: 11px;
+    font-weight: 600;
+
+    color: $surface-mixed-700;
+
+    margin-bottom: 5px;
+}
+
+.deploy-info span.white {
+    color: $light-purple;
+    font-weight: 700;
+}
+
+.deploy-info span.green {
+    color: $light-green;
+    font-weight: 700;
+}
+
+.deploy-update {
+    display: flex;
+    flex-direction: row;
+
+    height: 40px;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.deploy-update p {
+    font-size: 12px;
+    font-weight: 800;
+
+    color: white;
+}
+
+.deploy-update p:nth-child(2) {
+    font-size: 12px;
+    font-weight: 600;
+
+    padding: 3px 15px;
+
+    color: white;
+
+    width: 140px;
+
+    text-align: center;
+
+    border-radius: 5px;
+    border: 1px solid $primary-1300;
+    background: $primary-1300;
+
+    cursor: pointer;
+}
+
 .deploy-stop {
     display: flex;
     flex-direction: row;
@@ -230,6 +326,10 @@
     padding: 3px 15px;
 
     color: white;
+
+    width: 140px;
+
+    text-align: center;
 
     border-radius: 5px;
     border: 1px solid $delete;

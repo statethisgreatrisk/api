@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -10,7 +10,7 @@ import { selectUser, selectView, selectMainProject, selectDeploys } from '../../
 @Component({
   selector: 'app-deploy-view',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, NgClass],
   templateUrl: './deploy-view.component.html',
   styleUrl: './deploy-view.component.scss'
 })
@@ -30,8 +30,7 @@ export class DeployViewComponent {
   loadingStart: boolean = false;
   loadingStop: boolean = false;
 
-  size: string = '1gb';
-  expiration: number = 1;
+  size: string = 'standard';
 
   dropdown: boolean = false;
   dropdown2: boolean = false;
@@ -109,9 +108,7 @@ export class DeployViewComponent {
     if (!this.user) return;
     if (!this.project) return;
     if (!this.size) return;
-    if (!this.expiration) return;
-    if (this.size !== '1gb') return;
-    if (this.expiration !== 1 && this.expiration !== 2) return;
+    if (this.size !== 'standard') return;
 
     const _id = '';
     const userId = this.user._id;
@@ -119,13 +116,12 @@ export class DeployViewComponent {
     const date = new Date().toISOString();
     const active = true;
     const size = this.size;
-    const expiration = this.expiration;
     const status = 'starting';
     const received = 0;
     const transmitted = 0;
 
     this.loadingStart = true;
-    this.store.dispatch(createDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, date, active, size, expiration, status, received, transmitted }}));
+    this.store.dispatch(createDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, date, active, size, status, received, transmitted }}));
   }
 
   stopDeployment() {
@@ -152,18 +148,7 @@ export class DeployViewComponent {
   }
 
   convertToSize(size: string) {
-    if (size === '1gb') return '1 GB';
-    return '';
-  }
-
-  selectExpiration(expiration: number) {
-    this.expiration = expiration;
-    this.toggleDropdown2();
-  }
-
-  convertToExpiration(expiration: number) {
-    if (expiration === 1) return '1 hour';
-    if (expiration === 2) return '2 hours';
+    if (size === 'standard') return 'Standard';
     return '';
   }
 }

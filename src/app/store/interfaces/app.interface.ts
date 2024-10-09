@@ -130,8 +130,7 @@ export interface Deploy {
     projectId: string;
     date: string;
     active: boolean;
-    size: string;
-    expiration: number;
+    size: 'standard';
     status: string;
     received: number;
     transmitted: number;

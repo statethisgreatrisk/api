@@ -1,41 +1,49 @@
 <div class="deploy-view">
     <div class="deploy-select">
-        <p>Deploy size</p>
+        <p>Server Size</p>
         <div class="deploy-select-container">
             <div class="deploy-select-button" (click)="toggleDropdown()">
                 <p>{{ convertToSize(size) }}</p>
                 <img src="/down.png">
             </div>
             <div class="deploy-select-dropdown" *ngIf="dropdown">
-                <div class="deploy-select-dropdown-button" (click)="selectSize('1gb')">
-                    <p>1 GB</p>
+                <div class="deploy-select-dropdown-button" [ngClass]="{ 'active': size === 'standard' }" (click)="selectSize('standard')">
+                    <p>Standard</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="deploy-select">
-        <p>Expiration</p>
-        <div class="deploy-select-container">
-            <div class="deploy-select-button" (click)="toggleDropdown2()">
-                <p>{{ convertToExpiration(expiration) }}</p>
-                <img src="/down.png">
-            </div>
-            <div class="deploy-select-dropdown" *ngIf="dropdown2">
-                <div class="deploy-select-dropdown-button" (click)="selectExpiration(1)">
-                    <p>1 hour</p>
-                </div>
-                <div class="deploy-select-dropdown-button" (click)="selectExpiration(2)">
-                    <p>2 hours</p>
-                </div>
-            </div>
+        <p>Server Name</p>
+        <div class="deploy-name-detail deploy-server-name">
+            <p>turks-caikos</p>
+            <img src="/refresh.png">
         </div>
+    </div>
+    <div class="deploy-info">
+        <p>• Server includes 1 vCPU and 1 GiB of memory.</p>
+        <p>• API is available at <span class="white">https://<span class="green">turks-caikos</span>.dsptchwrkbx.com</span>.</p>
+        <p>• Endpoints that require authentication can use JWT or API Key.</p>
+        <p>• Server price is billed per-hour and is pay as you go.</p>
+        <p>• Partial hours are billed up to the hour.</p>
+        <p>• Server and public IP address are included in hourly price.</p>
+        <p>• Data transfer and document storage is free during beta (limited).</p>
     </div>
     <div class="deploy-start">
         <p>Start</p>
         <p (click)="startDeployment()" *ngIf="!loadingStart">Start Deployment</p>
         <p *ngIf="loadingStart">Loading...</p>
     </div>
-    <div class="deploy-name">
+    <div class="deploy-update">
+        <p>Update</p>
+        <p>Update Endpoints</p>
+    </div>
+    <div class="deploy-stop">
+        <p>Stop</p>
+        <p (click)="stopDeployment()" *ngIf="!loadingStop">Stop Deployment</p>
+        <p *ngIf="loadingStop">Stop Deployment</p>
+    </div>
+    <div class="deploy-select">
         <p>Status</p>
         <div class="deploy-name-detail" *ngIf="!deploy">
             <p>No Deployment</p>
@@ -61,9 +69,28 @@
             <p class="red">•</p>
         </div>
     </div>
-    <div class="deploy-stop">
-        <p>Stop</p>
-        <p (click)="stopDeployment()" *ngIf="!loadingStop">Stop Deployment</p>
-        <p *ngIf="loadingStop">Stop Deployment</p>
+    <div class="deploy-select">
+        <p>Started</p>
+        <div class="deploy-name-detail">
+            <p>Start Time</p>
+        </div>
+    </div>
+    <div class="deploy-select">
+        <p>Update</p>
+        <div class="deploy-name-detail">
+            <p>Update Time</p>
+        </div>
+    </div>
+    <div class="deploy-select">
+        <p>Running Time</p>
+        <div class="deploy-name-detail">
+            <p>Running Time</p>
+        </div>
+    </div>
+    <div class="deploy-select">
+        <p>Stopped At</p>
+        <div class="deploy-name-detail">
+            <p>Stop Time</p>
+        </div>
     </div>
 </div>
