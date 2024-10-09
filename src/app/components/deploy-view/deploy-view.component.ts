@@ -113,15 +113,18 @@ export class DeployViewComponent {
     const _id = '';
     const userId = this.user._id;
     const projectId = this.project._id;
+    const instanceId = '';
     const date = new Date().toISOString();
     const active = true;
-    const size = this.size;
+    const type = 'standard';
+    const start = new Date().toISOString();
+    const stop = new Date().toISOString();
     const status = 'starting';
     const received = 0;
     const transmitted = 0;
 
     this.loadingStart = true;
-    this.store.dispatch(createDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, date, active, size, status, received, transmitted }}));
+    this.store.dispatch(createDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, instanceId, date, active, type, start, stop, status, received, transmitted }}));
   }
 
   stopDeployment() {

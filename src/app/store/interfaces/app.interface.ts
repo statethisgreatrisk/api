@@ -128,10 +128,13 @@ export interface Deploy {
     _id: string;
     userId: string;
     projectId: string;
+    instanceId: string;
     date: string;
     active: boolean;
-    size: 'standard';
-    status: string;
+    type: 'standard';
+    start: string;
+    stop: string;
+    status: 'starting' | 'running' | 'stopping' | 'stopped' | 'error';
     received: number;
     transmitted: number;
 }
