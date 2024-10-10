@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
-import { createDeploy, deployStartError, deployStartSuccess, deployStopError, deployStopSuccess, updateDeploy } from '../../store/actions/app.action';
+import { createDeploy, deployStartError, deployStartSuccess, deployStopError, deployStopSuccess, getDeployStatusError, getDeployStatusSuccess } from '../../store/actions/app.action';
 import { User, View, Project, Deploy, AppStateInit } from '../../store/interfaces/app.interface';
 import { selectUser, selectView, selectMainProject, selectDeploys } from '../../store/selectors/app.selector';
 
@@ -26,11 +26,14 @@ export class DeployViewComponent {
   deployStartErrorSub: Subscription | null = null;
   deployStopSuccessSub: Subscription | null = null;
   deployStopErrorSub: Subscription | null = null;
+  deployStatusSuccessSub: Subscription | null = null;
+  deployStatusErrorSub: Subscription | null = null;
 
   loadingStart: boolean = false;
   loadingStop: boolean = false;
 
   size: string = 'standard';
+  status: string = '';
 
   dropdown: boolean = false;
   dropdown2: boolean = false;
@@ -46,6 +49,8 @@ export class DeployViewComponent {
     this.initDeployStartError();
     this.initDeployStopSuccess();
     this.initDeployStopError();
+    this.initDeployStatusSuccess();
+    this.initDeployStatusError();
   }
 
   ngOnDestroy() {
@@ -54,6 +59,8 @@ export class DeployViewComponent {
     this.deployStartErrorSub?.unsubscribe();
     this.deployStopSuccessSub?.unsubscribe();
     this.deployStopErrorSub?.unsubscribe();
+    this.deployStatusSuccessSub?.unsubscribe();
+    this.deployStatusErrorSub?.unsubscribe();
   }
 
   initLatest() {
@@ -94,17 +101,29 @@ export class DeployViewComponent {
 
   initDeployStopSuccess() {
     this.deployStopSuccessSub = this.actions$.pipe((ofType(deployStopSuccess))).subscribe(() => {
-      this.loadingStop = false;
+      this.loadingStart = false;
     });
   }
 
   initDeployStopError() {
     this.deployStopErrorSub = this.actions$.pipe((ofType(deployStopError))).subscribe(() => {
-      this.loadingStop = false;
+      this.loadingStart = false;
     });
   }
 
-  startDeployment() {
+  initDeployStatusSuccess() {
+    this.deployStatusSuccessSub = this.actions$.pipe((ofType(getDeployStatusSuccess))).subscribe(({ status }) => {
+      this.status = status.status;
+    });
+  }
+
+  initDeployStatusError() {
+    this.deployStatusErrorSub = this.actions$.pipe((ofType(getDeployStatusError))).subscribe(() => {
+      this.status = 'error';
+    });
+  }
+
+  startDeploy() {
     if (!this.user) return;
     if (!this.project) return;
     if (!this.size) return;
@@ -119,20 +138,18 @@ export class DeployViewComponent {
     const type = 'standard';
     const start = new Date().toISOString();
     const stop = new Date().toISOString();
-    const status = 'starting';
     const received = 0;
     const transmitted = 0;
 
     this.loadingStart = true;
-    this.store.dispatch(createDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, instanceId, date, active, type, start, stop, status, received, transmitted }}));
+    this.store.dispatch(createDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, instanceId, date, active, type, start, stop, received, transmitted }}));
   }
 
-  stopDeployment() {
+  stopDeploy() {
     if (!this.project) return;
     if (!this.deploy) return;
 
     this.loadingStop = true;
-    this.store.dispatch(updateDeploy({ projectId: this.project._id, deploy: { ...this.deploy, status: 'stopping' } }));
   }
 
   toggleDropdown() {

@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub} from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus} from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -119,12 +119,19 @@ export const getDeploys = createAction('[GET] Deploys', props<{projectId: string
 export const addDeploys = createAction('[ADD] Deploys', props<{deploys: Deploy[]}>());
 export const createDeploy = createAction('[CREATE] Deploy', props<{projectId: string, deploy: Deploy}>());
 export const addDeploy = createAction('[ADD] Deploy', props<{deploy: Deploy}>());
-export const updateDeploy = createAction('[UPDATE] Deploy', props<{projectId: string, deploy: Deploy}>());
+
+export const startDeploy = createAction('[START] Deploy', props<{projectId: string, deploy: Deploy}>());
+export const stopDeploy = createAction('[STOP] Deploy', props<{projectId: string, deployId: string}>());
 export const replaceDeploy = createAction('[REPLACE] Deploy', props<{deploy: Deploy}>());
+
 export const deployStartSuccess = createAction('[SUCCESS] Deploy Start');
 export const deployStartError = createAction('[ERROR] Deploy Start');
 export const deployStopSuccess = createAction('[SUCCESS] Deploy Stop');
 export const deployStopError = createAction('[ERROR] Deploy Stop');
+
+export const getDeployStatus = createAction('[GET] Deploy Status', props<{projectId: string, deployId: string}>());
+export const getDeployStatusSuccess = createAction('[SUCCESS] Deploy Status', props<{status: DeployStatus}>());
+export const getDeployStatusError = createAction('[ERROR] Deploy Status');
 
 // Log
 export const getLogs = createAction('[GET] Logs', props<{projectId: string}>());

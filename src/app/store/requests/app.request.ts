@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -250,7 +250,6 @@ export class AppRequest {
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 
-
   // Document
 
   getDocuments(projectId: string): Observable<Document[]> {
@@ -285,9 +284,19 @@ export class AppRequest {
     return this.http.post<Deploy>(endpoint, { deploy }, { withCredentials: true });
   }
 
-  updateDeploy(projectId: string, deploy: Deploy): Observable<Deploy> {
-    const endpoint = `${this.url}/deploy/:projectId`.replace(':projectId', projectId);
-    return this.http.put<Deploy>(endpoint, { deploy }, { withCredentials: true });
+  startDeploy(projectId: string, deploy: Deploy): Observable<Deploy> {
+    const endpoint = `${this.url}/deploy/start/:projectId`.replace(':projectId', projectId);
+    return this.http.post<Deploy>(endpoint, { deploy }, { withCredentials: true });
+  }
+
+  stopDeploy(projectId: string, deployId: string): Observable<Deploy> {
+    const endpoint = `${this.url}/deploy/stop/:projectId/:deployId`.replace(':projectId', projectId).replace('deployId', deployId);
+    return this.http.put<Deploy>(endpoint, {}, { withCredentials: true });
+  }
+
+  getDeployStatus(projectId: string, deployId: string): Observable<DeployStatus> {
+    const endpoint = `${this.url}/deploy/status/:projectId/:deployId`.replace(':projectId', projectId).replace('deployId', deployId);
+    return this.http.get<DeployStatus>(endpoint, { withCredentials: true });
   }
 
   // Log

@@ -134,9 +134,12 @@ export interface Deploy {
     type: 'standard';
     start: string;
     stop: string;
-    status: 'starting' | 'running' | 'stopping' | 'stopped' | 'error';
     received: number;
     transmitted: number;
+}
+
+export interface DeployStatus {
+    status: string;
 }
 
 export interface Log {

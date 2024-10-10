@@ -31,7 +31,7 @@
     </div>
     <div class="deploy-start">
         <p>Start</p>
-        <p (click)="startDeployment()" *ngIf="!loadingStart">Start Deployment</p>
+        <p (click)="startDeploy()" *ngIf="!loadingStart">Start Deployment</p>
         <p *ngIf="loadingStart">Loading...</p>
     </div>
     <div class="deploy-update">
@@ -40,7 +40,7 @@
     </div>
     <div class="deploy-stop">
         <p>Stop</p>
-        <p (click)="stopDeployment()" *ngIf="!loadingStop">Stop Deployment</p>
+        <p (click)="stopDeploy()" *ngIf="!loadingStop">Stop Deployment</p>
         <p *ngIf="loadingStop">Stop Deployment</p>
     </div>
     <div class="deploy-select">
@@ -48,23 +48,23 @@
         <div class="deploy-name-detail" *ngIf="!deploy">
             <p>No Deployment</p>
         </div>
-        <div class="deploy-name-detail" *ngIf="deploy && deploy.status === 'starting'">
+        <div class="deploy-name-detail" *ngIf="deploy && status === 'starting'">
             <p>Starting</p>
             <p class="white">•</p>
         </div>
-        <div class="deploy-name-detail" *ngIf="deploy && deploy.status === 'running'">
+        <div class="deploy-name-detail" *ngIf="deploy && status === 'running'">
             <p>Running</p>
             <p class="green">•</p>
         </div>
-        <div class="deploy-name-detail" *ngIf="deploy && deploy.status === 'stopping'">
+        <div class="deploy-name-detail" *ngIf="deploy && status === 'stopping'">
             <p>Stopping</p>
             <p class="yellow">•</p>
         </div>
-        <div class="deploy-name-detail" *ngIf="deploy && deploy.status === 'stopped'">
+        <div class="deploy-name-detail" *ngIf="deploy && status === 'stopped'">
             <p>Stopped</p>
             <p class="white">•</p>
         </div>
-        <div class="deploy-name-detail" *ngIf="deploy && deploy.status === 'error'">
+        <div class="deploy-name-detail" *ngIf="deploy && status === 'error'">
             <p>Errored</p>
             <p class="red">•</p>
         </div>
