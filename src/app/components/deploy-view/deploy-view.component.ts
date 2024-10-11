@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
-import { deployStartError, deployStartSuccess, deployStopError, deployStopSuccess, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, startDeploy } from '../../store/actions/app.action';
+import { deployStartError, deployStartSuccess, deployStopError, deployStopSuccess, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, startDeploy, stopDeploy } from '../../store/actions/app.action';
 import { User, View, Project, Deploy, AppStateInit, Instance } from '../../store/interfaces/app.interface';
 import { selectUser, selectView, selectMainProject, selectDeploys, selectInstances } from '../../store/selectors/app.selector';
 
@@ -82,6 +82,7 @@ export class DeployViewComponent {
         if (deploys.length) {
           const sorted = [...deploys].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
           this.deploy = sorted[0];
+          this.store.dispatch(getDeployStatus({ projectId: this.project!._id, deployId: this.deploy._id }));
         } else {
           this.deploy = null;
         }
@@ -139,6 +140,8 @@ export class DeployViewComponent {
     const userId = this.user._id;
     const projectId = this.project._id;
     const instanceId = this.instance._id;
+    const ec2Id = '';
+    const ipAddress = '';
     const date = new Date().toISOString();
     const active = true;
     const type = 'standard';
@@ -149,7 +152,7 @@ export class DeployViewComponent {
     const transmitted = 0;
 
     this.loadingStart = true;
-    this.store.dispatch(startDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, instanceId, date, active, type, start, stop, update, received, transmitted }}));
+    this.store.dispatch(startDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, instanceId, ec2Id, ipAddress, date, active, type, start, stop, update, received, transmitted }}));
   }
 
   stopDeploy() {
@@ -157,6 +160,7 @@ export class DeployViewComponent {
     if (!this.deploy) return;
 
     this.loadingStop = true;
+    this.store.dispatch(stopDeploy({ projectId: this.project._id, deployId: this.deploy._id }));
   }
 
   toggleDeploymentDropdown() {
@@ -180,7 +184,7 @@ export class DeployViewComponent {
 
     this.deploy = deploy;
     this.toggleDeploymentDropdown();
-    this.store.dispatch(getDeployStatus({ projectId: this.project._id, deployId: this.deploy._id }))
+    this.store.dispatch(getDeployStatus({ projectId: this.project._id, deployId: this.deploy._id }));
   }
 
   selectSize(size: string) {
@@ -193,11 +197,26 @@ export class DeployViewComponent {
     return '';
   }
 
+  readableTime(datetime: string) {
+    const dateObj = new Date(datetime);
+    const date = dateObj.toLocaleDateString();
+    const time = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", hour12: true }).format(dateObj);
+    return `${date} ${time}`;
+  }
+
   runningTime() {
     if (!this.deploy) return '';
-    
-    const startDate = new Date(this.deploy.start);
-    const endDate = new Date(this.deploy.stop);
+
+    let startDate = new Date();
+    let endDate = new Date();
+
+    if (this.deploy.start === this.deploy.stop) {
+      startDate = new Date(this.deploy.start);
+      endDate = new Date();
+    } else {
+      startDate = new Date(this.deploy.start);
+      endDate = new Date(this.deploy.stop);
+    }
 
     const diffInMs: number = endDate.getTime() - startDate.getTime();
 

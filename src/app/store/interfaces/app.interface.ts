@@ -130,8 +130,8 @@ export interface Instance {
     projectId: string;
     date: string;
     active: boolean;
-    id: string;
     name: string;
+    running: boolean;
 }
 
 export interface Deploy {
@@ -139,6 +139,8 @@ export interface Deploy {
     userId: string;
     projectId: string;
     instanceId: string;
+    ec2Id: string;
+    ipAddress: string;
     date: string;
     active: boolean;
     type: 'standard';

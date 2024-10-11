@@ -292,12 +292,12 @@ export class AppRequest {
   }
 
   stopDeploy(projectId: string, deployId: string): Observable<Deploy> {
-    const endpoint = `${this.url}/deploy/stop/:projectId/:deployId`.replace(':projectId', projectId).replace('deployId', deployId);
+    const endpoint = `${this.url}/deploy/stop/:projectId/:deployId`.replace(':projectId', projectId).replace(':deployId', deployId);
     return this.http.put<Deploy>(endpoint, {}, { withCredentials: true });
   }
 
   getDeployStatus(projectId: string, deployId: string): Observable<DeployStatus> {
-    const endpoint = `${this.url}/deploy/status/:projectId/:deployId`.replace(':projectId', projectId).replace('deployId', deployId);
+    const endpoint = `${this.url}/deploy/status/:projectId/:deployId`.replace(':projectId', projectId).replace(':deployId', deployId);
     return this.http.get<DeployStatus>(endpoint, { withCredentials: true });
   }
 

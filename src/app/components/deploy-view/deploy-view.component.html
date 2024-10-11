@@ -52,14 +52,14 @@
         <p *ngIf="loadingStart || loadingStop">Loading...</p>
         <p (click)="startDeploy()" *ngIf="!loadingStart">Start Deployment</p>
     </div>
-    <div class="deploy-update" *ngIf="deploy">
+    <div class="deploy-update" *ngIf="deploy && instance && status === 'running'">
         <p>Update</p>
         <p>Update Endpoints</p>
     </div>
-    <div class="deploy-stop" *ngIf="deploy">
+    <div class="deploy-stop" *ngIf="deploy && instance && status === 'running'">
         <p>Stop</p>
         <p *ngIf="loadingStart || loadingStop">Loading...</p>
-        <p (click)="stopDeploy()" *ngIf="status === 'running' && !loadingStop">Stop Deployment</p>
+        <p (click)="stopDeploy()" *ngIf="!loadingStop">Stop Deployment</p>
     </div>
     <div class="deploy-select">
         <p>Status</p>
@@ -90,13 +90,13 @@
     <div class="deploy-select">
         <p>Started</p>
         <div class="deploy-name-detail">
-            <p *ngIf="deploy">{{ deploy.start }}</p>
+            <p *ngIf="deploy">{{ readableTime(deploy.start) }}</p>
         </div>
     </div>
     <div class="deploy-select">
-        <p>Update</p>
+        <p>Updated</p>
         <div class="deploy-name-detail">
-            <p *ngIf="deploy">{{ deploy.update }}</p>
+            <p *ngIf="deploy">{{ readableTime(deploy.update) }}</p>
         </div>
     </div>
     <div class="deploy-select">
@@ -108,7 +108,7 @@
     <div class="deploy-select">
         <p>Stopped At</p>
         <div class="deploy-name-detail">
-            <p *ngIf="deploy">{{ deploy.stop }}</p>
+            <p *ngIf="deploy">{{ readableTime(deploy.stop) }}</p>
         </div>
     </div>
 </div>
