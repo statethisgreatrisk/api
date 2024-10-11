@@ -8,7 +8,7 @@ import { KeyViewComponent } from '../key-view/key-view.component';
 import { BillingViewComponent } from '../billing-view/billing-view.component';
 import { UsageViewComponent } from '../usage-view/usage-view.component';
 import { Store } from '@ngrx/store';
-import { getDeploys, getLogs, getKeys, getBillings, getUsages, authSuccess, logoutUser, getSubs } from '../../store/actions/app.action';
+import { getDeploys, getLogs, getKeys, getBillings, getUsages, authSuccess, logoutUser, getSubs, getInstances, getDeployStatus } from '../../store/actions/app.action';
 import { AppStateInit, Project, User } from '../../store/interfaces/app.interface';
 import { ProjectDetailViewComponent } from '../project-detail-view/project-detail-view.component';
 import { Subscription } from 'rxjs';
@@ -76,7 +76,9 @@ export class SettingsViewComponent {
     };
 
     const projectActions = [
+      this.dispatchInstances,
       this.dispatchDeploys,
+
       this.dispatchLogs,
       this.dispatchKeys,
       this.dispatchBillings,
@@ -97,6 +99,10 @@ export class SettingsViewComponent {
 
       this.projectSub?.unsubscribe();
     });
+  }
+
+  dispatchInstances(projectId: string) {
+    this.store.dispatch(getInstances({ projectId: projectId }));
   }
 
   dispatchDeploys(projectId: string) {

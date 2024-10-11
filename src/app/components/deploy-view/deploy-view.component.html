@@ -1,12 +1,30 @@
 <div class="deploy-view">
     <div class="deploy-select">
+        <p>Deployments</p>
+        <div class="deploy-select-container">
+            <div class="deploy-select-button" (click)="toggleDeploymentDropdown()">
+                <p *ngIf="!deploy">New Deployment</p>
+                <p *ngIf="deploy">{{ deploy.date }}</p>
+                <img src="/down.png">
+            </div>
+            <div class="deploy-select-dropdown" *ngIf="deploymentDropdown">
+                <div class="deploy-select-dropdown-button" [ngClass]="{ 'active': !deploy }" (click)="selectDeployment()">
+                    <p>New Deployment</p>
+                </div>
+                <div class="deploy-select-dropdown-button" *ngFor="let d of deploys" [ngClass]="{ 'active': deploy && d._id === deploy._id }" (click)="selectDeployment(d)">
+                    <p>{{ d.date }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="deploy-select">
         <p>Server Size</p>
         <div class="deploy-select-container">
-            <div class="deploy-select-button" (click)="toggleDropdown()">
+            <div class="deploy-select-button" (click)="toggleSizeDropdown()">
                 <p>{{ convertToSize(size) }}</p>
                 <img src="/down.png">
             </div>
-            <div class="deploy-select-dropdown" *ngIf="dropdown">
+            <div class="deploy-select-dropdown" *ngIf="sizeDropdown">
                 <div class="deploy-select-dropdown-button" [ngClass]="{ 'active': size === 'standard' }" (click)="selectSize('standard')">
                     <p>Standard</p>
                 </div>
@@ -16,32 +34,32 @@
     <div class="deploy-select">
         <p>Server Name</p>
         <div class="deploy-name-detail deploy-server-name">
-            <p>turks-caikos</p>
+            <p *ngIf="instance">{{instance.name}}</p>
             <!-- <img src="/refresh.png"> -->
         </div>
     </div>
     <div class="deploy-info">
         <p>• Server includes 1 vCPU and 1 GiB of memory.</p>
-        <p>• API is available at <span class="white">https://<span class="green">turks-caikos</span>.dsptchwrkbx.com</span>.</p>
+        <p>• API is available at <span class="white">https://<span class="green" *ngIf="instance">{{ instance.name }}</span>.dsptchwrkbx.com</span>.</p>
         <p>• Endpoints that require authentication can use JWT or API Key.</p>
         <p>• Server price is billed per-hour and is pay as you go.</p>
         <p>• Partial hours are billed up to the hour.</p>
         <p>• Server and public IP address are included in hourly price.</p>
         <p>• Data transfer and document storage is free during beta (limited).</p>
     </div>
-    <div class="deploy-start">
+    <div class="deploy-start" *ngIf="!deploy">
         <p>Start</p>
+        <p *ngIf="loadingStart || loadingStop">Loading...</p>
         <p (click)="startDeploy()" *ngIf="!loadingStart">Start Deployment</p>
-        <p *ngIf="loadingStart">Loading...</p>
     </div>
-    <div class="deploy-update">
+    <div class="deploy-update" *ngIf="deploy">
         <p>Update</p>
         <p>Update Endpoints</p>
     </div>
-    <div class="deploy-stop">
+    <div class="deploy-stop" *ngIf="deploy">
         <p>Stop</p>
-        <p (click)="stopDeploy()" *ngIf="!loadingStop">Stop Deployment</p>
-        <p *ngIf="loadingStop">Stop Deployment</p>
+        <p *ngIf="loadingStart || loadingStop">Loading...</p>
+        <p (click)="stopDeploy()" *ngIf="status === 'running' && !loadingStop">Stop Deployment</p>
     </div>
     <div class="deploy-select">
         <p>Status</p>
@@ -72,25 +90,25 @@
     <div class="deploy-select">
         <p>Started</p>
         <div class="deploy-name-detail">
-            <p>Start Time</p>
+            <p *ngIf="deploy">{{ deploy.start }}</p>
         </div>
     </div>
     <div class="deploy-select">
         <p>Update</p>
         <div class="deploy-name-detail">
-            <p>Update Time</p>
+            <p *ngIf="deploy">{{ deploy.update }}</p>
         </div>
     </div>
     <div class="deploy-select">
         <p>Running Time</p>
         <div class="deploy-name-detail">
-            <p>Running Time</p>
+            <p *ngIf="deploy">{{ runningTime() }}</p>
         </div>
     </div>
     <div class="deploy-select">
         <p>Stopped At</p>
         <div class="deploy-name-detail">
-            <p>Stop Time</p>
+            <p *ngIf="deploy">{{ deploy.stop }}</p>
         </div>
     </div>
 </div>

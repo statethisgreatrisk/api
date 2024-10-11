@@ -13,6 +13,7 @@ export const appState: AppState = {
     objs: [],
     documents: [],
 
+    instances: [],
     deploys: [],
     logs: [],
     keys: [],

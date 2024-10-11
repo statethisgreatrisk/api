@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus} from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance} from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -114,13 +114,15 @@ export const replaceDocument = createAction('[REPLACE] Document', props<{documen
 export const deleteDocument = createAction('[DELETE] Document', props<{projectId: string, documentId: string}>());
 export const removeDocument = createAction('[REMOVE] Document', props<{documentId: string}>());
 
+// Instance
+export const getInstances = createAction('[GET] Instances', props<{projectId: string}>());
+export const addInstances = createAction('[ADD] Instances', props<{instance: Instance}>());
+
 // Deploy
 export const getDeploys = createAction('[GET] Deploys', props<{projectId: string}>());
 export const addDeploys = createAction('[ADD] Deploys', props<{deploys: Deploy[]}>());
-export const createDeploy = createAction('[CREATE] Deploy', props<{projectId: string, deploy: Deploy}>());
-export const addDeploy = createAction('[ADD] Deploy', props<{deploy: Deploy}>());
-
 export const startDeploy = createAction('[START] Deploy', props<{projectId: string, deploy: Deploy}>());
+export const addDeploy = createAction('[ADD] Deploy', props<{deploy: Deploy}>());
 export const stopDeploy = createAction('[STOP] Deploy', props<{projectId: string, deployId: string}>());
 export const replaceDeploy = createAction('[REPLACE] Deploy', props<{deploy: Deploy}>());
 

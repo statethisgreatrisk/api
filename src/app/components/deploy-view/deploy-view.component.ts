@@ -1,16 +1,16 @@
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
-import { createDeploy, deployStartError, deployStartSuccess, deployStopError, deployStopSuccess, getDeployStatusError, getDeployStatusSuccess } from '../../store/actions/app.action';
-import { User, View, Project, Deploy, AppStateInit } from '../../store/interfaces/app.interface';
-import { selectUser, selectView, selectMainProject, selectDeploys } from '../../store/selectors/app.selector';
+import { deployStartError, deployStartSuccess, deployStopError, deployStopSuccess, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, startDeploy } from '../../store/actions/app.action';
+import { User, View, Project, Deploy, AppStateInit, Instance } from '../../store/interfaces/app.interface';
+import { selectUser, selectView, selectMainProject, selectDeploys, selectInstances } from '../../store/selectors/app.selector';
 
 @Component({
   selector: 'app-deploy-view',
   standalone: true,
-  imports: [NgIf, NgClass],
+  imports: [NgIf, NgClass, NgFor],
   templateUrl: './deploy-view.component.html',
   styleUrl: './deploy-view.component.scss'
 })
@@ -20,6 +20,7 @@ export class DeployViewComponent {
   project: Project | null = null;
   deploys: Deploy[] | null = null;
   deploy: Deploy | null = null;
+  instance: Instance | null = null;
 
   sub: Subscription | null = null;
   deployStartSuccessSub: Subscription | null = null;
@@ -35,8 +36,8 @@ export class DeployViewComponent {
   size: string = 'standard';
   status: string = '';
 
-  dropdown: boolean = false;
-  dropdown2: boolean = false;
+  deploymentDropdown: boolean = false;
+  sizeDropdown: boolean = false;
 
   constructor(
     private store: Store<AppStateInit>,
@@ -69,7 +70,8 @@ export class DeployViewComponent {
       this.store.select(selectView),
       this.store.select(selectMainProject),
       this.store.select(selectDeploys),
-    ]).subscribe(([user, view, project, deploys]) => {
+      this.store.select(selectInstances),
+    ]).subscribe(([user, view, project, deploys, instances]) => {
       this.user = user;
       this.view = view;
       this.project = project;
@@ -84,6 +86,9 @@ export class DeployViewComponent {
           this.deploy = null;
         }
       }
+
+      if (instances && instances.length) this.instance = instances[0];
+      else this.instance = null;
     });
   }
 
@@ -138,11 +143,12 @@ export class DeployViewComponent {
     const type = 'standard';
     const start = new Date().toISOString();
     const stop = new Date().toISOString();
+    const update = new Date().toISOString();
     const received = 0;
     const transmitted = 0;
 
     this.loadingStart = true;
-    this.store.dispatch(createDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, instanceId, date, active, type, start, stop, received, transmitted }}));
+    this.store.dispatch(startDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, instanceId, date, active, type, start, stop, update, received, transmitted }}));
   }
 
   stopDeploy() {
@@ -152,23 +158,52 @@ export class DeployViewComponent {
     this.loadingStop = true;
   }
 
-  toggleDropdown() {
-    if (this.dropdown2) this.dropdown2 = false;
-    this.dropdown = !this.dropdown;
+  toggleDeploymentDropdown() {
+    if (this.sizeDropdown) this.sizeDropdown = false;
+    this.deploymentDropdown = !this.deploymentDropdown;
   }
   
-  toggleDropdown2() {
-    if (this.dropdown) this.dropdown = false;
-    this.dropdown2 = !this.dropdown2;
+  toggleSizeDropdown() {
+    if (this.deploymentDropdown) this.deploymentDropdown = false;
+    this.sizeDropdown = !this.sizeDropdown;
+  }
+
+  selectDeployment(deploy?: Deploy) {
+    if (!this.project) return;
+
+    if (!deploy) {
+      this.deploy = null;
+      this.toggleDeploymentDropdown();
+      return;
+    }
+
+    this.deploy = deploy;
+    this.toggleDeploymentDropdown();
+    this.store.dispatch(getDeployStatus({ projectId: this.project._id, deployId: this.deploy._id }))
   }
 
   selectSize(size: string) {
     this.size = size;
-    this.toggleDropdown();
+    this.toggleSizeDropdown();
   }
 
   convertToSize(size: string) {
     if (size === 'standard') return 'Standard';
     return '';
+  }
+
+  runningTime() {
+    if (!this.deploy) return '';
+    
+    const startDate = new Date(this.deploy.start);
+    const endDate = new Date(this.deploy.stop);
+
+    const diffInMs: number = endDate.getTime() - startDate.getTime();
+
+    const hours: number = Math.floor(diffInMs / (1000 * 60 * 60));
+    const minutes: number = Math.floor((diffInMs % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds: number = Math.floor((diffInMs % (1000 * 60)) / 1000);
+
+    return `${hours}h ${minutes}m ${seconds}s`;
   }
 }

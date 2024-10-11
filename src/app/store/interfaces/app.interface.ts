@@ -124,6 +124,16 @@ export interface Document {
     version: number;
 }
 
+export interface Instance {
+    _id: string;
+    userId: string;
+    projectId: string;
+    date: string;
+    active: boolean;
+    id: string;
+    name: string;
+}
+
 export interface Deploy {
     _id: string;
     userId: string;
@@ -134,6 +144,7 @@ export interface Deploy {
     type: 'standard';
     start: string;
     stop: string;
+    update: string;
     received: number;
     transmitted: number;
 }
@@ -234,6 +245,7 @@ export interface AppState {
     objs: Obj[];
     documents: Document[];
 
+    instances: Instance[];
     deploys: Deploy[];
     logs: Log[];
     keys: Key[];

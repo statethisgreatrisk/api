@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -272,16 +272,18 @@ export class AppRequest {
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 
+  // Instance
+
+  getInstance(projectId: string): Observable<Instance> {
+    const endpoint = `${this.url}/instance/:projectId`.replace(':projectId', projectId);
+    return this.http.get<Instance>(endpoint, { withCredentials: true });
+  }
+
   // Deploy
 
   getDeploys(projectId: string): Observable<Deploy[]> {
     const endpoint = `${this.url}/deploy/:projectId`.replace(':projectId', projectId);
     return this.http.get<Deploy[]>(endpoint, { withCredentials: true });
-  }
-
-  createDeploy(projectId: string, deploy: Deploy): Observable<Deploy> {
-    const endpoint = `${this.url}/deploy/:projectId`.replace(':projectId', projectId);
-    return this.http.post<Deploy>(endpoint, { deploy }, { withCredentials: true });
   }
 
   startDeploy(projectId: string, deploy: Deploy): Observable<Deploy> {

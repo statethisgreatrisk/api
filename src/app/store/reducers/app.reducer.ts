@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance } from "../interfaces/app.interface";
 
 // User
 
@@ -259,6 +259,13 @@ export const removeDocumentFn: (state: AppState, documentId: string) => AppState
     return { ...state, documents: state.documents.filter((document) => document._id !== documentId) };
 }
 
+// Instance
+
+export const addInstanceFn: (state: AppState, instance: Instance) => AppState = (state: AppState, instance: Instance) => {
+    if (!instance) return { ...state };
+    return { ...state, instances: [instance] };
+}
+
 // Deploy
 
 export const addDeploysFn: (state: AppState, deploys: Deploy[]) => AppState = (state: AppState, deploys: Deploy[]) => {
@@ -454,6 +461,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         objs: [],
         documents: [],
 
+        instances: [],
         deploys: [],
         logs: [],
         keys: [],
@@ -483,6 +491,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         objs: [],
         documents: [],
 
+        instances: [],
         deploys: [],
         logs: [],
         keys: [],

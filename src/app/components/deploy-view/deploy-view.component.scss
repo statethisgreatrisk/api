@@ -149,6 +149,12 @@
     cursor: pointer;
 }
 
+.deploy-start p.grey {
+    border: 1px solid $surface-mixed-600;
+    background: $surface-mixed-600;
+    cursor: default;
+}
+
 .deploy-view {
     display: flex;
     flex-direction: column;
@@ -336,4 +342,10 @@
     background: $delete;
 
     cursor: pointer;
+}
+
+.deploy-stop p.grey {
+    border: 1px solid $surface-mixed-600;
+    background: $surface-mixed-600;
+    cursor: default;
 }
