@@ -131,13 +131,14 @@ export class DeployViewComponent {
   startDeploy() {
     if (!this.user) return;
     if (!this.project) return;
+    if (!this.instance) return;
     if (!this.size) return;
     if (this.size !== 'standard') return;
 
     const _id = '';
     const userId = this.user._id;
     const projectId = this.project._id;
-    const instanceId = '';
+    const instanceId = this.instance._id;
     const date = new Date().toISOString();
     const active = true;
     const type = 'standard';
