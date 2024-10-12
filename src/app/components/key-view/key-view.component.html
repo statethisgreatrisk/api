@@ -13,8 +13,8 @@
     </div>
     <div class="key-list-item-container" *ngIf="keys">
         <div class="key-list-item" *ngFor="let key of keys">
-            <p>{{ key.name }} - {{ key.apiKey }}</p>
-            <img src="/x.png" (click)="deleteKey(key._id)">
+            <p>{{ key.admin ? 'Deployment Key' : key.name }} - {{ key.apiKey }}</p>
+            <img src="/x.png" (click)="deleteKey(key._id)" *ngIf="!key.admin">
         </div>
     </div>
 </div>
