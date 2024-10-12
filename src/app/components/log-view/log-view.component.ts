@@ -1,4 +1,4 @@
-import { JsonPipe, NgFor, NgIf } from '@angular/common';
+import { JsonPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
@@ -8,7 +8,7 @@ import { selectUser, selectView, selectMainProject, selectDeploys, selectLogs } 
 @Component({
   selector: 'app-log-view',
   standalone: true,
-  imports: [NgIf, NgFor, JsonPipe],
+  imports: [NgIf, NgFor, NgClass, JsonPipe],
   templateUrl: './log-view.component.html',
   styleUrl: './log-view.component.scss'
 })
@@ -49,20 +49,20 @@ export class LogViewComponent {
       this.view = view;
       this.project = project;
 
-      if (deploys) {
-        this.deploys = deploys;
-
-        if (deploys.length) {
-          const sorted = [...deploys].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
-          this.deploy = sorted[0];
-        } else {
-          this.deploy = null;
-        }
+      if (deploys && deploys.length) {
+        const sorted = [...deploys].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
+        this.deploys = sorted;
+        this.deploy = sorted[0];
+      } else {
+        this.deploys = null;
+        this.deploy = null;
       }
 
-      if (logs) {
-        const sorted = [...logs].filter((log) => log.deployId === this.deploy!._id).sort((a, b) => Number(new Date(a.date)) - Number(new Date(b.date)));
+      if (logs && logs.length) {
+        const sorted = [...logs].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
         this.logs = sorted;
+      } else {
+        this.logs = null;
       }
     });
   }
@@ -75,11 +75,22 @@ export class LogViewComponent {
     if (!deploy) return;
 
     this.deploy = deploy;
+  }
 
-    if (!this.logs) return;
+  deployLogs(deployId: string): string[] {
+    if (!this.logs || !deployId) return [];
 
-    const sorted = [...this.logs].filter((log) => log.deployId === this.deploy!._id).sort((a, b) => Number(new Date(a.date)) - Number(new Date(b.date)));
-    this.logs = sorted;
+    const logs = this.logs.filter((log) => log.deployId === deployId);
+    const logJson = logs.reduce((a: string[], b) => { return a.concat([...b.logs])}, []);
+    return logJson.map((log) => {
+      const json = JSON.parse(log);
+      const dateObj = new Date(json.date);
+      const date = dateObj.toLocaleDateString();
+      const time = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", hour12: true }).format(dateObj);
+      const datetime = `${date} ${time}`;
+      const logString = typeof json.log === 'object' ? JSON.stringify(json.log) : json.log;
+      return `${datetime}: ${logString}`;
+    });
   }
 
   toggleDropdown() {

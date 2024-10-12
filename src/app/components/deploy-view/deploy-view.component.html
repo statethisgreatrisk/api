@@ -4,7 +4,7 @@
         <div class="deploy-select-container">
             <div class="deploy-select-button" (click)="toggleDeploymentDropdown()">
                 <p *ngIf="!deploy">New Deployment</p>
-                <p *ngIf="deploy">{{ deploy.date }}</p>
+                <p *ngIf="deploy">{{ deploy.ec2Id }}</p>
                 <img src="/down.png">
             </div>
             <div class="deploy-select-dropdown" *ngIf="deploymentDropdown">
@@ -12,7 +12,7 @@
                     <p>New Deployment</p>
                 </div>
                 <div class="deploy-select-dropdown-button" *ngFor="let d of deploys" [ngClass]="{ 'active': deploy && d._id === deploy._id }" (click)="selectDeployment(d)">
-                    <p>{{ d.date }}</p>
+                    <p>{{ d.ec2Id }}</p>
                 </div>
             </div>
         </div>
@@ -87,26 +87,26 @@
             <p class="red">•</p>
         </div>
     </div>
-    <div class="deploy-select">
+    <div class="deploy-select" *ngIf="deploy">
         <p>Started</p>
         <div class="deploy-name-detail">
             <p *ngIf="deploy">{{ readableTime(deploy.start) }}</p>
         </div>
     </div>
-    <div class="deploy-select">
+    <div class="deploy-select" *ngIf="deploy && deploy.start !== deploy.update">
         <p>Updated</p>
         <div class="deploy-name-detail">
             <p *ngIf="deploy">{{ readableTime(deploy.update) }}</p>
         </div>
     </div>
-    <div class="deploy-select">
+    <div class="deploy-select" *ngIf="deploy">
         <p>Running Time</p>
         <div class="deploy-name-detail">
             <p *ngIf="deploy">{{ runningTime() }}</p>
         </div>
     </div>
-    <div class="deploy-select">
-        <p>Stopped At</p>
+    <div class="deploy-select" *ngIf="deploy && deploy.start !== deploy.stop">
+        <p>Stopped</p>
         <div class="deploy-name-detail">
             <p *ngIf="deploy">{{ readableTime(deploy.stop) }}</p>
         </div>

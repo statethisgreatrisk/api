@@ -76,16 +76,16 @@ export class DeployViewComponent {
       this.view = view;
       this.project = project;
 
-      if (deploys) {
-        this.deploys = deploys;
+      if (deploys && deploys.length) {
+        const sorted = [...deploys].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
 
-        if (deploys.length) {
-          const sorted = [...deploys].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
-          this.deploy = sorted[0];
-          this.store.dispatch(getDeployStatus({ projectId: this.project!._id, deployId: this.deploy._id }));
-        } else {
-          this.deploy = null;
-        }
+        this.deploys = sorted;
+        this.deploy = sorted[0];
+
+        this.store.dispatch(getDeployStatus({ projectId: this.project!._id, deployId: this.deploy._id }));
+      } else {
+        this.deploys = null;
+        this.deploy = null;
       }
 
       if (instances && instances.length) this.instance = instances[0];
@@ -107,13 +107,13 @@ export class DeployViewComponent {
 
   initDeployStopSuccess() {
     this.deployStopSuccessSub = this.actions$.pipe((ofType(deployStopSuccess))).subscribe(() => {
-      this.loadingStart = false;
+      this.loadingStop = false;
     });
   }
 
   initDeployStopError() {
     this.deployStopErrorSub = this.actions$.pipe((ofType(deployStopError))).subscribe(() => {
-      this.loadingStart = false;
+      this.loadingStop = false;
     });
   }
 

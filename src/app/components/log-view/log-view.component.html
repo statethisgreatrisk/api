@@ -3,20 +3,18 @@
         <p>Select deployment</p>
         <div class="log-select-container">
             <div class="log-select-button" (click)="toggleDropdown()" *ngIf="deploys">
-                <p *ngIf="deploy">{{ deploy.date }}</p>
+                <p *ngIf="deploy">{{ deploy.ec2Id }}</p>
                 <p *ngIf="!deploy">No deployments</p>
                 <img src="/down.png">
             </div>
             <div class="log-select-dropdown" *ngIf="dropdown && deploys">
-                <div class="log-select-dropdown-button" *ngFor="let deploy of deploys" (click)="selectDeploy(deploy._id)">
-                    <p>{{ deploy.date }}</p>
+                <div class="log-select-dropdown-button" [ngClass]="{'active': deploy && d._id === deploy._id}" *ngFor="let d of deploys" (click)="selectDeploy(d._id)">
+                    <p>{{ d.ec2Id }}</p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="log-detail" *ngIf="logs">
-        <ng-content *ngFor="let log of logs">
-            <pre *ngFor="let logString of log.logs">{{ log }}</pre>
-        </ng-content>
+    <div class="log-detail" *ngIf="logs && deploy">
+        <pre *ngFor="let log of deployLogs(deploy._id)">{{ log }}</pre>
     </div>
 </div>
