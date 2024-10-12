@@ -110,6 +110,14 @@
     color: $primary-600;
 }
 
+.usage-select-dropdown-button.active {
+    background-color: $surface-dark;
+}
+
+.usage-select-dropdown-button.active p {
+    color: $primary-600;
+}
+
 .usage-list-item-container {
     display: flex;
     flex-direction: column;

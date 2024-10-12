@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { selectDeploys, selectMainProject, selectUsages, selectUser, selectView } from '../../store/selectors/app.selector';
 import { AppStateInit, Deploy, Project, Usage, User, View } from '../../store/interfaces/app.interface';
@@ -8,7 +8,7 @@ import { Subscription, combineLatest } from 'rxjs';
 @Component({
   selector: 'app-usage-view',
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [NgIf, NgFor, NgClass],
   templateUrl: './usage-view.component.html',
   styleUrl: './usage-view.component.scss'
 })
@@ -48,20 +48,21 @@ export class UsageViewComponent {
       this.view = view;
       this.project = project;
 
-      if (deploys) {
-        this.deploys = deploys;
+      if (deploys && deploys.length) {
+        const sorted = [...deploys].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
 
-        if (deploys.length) {
-          const sorted = [...deploys].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
-          this.deploy = sorted[0];
-        } else {
-          this.deploy = null;
-        }
+        this.deploys = sorted;
+        this.deploy = sorted[0];
+      } else {
+        this.deploys = null;
+        this.deploy = null;
       }
 
       if (usages) {
         const sorted = [...usages].filter((usage) => usage.deployId === this.deploy!._id).sort((a, b) => Number(new Date(a.date)) - Number(new Date(b.date)));
         this.usages = sorted;
+      } else {
+        this.usages = null;
       }
     });
   }
