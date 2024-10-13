@@ -193,9 +193,9 @@ export interface Usage {
     stop: string;
     received: number;
     transmitted: number;
-    requestUptime: number;
     requestSize: number;
     responseSize: number;
+    responseDuration: number;
     documentReads: number;
     documentWrites: number;
     requests: string[];

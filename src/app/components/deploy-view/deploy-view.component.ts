@@ -4,8 +4,8 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { deployStartError, deployStartSuccess, deployStopError, deployStopSuccess, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, startDeploy, stopDeploy } from '../../store/actions/app.action';
-import { User, View, Project, Deploy, AppStateInit, Instance } from '../../store/interfaces/app.interface';
-import { selectUser, selectView, selectMainProject, selectDeploys, selectInstances } from '../../store/selectors/app.selector';
+import { User, View, Project, Deploy, AppStateInit, Instance, Usage } from '../../store/interfaces/app.interface';
+import { selectUser, selectView, selectMainProject, selectDeploys, selectInstances, selectUsages } from '../../store/selectors/app.selector';
 
 @Component({
   selector: 'app-deploy-view',
@@ -18,6 +18,8 @@ export class DeployViewComponent {
   user: User | null = null;
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   project: Project | null = null;
+  usages: Usage[] | null = null;
+  usage: Usage | null = null;
   deploys: Deploy[] | null = null;
   deploy: Deploy | null = null;
   instance: Instance | null = null;
@@ -71,7 +73,8 @@ export class DeployViewComponent {
       this.store.select(selectMainProject),
       this.store.select(selectDeploys),
       this.store.select(selectInstances),
-    ]).subscribe(([user, view, project, deploys, instances]) => {
+      this.store.select(selectUsages),
+    ]).subscribe(([user, view, project, deploys, instances, usages]) => {
       this.user = user;
       this.view = view;
       this.project = project;
@@ -87,6 +90,18 @@ export class DeployViewComponent {
         this.deploys = null;
         this.deploy = null;
       }
+
+      if (usages && usages.length) {
+        this.usages = usages;
+        
+        if (this.deploy) {
+          const usage = [...usages].filter((usage) => usage.deployId === this.deploy!._id);
+          this.usage = usage[0];
+        } else {
+          this.usage = null;
+        }
+      }
+      else this.usages = null;
 
       if (instances && instances.length) this.instance = instances[0];
       else this.instance = null;
@@ -140,19 +155,14 @@ export class DeployViewComponent {
     const userId = this.user._id;
     const projectId = this.project._id;
     const instanceId = this.instance._id;
-    const ec2Id = '';
-    const ipAddress = '';
     const date = new Date().toISOString();
     const active = true;
     const type = 'standard';
-    const start = new Date().toISOString();
-    const stop = new Date().toISOString();
-    const update = new Date().toISOString();
-    const received = 0;
-    const transmitted = 0;
+    const ec2Id = '';
+    const ipAddress = '';
 
     this.loadingStart = true;
-    this.store.dispatch(startDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, instanceId, ec2Id, ipAddress, date, active, type, start, stop, update, received, transmitted }}));
+    this.store.dispatch(startDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, instanceId, ec2Id, ipAddress, date, active, type }}));
   }
 
   stopDeploy() {
@@ -206,16 +216,17 @@ export class DeployViewComponent {
 
   runningTime() {
     if (!this.deploy) return '';
+    if (!this.usage) return '';
 
     let startDate = new Date();
     let endDate = new Date();
 
-    if (this.deploy.start === this.deploy.stop) {
-      startDate = new Date(this.deploy.start);
+    if (this.usage.start === this.usage.stop) {
+      startDate = new Date(this.usage.start);
       endDate = new Date();
     } else {
-      startDate = new Date(this.deploy.start);
-      endDate = new Date(this.deploy.stop);
+      startDate = new Date(this.usage.start);
+      endDate = new Date(this.usage.stop);
     }
 
     const diffInMs: number = endDate.getTime() - startDate.getTime();
