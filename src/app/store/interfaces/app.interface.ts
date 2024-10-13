@@ -139,16 +139,11 @@ export interface Deploy {
     userId: string;
     projectId: string;
     instanceId: string;
-    ec2Id: string;
-    ipAddress: string;
     date: string;
     active: boolean;
     type: 'standard';
-    start: string;
-    stop: string;
-    update: string;
-    received: number;
-    transmitted: number;
+    ec2Id: string;
+    ipAddress: string;
 }
 
 export interface DeployStatus {
@@ -194,10 +189,17 @@ export interface Usage {
     deployId: string;
     date: string;
     active: boolean;
-    name: string;
-    type: string;
-    usage: number;
-    rate: number;
+    start: string;
+    stop: string;
+    received: number;
+    transmitted: number;
+    requestUptime: number;
+    requestSize: number;
+    responseSize: number;
+    documentReads: number;
+    documentWrites: number;
+    requests: string[];
+    documents: string[];
 }
 
 export interface Sub {
