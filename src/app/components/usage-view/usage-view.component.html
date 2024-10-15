@@ -14,9 +14,35 @@
             </div>
         </div>
     </div>
-    <div class="usage-list-item-container">
-        <div class="usage-list-item" *ngFor="let usage of usages">
-            <p>Container - 10 minutes</p>
+    <div class="usage-list-item-container" *ngIf="deploy && usage">
+        <div class="usage-list-item">
+            <p>Container Uptime</p>
+            <p>{{ runningTime() }}</p>
+            <p>$0.010</p>
+        </div>
+        <div class="usage-list-item">
+            <p>Network Received</p>
+            <p>{{ usage.received }} bytes</p>
+            <p>$0.010</p>
+        </div>
+        <div class="usage-list-item">
+            <p>Network Sent</p>
+            <p>{{ usage.transmitted }} bytes</p>
+            <p>$0.010</p>
+        </div>
+        <div class="usage-list-item">
+            <p>Request Received</p>
+            <p>{{ usage.requestSize }} bytes</p>
+            <p>$0.010</p>
+        </div>
+        <div class="usage-list-item">
+            <p>Response Sent</p>
+            <p>{{ usage.responseSize }} bytes</p>
+            <p>$0.010</p>
+        </div>
+        <div class="usage-list-item">
+            <p>Response Uptime</p>
+            <p>{{ usage.responseDuration }} ms</p>
             <p>$0.010</p>
         </div>
     </div>

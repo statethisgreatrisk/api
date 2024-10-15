@@ -19,6 +19,7 @@ export class UsageViewComponent {
   deploys: Deploy[] | null = null;
   deploy: Deploy | null = null;
   usages: Usage[] | null = null;
+  usage: Usage | null = null;
 
   sub: Subscription | null = null;
 
@@ -52,15 +53,22 @@ export class UsageViewComponent {
         const sorted = [...deploys].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
 
         this.deploys = sorted;
-        this.deploy = sorted[0];
+        
+        if (!this.deploy) {
+          this.deploy = sorted[0];
+        }
       } else {
         this.deploys = null;
         this.deploy = null;
       }
 
       if (usages) {
-        const sorted = [...usages].filter((usage) => usage.deployId === this.deploy!._id).sort((a, b) => Number(new Date(a.date)) - Number(new Date(b.date)));
-        this.usages = sorted;
+        this.usages = [...usages].sort((a, b) => Number(new Date(a.date)) - Number(new Date(b.date)));
+
+        if (this.deploy) {
+          const filtered = [...this.usages].filter((usage) => usage.deployId === this.deploy!._id);
+          this.usage = filtered[0];
+        }
       } else {
         this.usages = null;
       }
@@ -78,8 +86,31 @@ export class UsageViewComponent {
 
     if (!this.usages) return;
 
-    const sorted = [...this.usages].filter((usage) => usage.deployId === this.deploy!._id).sort((a, b) => Number(new Date(a.date)) - Number(new Date(b.date)));
-    this.usages = sorted;
+    const filtered = [...this.usages].filter((usage) => usage.deployId === this.deploy!._id);
+    this.usage = filtered[0];
+  }
+
+  runningTime() {
+    if (!this.deploy) return '';
+
+    let startDate = new Date();
+    let endDate = new Date();
+
+    if (this.deploy.start === this.deploy.stop) {
+      startDate = new Date(this.deploy.start);
+      endDate = new Date();
+    } else {
+      startDate = new Date(this.deploy.start);
+      endDate = new Date(this.deploy.stop);
+    }
+
+    const diffInMs: number = endDate.getTime() - startDate.getTime();
+
+    const hours: number = Math.floor(diffInMs / (1000 * 60 * 60));
+    const minutes: number = Math.floor((diffInMs % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds: number = Math.floor((diffInMs % (1000 * 60)) / 1000);
+
+    return `${hours}h ${minutes}m ${seconds}s`;
   }
 
   toggleDropdown() {
