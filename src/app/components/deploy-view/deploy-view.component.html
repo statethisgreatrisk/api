@@ -87,22 +87,22 @@
             <p class="red">•</p>
         </div>
     </div>
-    <div class="deploy-select" *ngIf="deploy && usage">
+    <div class="deploy-select" *ngIf="deploy">
         <p>Started</p>
         <div class="deploy-name-detail">
-            <p *ngIf="usage">{{ readableTime(usage.start) }}</p>
+            <p>{{ readableTime(deploy.start) }}</p>
         </div>
     </div>
-    <div class="deploy-select" *ngIf="deploy && usage">
+    <div class="deploy-select" *ngIf="deploy">
         <p>Running Time</p>
         <div class="deploy-name-detail">
-            <p *ngIf="usage">{{ runningTime() }}</p>
+            <p>{{ runningTime() }}</p>
         </div>
     </div>
-    <div class="deploy-select" *ngIf="deploy && usage && usage.start !== usage.stop">
+    <div class="deploy-select" *ngIf="deploy && deploy.start !== deploy.stop">
         <p>Stopped</p>
         <div class="deploy-name-detail">
-            <p *ngIf="usage">{{ readableTime(usage.stop) }}</p>
+            <p>{{ readableTime(deploy.stop) }}</p>
         </div>
     </div>
 </div>

@@ -131,7 +131,6 @@ export interface Instance {
     date: string;
     active: boolean;
     name: string;
-    running: boolean;
 }
 
 export interface Deploy {
@@ -144,6 +143,9 @@ export interface Deploy {
     type: 'standard';
     ec2Id: string;
     ipAddress: string;
+    running: boolean;
+    start: string;
+    stop: string;
 }
 
 export interface DeployStatus {
@@ -189,8 +191,6 @@ export interface Usage {
     deployId: string;
     date: string;
     active: boolean;
-    start: string;
-    stop: string;
     received: number;
     transmitted: number;
     requestSize: number;

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
-import { deployStartError, deployStartSuccess, deployStopError, deployStopSuccess, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, startDeploy, stopDeploy } from '../../store/actions/app.action';
+import { deployStartError, deployStartSuccess, deployStopError, deployStopSuccess, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, getUsages, startDeploy, stopDeploy } from '../../store/actions/app.action';
 import { User, View, Project, Deploy, AppStateInit, Instance, Usage } from '../../store/interfaces/app.interface';
 import { selectUser, selectView, selectMainProject, selectDeploys, selectInstances, selectUsages } from '../../store/selectors/app.selector';
 
@@ -83,7 +83,10 @@ export class DeployViewComponent {
         const sorted = [...deploys].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
 
         this.deploys = sorted;
-        this.deploy = sorted[0];
+
+        if (!this.deploy) {
+          this.deploy = sorted[0];
+        }
 
         this.store.dispatch(getDeployStatus({ projectId: this.project!._id, deployId: this.deploy._id }));
       } else {
@@ -111,6 +114,9 @@ export class DeployViewComponent {
   initDeployStartSuccess() {
     this.deployStartSuccessSub = this.actions$.pipe((ofType(deployStartSuccess))).subscribe(() => {
       this.loadingStart = false;
+
+      if (!this.project) return;
+      this.store.dispatch(getUsages({ projectId: this.project._id }));
     });
   }
 
@@ -123,6 +129,9 @@ export class DeployViewComponent {
   initDeployStopSuccess() {
     this.deployStopSuccessSub = this.actions$.pipe((ofType(deployStopSuccess))).subscribe(() => {
       this.loadingStop = false;
+
+      if (!this.project) return;
+      this.store.dispatch(getUsages({ projectId: this.project._id }));
     });
   }
 
@@ -160,9 +169,12 @@ export class DeployViewComponent {
     const type = 'standard';
     const ec2Id = '';
     const ipAddress = '';
+    const running = true;
+    const start = new Date().toISOString();
+    const stop = new Date().toISOString();
 
     this.loadingStart = true;
-    this.store.dispatch(startDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, instanceId, ec2Id, ipAddress, date, active, type }}));
+    this.store.dispatch(startDeploy({ projectId: this.project._id, deploy: { _id, userId, projectId, instanceId, ec2Id, ipAddress, date, active, type, running, start, stop }}));
   }
 
   stopDeploy() {
@@ -195,6 +207,7 @@ export class DeployViewComponent {
     this.deploy = deploy;
     this.toggleDeploymentDropdown();
     this.store.dispatch(getDeployStatus({ projectId: this.project._id, deployId: this.deploy._id }));
+    this.store.dispatch(getUsages({ projectId: this.project._id }));
   }
 
   selectSize(size: string) {
@@ -216,17 +229,16 @@ export class DeployViewComponent {
 
   runningTime() {
     if (!this.deploy) return '';
-    if (!this.usage) return '';
 
     let startDate = new Date();
     let endDate = new Date();
 
-    if (this.usage.start === this.usage.stop) {
-      startDate = new Date(this.usage.start);
+    if (this.deploy.start === this.deploy.stop) {
+      startDate = new Date(this.deploy.start);
       endDate = new Date();
     } else {
-      startDate = new Date(this.usage.start);
-      endDate = new Date(this.usage.stop);
+      startDate = new Date(this.deploy.start);
+      endDate = new Date(this.deploy.stop);
     }
 
     const diffInMs: number = endDate.getTime() - startDate.getTime();
