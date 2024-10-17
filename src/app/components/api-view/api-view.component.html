@@ -26,28 +26,26 @@
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                         </div>
                         <div class="api-view-editor-row-app">
-                            <p *ngIf="row.appId">{{ findAppName(row.appId) }}</p>
+                            <p>{{ findAppName(row.appId) }}</p>
                         </div>
                         <div class="api-view-editor-row-variable">
-                            <input #rowVariableInputs *ngIf="!row.appId" type="text" placeholder="" (input)="adjustVariableWidth(index)" disabled>
-                            <input #rowVariableInputs *ngIf="row.appId" type="text" placeholder="variable name" [(ngModel)]="row.variable" (input)="adjustVariableWidth(index)">
+                            <input #rowVariableInputs type="text" placeholder="variable name" [(ngModel)]="row.variable" (input)="adjustVariableWidth(findInputVariableArgsIndex(row._id))">
                         </div>
                         <div class="api-view-editor-row-equals">
-                            <p *ngIf="row.appId">=</p>
+                            <p>=</p>
                         </div>
                         <div class="api-view-editor-row-command-open">
-                            <p *ngIf="row.appId">{{ findAppName(row.appId) }}(</p>
+                            <p>{{ findAppName(row.appId) }}(</p>
                         </div>
                         <div class="api-view-editor-row-args">
-                            <input #rowArgsInputs *ngIf="!row.appId" type="text" (input)="adjustArgsWidth(index)" disabled>
-                            <input #rowArgsInputs *ngIf="row.appId" type="text" placeholder="arguments" [(ngModel)]="row.args" (input)="adjustArgsWidth(index)">
+                            <input #rowArgsInputs type="text" placeholder="arguments" [(ngModel)]="row.args" (input)="adjustArgsWidth(findInputVariableArgsIndex(row._id))">
                         </div>
                         <div class="api-view-editor-row-command-close">
-                            <p *ngIf="row.appId">)</p>
+                            <p>)</p>
                         </div>
                         <div class="api-view-editor-row-spacer"></div>
                         <div class="api-view-editworkflowsor-row-detail">
-                            <p *ngIf="row.appId"></p>
+                            <p></p>
                         </div>
                         <div class="api-view-editor-row-remove" (click)="removeRow(row._id)">
                             <img src="/x.png">
@@ -58,7 +56,12 @@
                         <div class="api-view-editor-row-prefix">
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                         </div>
-                        <div class="api-view-editor-row-comment"></div>
+                        <div class="api-view-editor-row-comment-prefix">
+                            <p>//</p>
+                        </div>
+                        <div class="api-view-editor-row-comment">
+                            <input #rowCommentInputs type="text" placeholder="Comment" [(ngModel)]="row.comment" (input)="adjustCommentWidth(findInputCommentIndex(row._id))">
+                        </div>
                         <div class="api-view-editor-row-spacer"></div>
                         <div class="api-view-editor-row-remove" (click)="removeRow(row._id)">
                             <img src="/x.png">
@@ -79,8 +82,18 @@
         </div>
         <div class="api-view-hidden" *ngIf="workflow">
             <div class="api-view-hidden-rows" *ngFor="let row of workflow.rows;">
-                <span #rowVariableSpans>{{ row.variable }}</span>
-                <span #rowArgsSpans>{{ row.args }}</span>
+                <!-- App Row -->
+                <ng-content *ngIf="row.appId && !isCommentRow(row)">
+                    <span #rowVariableSpans>{{ row.variable }}</span>
+                    <span #rowArgsSpans>{{ row.args }}</span>
+                </ng-content>
+                <!-- Comment Row -->
+                <ng-content *ngIf="row.appId && isCommentRow(row)">
+                    <span #rowCommentSpans>{{ row.comment }}</span>
+                </ng-content>
+                <!-- Blank Row -->
+                <ng-content *ngIf="!row.appId">
+                </ng-content>
             </div>
         </div>
     </div>

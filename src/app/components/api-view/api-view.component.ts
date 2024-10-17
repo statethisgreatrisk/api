@@ -5,8 +5,7 @@ import { selectApps, selectMainProject, selectUser, selectView, selectWorkflows 
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import ObjectId from 'bson-objectid';
-import { deleteWorkflow, deselectService, deselectWindow, updateWorkflow } from '../../store/actions/app.action';
-import { DeleteService } from '../../services/delete.service';
+import { deselectService, deselectWindow, updateWorkflow } from '../../store/actions/app.action';
 import { FormsModule } from '@angular/forms';
 import { SelectAppService } from '../../services/select-app.service';
 
@@ -32,13 +31,14 @@ export class ApiViewComponent {
 
   @ViewChildren('rowVariableInputs') rowVariableInputs!: QueryList<ElementRef>;
   @ViewChildren('rowArgsInputs') rowArgsInputs!: QueryList<ElementRef>;
+  @ViewChildren('rowCommentInputs') rowCommentInputs!: QueryList<ElementRef>;
   @ViewChildren('rowVariableSpans') rowVariableSpans!: QueryList<ElementRef>;
   @ViewChildren('rowArgsSpans') rowArgsSpans!: QueryList<ElementRef>;
+  @ViewChildren('rowCommentSpans') rowCommentSpans!: QueryList<ElementRef>;
 
   constructor(
     private store: Store<AppStateInit>,
     private selectAppService: SelectAppService,
-    private deleteService: DeleteService,
     private cdr: ChangeDetectorRef,
   ) {}
 
@@ -95,14 +95,23 @@ export class ApiViewComponent {
   adjustAllInputs() {
     if (!this.workflow || !this.workflow.rows) return;
 
-    Array.from({ length: this.workflow.rows.length }).forEach((_, index) => {
+    const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
+
+    this.workflow.rows.filter((row) => row.appId && row.appId !== commentApp._id).forEach((_, index) => {
       this.adjustVariableWidth(index);
       this.adjustArgsWidth(index);
+    });
+
+    this.workflow.rows.filter((row) => row.appId && row.appId === commentApp._id).forEach((_, index) => {
+      this.adjustCommentWidth(index);
     });
   }
 
   adjustVariableWidth(index: number) {
     this.cdr.detectChanges();
+
+    if (!this.rowVariableInputs.toArray().length) return;
+    if (!this.rowVariableSpans.toArray().length) return;
 
     const inputElement = this.rowVariableInputs.toArray()[index].nativeElement;
     const spanElement = this.rowVariableSpans.toArray()[index].nativeElement;
@@ -114,6 +123,9 @@ export class ApiViewComponent {
   adjustArgsWidth(index: number) {
     this.cdr.detectChanges();
 
+    if (!this.rowArgsInputs.toArray().length) return;
+    if (!this.rowArgsSpans.toArray().length) return;
+
     const inputElement = this.rowArgsInputs.toArray()[index].nativeElement;
     const spanElement = this.rowArgsSpans.toArray()[index].nativeElement;
     const width = spanElement.offsetWidth === 0 ? 60 : spanElement.offsetWidth + 1;
@@ -121,12 +133,51 @@ export class ApiViewComponent {
     inputElement.style.width = `${width}px`;  
   }
 
+  adjustCommentWidth(index: number) {
+    this.cdr.detectChanges();
+
+    if (!this.rowCommentInputs.toArray().length) return;
+    if (!this.rowCommentSpans.toArray().length) return;
+
+    const inputElement = this.rowCommentInputs.toArray()[index].nativeElement;
+    const spanElement = this.rowCommentSpans.toArray()[index].nativeElement;
+    const width = spanElement.offsetWidth === 0 ? 70 : spanElement.offsetWidth + 1;
+
+    inputElement.style.width = `${width}px`;  
+  }
+
+  findInputVariableArgsIndex(_id: string) {
+    if (!this.workflow) return -1;
+
+    const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
+    let inputIndex = -1;
+
+    this.workflow.rows.filter((row) => row.appId && row.appId !== commentApp._id).forEach((_, index) => {
+      if (_._id === _id) inputIndex = index;
+    });
+
+    return inputIndex;
+  }
+
+  findInputCommentIndex(_id: string) {
+    if (!this.workflow) return -1;
+
+    const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
+    let inputIndex = -1;
+
+    this.workflow.rows.filter((row) => row.appId && row.appId === commentApp._id).forEach((_, index) => {
+      if (_._id === _id) inputIndex = index;
+    });
+
+    return inputIndex;
+  }
+
   addRow(app?: App) {
     if (!this.workflow) return;
 
     const selectedRow = this.workflow.rows.findIndex((row) => row._id === this.selectedRowId);
     const index = selectedRow >= 0 ? selectedRow + 1 : this.workflow.rows.length;
-    const newApp = { _id: new ObjectId().toHexString(), appId: '', variable: '', args: '' };
+    const newApp = { _id: new ObjectId().toHexString(), appId: '', variable: '', args: '', comment: '' };
 
     if (app) newApp.appId = app._id;
 

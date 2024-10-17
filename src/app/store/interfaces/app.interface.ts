@@ -20,6 +20,7 @@ export interface WorkflowRow {
     appId: string;
     variable: string;
     args: string;
+    comment: string;
 }
 
 export interface App {

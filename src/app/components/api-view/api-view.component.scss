@@ -277,6 +277,52 @@
     outline: none;
 }
 
+.api-view-editor-row-comment-prefix {
+    display: flex;
+    flex-direction: row;
+
+    padding: 2px 0;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.api-view-editor-row-comment-prefix p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-600;
+
+    height: 15px;
+
+    padding: 0;
+    margin: 0;
+}
+
+.api-view-editor-row-comment {
+    display: flex;
+    flex-direction: row;
+
+    padding: 2px 0;
+}
+
+.api-view-editor-row-comment input {
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-600;
+
+    width: 70px;
+    height: 15px;
+
+    padding: 0;
+    margin: 0;
+
+    background-color: $surface-mixed-100;
+    border: none;
+}
+
+.api-view-editor-row-comment input:focus-visible {
+    outline: none;
+}
+
 .api-view-editor-row-equals {
     display: flex;
     flex-direction: row;
