@@ -1,6 +1,6 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
-import { App, AppStateInit, Project, User, View, Workflow } from '../../store/interfaces/app.interface';
+import { App, AppStateInit, Project, User, View, Workflow, WorkflowRow } from '../../store/interfaces/app.interface';
 import { selectApps, selectMainProject, selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
@@ -170,5 +170,12 @@ export class ApiViewComponent {
   close() {
     if (this.view.service === 'Workflows') this.store.dispatch(deselectService({ serviceName: '', serviceId: '' }));
     this.store.dispatch(deselectWindow({ windowName: this.view.window, windowId: this.view.windowId }));
+  }
+
+  isCommentRow(row: WorkflowRow) {
+    const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
+    
+    if (row.appId === commentApp._id) return true;
+    else return false;
   }
 }
