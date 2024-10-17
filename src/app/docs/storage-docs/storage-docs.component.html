@@ -2,50 +2,60 @@
     <div class="app-view-docs-method">
         <p>Storage</p>
         <p>.get(</p>
-        <p>storage</p>
+        <p>param1</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
-        <p>storage:</p>
-        <p>a storage object</p>
+        <p>param1:</p>
+        <p>the name of your storage, e.g. storages.[name].</p>
         <p></p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the storage object</p>
+        <p>the storage object.</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>null if no storage object</p>
+        <p>null if no storage object.</p>
     </div>
 </div>
 <div class="app-view-docs" (click)="selectApp('Storage', 'addDocument')">
     <div class="app-view-docs-method">
         <p>Storage</p>
         <p>.addDocument(</p>
-        <p>storage | object</p>
+        <p>param1 | param2</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
-        <p>storage:</p>
-        <p>a storage object or context variable that returns a storage object</p>
+        <p>param1:</p>
+        <p>the name of your storage, e.g. storages.[name].</p>
         <p></p>
     </div>
     <div class="app-view-docs-args">
-        <p>object:</p>
-        <p>an object function or context variable that returns an object function</p>
+        <p>param1:</p>
+        <p>the name of a context variable that returns a storage object, e.g. context.[variable].</p>
+        <p></p>
+    </div>
+    <div class="app-view-docs-args">
+        <p>param2:</p>
+        <p>the name of an object function, e.g. objects.[name].</p>
+        <p></p>
+    </div>
+    <div class="app-view-docs-args">
+        <p>param2:</p>
+        <p>the name of a context variable that returns an object, e.g. context.[variable].</p>
         <p></p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the inserted document</p>
+        <p>the inserted document.</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>null if the document does not pass the storage schema</p>
+        <p>null if the document does not pass the storage schema.</p>
     </div>
     <div class="app-view-docs-info">
         <p>info:</p>
-        <p>Use this app to add a document into storage.</p>
+        <p>Use this app to add an object (document) into storage.</p>
     </div>
 </div>

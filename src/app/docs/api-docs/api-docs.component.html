@@ -2,95 +2,94 @@
     <div class="app-view-docs-method">
         <p>API</p>
         <p>.params(</p>
-        <p>field?</p>
+        <p>param1</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
-        <p>field:</p>
-        <p>the request.param field as a string</p>
+        <p>param1?:</p>
+        <p>the field to get from the Express request.params object as a string, e.g. string.[field].</p>
         <p></p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the value of the request.params field</p>
+        <p>the value of the request.params field.</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the request.params object if null</p>
+        <p>the entire request.params object if null.</p>
     </div>
 </div>
 <div class="app-view-docs" (click)="selectApp('API', 'body')">
     <div class="app-view-docs-method">
         <p>API</p>
         <p>.body(</p>
-        <p>field?</p>
+        <p>param1</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
-        <p>field:</p>
-        <p>the request.body field as a string</p>
+        <p>param1?:</p>
+        <p>the field to get from the Express request.body object as a string, e.g. string.[field].</p>
         <p></p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the value of the request.body field</p>
+        <p>the value of the request.body field.</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the request.body object if null </p>
+        <p>the entire request.body object if null.</p>
     </div>
 </div>
 <div class="app-view-docs" (click)="selectApp('API', 'status')">
     <div class="app-view-docs-method">
         <p>API</p>
         <p>.status(</p>
-        <p>statusCode</p>
+        <p>param1</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
-        <p>statusCode:</p>
-        <p>the status code as a number</p>
+        <p>param1:</p>
+        <p>the status code as a number, e.g. number.[statusCode].</p>
         <p></p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the status code</p>
+        <p>the status code as a number.</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>null if the argument is not a valid status code</p>
+        <p>null if the number is not a valid status code.</p>
     </div>
     <div class="app-view-docs-info">
         <p>info:</p>
-        <p>This app sets the request.statusCode property. Request.statusCode will not be set if the argument is not a number.</p>
+        <p>This app sets the Express request.statusCode property. The request.statusCode property will not be set if the parameter is not a valid status code.</p>
     </div>
 </div>
 <div class="app-view-docs" (click)="selectApp('API', 'send')">
     <div class="app-view-docs-method">
         <p>API</p>
         <p>.send(</p>
-        <p>responseValue?</p>
-        <p>)</p>
-    </div>
-    <div class="app-view-docs-method">
-        <p>API</p>
-        <p>.send(</p>
-        <p>responseBody?</p>
+        <p>param1</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
-        <p>responseValue:</p>
-        <p>a string or boolean</p>
+        <p>param1:</p>
+        <p>a string or boolean, e.g. string.[value] or boolean.[value].</p>
         <p></p>
     </div>
     <div class="app-view-docs-args">
-        <p>responseBody:</p>
-        <p>an object function or context variable that returns an object function</p>
+        <p>param1:</p>
+        <p>the name of an object function, e.g. objects.[name].</p>
+        <p></p>
+    </div>
+    <div class="app-view-docs-args">
+        <p>param1:</p>
+        <p>the name of a context variable that returns an object, e.g. context.[variable].</p>
         <p></p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the responseValue or responseBody</p>
+        <p>the Express response body as message:value (if a string or boolean), or the entire object if an object.</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
@@ -98,6 +97,6 @@
     </div>
     <div class="app-view-docs-info">
         <p>info:</p>
-        <p>This app ends the request workflow. The responseValue is set in a standard JSON response body (message: value), and the responseBody is set as the response body. Any rows after API.send() are not processed.</p>
+        <p>This app ends the request workflow. Any rows after API.send() are not processed.</p>
     </div>
 </div>

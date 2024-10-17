@@ -2,46 +2,51 @@
     <div class="app-view-docs-method">
         <p>Object</p>
         <p>.get(</p>
-        <p>object</p>
+        <p>param1</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
-        <p>object:</p>
-        <p>an object function</p>
+        <p>param1:</p>
+        <p>the name of an object function, e.g. objects.[name].</p>
         <p></p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the object function return value</p>
+        <p>the object that is the result of running the object function.</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>null if no object or if there is an error calling the object function</p>
+        <p>null if no object or if there is an error calling the object function.</p>
     </div>
 </div>
 <div class="app-view-docs" (click)="selectApp('Object', 'getField')">
     <div class="app-view-docs-method">
         <p>Object</p>
         <p>.getField(</p>
-        <p>object | field</p>
+        <p>param1 | param2</p>
         <p>)</p>
     </div>
     <div class="app-view-docs-args">
-        <p>object:</p>
-        <p>an object function or context variable that returns an object function</p>
+        <p>param1:</p>
+        <p>the name of an object function, e.g. objects.[name].</p>
         <p></p>
     </div>
     <div class="app-view-docs-args">
-        <p>field:</p>
-        <p>the object field as a string</p>
+        <p>param1:</p>
+        <p>the name of a context variable that returns an object, e.g. context.[variable].</p>
+        <p></p>
+    </div>
+    <div class="app-view-docs-args">
+        <p>param2:</p>
+        <p>the field to get from the object as a string, e.g. string.[field].</p>
         <p></p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>the object field value</p>
+        <p>the value of the field.</p>
     </div>
     <div class="app-view-docs-returns">
         <p>returns:</p>
-        <p>null if no object, no value or if there is an error calling the object function</p>
+        <p>null if no object, if no value or if there is an error calling the object function.</p>
     </div>
 </div>
