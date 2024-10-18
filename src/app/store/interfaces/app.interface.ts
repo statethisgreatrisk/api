@@ -28,6 +28,7 @@ export interface App {
     userId: string;
     date: string;
     active: boolean;
+    hidden: boolean;
     name: string;
     method: string;
 }

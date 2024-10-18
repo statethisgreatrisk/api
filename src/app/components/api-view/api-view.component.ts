@@ -95,9 +95,11 @@ export class ApiViewComponent {
   adjustAllInputs() {
     if (!this.workflow || !this.workflow.rows) return;
 
+    const ifApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'if')![0];
+    const ifCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifclose')![0];
     const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
 
-    this.workflow.rows.filter((row) => row.appId && row.appId !== commentApp._id).forEach((_, index) => {
+    this.workflow.rows.filter((row) => row.appId && row.appId !== ifApp._id && row.appId !== ifCloseApp._id && row.appId !== commentApp._id).forEach((_, index) => {
       this.adjustVariableWidth(index);
       this.adjustArgsWidth(index);
     });
@@ -149,10 +151,13 @@ export class ApiViewComponent {
   findInputVariableArgsIndex(_id: string) {
     if (!this.workflow) return -1;
 
+    const ifApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'if')![0];
+    const ifCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifclose')![0];
     const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
+
     let inputIndex = -1;
 
-    this.workflow.rows.filter((row) => row.appId && row.appId !== commentApp._id).forEach((_, index) => {
+    this.workflow.rows.filter((row) => row.appId && row.appId !== ifApp._id && row.appId !== ifCloseApp._id && row.appId !== commentApp._id).forEach((_, index) => {
       if (_._id === _id) inputIndex = index;
     });
 
@@ -163,6 +168,7 @@ export class ApiViewComponent {
     if (!this.workflow) return -1;
 
     const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
+
     let inputIndex = -1;
 
     this.workflow.rows.filter((row) => row.appId && row.appId === commentApp._id).forEach((_, index) => {
@@ -228,5 +234,16 @@ export class ApiViewComponent {
     
     if (row.appId === commentApp._id) return true;
     else return false;
+  }
+
+  rowType(row: WorkflowRow) {
+    const ifApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'if')![0];
+    const ifCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifclose')![0];
+    const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
+
+    if (row.appId === ifApp._id) return 'if';
+    else if (row.appId === ifCloseApp._id) return 'ifelse';
+    else if (row.appId === commentApp._id) return 'comment';
+    else return 'app';
   }
 }

@@ -21,7 +21,7 @@
             <div class="api-view-editor" *ngIf="workflow">
                 <div class="api-view-editor-row" *ngFor="let row of workflow.rows; index as index" (click)="selectRow(row._id)">
                     <!-- App Row -->
-                    <ng-content *ngIf="row.appId && !isCommentRow(row)">
+                    <ng-content *ngIf="row.appId && rowType(row) === 'app'">
                         <div class="api-view-editor-row-prefix">
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                         </div>
@@ -52,7 +52,7 @@
                         </div>
                     </ng-content>
                     <!-- Comment Row -->
-                    <ng-content *ngIf="row.appId && isCommentRow(row)">
+                    <ng-content *ngIf="row.appId && rowType(row) === 'comment'">
                         <div class="api-view-editor-row-prefix">
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                         </div>
@@ -61,6 +61,35 @@
                         </div>
                         <div class="api-view-editor-row-comment">
                             <input #rowCommentInputs type="text" placeholder="Comment" [(ngModel)]="row.comment" (input)="adjustCommentWidth(findInputCommentIndex(row._id))">
+                        </div>
+                        <div class="api-view-editor-row-spacer"></div>
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row._id)">
+                            <img src="/x.png">
+                        </div>
+                    </ng-content>
+                    <!-- If Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'if'">
+                        <div class="api-view-editor-row-prefix">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
+                        </div>
+                        <div class="api-view-editor-row-if">
+                            <p>if (</p>
+                        </div>
+                        <div class="api-view-editor-row-if-close">
+                            <p>) &#123;</p>
+                        </div>
+                        <div class="api-view-editor-row-spacer"></div>
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row._id)">
+                            <img src="/x.png">
+                        </div>
+                    </ng-content>
+                    <!-- If Else Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'ifelse'">
+                        <div class="api-view-editor-row-prefix">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
+                        </div>
+                        <div class="api-view-editor-row-if-close">
+                            <p>&#125;</p>
                         </div>
                         <div class="api-view-editor-row-spacer"></div>
                         <div class="api-view-editor-row-remove" (click)="removeRow(row._id)">
@@ -83,13 +112,19 @@
         <div class="api-view-hidden" *ngIf="workflow">
             <div class="api-view-hidden-rows" *ngFor="let row of workflow.rows;">
                 <!-- App Row -->
-                <ng-content *ngIf="row.appId && !isCommentRow(row)">
+                <ng-content *ngIf="row.appId && rowType(row) === 'app'">
                     <span #rowVariableSpans>{{ row.variable }}</span>
                     <span #rowArgsSpans>{{ row.args }}</span>
                 </ng-content>
                 <!-- Comment Row -->
-                <ng-content *ngIf="row.appId && isCommentRow(row)">
+                <ng-content *ngIf="row.appId && rowType(row) === 'comment'">
                     <span #rowCommentSpans>{{ row.comment }}</span>
+                </ng-content>
+                <!-- If Row -->
+                 <ng-content *ngIf="row.appId && rowType(row) === 'if'">
+                 </ng-content>
+                 <!-- If Else Row -->
+                 <ng-content *ngIf="row.appId && rowType(row) === 'ifelse'">
                 </ng-content>
                 <!-- Blank Row -->
                 <ng-content *ngIf="!row.appId">
