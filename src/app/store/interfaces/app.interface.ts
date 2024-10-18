@@ -18,9 +18,11 @@ export interface User {
 export interface WorkflowRow {
     _id: string;
     appId: string;
+    pairId: string;
     variable: string;
     args: string;
     comment: string;
+    indents: number;
 }
 
 export interface App {
