@@ -37,7 +37,7 @@ export class AppViewComponent {
   initApps() {
     this.store.select(selectApps).subscribe((apps) => {
       const mutableApps = [...apps];
-      this.apps = mutableApps.filter((app) => app.method !== 'ifclose').sort((a, b) => (a.name + a.method).localeCompare(b.name + b.method));
+      this.apps = mutableApps.filter((app) => !app.hidden).sort((a, b) => (a.name + a.method).localeCompare(b.name + b.method));
     });
   }
 

@@ -22,7 +22,7 @@
                 <div class="api-view-editor-row" *ngFor="let row of workflow.rows; index as index" (click)="selectRow(row._id)">
                     <!-- App Row -->
                     <ng-content *ngIf="row.appId && rowType(row) === 'app'">
-                        <div class="api-view-editor-row-prefix">
+                        <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                         </div>
                         <div class="api-view-editor-row-app">
@@ -47,13 +47,13 @@
                         <div class="api-view-editworkflowsor-row-detail">
                             <p></p>
                         </div>
-                        <div class="api-view-editor-row-remove" (click)="removeRow(row._id)">
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row)">
                             <img src="/x.png">
                         </div>
                     </ng-content>
                     <!-- Comment Row -->
                     <ng-content *ngIf="row.appId && rowType(row) === 'comment'">
-                        <div class="api-view-editor-row-prefix">
+                        <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                         </div>
                         <div class="api-view-editor-row-comment-prefix">
@@ -63,13 +63,13 @@
                             <input #rowCommentInputs type="text" placeholder="Comment" [(ngModel)]="row.comment" (input)="adjustCommentWidth(findInputCommentIndex(row._id))">
                         </div>
                         <div class="api-view-editor-row-spacer"></div>
-                        <div class="api-view-editor-row-remove" (click)="removeRow(row._id)">
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row)">
                             <img src="/x.png">
                         </div>
                     </ng-content>
                     <!-- If Row -->
                     <ng-content *ngIf="row.appId && rowType(row) === 'if'">
-                        <div class="api-view-editor-row-prefix">
+                        <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                         </div>
                         <div class="api-view-editor-row-if">
@@ -79,30 +79,30 @@
                             <p>) &#123;</p>
                         </div>
                         <div class="api-view-editor-row-spacer"></div>
-                        <div class="api-view-editor-row-remove" (click)="removeRow(row._id)">
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row)">
                             <img src="/x.png">
                         </div>
                     </ng-content>
-                    <!-- If Else Row -->
-                    <ng-content *ngIf="row.appId && rowType(row) === 'ifelse'">
-                        <div class="api-view-editor-row-prefix">
+                    <!-- If Close Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'ifClose'">
+                        <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                         </div>
                         <div class="api-view-editor-row-if-close">
                             <p>&#125;</p>
                         </div>
                         <div class="api-view-editor-row-spacer"></div>
-                        <div class="api-view-editor-row-remove" (click)="removeRow(row._id)">
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row)">
                             <img src="/x.png">
                         </div>
                     </ng-content>
                     <!-- Blank Row -->
                     <ng-content *ngIf="!row.appId">
-                        <div class="api-view-editor-row-prefix">
+                        <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                         </div>
                         <div class="api-view-editor-row-spacer"></div>
-                        <div class="api-view-editor-row-remove" (click)="removeRow(row._id)">
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row)">
                             <img src="/x.png">
                         </div>
                     </ng-content>
@@ -123,8 +123,8 @@
                 <!-- If Row -->
                  <ng-content *ngIf="row.appId && rowType(row) === 'if'">
                  </ng-content>
-                 <!-- If Else Row -->
-                 <ng-content *ngIf="row.appId && rowType(row) === 'ifelse'">
+                 <!-- If Close Row -->
+                 <ng-content *ngIf="row.appId && rowType(row) === 'ifClose'">
                 </ng-content>
                 <!-- Blank Row -->
                 <ng-content *ngIf="!row.appId">

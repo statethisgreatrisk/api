@@ -8,6 +8,10 @@ import ObjectId from 'bson-objectid';
 import { deselectService, deselectWindow, updateWorkflow } from '../../store/actions/app.action';
 import { FormsModule } from '@angular/forms';
 import { SelectAppService } from '../../services/select-app.service';
+import { each, isEqual, times } from 'lodash';
+
+type indentPairIds = string[];
+type indentIds = indentPairIds[];
 
 @Component({
   selector: 'app-api-view',
@@ -23,6 +27,9 @@ export class ApiViewComponent {
   project: Project | null = null;
 
   apps: App[] = [];
+
+  // [ [['', ''], ['', '']] , [['', ''], ['', '']] ]
+  indentIds: indentIds[] = [];
 
   sub: Subscription | null = null;
   selectAppSub: Subscription | null = null;
@@ -78,6 +85,29 @@ export class ApiViewComponent {
           let mutableRow = { ...row };
           return mutableRow;
         });
+
+        this.indentIds = [];
+        const pairs: any = {};
+
+        if (this.workflow && this.workflow.rows) {
+          this.workflow.rows.forEach((row) => {
+            if (row.pairId) {
+              if (!pairs[row.pairId]) pairs[row.pairId] = [row._id];
+              else pairs[row.pairId].push(row._id);
+            }
+          });
+
+          each(pairs, (pair) => {
+            const row = this.workflow!.rows.find((row) => row._id === pair[0]);
+            const indent = row!.indents;
+
+            if (this.indentIds[indent] !== undefined) {
+              this.indentIds[indent].push(pair);
+            } else {
+              this.indentIds[indent] = [pair];
+            }
+          });
+        }
         
         this.adjustAllInputs();
       }
@@ -96,7 +126,7 @@ export class ApiViewComponent {
     if (!this.workflow || !this.workflow.rows) return;
 
     const ifApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'if')![0];
-    const ifCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifclose')![0];
+    const ifCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifClose')![0];
     const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
 
     this.workflow.rows.filter((row) => row.appId && row.appId !== ifApp._id && row.appId !== ifCloseApp._id && row.appId !== commentApp._id).forEach((_, index) => {
@@ -152,7 +182,7 @@ export class ApiViewComponent {
     if (!this.workflow) return -1;
 
     const ifApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'if')![0];
-    const ifCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifclose')![0];
+    const ifCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifClose')![0];
     const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
 
     let inputIndex = -1;
@@ -181,20 +211,128 @@ export class ApiViewComponent {
   addRow(app?: App) {
     if (!this.workflow) return;
 
+    const ifApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'if')![0];
+    const ifCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifClose')![0];
+
+    const ifElseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElse')![0];
+    const ifElseMiddleApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseMiddle')![0];
+    const ifElseCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseClose')![0];
+
     const selectedRow = this.workflow.rows.findIndex((row) => row._id === this.selectedRowId);
     const index = selectedRow >= 0 ? selectedRow + 1 : this.workflow.rows.length;
-    const newApp = { _id: new ObjectId().toHexString(), appId: '', variable: '', args: '', comment: '' };
 
-    if (app) newApp.appId = app._id;
+    let indents = 0;
+    
+    each(this.indentIds, (indentArray, indentIndex) => {
+      each(indentArray, ([pair1, pair2]) => {
+        const pair1Index = this.workflow!.rows.findIndex((row) => row._id === pair1);
+        const pair2Index = this.workflow!.rows.findIndex((row) => row._id === pair2);
 
-    this.workflow.rows.splice(index, 0, newApp);
-    this.selectRow(newApp._id);
+        if (selectedRow >= pair1Index && selectedRow < pair2Index) {
+          indents = indentIndex + 1;
+        }
+      });
+    });
+
+    if (app?._id === ifApp._id) {
+      const ifOpenId = new ObjectId().toHexString();
+      const ifCloseId = new ObjectId().toHexString();
+      const pairId = new ObjectId().toHexString();
+
+      const ifOpen = { _id: ifOpenId, appId: ifApp._id, pairId: pairId, variable: '', args: '', comment: '', indents };
+      const ifClose = { _id: ifCloseId, appId: ifCloseApp._id, pairId: pairId, variable: '', args: '', comment: '', indents };
+
+      const pairIds = [ifOpenId, ifCloseId];
+
+      if (this.indentIds[indents] !== undefined) {
+        this.indentIds[indents].push(pairIds);
+      } else {
+        this.indentIds[indents] = [pairIds];
+      }
+      
+      this.workflow.rows.splice(index, 0, ifOpen);
+      this.workflow.rows.splice(index + 1, 0, ifClose);
+
+      this.selectRow(ifOpen._id);
+    } else if (app?._id === ifElseApp._id) {
+      const ifElseId = new ObjectId().toHexString();
+      const ifElseMiddleId = new ObjectId().toHexString();
+      const ifElseCloseId = new ObjectId().toHexString();
+      const pairId = new ObjectId().toHexString();
+
+      const ifElse = { _id: ifElseId, appId: ifElseApp._id, pairId: pairId, variable: '', args: '', comment: '', indents };
+      const ifElseMiddle = { _id: ifElseMiddleId, appId: ifElseMiddleApp._id, pairId: pairId, variable: '', args: '', comment: '', indents };
+      const ifElseClose = { _id: ifElseCloseId, appId: ifElseCloseApp._id, pairId: pairId, variable: '', args: '', comment: '', indents };
+
+      const pairIds = [ifElseId, ifElseMiddleId, ifElseCloseId];
+
+      if (this.indentIds[indents] !== undefined) {
+        this.indentIds[indents].push(pairIds);
+      } else {
+        this.indentIds[indents] = [pairIds];
+      }
+
+      this.workflow.rows.splice(index, 0, ifElse);
+      this.workflow.rows.splice(index + 1, 0, ifElseMiddle);
+      this.workflow.rows.splice(index + 2, 0, ifElseClose);
+
+      this.selectRow(ifElse._id);
+    } else if (app) {
+      const newApp = { _id: new ObjectId().toHexString(), appId: app._id, variable: '', args: '', comment: '', pairId: '', indents };
+      this.workflow.rows.splice(index, 0, newApp);
+      this.selectRow(newApp._id);
+    } else {
+      const blankApp = { _id: new ObjectId().toHexString(), appId: '', variable: '', args: '', comment: '', pairId: '', indents: 0 };
+      this.workflow.rows.splice(index, 0, blankApp);
+      this.selectRow(blankApp._id);
+    }
   }
 
-  removeRow(_id: string) {
+  removeRow(row: WorkflowRow) {
     if (!this.workflow) return;
 
-    this.workflow.rows = this.workflow.rows.filter((row) => row._id !== _id);
+    let pairIds: string[] = [];
+
+    this.indentIds.forEach((indentIds) => {
+      indentIds.forEach((indentPairs) => {
+        const foundId = indentPairs.find((id) => id === row._id);
+        if (foundId) pairIds = indentPairs;
+      });
+    });
+
+    if (!pairIds.length) {
+      this.workflow.rows = this.workflow.rows.filter((existingRow) => existingRow._id !== row._id);
+    } else {
+      // Reduce inner block indents
+      times(pairIds.length - 1, (index) => {
+        const openIndex = this.workflow!.rows.findIndex((existingRow) => existingRow._id === pairIds[index])!;
+        const closeIndex = this.workflow!.rows.findIndex((existingRow) => existingRow._id === pairIds[index + 1])!;
+
+        this.workflow!.rows = this.workflow!.rows.map((existingRow, index) => {
+          if (index > openIndex && index < closeIndex) {
+            existingRow.indents = existingRow.indents - 1;
+          }
+          return existingRow;
+        });
+      });
+      // Delete pair rows
+      this.workflow.rows = this.workflow.rows.filter((existingRow) => {
+        return !pairIds.includes(existingRow._id);
+      });
+      // Delete indent ids
+      this.indentIds = this.indentIds.map((indentIds) => {
+        let filtered = indentIds.filter((indentPairs) => {
+          return !isEqual(indentPairs, pairIds);
+        });
+
+        return filtered;
+      });
+      // Delete empty elements
+      const emptyIndex = this.indentIds.findIndex((indentIds) => !indentIds.length);
+      if (emptyIndex >= 0) {
+        this.indentIds.splice(emptyIndex, 1);
+      }
+    }
   }
 
   selectRow(_id: string) {
@@ -238,11 +376,12 @@ export class ApiViewComponent {
 
   rowType(row: WorkflowRow) {
     const ifApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'if')![0];
-    const ifCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifclose')![0];
+    const ifCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifClose')![0];
+
     const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
 
     if (row.appId === ifApp._id) return 'if';
-    else if (row.appId === ifCloseApp._id) return 'ifelse';
+    else if (row.appId === ifCloseApp._id) return 'ifClose';
     else if (row.appId === commentApp._id) return 'comment';
     else return 'app';
   }
