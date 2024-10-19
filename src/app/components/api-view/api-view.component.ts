@@ -127,9 +127,14 @@ export class ApiViewComponent {
 
     const ifApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'if')![0];
     const ifCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifClose')![0];
+
+    const ifElseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElse')![0];
+    const ifElseMiddleApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseMiddle')![0];
+    const ifElseCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseClose')![0];
+
     const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
 
-    this.workflow.rows.filter((row) => row.appId && row.appId !== ifApp._id && row.appId !== ifCloseApp._id && row.appId !== commentApp._id).forEach((_, index) => {
+    this.workflow.rows.filter((row) => row.appId && row.appId !== ifApp._id && row.appId !== ifCloseApp._id && row.appId !== ifElseApp._id && row.appId !== ifElseMiddleApp._id && row.appId !== ifElseCloseApp._id && row.appId !== commentApp._id).forEach((_, index) => {
       this.adjustVariableWidth(index);
       this.adjustArgsWidth(index);
     });
@@ -183,11 +188,16 @@ export class ApiViewComponent {
 
     const ifApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'if')![0];
     const ifCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifClose')![0];
+
+    const ifElseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElse')![0];
+    const ifElseMiddleApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseMiddle')![0];
+    const ifElseCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseClose')![0];
+
     const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
 
     let inputIndex = -1;
 
-    this.workflow.rows.filter((row) => row.appId && row.appId !== ifApp._id && row.appId !== ifCloseApp._id && row.appId !== commentApp._id).forEach((_, index) => {
+    this.workflow.rows.filter((row) => row.appId && row.appId !== ifApp._id && row.appId !== ifCloseApp._id && row.appId !== ifElseApp._id && row.appId !== ifElseMiddleApp._id && row.appId !== ifElseCloseApp._id && row.appId !== commentApp._id).forEach((_, index) => {
       if (_._id === _id) inputIndex = index;
     });
 
@@ -224,13 +234,15 @@ export class ApiViewComponent {
     let indents = 0;
     
     each(this.indentIds, (indentArray, indentIndex) => {
-      each(indentArray, ([pair1, pair2]) => {
-        const pair1Index = this.workflow!.rows.findIndex((row) => row._id === pair1);
-        const pair2Index = this.workflow!.rows.findIndex((row) => row._id === pair2);
-
-        if (selectedRow >= pair1Index && selectedRow < pair2Index) {
-          indents = indentIndex + 1;
-        }
+      each(indentArray, (indentPairs) => {
+        times(indentPairs.length - 1, (index) => {
+          const openIndex = this.workflow!.rows.findIndex((existingRow) => existingRow._id === indentPairs[index])!;
+          const closeIndex = this.workflow!.rows.findIndex((existingRow) => existingRow._id === indentPairs[index + 1])!;
+  
+          if (selectedRow >= openIndex && selectedRow < closeIndex) {
+            indents = indentIndex + 1;
+          }
+        });
       });
     });
 
@@ -378,10 +390,17 @@ export class ApiViewComponent {
     const ifApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'if')![0];
     const ifCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifClose')![0];
 
+    const ifElseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElse')![0];
+    const ifElseMiddleApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseMiddle')![0];
+    const ifElseCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseClose')![0];
+
     const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
 
     if (row.appId === ifApp._id) return 'if';
     else if (row.appId === ifCloseApp._id) return 'ifClose';
+    else if (row.appId === ifElseApp._id) return 'ifElse';
+    else if (row.appId === ifElseMiddleApp._id) return 'ifElseMiddle';
+    else if (row.appId === ifElseCloseApp._id) return 'ifElseClose';
     else if (row.appId === commentApp._id) return 'comment';
     else return 'app';
   }

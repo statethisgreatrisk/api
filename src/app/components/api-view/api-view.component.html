@@ -75,7 +75,7 @@
                         <div class="api-view-editor-row-if">
                             <p>if (</p>
                         </div>
-                        <div class="api-view-editor-row-if-close">
+                        <div class="api-view-editor-row-if-end">
                             <p>) &#123;</p>
                         </div>
                         <div class="api-view-editor-row-spacer"></div>
@@ -89,6 +89,48 @@
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                         </div>
                         <div class="api-view-editor-row-if-close">
+                            <p>&#125;</p>
+                        </div>
+                        <div class="api-view-editor-row-spacer"></div>
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row)">
+                            <img src="/x.png">
+                        </div>
+                    </ng-content>
+                    <!-- If Else Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'ifElse'">
+                        <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
+                        </div>
+                        <div class="api-view-editor-row-if-else">
+                            <p>if (</p>
+                        </div>
+                        <div class="api-view-editor-row-if-else-end">
+                            <p>) &#123;</p>
+                        </div>
+                        <div class="api-view-editor-row-spacer"></div>
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row)">
+                            <img src="/x.png">
+                        </div>
+                    </ng-content>
+                    <!-- If Else Middle Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'ifElseMiddle'">
+                        <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
+                        </div>
+                        <div class="api-view-editor-row-if-else">
+                            <p>&#125; else &#123;</p>
+                        </div>
+                        <div class="api-view-editor-row-spacer"></div>
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row)">
+                            <img src="/x.png">
+                        </div>
+                    </ng-content>
+                    <!-- If Else Close Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'ifElseClose'">
+                        <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
+                        </div>
+                        <div class="api-view-editor-row-if-else-close">
                             <p>&#125;</p>
                         </div>
                         <div class="api-view-editor-row-spacer"></div>
@@ -121,10 +163,19 @@
                     <span #rowCommentSpans>{{ row.comment }}</span>
                 </ng-content>
                 <!-- If Row -->
-                 <ng-content *ngIf="row.appId && rowType(row) === 'if'">
-                 </ng-content>
-                 <!-- If Close Row -->
-                 <ng-content *ngIf="row.appId && rowType(row) === 'ifClose'">
+                <ng-content *ngIf="row.appId && rowType(row) === 'if'">
+                </ng-content>
+                <!-- If Close Row -->
+                <ng-content *ngIf="row.appId && rowType(row) === 'ifClose'">
+                </ng-content>
+                <!-- If Else Row -->
+                <ng-content *ngIf="row.appId && rowType(row) === 'ifElse'">
+                </ng-content>
+                <!-- If Else Middle Row -->
+                <ng-content *ngIf="row.appId && rowType(row) === 'ifElseMiddle'">
+                </ng-content>
+                <!-- If Else Close Row -->
+                <ng-content *ngIf="row.appId && rowType(row) === 'ifElseClose'">
                 </ng-content>
                 <!-- Blank Row -->
                 <ng-content *ngIf="!row.appId">
