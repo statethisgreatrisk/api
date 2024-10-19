@@ -21,6 +21,8 @@ export interface WorkflowRow {
     pairId: string;
     variable: string;
     args: string;
+    key: string;
+    conditionals: string;
     comment: string;
     indents: number;
 }
