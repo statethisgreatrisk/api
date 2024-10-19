@@ -75,6 +75,9 @@
                         <div class="api-view-editor-row-if">
                             <p>if (</p>
                         </div>
+                        <div class="api-view-editor-row-if-conditionals">
+                            <input #rowConditionalsInputs type="text" placeholder="conditionals" [(ngModel)]="row.conditionals" (input)="adjustConditionalsWidth(findInputConditionalsIndex(row._id))">
+                        </div>
                         <div class="api-view-editor-row-if-end">
                             <p>) &#123;</p>
                         </div>
@@ -103,6 +106,9 @@
                         </div>
                         <div class="api-view-editor-row-if-else">
                             <p>if (</p>
+                        </div>
+                        <div class="api-view-editor-row-if-conditionals">
+                            <input #rowConditionalsInputs type="text" placeholder="conditionals" [(ngModel)]="row.conditionals" (input)="adjustConditionalsWidth(findInputConditionalsIndex(row._id))">
                         </div>
                         <div class="api-view-editor-row-if-else-end">
                             <p>) &#123;</p>
@@ -146,6 +152,21 @@
                         <div class="api-view-editor-row-forarray">
                             <p>forArray (</p>
                         </div>
+                        <div class="api-view-editor-row-forarray-variable">
+                            <input #rowArrayVariableInputs type="text" placeholder="element" [(ngModel)]="row.variable" (input)="adjustArrayVariableWidth(findArrayVariableArgsKeyIndex(row._id))">
+                        </div>
+                        <div class="api-view-editor-row-forarray-of">
+                            <p>of</p>
+                        </div>
+                        <div class="api-view-editor-row-forarray-args">
+                            <input #rowArrayArgsInputs type="text" placeholder="array" [(ngModel)]="row.args" (input)="adjustArrayArgsWidth(findArrayVariableArgsKeyIndex(row._id))">
+                        </div>
+                        <div class="api-view-editor-row-forarray-separator">
+                            <p>;</p>
+                        </div>
+                        <div class="api-view-editor-row-forarray-key">
+                            <input #rowArrayKeyInputs type="text" placeholder="index" [(ngModel)]="row.key" (input)="adjustArrayKeyWidth(findArrayVariableArgsKeyIndex(row._id))">
+                        </div>
                         <div class="api-view-editor-row-forarray-end">
                             <p>) &#123;</p>
                         </div>
@@ -174,6 +195,21 @@
                         </div>
                         <div class="api-view-editor-row-forobject">
                             <p>forObject (</p>
+                        </div>
+                        <div class="api-view-editor-row-forobject-variable">
+                            <input #rowObjectVariableInputs type="text" placeholder="value" [(ngModel)]="row.variable" (input)="adjustObjectVariableWidth(findObjectVariableArgsKeyIndex(row._id))">
+                        </div>
+                        <div class="api-view-editor-row-forobject-of">
+                            <p>of</p>
+                        </div>
+                        <div class="api-view-editor-row-forobject-args">
+                            <input #rowObjectArgsInputs type="text" placeholder="object" [(ngModel)]="row.args" (input)="adjustObjectArgsWidth(findObjectVariableArgsKeyIndex(row._id))">
+                        </div>
+                        <div class="api-view-editor-row-forobject-separator">
+                            <p>;</p>
+                        </div>
+                        <div class="api-view-editor-row-forobject-key">
+                            <input #rowObjectKeyInputs type="text" placeholder="key" [(ngModel)]="row.key" (input)="adjustObjectKeyWidth(findObjectVariableArgsKeyIndex(row._id))">
                         </div>
                         <div class="api-view-editor-row-forobject-end">
                             <p>) &#123;</p>
@@ -222,12 +258,14 @@
                 </ng-content>
                 <!-- If Row -->
                 <ng-content *ngIf="row.appId && rowType(row) === 'if'">
+                    <span #rowConditionalsSpans>{{ row.conditionals }}</span>
                 </ng-content>
                 <!-- If Close Row -->
                 <ng-content *ngIf="row.appId && rowType(row) === 'ifClose'">
                 </ng-content>
                 <!-- If Else Row -->
                 <ng-content *ngIf="row.appId && rowType(row) === 'ifElse'">
+                    <span #rowConditionalsSpans>{{ row.conditionals }}</span>
                 </ng-content>
                 <!-- If Else Middle Row -->
                 <ng-content *ngIf="row.appId && rowType(row) === 'ifElseMiddle'">
@@ -237,12 +275,18 @@
                 </ng-content>
                 <!-- For Array Row -->
                 <ng-content *ngIf="row.appId && rowType(row) === 'forArray'">
+                    <span #rowArrayVariableSpans>{{ row.variable }}</span>
+                    <span #rowArrayArgsSpans>{{ row.args }}</span>
+                    <span #rowArrayKeySpans>{{ row.key }}</span>
                 </ng-content>
                 <!-- For Array Close Row -->
                 <ng-content *ngIf="row.appId && rowType(row) === 'forArrayClose'">
                 </ng-content>
                 <!-- For Object Row -->
                 <ng-content *ngIf="row.appId && rowType(row) === 'forObject'">
+                    <span #rowObjectVariableSpans>{{ row.variable }}</span>
+                    <span #rowObjectArgsSpans>{{ row.args }}</span>
+                    <span #rowObjectKeySpans>{{ row.key }}</span>
                 </ng-content>
                 <!-- For Object Close Row -->
                 <ng-content *ngIf="row.appId && rowType(row) === 'forObjectClose'">

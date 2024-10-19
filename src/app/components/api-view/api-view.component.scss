@@ -335,7 +335,7 @@
 
     align-items: start;
 
-    padding: 2px 20px 2px 10px;
+    padding: 2px 0 2px 10px;
 }
 
 .api-view-editor-row-if p {
@@ -350,19 +350,19 @@
     width: 100%;
 }
 
-.api-view-editor-row-if-args {
+.api-view-editor-row-if-conditionals {
     display: flex;
     flex-direction: row;
 
     padding: 2px 0;
 }
 
-.api-view-editor-row-if-args input {
+.api-view-editor-row-if-conditionals input {
     font-size: 11px;
     font-weight: 600;
-    color: $surface-mixed-600;
+    color: $light-yellow;
 
-    width: 70px;
+    width: 79px;
     height: 15px;
 
     padding: 0;
@@ -372,7 +372,7 @@
     border: none;
 }
 
-.api-view-editor-row-if-args input:focus-visible {
+.api-view-editor-row-if-conditionals input:focus-visible {
     outline: none;
 }
 
@@ -381,7 +381,6 @@
     flex-direction: row;
 
     padding: 2px 0;
-    margin-left: 10px;
 }
 
 .api-view-editor-row-if-end p {
@@ -412,7 +411,7 @@
 
     align-items: start;
 
-    padding: 2px 20px 2px 10px;
+    padding: 2px 0 2px 10px;
 }
 
 .api-view-editor-row-if-else p {
@@ -427,19 +426,19 @@
     width: 100%;
 }
 
-.api-view-editor-row-if-else-args {
+.api-view-editor-row-if-else-conditionals {
     display: flex;
     flex-direction: row;
 
     padding: 2px 0;
 }
 
-.api-view-editor-row-if-else-args input {
+.api-view-editor-row-if-else-conditionals input {
     font-size: 11px;
     font-weight: 600;
-    color: $surface-mixed-600;
+    color: $light-yellow;
 
-    width: 70px;
+    width: 79px;
     height: 15px;
 
     padding: 0;
@@ -449,7 +448,7 @@
     border: none;
 }
 
-.api-view-editor-row-if-else-args input:focus-visible {
+.api-view-editor-row-if-else-conditionals input:focus-visible {
     outline: none;
 }
 
@@ -458,7 +457,6 @@
     flex-direction: row;
 
     padding: 2px 0;
-    margin-left: 10px;
 }
 
 .api-view-editor-row-if-else-end p {
@@ -489,10 +487,57 @@
 
     align-items: start;
 
-    padding: 2px 20px 2px 10px;
+    padding: 2px 0 2px 10px;
 }
 
 .api-view-editor-row-forarray p {
+    font-size: 11px;
+    font-weight: 600;
+
+    color: $peach;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.api-view-editor-row-forarray-variable {
+    display: flex;
+    flex-direction: row;
+
+    padding: 2px 0;
+}
+
+.api-view-editor-row-forarray-variable input {
+    font-size: 11px;
+    font-weight: 600;
+    color: $light-yellow;
+
+    width: 46px;
+    height: 15px;
+
+    padding: 0;
+    margin: 0;
+
+    background-color: $surface-mixed-100;
+    border: none;
+}
+
+.api-view-editor-row-forarray-variable input:focus-visible {
+    outline: none;
+}
+
+.api-view-editor-row-forarray-of {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    padding: 2px 5px 2px 5px;
+}
+
+.api-view-editor-row-forarray-of p {
     font-size: 11px;
     font-weight: 600;
 
@@ -514,9 +559,9 @@
 .api-view-editor-row-forarray-args input {
     font-size: 11px;
     font-weight: 600;
-    color: $surface-mixed-600;
+    color: $light-yellow;
 
-    width: 70px;
+    width: 34px;
     height: 15px;
 
     padding: 0;
@@ -530,12 +575,58 @@
     outline: none;
 }
 
+.api-view-editor-row-forarray-separator {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    padding: 2px 5px 2px 0;
+}
+
+.api-view-editor-row-forarray-separator p {
+    font-size: 11px;
+    font-weight: 600;
+
+    color: $peach;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.api-view-editor-row-forarray-key {
+    display: flex;
+    flex-direction: row;
+
+    padding: 2px 0;
+}
+
+.api-view-editor-row-forarray-key input {
+    font-size: 11px;
+    font-weight: 600;
+    color: $light-yellow;
+
+    width: 34px;
+    height: 15px;
+
+    padding: 0;
+    margin: 0;
+
+    background-color: $surface-mixed-100;
+    border: none;
+}
+
+.api-view-editor-row-forarray-key input:focus-visible {
+    outline: none;
+}
+
 .api-view-editor-row-forarray-end {
     display: flex;
     flex-direction: row;
 
     padding: 2px 0;
-    margin-left: 10px;
 }
 
 .api-view-editor-row-forarray-end p {
@@ -566,10 +657,57 @@
 
     align-items: start;
 
-    padding: 2px 20px 2px 10px;
+    padding: 2px 0 2px 10px;
 }
 
 .api-view-editor-row-forobject p {
+    font-size: 11px;
+    font-weight: 600;
+
+    color: $peach;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.api-view-editor-row-forobject-variable {
+    display: flex;
+    flex-direction: row;
+
+    padding: 2px 0;
+}
+
+.api-view-editor-row-forobject-variable input {
+    font-size: 11px;
+    font-weight: 600;
+    color: $light-yellow;
+
+    width: 34px;
+    height: 15px;
+
+    padding: 0;
+    margin: 0;
+
+    background-color: $surface-mixed-100;
+    border: none;
+}
+
+.api-view-editor-row-forobject-variable input:focus-visible {
+    outline: none;
+}
+
+.api-view-editor-row-forobject-of {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    padding: 2px 5px 2px 5px;
+}
+
+.api-view-editor-row-forobject-of p {
     font-size: 11px;
     font-weight: 600;
 
@@ -591,9 +729,9 @@
 .api-view-editor-row-forobject-args input {
     font-size: 11px;
     font-weight: 600;
-    color: $surface-mixed-600;
+    color: $light-yellow;
 
-    width: 70px;
+    width: 40px;
     height: 15px;
 
     padding: 0;
@@ -607,12 +745,58 @@
     outline: none;
 }
 
+.api-view-editor-row-forobject-separator {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    padding: 2px 5px 2px 0;
+}
+
+.api-view-editor-row-forobject-separator p {
+    font-size: 11px;
+    font-weight: 600;
+
+    color: $peach;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.api-view-editor-row-forobject-key {
+    display: flex;
+    flex-direction: row;
+
+    padding: 2px 0;
+}
+
+.api-view-editor-row-forobject-key input {
+    font-size: 11px;
+    font-weight: 600;
+    color: $light-yellow;
+
+    width: 20px;
+    height: 15px;
+
+    padding: 0;
+    margin: 0;
+
+    background-color: $surface-mixed-100;
+    border: none;
+}
+
+.api-view-editor-row-forobject-key input:focus-visible {
+    outline: none;
+}
+
 .api-view-editor-row-forobject-end {
     display: flex;
     flex-direction: row;
 
     padding: 2px 0;
-    margin-left: 10px;
 }
 
 .api-view-editor-row-forobject-end p {
