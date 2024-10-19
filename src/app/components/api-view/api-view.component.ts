@@ -132,9 +132,15 @@ export class ApiViewComponent {
     const ifElseMiddleApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseMiddle')![0];
     const ifElseCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseClose')![0];
 
+    const forArrayApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forArray')![0];
+    const forArrayCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forArrayClose')![0];
+
+    const forObjectApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forObject')![0];
+    const forObjectCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forObjectClose')![0];
+
     const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
 
-    this.workflow.rows.filter((row) => row.appId && row.appId !== ifApp._id && row.appId !== ifCloseApp._id && row.appId !== ifElseApp._id && row.appId !== ifElseMiddleApp._id && row.appId !== ifElseCloseApp._id && row.appId !== commentApp._id).forEach((_, index) => {
+    this.workflow.rows.filter((row) => row.appId && row.appId !== ifApp._id && row.appId !== ifCloseApp._id && row.appId !== ifElseApp._id && row.appId !== ifElseMiddleApp._id && row.appId !== ifElseCloseApp._id && row.appId !== forArrayApp._id && row.appId !== forArrayCloseApp._id && row.appId !== forObjectApp._id && row.appId !== forObjectCloseApp._id && row.appId !== commentApp._id).forEach((_, index) => {
       this.adjustVariableWidth(index);
       this.adjustArgsWidth(index);
     });
@@ -193,11 +199,17 @@ export class ApiViewComponent {
     const ifElseMiddleApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseMiddle')![0];
     const ifElseCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseClose')![0];
 
+    const forArrayApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forArray')![0];
+    const forArrayCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forArrayClose')![0];
+
+    const forObjectApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forObject')![0];
+    const forObjectCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forObjectClose')![0];
+
     const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
 
     let inputIndex = -1;
 
-    this.workflow.rows.filter((row) => row.appId && row.appId !== ifApp._id && row.appId !== ifCloseApp._id && row.appId !== ifElseApp._id && row.appId !== ifElseMiddleApp._id && row.appId !== ifElseCloseApp._id && row.appId !== commentApp._id).forEach((_, index) => {
+    this.workflow.rows.filter((row) => row.appId && row.appId !== ifApp._id && row.appId !== ifCloseApp._id && row.appId !== ifElseApp._id && row.appId !== ifElseMiddleApp._id && row.appId !== ifElseCloseApp._id && row.appId !== forArrayApp._id && row.appId !== forArrayCloseApp._id && row.appId !== forObjectApp._id && row.appId !== forObjectCloseApp._id && row.appId !== commentApp._id).forEach((_, index) => {
       if (_._id === _id) inputIndex = index;
     });
 
@@ -227,6 +239,12 @@ export class ApiViewComponent {
     const ifElseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElse')![0];
     const ifElseMiddleApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseMiddle')![0];
     const ifElseCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseClose')![0];
+
+    const forArrayApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forArray')![0];
+    const forArrayCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forArrayClose')![0];
+
+    const forObjectApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forObject')![0];
+    const forObjectCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forObjectClose')![0];
 
     const selectedRow = this.workflow.rows.findIndex((row) => row._id === this.selectedRowId);
     const index = selectedRow >= 0 ? selectedRow + 1 : this.workflow.rows.length;
@@ -289,6 +307,46 @@ export class ApiViewComponent {
       this.workflow.rows.splice(index + 2, 0, ifElseClose);
 
       this.selectRow(ifElse._id);
+    } else if (app?._id === forArrayApp._id) {
+      const forArrayId = new ObjectId().toHexString();
+      const forArrayCloseId = new ObjectId().toHexString();
+      const pairId = new ObjectId().toHexString();
+
+      const forArray = { _id: forArrayId, appId: forArrayApp._id, pairId: pairId, variable: '', args: '', comment: '', indents };
+      const forArrayClose = { _id: forArrayCloseId, appId: forArrayCloseApp._id, pairId: pairId, variable: '', args: '', comment: '', indents };
+
+      const pairIds = [forArrayId, forArrayCloseId];
+
+      if (this.indentIds[indents] !== undefined) {
+        this.indentIds[indents].push(pairIds);
+      } else {
+        this.indentIds[indents] = [pairIds];
+      }
+      
+      this.workflow.rows.splice(index, 0, forArray);
+      this.workflow.rows.splice(index + 1, 0, forArrayClose);
+
+      this.selectRow(forArray._id);
+    } else if (app?._id === forObjectApp._id) {
+      const forObjectId = new ObjectId().toHexString();
+      const forObjectCloseId = new ObjectId().toHexString();
+      const pairId = new ObjectId().toHexString();
+
+      const forObject = { _id: forObjectId, appId: forObjectApp._id, pairId: pairId, variable: '', args: '', comment: '', indents };
+      const forObjectClose = { _id: forObjectCloseId, appId: forObjectCloseApp._id, pairId: pairId, variable: '', args: '', comment: '', indents };
+
+      const pairIds = [forObjectId, forObjectCloseId];
+
+      if (this.indentIds[indents] !== undefined) {
+        this.indentIds[indents].push(pairIds);
+      } else {
+        this.indentIds[indents] = [pairIds];
+      }
+      
+      this.workflow.rows.splice(index, 0, forObject);
+      this.workflow.rows.splice(index + 1, 0, forObjectClose);
+
+      this.selectRow(forObject._id);
     } else if (app) {
       const newApp = { _id: new ObjectId().toHexString(), appId: app._id, variable: '', args: '', comment: '', pairId: '', indents };
       this.workflow.rows.splice(index, 0, newApp);
@@ -394,6 +452,12 @@ export class ApiViewComponent {
     const ifElseMiddleApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseMiddle')![0];
     const ifElseCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'ifElseClose')![0];
 
+    const forArrayApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forArray')![0];
+    const forArrayCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forArrayClose')![0];
+
+    const forObjectApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forObject')![0];
+    const forObjectCloseApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'forObjectClose')![0];
+
     const commentApp = this.apps.filter((app) => app.name === 'Workflow' && app.method === 'comment')![0];
 
     if (row.appId === ifApp._id) return 'if';
@@ -401,6 +465,10 @@ export class ApiViewComponent {
     else if (row.appId === ifElseApp._id) return 'ifElse';
     else if (row.appId === ifElseMiddleApp._id) return 'ifElseMiddle';
     else if (row.appId === ifElseCloseApp._id) return 'ifElseClose';
+    else if (row.appId === forArrayApp._id) return 'forArray';
+    else if (row.appId === forArrayCloseApp._id) return 'forArrayClose';
+    else if (row.appId === forObjectApp._id) return 'forObject';
+    else if (row.appId === forObjectCloseApp._id) return 'forObjectClose';
     else if (row.appId === commentApp._id) return 'comment';
     else return 'app';
   }

@@ -138,6 +138,64 @@
                             <img src="/x.png">
                         </div>
                     </ng-content>
+                    <!-- For Array Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'forArray'">
+                        <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
+                        </div>
+                        <div class="api-view-editor-row-forarray">
+                            <p>forArray (</p>
+                        </div>
+                        <div class="api-view-editor-row-forarray-end">
+                            <p>) &#123;</p>
+                        </div>
+                        <div class="api-view-editor-row-spacer"></div>
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row)">
+                            <img src="/x.png">
+                        </div>
+                    </ng-content>
+                    <!-- For Array Close Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'forArrayClose'">
+                        <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
+                        </div>
+                        <div class="api-view-editor-row-forarray-close">
+                            <p>&#125;</p>
+                        </div>
+                        <div class="api-view-editor-row-spacer"></div>
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row)">
+                            <img src="/x.png">
+                        </div>
+                    </ng-content>
+                    <!-- For Object Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'forObject'">
+                        <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
+                        </div>
+                        <div class="api-view-editor-row-forobject">
+                            <p>forObject (</p>
+                        </div>
+                        <div class="api-view-editor-row-forobject-end">
+                            <p>) &#123;</p>
+                        </div>
+                        <div class="api-view-editor-row-spacer"></div>
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row)">
+                            <img src="/x.png">
+                        </div>
+                    </ng-content>
+                    <!-- For Object Close Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'forObjectClose'">
+                        <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
+                        </div>
+                        <div class="api-view-editor-row-forobject-close">
+                            <p>&#125;</p>
+                        </div>
+                        <div class="api-view-editor-row-spacer"></div>
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row)">
+                            <img src="/x.png">
+                        </div>
+                    </ng-content>
                     <!-- Blank Row -->
                     <ng-content *ngIf="!row.appId">
                         <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
@@ -176,6 +234,18 @@
                 </ng-content>
                 <!-- If Else Close Row -->
                 <ng-content *ngIf="row.appId && rowType(row) === 'ifElseClose'">
+                </ng-content>
+                <!-- For Array Row -->
+                <ng-content *ngIf="row.appId && rowType(row) === 'forArray'">
+                </ng-content>
+                <!-- For Array Close Row -->
+                <ng-content *ngIf="row.appId && rowType(row) === 'forArrayClose'">
+                </ng-content>
+                <!-- For Object Row -->
+                <ng-content *ngIf="row.appId && rowType(row) === 'forObject'">
+                </ng-content>
+                <!-- For Object Close Row -->
+                <ng-content *ngIf="row.appId && rowType(row) === 'forObjectClose'">
                 </ng-content>
                 <!-- Blank Row -->
                 <ng-content *ngIf="!row.appId">
