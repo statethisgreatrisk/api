@@ -22,6 +22,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { ToastService } from './services/toast.service';
 import { Subscription } from 'rxjs';
 import { DocumentEditComponent } from './components/document-edit/document-edit.component';
+import { RowEditComponent } from './components/row-edit/row-edit.component';
 
 @Component({
   selector: 'app-root',
@@ -39,7 +40,8 @@ import { DocumentEditComponent } from './components/document-edit/document-edit.
     AppViewComponent,
     SettingsViewComponent,
     LoginViewComponent,
-    DocumentEditComponent
+    DocumentEditComponent,
+    RowEditComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

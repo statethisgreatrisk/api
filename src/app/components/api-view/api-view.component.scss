@@ -185,8 +185,6 @@
     flex-grow: 1;
 
     overflow: scroll;
-
-    padding-bottom: 500px;
 }
 
 .api-view-editor {
@@ -194,6 +192,8 @@
     flex-direction: column;
 
     flex-grow: 1;
+
+    padding-bottom: 500px;
 }
 
 .api-view-editor-row {

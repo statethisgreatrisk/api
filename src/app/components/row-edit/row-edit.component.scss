@@ -1,0 +1,30 @@
+@import '../../styles/palette.component.scss';
+
+.row-edit-code-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: start;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+
+    height: 300px;
+    min-height: 300px;
+    max-height: 300px;
+
+    background-color: $surface-dark;
+
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.row-edit-code-container::-webkit-scrollbar {
+    display: none;
+}
+
+.row-edit-code-container > :first-child {
+    width: 100%;
+}

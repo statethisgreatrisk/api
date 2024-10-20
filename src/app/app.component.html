@@ -9,7 +9,11 @@
       <app-storage-view></app-storage-view>
       <app-document-edit></app-document-edit>
     </div>
-    <app-api-view *ngIf="view.window === 'Workflows'"></app-api-view>
+
+    <div class="api-view-container" *ngIf="view.window === 'Workflows'">
+      <app-api-view></app-api-view>
+      <app-row-edit></app-row-edit>
+    </div>
     <app-app-view *ngIf="view.window === 'Workflows'"></app-app-view>
 
     <app-toast-view></app-toast-view>
