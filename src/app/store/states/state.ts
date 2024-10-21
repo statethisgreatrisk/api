@@ -11,6 +11,7 @@ export const appState: AppState = {
     workflows: [],
     fns: [],
     objs: [],
+    requests: [],
     documents: [],
 
     instances: [],

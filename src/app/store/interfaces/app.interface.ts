@@ -27,6 +27,28 @@ export interface WorkflowRow {
     indents: number;
 }
 
+export interface RequestParameter {
+    _id: string;
+    active: boolean;
+    key: string;
+    value: string;
+}
+
+export interface RequestHeader {
+    _id: string;
+    active: boolean;
+    key: string;
+    value: string;
+}
+
+export interface RequestBodyForm {
+    _id: string;
+    active: boolean;
+    parameter: string;
+    value: string;
+    file: string;
+}
+
 export interface App {
     _id: string;
     userId: string;
@@ -117,6 +139,30 @@ export interface Obj {
     active: boolean;
     name: string;
     obj: string;
+}
+
+export interface Request {
+    _id: string;
+    userId: string;
+    projectId: string;
+    date: string;
+    active: boolean;
+    name: string;
+    action: 'get' | 'post' | 'put' | 'delete';
+    url: string;
+    parameters: RequestParameter[];
+    headers: RequestHeader[];
+    contentType: 'none' | 'json' | 'form' | 'text';
+    authorizationType: 'none' | 'apiKey' | 'basicAuth' | 'bearer';
+    apiKeyPassBy: 'headers' | 'queryParameters';
+    bodyJson: string;
+    bodyText: string;
+    bodyForm: RequestBodyForm[];
+    apiKeyKey: string;
+    apiKeyValue: string;
+    basicAuthUsername: string;
+    basicAuthPassword: string;
+    bearerToken: string;
 }
 
 export interface Document {
@@ -253,6 +299,7 @@ export interface AppState {
     workflows: Workflow[];
     fns: Fn[];
     objs: Obj[];
+    requests: Request[];
     documents: Document[];
 
     instances: Instance[];

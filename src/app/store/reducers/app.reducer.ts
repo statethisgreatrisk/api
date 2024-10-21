@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request } from "../interfaces/app.interface";
 
 // User
 
@@ -231,6 +231,34 @@ export const removeObjFn: (state: AppState, objId: string) => AppState = (state:
     return { ...state, objs: state.objs.filter((obj) => obj._id !== objId) };
 }
 
+// Request
+
+export const addRequestsFn: (state: AppState, requests: Request[]) => AppState = (state: AppState, requests: Request[]) => {
+    if (!requests) return { ...state };
+    return { ...state, requests: requests };
+}
+
+export const addRequestFn: (state: AppState, request: Request) => AppState = (state: AppState, request: Request) => {
+    if (!request) return { ...state };
+    return { ...state, requests: state.requests.concat([request]) };
+}
+
+export const replaceRequestFn: (state: AppState, request: Request) => AppState = (state: AppState, request: Request) => {
+    if (!request) return { ...state };
+
+    const requests = state.requests.map((existingRequest) => {
+        if (existingRequest._id !== request._id) return existingRequest;
+        return request;
+    });
+
+    return { ...state, requests: requests };
+}
+
+export const removeRequestFn: (state: AppState, requestId: string) => AppState = (state: AppState, requestId: string) => {
+    if (!requestId) return { ...state };
+    return { ...state, requests: state.requests.filter((request) => request._id !== requestId) };
+}
+
 // Document
 
 export const addDocumentsFn: (state: AppState, documents: Document[]) => AppState = (state: AppState, documents: Document[]) => {
@@ -459,6 +487,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         workflows: [],
         fns: [],
         objs: [],
+        requests: [],
         documents: [],
 
         instances: [],
@@ -489,6 +518,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         workflows: [],
         fns: [],
         objs: [],
+        requests: [],
         documents: [],
 
         instances: [],

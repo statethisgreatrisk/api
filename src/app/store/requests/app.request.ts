@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -247,6 +247,28 @@ export class AppRequest {
   
   deleteObj(projectId: string, objId: string): Observable<ResponseMessage> {
     const endpoint = `${this.url}/obj/:projectId/:objId`.replace(':objId', objId).replace(':projectId', projectId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
+  }
+
+  // Request
+
+  getRequests(projectId: string): Observable<Request[]> {
+    const endpoint = `${this.url}/request/:projectId`.replace(':projectId', projectId);
+    return this.http.get<Request[]>(endpoint, { withCredentials: true });
+  }
+  
+  createRequest(projectId: string, request: Request): Observable<Request> {
+    const endpoint = `${this.url}/request/:projectId`.replace(':projectId', projectId);
+    return this.http.post<Request>(endpoint, { request }, { withCredentials: true });
+  }
+  
+  updateRequest(projectId: string, request: Request): Observable<Request> {
+    const endpoint = `${this.url}/request/:projectId`.replace(':projectId', projectId);
+    return this.http.put<Request>(endpoint, { request }, { withCredentials: true });
+  }
+  
+  deleteRequest(projectId: string, requestId: string): Observable<ResponseMessage> {
+    const endpoint = `${this.url}/request/:projectId/:requestId`.replace(':requestId', requestId).replace(':projectId', projectId);
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 

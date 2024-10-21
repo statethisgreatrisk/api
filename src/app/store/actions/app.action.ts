@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance} from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -103,6 +103,16 @@ export const updateObj = createAction('[UPDATE] Obj', props<{projectId: string, 
 export const replaceObj = createAction('[REPLACE] Obj', props<{obj: Obj}>());
 export const deleteObj = createAction('[DELETE] Obj', props<{projectId: string, objId: string}>());
 export const removeObj = createAction('[REMOVE] Obj', props<{objId: string}>());
+
+// Request
+export const getRequests = createAction('[GET] Requests', props<{projectId: string}>());
+export const addRequests = createAction('[ADD] Requests', props<{requests: Request[]}>());
+export const createRequest = createAction('[CREATE] Request', props<{projectId: string, request: Request}>());
+export const addRequest = createAction('[ADD] Request', props<{request: Request}>());
+export const updateRequest = createAction('[UPDATE] Request', props<{projectId: string, request: Request}>());
+export const replaceRequest = createAction('[REPLACE] Request', props<{request: Request}>());
+export const deleteRequest = createAction('[DELETE] Request', props<{projectId: string, requestId: string}>());
+export const removeRequest = createAction('[REMOVE] Request', props<{requestId: string}>());
 
 // Document
 export const getDocuments = createAction('[GET] Documents', props<{projectId: string}>());

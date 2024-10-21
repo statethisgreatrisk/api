@@ -1,0 +1,31 @@
+<div class="edit-request-container">
+    <div class="edit-request">
+        <div class="edit-request-header-container">
+            <div class="edit-request-header">
+                <p>Request</p>
+            </div>
+            <div class="edit-request-slim-button inline">
+                <p>Delete</p>
+            </div>
+        </div>
+        <div class="edit-request-label">
+            <p>Name</p>
+        </div>
+        <div class="edit-request-input-container">
+            <div class="edit-request-input" *ngIf="request">
+                <input type="text" placeholder="Enter collection name" [(ngModel)]="request.name">
+            </div>
+        </div>
+        <!-- <div class="edit-request-code-container">
+            <div #codeEditor></div>
+        </div> -->
+        <div class="edit-request-buttons">
+            <div class="edit-request-cancel">
+                <p>Cancel</p>
+            </div>
+            <div class="edit-request-save">
+                <p>Save</p>
+            </div>
+        </div>
+    </div>
+</div>

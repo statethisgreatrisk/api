@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn } from '../../store/interfaces/app.interface';
-import { changeProject, clearData, createAPI, createFn, createObj, createProject, createSchema, createStorage, createValidator, createWorkflow, deselectService, deselectWindow, selectService, selectWindow } from '../../store/actions/app.action';
-import { selectAPIs, selectFns, selectMainProject, selectObjs, selectProjects, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm } from '../../store/interfaces/app.interface';
+import { changeProject, clearData, createAPI, createFn, createObj, createProject, createRequest, createSchema, createStorage, createValidator, createWorkflow, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
+import { selectAPIs, selectFns, selectMainProject, selectObjs, selectProjects, selectRequests, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth.service';
 import { combineLatest, Subscription } from 'rxjs';
@@ -30,6 +30,7 @@ export class ServicesComponent {
   workflows: Workflow[] = [];
   fns: Fn[] = [];
   objs: Obj[] = [];
+  requests: Request[] = [];
 
   services: Service[] =  [
     { name: 'Workflows', icon: '/workflow.png' },
@@ -39,6 +40,7 @@ export class ServicesComponent {
     { name: 'Schemas', icon: '/tool.png' },
     { name: 'Functions', icon: '/tool.png' },
     { name: 'Objects', icon: '/tool.png' },
+    { name: 'Requests', icon: '/tool.png' },
   ];
 
   dropdown: boolean = false;
@@ -104,7 +106,8 @@ export class ServicesComponent {
       this.store.select(selectWorkflows),
       this.store.select(selectFns),
       this.store.select(selectObjs),
-    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, fns, objs]) => {
+      this.store.select(selectRequests),
+    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, fns, objs, requests]) => {
       this.user = user;
       this.view = view;
       this.allProjects = allProjects;
@@ -116,6 +119,7 @@ export class ServicesComponent {
       this.workflows = workflows;
       this.fns = fns;
       this.objs = objs;
+      this.requests = requests;
     });
   }
 
@@ -127,6 +131,7 @@ export class ServicesComponent {
     if (service === 'Workflows') return this.createWorkflow();
     if (service === 'Functions') return this.createFn();
     if (service === 'Objects') return this.createObj();
+    if (service === 'Requests') return this.createRequest();
     if (service === 'Projects') return this.createProject();
   }
 
@@ -251,5 +256,33 @@ export class ServicesComponent {
     const obj = '';
 
     this.store.dispatch(createObj({ projectId, obj: { _id, projectId, userId, name, date, active, obj } }));
+  }
+
+  createRequest() {
+    if (!this.project) return;
+    if (!this.user) return;
+
+    const userId = this.user._id;
+    const projectId = this.project._id;
+    const _id = '';
+    const name = 'Request';
+    const date = new Date().toISOString();
+    const active = true;
+    const url = '';
+    const parameters: RequestParameter[] = [];
+    const headers: RequestHeader[] = [];
+    const contentType = 'none';
+    const authorizationType = 'none';
+    const apiKeyPassBy = 'headers';
+    const bodyJson = '';
+    const bodyText = '';
+    const bodyForm: RequestBodyForm[] = [];
+    const apiKeyKey = '';
+    const apiKeyValue = '';
+    const basicAuthUsername = '';
+    const basicAuthPassword = '';
+    const bearerToken = '';
+
+    this.store.dispatch(createRequest({ projectId, request: { _id, projectId, userId, name, date, active, url, parameters, headers, contentType, authorizationType, apiKeyPassBy, bodyJson, bodyText, bodyForm, apiKeyKey, apiKeyValue, basicAuthUsername, basicAuthPassword, bearerToken } }));
   }
 }

@@ -90,6 +90,24 @@
             </div>
         </div>
     </div>
+    <div class="small-spacer tall">
+        <p>Configurations</p>
+    </div>
+    <div class="services">
+        <div *ngFor="let service of services;">
+            <div class="service" *ngIf="service.name === 'Requests'">
+                <p>{{ service.name }}</p>
+                <p (click)="create(service.name)">New +</p>
+            </div>
+            <!-- Request -->
+            <div class="service-data-list" *ngIf="service.name === 'Requests'">
+                <div class="service-data" [ngClass]="{ 'active': view.serviceId === r._id }" *ngFor="let r of requests" (click)="selectService(service.name, r._id)">
+                    <img [src]="service.icon">
+                    <p>{{ r.name }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="spacer"></div>
     <div class="user-button" *ngIf="!user" (click)="openLogin()">
         <img src="/user.png">

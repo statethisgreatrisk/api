@@ -11,6 +11,7 @@ import { selectView } from '../../store/selectors/app.selector';
 import { EditFnComponent } from '../edit-fn/edit-fn.component';
 import { EditObjComponent } from '../edit-obj/edit-obj.component';
 import { EditWorkflowComponent } from '../edit-workflow/edit-workflow.component';
+import { EditRequestComponent } from '../edit-request/edit-request.component';
 
 @Component({
   selector: 'app-service-edit',
@@ -23,7 +24,7 @@ export class ServiceEditComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   
   @ViewChild('componentHost', { read: ViewContainerRef, static: true }) componentHost!: ViewContainerRef;
-  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditFnComponent | EditObjComponent | EditWorkflowComponent> | null = null;
+  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditFnComponent | EditObjComponent | EditRequestComponent | EditWorkflowComponent> | null = null;
   
   constructor(
     private store: Store<AppStateInit>,
@@ -77,6 +78,9 @@ export class ServiceEditComponent {
     } else if (this.view.service === 'Objects') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditObjComponent, { injector: componentInjector });
+    } else if (this.view.service === 'Requests') {
+      const componentInjector = this.componentInjector.createServiceEditInjector();
+      this.componentHostRef = this.componentHost.createComponent(EditRequestComponent, { injector: componentInjector });
     } else if (this.view.service === 'Workflows') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditWorkflowComponent, { injector: componentInjector });
