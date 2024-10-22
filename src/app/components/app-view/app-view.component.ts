@@ -9,6 +9,7 @@ import { ObjectDocsComponent } from '../../docs/object-docs/object-docs.componen
 import { WorkflowDocsComponent } from '../../docs/workflow-docs/workflow-docs.component';
 import { RequestDocsComponent } from '../../docs/request-docs/request-docs.component';
 import { NumberDocsComponent } from '../../docs/number-docs/number-docs.component';
+import { StringDocsComponent } from '../../docs/string-docs/string-docs.component';
 
 @Component({
   selector: 'app-app-view',
@@ -22,6 +23,7 @@ import { NumberDocsComponent } from '../../docs/number-docs/number-docs.componen
     WorkflowDocsComponent,
     RequestDocsComponent,
     NumberDocsComponent,
+    StringDocsComponent,
   ],
   templateUrl: './app-view.component.html',
   styleUrl: './app-view.component.scss'
