@@ -10,6 +10,7 @@ import { WorkflowDocsComponent } from '../../docs/workflow-docs/workflow-docs.co
 import { RequestDocsComponent } from '../../docs/request-docs/request-docs.component';
 import { NumberDocsComponent } from '../../docs/number-docs/number-docs.component';
 import { StringDocsComponent } from '../../docs/string-docs/string-docs.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-app-view',
@@ -17,6 +18,7 @@ import { StringDocsComponent } from '../../docs/string-docs/string-docs.componen
   imports: [
     NgFor,
     NgIf,
+    FormsModule,
     ApiDocsComponent,
     StorageDocsComponent,
     ObjectDocsComponent,
@@ -32,6 +34,8 @@ export class AppViewComponent {
   apps: App[] = [];
   appDocs: string = '';
 
+  search = '';
+
   constructor(
     private store: Store<AppStateInit>,
   ) {}
@@ -44,6 +48,15 @@ export class AppViewComponent {
     this.store.select(selectApps).subscribe((apps) => {
       const mutableApps = [...apps];
       this.apps = mutableApps.filter((app) => !app.hidden).sort((a, b) => (a.name + a.method).localeCompare(b.name + b.method));
+    });
+  }
+
+  get filteredApps() {
+    return this.apps.filter((app) => {
+      if (!this.search) return true;
+
+      const appName = `${app.name.toLowerCase()}.${app.method.toLowerCase()}`;
+      return appName.includes(this.search.toLowerCase());
     });
   }
 

@@ -8,8 +8,13 @@
             <p class="active">System</p>
         </div>
     </div>
+    <div class="app-view-search-container">
+        <div class="app-view-search">
+            <input type="text" placeholder="Search Apps" [(ngModel)]="search">
+        </div>
+    </div>
     <div class="app-view-button-list">
-        <div class="app-view-button" *ngFor="let app of apps" (click)="selectInfo(app.name)">
+        <div class="app-view-button" *ngFor="let app of filteredApps" (click)="selectInfo(app.name)">
             <div class="app-view-button-info">
                 <img src="/app.png">
                 <p>{{ app.name }}.{{ app.method }}</p>
