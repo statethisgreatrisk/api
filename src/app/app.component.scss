@@ -45,7 +45,8 @@
 ::ng-deep .edit-obj-code-container p, ::ng-deep .edit-obj-code-container span, 
 ::ng-deep .edit-validator-code-container p, ::ng-deep .edit-validator-code-container span, 
 ::ng-deep .edit-schema-code-container p, ::ng-deep .edit-schema-code-container span, 
-::ng-deep .document-edit-code-container p, ::ng-deep .document-edit-code-container span {
+::ng-deep .document-edit-code-container p, ::ng-deep .document-edit-code-container span, 
+::ng-deep .request-edit-code-container p, ::ng-deep .request-edit-code-container span {
     margin:0;
     padding: 0;
 
@@ -101,6 +102,10 @@ app-storage-view {
     
     width: 100%;
     height: 100%;
+}
+
+app-document-edit {
+    border-top: 1px solid black;
 }
 
 .api-view-container {

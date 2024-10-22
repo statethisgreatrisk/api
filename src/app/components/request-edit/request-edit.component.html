@@ -1,36 +1,36 @@
 <div class="request-edit-container">
     <div class="request-edit">
         <div class="request-edit-header-container">
-            <div class="request-edit-header">
+            <div class="request-edit-header" *ngIf="requestEditWide">
                 <p class="header">Request Edit</p>
                 <div class="request-edit-header-select-template-request-container">
                     <div class="request-edit-slim-button inline" (click)="toggleRequestDropdown()">
-                        <p *ngIf="!request">Select Request</p>
-                        <p *ngIf="request">{{ request }}</p>
+                        <p *ngIf="!request || (request && !request._id)">Select Request</p>
+                        <p *ngIf="request && request._id">{{ request.name }}</p>
                         <img src="/down.png">
                     </div>
                     <div class="request-edit-slim-button-dropdown" *ngIf="requestDropdown">
-                        <div class="request-edit-slim-button-dropdown-button" (click)="selectRequest('Request 1')">
-                            <p>Request 1</p>
+                        <div class="request-edit-slim-button-dropdown-button" (click)="toggleRequestDropdown()">
+                            <p>Select Request</p>
                         </div>
-                        <div class="request-edit-slim-button-dropdown-button" (click)="selectRequest('Request 2')">
-                            <p>Request 2</p>
+                        <div class="request-edit-slim-button-dropdown-button" *ngFor="let r of requestsWithIds" (click)="selectRequest(r._id)">
+                            <p>{{ r.name }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="spacer"></div>
-                <p class="reset">Reset</p>
-                <p class="save">Save Request</p>
+                <p class="reset" (click)="cancel()">Reset</p>
+                <p class="save" (click)="save()">Save Request</p>
             </div>
         </div>
-        <div class="request-edit-info-container">
+        <div class="request-edit-info-container" [ngStyle]="{ 'flex-direction': requestEditWide ? 'row' : 'column' }">
             <div class="request-edit-name-container">
                 <div class="request-edit-label">
                     <p>Name</p>
                 </div>
                 <div class="request-edit-input-container">
-                    <div class="request-edit-input">
-                        <input type="text" placeholder="Enter request name">
+                    <div class="request-edit-input" *ngIf="request">
+                        <input type="text" placeholder="Enter request name" [(ngModel)]="request.name">
                     </div>
                 </div>
             </div>
@@ -40,27 +40,27 @@
                 </div>
                 <div class="request-edit-prefix-container">
                     <div class="request-edit-prefix-select">
-                        <div class="request-edit-prefix-select-button" (click)="toggleLocationMethodDropdown()">
-                            <p>{{ locationMethod | uppercase }}</p>
+                        <div class="request-edit-prefix-select-button" *ngIf="request" (click)="toggleActionDropdown()">
+                            <p>{{ request.action | uppercase }}</p>
                             <img src="/down.png">
                         </div>
-                        <div class="request-edit-prefix-select-dropdown" *ngIf="locationMethodDropdown">
-                            <div class="request-edit-prefix-select-dropdown-button" (click)="selectLocationMethod('get')">
+                        <div class="request-edit-prefix-select-dropdown" *ngIf="actionDropdown">
+                            <div class="request-edit-prefix-select-dropdown-button" (click)="selectAction('get')">
                                 <p>{{ 'get' | uppercase }}</p>
                             </div>
-                            <div class="request-edit-prefix-select-dropdown-button" (click)="selectLocationMethod('post')">
+                            <div class="request-edit-prefix-select-dropdown-button" (click)="selectAction('post')">
                                 <p>{{ 'post' | uppercase }}</p>
                             </div>
-                            <div class="request-edit-prefix-select-dropdown-button" (click)="selectLocationMethod('put')">
+                            <div class="request-edit-prefix-select-dropdown-button" (click)="selectAction('put')">
                                 <p>{{ 'put' | uppercase }}</p>
                             </div>
-                            <div class="request-edit-prefix-select-dropdown-button" (click)="selectLocationMethod('delete')">
+                            <div class="request-edit-prefix-select-dropdown-button" (click)="selectAction('delete')">
                                 <p>{{ 'delete' | uppercase }}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="request-edit-prefix-input">
-                        <input type="text" placeholder="Enter a URL">
+                    <div class="request-edit-prefix-input" *ngIf="request">
+                        <input type="text" placeholder="Enter a URL" [(ngModel)]="request.url">
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                     <p>Query Parameters</p>
                 </div>
                 <div class="spacer"></div>
-                <div class="request-edit-tab-detail request-edit-tab-detail-right">
+                <div class="request-edit-tab-detail request-edit-tab-detail-right" (click)="addParameter()">
                     <img src="/add.png">
                 </div>
             </div>
@@ -95,11 +95,11 @@
                 </div>
                 <div class="request-edit-select-container">
                     <div class="request-edit-select">
-                        <div class="request-edit-select-button" (click)="toggleContentTypeDropdown()">
-                            <p *ngIf="contentType === 'none'">None</p>
-                            <p *ngIf="contentType === 'json'">application/json</p>
-                            <p *ngIf="contentType === 'form'">multipart/form-data</p>
-                            <p *ngIf="contentType === 'text'">text/plain</p>
+                        <div class="request-edit-select-button" (click)="toggleContentTypeDropdown()" *ngIf="request">
+                            <p *ngIf="request.contentType === 'none'">None</p>
+                            <p *ngIf="request.contentType === 'json'">application/json</p>
+                            <p *ngIf="request.contentType === 'form'">multipart/form-data</p>
+                            <p *ngIf="request.contentType === 'text'">text/plain</p>
                             <img src="/down.png">
                         </div>
                         <div class="request-edit-select-dropdown" *ngIf="contentTypeDropdown">
@@ -119,7 +119,7 @@
                     </div>
                 </div>
                 <div class="spacer"></div>
-                <div class="request-edit-tab-detail request-edit-tab-detail-right" *ngIf="contentType === 'form'">
+                <div class="request-edit-tab-detail request-edit-tab-detail-right" (click)="addBodyForm()" *ngIf="request && request.contentType === 'form'">
                     <img src="/add.png">
                 </div>
             </div>
@@ -128,7 +128,7 @@
                     <p>Header List</p>
                 </div>
                 <div class="spacer"></div>
-                <div class="request-edit-tab-detail request-edit-tab-detail-right">
+                <div class="request-edit-tab-detail request-edit-tab-detail-right" (click)="addHeader()">
                     <img src="/add.png">
                 </div>
             </div>
@@ -138,11 +138,11 @@
                 </div>
                 <div class="request-edit-select-container">
                     <div class="request-edit-select">
-                        <div class="request-edit-select-button" (click)="toggleAuthorizationTypeDropdown()">
-                            <p *ngIf="authorizationType === 'none'">None</p>
-                            <p *ngIf="authorizationType === 'apiKey'">API Key</p>
-                            <p *ngIf="authorizationType === 'basicAuth'">Basic Auth</p>
-                            <p *ngIf="authorizationType === 'bearer'">Bearer</p>
+                        <div class="request-edit-select-button" (click)="toggleAuthorizationTypeDropdown()" *ngIf="request">
+                            <p *ngIf="request.authorizationType === 'none'">None</p>
+                            <p *ngIf="request.authorizationType === 'apiKey'">API Key</p>
+                            <p *ngIf="request.authorizationType === 'basicAuth'">Basic Auth</p>
+                            <p *ngIf="request.authorizationType === 'bearer'">Bearer</p>
                             <img src="/down.png">
                         </div>
                         <div class="request-edit-select-dropdown" *ngIf="authorizationTypeDropdown">
@@ -161,11 +161,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="request-edit-select-container" *ngIf="authorizationType === 'apiKey'">
+                <div class="request-edit-select-container" *ngIf="request && request.authorizationType === 'apiKey'">
                     <div class="request-edit-select">
-                        <div class="request-edit-select-button" (click)="toggleApiKeyPassByDropdown()">
-                            <p *ngIf="apiKeyPassBy === 'headers'">Pass by Headers</p>
-                            <p *ngIf="apiKeyPassBy === 'queryParameters'">Pass by Query Parameters</p>
+                        <div class="request-edit-select-button" (click)="toggleApiKeyPassByDropdown()" *ngIf="request">
+                            <p *ngIf="request.apiKeyPassBy === 'headers'">Pass by Headers</p>
+                            <p *ngIf="request.apiKeyPassBy === 'queryParameters'">Pass by Query Parameters</p>
                             <img src="/down.png">
                         </div>
                         <div class="request-edit-select-dropdown" *ngIf="apiKeyPassByDropdown">
@@ -183,160 +183,118 @@
         <div class="request-edit-tab-view-container">
             <div class="request-edit-table-container" *ngIf="tab === 'parameters'">
                 <table>
-                    <tbody>
-                        <tr class="request-edit-table-row">
+                    <tbody *ngIf="request && request.parameters">
+                        <tr class="request-edit-table-row" *ngFor="let parameter of request.parameters">
                             <td class="request-edit-table-data">
-                                <input type="text" placeholder="Key">
-                            </td>
-                            <td class="request-edit-table-data">
-                                <input type="text" placeholder="Value">
-                            </td>
-                            <td class="request-edit-table-data request-edit-table-data-button">
-                                <img src="/off.png" class="lg">
-                            </td>
-                            <td class="request-edit-table-data request-edit-table-data-button">
-                                <img src="/x.png" class="sm">
-                            </td>
-                        </tr>
-                        <tr class="request-edit-table-row">
-                            <td class="request-edit-table-data">
-                                <input type="text" placeholder="Key">
+                                <input type="text" placeholder="Key" [(ngModel)]="parameter.key">
                             </td>
                             <td class="request-edit-table-data">
-                                <input type="text" placeholder="Value">
+                                <input type="text" placeholder="Value" [(ngModel)]="parameter.value">
                             </td>
-                            <td class="request-edit-table-data request-edit-table-data-button">
-                                <img src="/on.png" class="lg">
+                            <td class="request-edit-table-data request-edit-table-data-button" (click)="toggleParameterActive(parameter)">
+                                <img src="/on.png" class="lg" *ngIf="parameter.active">
+                                <img src="/off.png" class="lg" *ngIf="!parameter.active">
                             </td>
-                            <td class="request-edit-table-data request-edit-table-data-button">
+                            <td class="request-edit-table-data request-edit-table-data-button" (click)="removeParameter(parameter._id)">
                                 <img src="/x.png" class="sm">
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="request-edit-table-container" *ngIf="tab === 'body' && contentType === 'form'">
+            <div class="request-edit-table-container" *ngIf="tab === 'body' && request && request.contentType === 'form'">
                 <table>
-                    <tbody>
-                        <tr class="request-edit-table-row">
+                    <tbody *ngIf="request && request.bodyForm">
+                        <tr class="request-edit-table-row" *ngFor="let bodyForm of request.bodyForm">
                             <td class="request-edit-table-data">
-                                <input type="text" placeholder="Parameter 1">
-                            </td>
-                            <td class="request-edit-table-data">
-                                <input type="text" placeholder="Value 1">
+                                <input type="text" placeholder="Parameter 1" [(ngModel)]="bodyForm.parameter">
                             </td>
                             <td class="request-edit-table-data">
-                                <input type="file">
-                            </td>
-                            <td class="request-edit-table-data request-edit-table-data-button">
-                                <img src="/off.png" class="lg">
-                            </td>
-                            <td class="request-edit-table-data request-edit-table-data-button">
-                                <img src="/x.png" class="sm">
-                            </td>
-                        </tr>
-                        <tr class="request-edit-table-row">
-                            <td class="request-edit-table-data">
-                                <input type="text" placeholder="Parameter 2">
-                            </td>
-                            <td class="request-edit-table-data">
-                                <input type="text" placeholder="Value 2">
+                                <input type="text" placeholder="Value 1" [(ngModel)]="bodyForm.value">
                             </td>
                             <td class="request-edit-table-data">
                                 <input type="file">
                             </td>
-                            <td class="request-edit-table-data request-edit-table-data-button">
-                                <img src="/on.png" class="lg">
+                            <td class="request-edit-table-data request-edit-table-data-button" (click)="toggleBodyFormActive(bodyForm)">
+                                <img src="/on.png" class="lg" *ngIf="bodyForm.active">
+                                <img src="/off.png" class="lg" *ngIf="!bodyForm.active">
                             </td>
-                            <td class="request-edit-table-data request-edit-table-data-button">
+                            <td class="request-edit-table-data request-edit-table-data-button" (click)="removeBodyForm(bodyForm._id)">
                                 <img src="/x.png" class="sm">
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="request-edit-table-container" *ngIf="tab === 'body' && contentType === 'json'">
+            <div class="request-edit-table-container" *ngIf="tab === 'body' && request && request.contentType === 'json'">
                 <div class="request-edit-code-container">
                     <div #jsonEditor></div>
                 </div>
             </div>
-            <div class="request-edit-table-container" *ngIf="tab === 'body' && contentType === 'text'">
+            <div class="request-edit-table-container" *ngIf="tab === 'body' && request && request.contentType === 'text'">
                 <div class="request-edit-code-container">
                     <div #textEditor></div>
                 </div>
             </div>
             <div class="request-edit-table-container" *ngIf="tab === 'headers'">
                 <table>
-                    <tbody>
-                        <tr class="request-edit-table-row">
+                    <tbody *ngIf="request && request.headers">
+                        <tr class="request-edit-table-row" *ngFor="let header of request.headers">
                             <td class="request-edit-table-data">
-                                <input type="text" placeholder="Key">
-                            </td>
-                            <td class="request-edit-table-data">
-                                <input type="text" placeholder="Value">
-                            </td>
-                            <td class="request-edit-table-data request-edit-table-data-button">
-                                <img src="/off.png" class="lg">
-                            </td>
-                            <td class="request-edit-table-data request-edit-table-data-button">
-                                <img src="/x.png" class="sm">
-                            </td>
-                        </tr>
-                        <tr class="request-edit-table-row">
-                            <td class="request-edit-table-data">
-                                <input type="text" placeholder="Key">
+                                <input type="text" placeholder="Key" [(ngModel)]="header.key">
                             </td>
                             <td class="request-edit-table-data">
-                                <input type="text" placeholder="Value">
+                                <input type="text" placeholder="Value" [(ngModel)]="header.value">
                             </td>
-                            <td class="request-edit-table-data request-edit-table-data-button">
-                                <img src="/on.png" class="lg">
+                            <td class="request-edit-table-data request-edit-table-data-button" (click)="toggleHeaderActive(header)">
+                                <img src="/on.png" class="lg" *ngIf="header.active">
+                                <img src="/off.png" class="lg" *ngIf="!header.active">
                             </td>
-                            <td class="request-edit-table-data request-edit-table-data-button">
+                            <td class="request-edit-table-data request-edit-table-data-button" (click)="removeHeader(header._id)">
                                 <img src="/x.png" class="sm">
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="request-edit-table-container" *ngIf="tab === 'authorization' && authorizationType === 'apiKey'">
+            <div class="request-edit-table-container" *ngIf="tab === 'authorization' && request && request.authorizationType === 'apiKey'">
                 <table>
                     <tbody>
                         <tr class="request-edit-table-row">
                             <td class="request-edit-table-data">
-                                <input type="text" placeholder="Key">
+                                <input type="text" placeholder="Key" [(ngModel)]="request.apiKeyKey">
                             </td>
                         </tr>
                         <tr class="request-edit-table-row">
                             <td class="request-edit-table-data">
-                                <input type="text" placeholder="Value">
+                                <input type="text" placeholder="Value" [(ngModel)]="request.apiKeyValue">
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="request-edit-table-container" *ngIf="tab === 'authorization' && authorizationType === 'basicAuth'">
+            <div class="request-edit-table-container" *ngIf="tab === 'authorization' && request && request.authorizationType === 'basicAuth'">
                 <table>
                     <tbody>
                         <tr class="request-edit-table-row">
                             <td class="request-edit-table-data">
-                                <input type="text" placeholder="Username">
+                                <input type="text" placeholder="Username" [(ngModel)]="request.basicAuthUsername">
                             </td>
                         </tr>
                         <tr class="request-edit-table-row">
                             <td class="request-edit-table-data">
-                                <input type="text" placeholder="Password">
+                                <input type="text" placeholder="Password" [(ngModel)]="request.basicAuthPassword">
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="request-edit-table-container" *ngIf="tab === 'authorization' && authorizationType === 'bearer'">
+            <div class="request-edit-table-container" *ngIf="tab === 'authorization' && request && request.authorizationType === 'bearer'">
                 <table>
                     <tbody>
                         <tr class="request-edit-table-row">
                             <td class="request-edit-table-data">
-                                <input type="text" placeholder="Token">
+                                <input type="text" placeholder="Token" [(ngModel)]="request.bearerToken">
                             </td>
                         </tr>
                     </tbody>

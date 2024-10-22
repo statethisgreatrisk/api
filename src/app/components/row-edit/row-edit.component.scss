@@ -18,6 +18,8 @@
     overflow-y: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
+
+    border-top: 1px solid black;
 }
 
 .row-edit-code-container::-webkit-scrollbar {

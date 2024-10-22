@@ -107,12 +107,14 @@ export const removeObj = createAction('[REMOVE] Obj', props<{objId: string}>());
 // Request
 export const getRequests = createAction('[GET] Requests', props<{projectId: string}>());
 export const addRequests = createAction('[ADD] Requests', props<{requests: Request[]}>());
-export const createRequest = createAction('[CREATE] Request', props<{projectId: string, request: Request}>());
+export const createRequest = createAction('[CREATE] Request', props<{projectId: string, request: Request, wideRequest: boolean}>());
 export const addRequest = createAction('[ADD] Request', props<{request: Request}>());
 export const updateRequest = createAction('[UPDATE] Request', props<{projectId: string, request: Request}>());
 export const replaceRequest = createAction('[REPLACE] Request', props<{request: Request}>());
 export const deleteRequest = createAction('[DELETE] Request', props<{projectId: string, requestId: string}>());
 export const removeRequest = createAction('[REMOVE] Request', props<{requestId: string}>());
+
+export const createRequestSuccess = createAction('[SUCCESS] Create Request', props<{request: Request, wideRequest: boolean}>());
 
 // Document
 export const getDocuments = createAction('[GET] Documents', props<{projectId: string}>());

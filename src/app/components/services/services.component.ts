@@ -268,6 +268,7 @@ export class ServicesComponent {
     const name = 'Request';
     const date = new Date().toISOString();
     const active = true;
+    const action  = 'get';
     const url = '';
     const parameters: RequestParameter[] = [];
     const headers: RequestHeader[] = [];
@@ -282,7 +283,8 @@ export class ServicesComponent {
     const basicAuthUsername = '';
     const basicAuthPassword = '';
     const bearerToken = '';
+    const wideRequest = false;
 
-    this.store.dispatch(createRequest({ projectId, request: { _id, projectId, userId, name, date, active, url, parameters, headers, contentType, authorizationType, apiKeyPassBy, bodyJson, bodyText, bodyForm, apiKeyKey, apiKeyValue, basicAuthUsername, basicAuthPassword, bearerToken } }));
+    this.store.dispatch(createRequest({ projectId, wideRequest, request: { _id, projectId, userId, name, date, active, action, url, parameters, headers, contentType, authorizationType, apiKeyPassBy, bodyJson, bodyText, bodyForm, apiKeyKey, apiKeyValue, basicAuthUsername, basicAuthPassword, bearerToken } }));
   }
 }
