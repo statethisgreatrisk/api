@@ -162,6 +162,9 @@ export class RequestEditComponent {
   }
 
   selectTab(tab: string) {
+    if (this.tab === 'body' && this.request?.contentType === 'json') this.parseJsonEditor();
+    if (this.tab === 'body' && this.request?.contentType === 'text') this.parseTextEditor();
+
     this.tab = tab;
     this.requestDropdown = false;
     this.actionDropdown = false;
@@ -247,6 +250,8 @@ export class RequestEditComponent {
   }
 
   createJsonEditor() {
+    if (this.jsonEditor.nativeElement.hasChildNodes()) return;
+
     let codeEditorElement = this.jsonEditor.nativeElement;
     let myExt: Extension = [basicSetup, json(), oneDarkSmall];
     const jsonDoc = this.request && this.request.bodyJson ? this.request.bodyJson : JSON.stringify({}, null, 2);
@@ -269,6 +274,8 @@ export class RequestEditComponent {
   }
 
   createTextEditor() {
+    if (this.textEditor.nativeElement.hasChildNodes()) return;
+
     let codeEditorElement = this.textEditor.nativeElement;
     let myExt: Extension = [basicSetup, oneDarkSmall];
     const textDoc = this.request && this.request.bodyText ? this.request.bodyText : '';
@@ -291,17 +298,17 @@ export class RequestEditComponent {
   }
 
   parseJsonEditor() {
-    if (!this.jsonView || !this.jsonView.state) return '';
+    if (!this.request) return;
+    if (!this.jsonView || !this.jsonView.state) return;
 
-    const json = this.jsonView.state.doc.toString();
-    return json;
+    this.request.bodyJson = this.jsonView.state.doc.toString();
   }
 
   parseTextEditor() {
-    if (!this.textView || !this.textView.state) return '';
+    if (!this.request) return;
+    if (!this.textView || !this.textView.state) return;
 
-    const text = this.textView.state.doc.toString();
-    return text;
+    this.request.bodyText = this.textView.state.doc.toString();
   }
 
   createBlankRequest(): Request {
@@ -347,16 +354,14 @@ export class RequestEditComponent {
     if (!this.project) return;
     if (!this.request) return;
 
-    this.request.bodyJson = this.parseJsonEditor();
-    this.request.bodyText = this.parseTextEditor();
-
-    const wideRequest = true;
+    this.parseJsonEditor();
+    this.parseTextEditor();
 
     if (this.requestEditWide) {
       if (this.request && this.request._id) {
         this.store.dispatch(updateRequest({ projectId: this.project._id, request: this.request }));
       } else {
-        this.store.dispatch(createRequest({ projectId: this.project._id, wideRequest, request: this.request }));
+        this.store.dispatch(createRequest({ projectId: this.project._id, wideRequest: true, request: this.request }));
       }
     } else {
       this.store.dispatch(updateRequest({ projectId: this.project._id, request: this.request }));
