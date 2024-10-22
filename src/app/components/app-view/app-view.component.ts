@@ -8,6 +8,7 @@ import { StorageDocsComponent } from '../../docs/storage-docs/storage-docs.compo
 import { ObjectDocsComponent } from '../../docs/object-docs/object-docs.component';
 import { WorkflowDocsComponent } from '../../docs/workflow-docs/workflow-docs.component';
 import { RequestDocsComponent } from '../../docs/request-docs/request-docs.component';
+import { NumberDocsComponent } from '../../docs/number-docs/number-docs.component';
 
 @Component({
   selector: 'app-app-view',
@@ -20,6 +21,7 @@ import { RequestDocsComponent } from '../../docs/request-docs/request-docs.compo
     ObjectDocsComponent,
     WorkflowDocsComponent,
     RequestDocsComponent,
+    NumberDocsComponent,
   ],
   templateUrl: './app-view.component.html',
   styleUrl: './app-view.component.scss'
