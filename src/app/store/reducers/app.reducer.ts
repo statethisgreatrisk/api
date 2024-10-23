@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue } from "../interfaces/app.interface";
 
 // User
 
@@ -315,6 +315,34 @@ export const removeWebsocketFn: (state: AppState, websocketId: string) => AppSta
     return { ...state, websockets: state.websockets.filter((websocket) => websocket._id !== websocketId) };
 }
 
+// Queue
+
+export const addQueuesFn: (state: AppState, queues: Queue[]) => AppState = (state: AppState, queues: Queue[]) => {
+    if (!queues) return { ...state };
+    return { ...state, queues: queues };
+}
+
+export const addQueueFn: (state: AppState, queue: Queue) => AppState = (state: AppState, queue: Queue) => {
+    if (!queue) return { ...state };
+    return { ...state, queues: state.queues.concat([queue]) };
+}
+
+export const replaceQueueFn: (state: AppState, queue: Queue) => AppState = (state: AppState, queue: Queue) => {
+    if (!queue) return { ...state };
+
+    const queues = state.queues.map((existingQueue) => {
+        if (existingQueue._id !== queue._id) return existingQueue;
+        return queue;
+    });
+
+    return { ...state, queues: queues };
+}
+
+export const removeQueueFn: (state: AppState, queueId: string) => AppState = (state: AppState, queueId: string) => {
+    if (!queueId) return { ...state };
+    return { ...state, queues: state.queues.filter((queue) => queue._id !== queueId) };
+}
+
 // Document
 
 export const addDocumentsFn: (state: AppState, documents: Document[]) => AppState = (state: AppState, documents: Document[]) => {
@@ -546,6 +574,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         requests: [],
         variables: [],
         websockets: [],
+        queues: [],
         documents: [],
 
         instances: [],
@@ -579,6 +608,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         requests: [],
         variables: [],
         websockets: [],
+        queues: [],
         documents: [],
 
         instances: [],

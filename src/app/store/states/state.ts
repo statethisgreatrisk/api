@@ -14,6 +14,7 @@ export const appState: AppState = {
     requests: [],
     variables: [],
     websockets: [],
+    queues: [],
     documents: [],
 
     instances: [],

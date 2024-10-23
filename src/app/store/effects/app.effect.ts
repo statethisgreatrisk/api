@@ -2,7 +2,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, mergeMap, of } from "rxjs";
 import { Injectable } from "@angular/core";
 import { AppRequest } from "../requests/app.request";
-import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateKey, updateLog, updateUsage, signupUser, authError, authSuccess, resendUser, confirmUser, forgotUser, resetUser, loginUser, logoutUser, refreshUser, checkUser, addProject, addProjects, createProject, deleteProject, getProjects, removeProject, replaceProject, updateProject, deleteKey, removeKey, billingError, billingSuccess, deployStartSuccess, deployStartError, addFn, addFns, addObj, addObjs, createFn, createObj, deleteFn, deleteObj, getFns, getObjs, removeFn, removeObj, replaceFn, replaceObj, updateFn, updateObj, addDocument, addDocuments, createDocument, deleteDocument, getDocuments, removeDocument, replaceDocument, updateDocument, addSub, addSubs, createSub, deleteSub, getSubs, removeSub, replaceSub, updateSub, startDeploy, stopDeploy, deployStopSuccess, deployStopError, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, getInstances, addInstances, addRequest, addRequests, createRequest, deleteRequest, getRequests, removeRequest, replaceRequest, updateRequest, createRequestSuccess, addVariable, addVariables, createVariable, deleteVariable, getVariables, removeVariable, replaceVariable, updateVariable, addWebsocket, addWebsockets, createWebsocket, deleteWebsocket, getWebsockets, removeWebsocket, replaceWebsocket, updateWebsocket } from "../actions/app.action";
+import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateKey, updateLog, updateUsage, signupUser, authError, authSuccess, resendUser, confirmUser, forgotUser, resetUser, loginUser, logoutUser, refreshUser, checkUser, addProject, addProjects, createProject, deleteProject, getProjects, removeProject, replaceProject, updateProject, deleteKey, removeKey, billingError, billingSuccess, deployStartSuccess, deployStartError, addFn, addFns, addObj, addObjs, createFn, createObj, deleteFn, deleteObj, getFns, getObjs, removeFn, removeObj, replaceFn, replaceObj, updateFn, updateObj, addDocument, addDocuments, createDocument, deleteDocument, getDocuments, removeDocument, replaceDocument, updateDocument, addSub, addSubs, createSub, deleteSub, getSubs, removeSub, replaceSub, updateSub, startDeploy, stopDeploy, deployStopSuccess, deployStopError, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, getInstances, addInstances, addRequest, addRequests, createRequest, deleteRequest, getRequests, removeRequest, replaceRequest, updateRequest, createRequestSuccess, addVariable, addVariables, createVariable, deleteVariable, getVariables, removeVariable, replaceVariable, updateVariable, addWebsocket, addWebsockets, createWebsocket, deleteWebsocket, getWebsockets, removeWebsocket, replaceWebsocket, updateWebsocket, addQueue, addQueues, createQueue, deleteQueue, getQueues, removeQueue, replaceQueue, updateQueue } from "../actions/app.action";
 
 @Injectable()
 export class AppEffect {
@@ -586,6 +586,47 @@ export class AppEffect {
         );
     });
 
+    // Queue
+
+    getQueues$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(getQueues),
+            exhaustMap((action) => this.appRequest.getQueues(action.projectId).pipe(
+                map(data => addQueues({ queues: data })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    createQueue$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(createQueue),
+            exhaustMap((action) => this.appRequest.createQueue(action.projectId, action.queue).pipe(
+                map(data => addQueue({ queue: data })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    updateQueue$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updateQueue),
+            exhaustMap((action) => this.appRequest.updateQueue(action.projectId, action.queue).pipe(
+                map(data => replaceQueue({ queue: data })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    deleteQueue$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(deleteQueue),
+            exhaustMap((action) => this.appRequest.deleteQueue(action.projectId, action.queueId).pipe(
+                map(data => removeQueue({ queueId: data.message })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
 
     // Document
 

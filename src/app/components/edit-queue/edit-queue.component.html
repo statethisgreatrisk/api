@@ -1,0 +1,28 @@
+<div class="edit-queue-container">
+    <div class="edit-queue">
+        <div class="edit-queue-header-container">
+            <div class="edit-queue-header">
+                <p>Queue</p>
+            </div>
+            <div class="edit-queue-slim-button inline" (click)="delete()">
+                <p>Delete</p>
+            </div>
+        </div>
+        <div class="edit-queue-label">
+            <p>Name</p>
+        </div>
+        <div class="edit-queue-input-container">
+            <div class="edit-queue-input" *ngIf="queue">
+                <input type="text" placeholder="Enter collection name" [(ngModel)]="queue.name">
+            </div>
+        </div>
+        <div class="edit-queue-buttons">
+            <div class="edit-queue-cancel" (click)="cancel()">
+                <p>Cancel</p>
+            </div>
+            <div class="edit-queue-save" (click)="save()">
+                <p>Save</p>
+            </div>
+        </div>
+    </div>
+</div>

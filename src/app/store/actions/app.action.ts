@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -135,6 +135,16 @@ export const updateWebsocket = createAction('[UPDATE] Websocket', props<{project
 export const replaceWebsocket = createAction('[REPLACE] Websocket', props<{websocket: Websocket}>());
 export const deleteWebsocket = createAction('[DELETE] Websocket', props<{projectId: string, websocketId: string}>());
 export const removeWebsocket = createAction('[REMOVE] Websocket', props<{websocketId: string}>());
+
+// Queue
+export const getQueues = createAction('[GET] Queues', props<{projectId: string}>());
+export const addQueues = createAction('[ADD] Queues', props<{queues: Queue[]}>());
+export const createQueue = createAction('[CREATE] Queue', props<{projectId: string, queue: Queue}>());
+export const addQueue = createAction('[ADD] Queue', props<{queue: Queue}>());
+export const updateQueue = createAction('[UPDATE] Queue', props<{projectId: string, queue: Queue}>());
+export const replaceQueue = createAction('[REPLACE] Queue', props<{queue: Queue}>());
+export const deleteQueue = createAction('[DELETE] Queue', props<{projectId: string, queueId: string}>());
+export const removeQueue = createAction('[REMOVE] Queue', props<{queueId: string}>());
 
 // Document
 export const getDocuments = createAction('[GET] Documents', props<{projectId: string}>());

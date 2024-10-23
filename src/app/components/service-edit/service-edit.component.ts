@@ -14,6 +14,7 @@ import { EditWorkflowComponent } from '../edit-workflow/edit-workflow.component'
 import { EditRequestComponent } from '../edit-request/edit-request.component';
 import { EditVariableComponent } from '../edit-variable/edit-variable.component';
 import { EditWebsocketComponent } from '../edit-websocket/edit-websocket.component';
+import { EditQueueComponent } from '../edit-queue/edit-queue.component';
 
 @Component({
   selector: 'app-service-edit',
@@ -26,7 +27,7 @@ export class ServiceEditComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   
   @ViewChild('componentHost', { read: ViewContainerRef, static: true }) componentHost!: ViewContainerRef;
-  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditFnComponent | EditObjComponent | EditRequestComponent | EditVariableComponent | EditWebsocketComponent | EditWorkflowComponent> | null = null;
+  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditFnComponent | EditObjComponent | EditRequestComponent | EditVariableComponent | EditWebsocketComponent | EditQueueComponent | EditWorkflowComponent> | null = null;
   
   constructor(
     private store: Store<AppStateInit>,
@@ -89,6 +90,9 @@ export class ServiceEditComponent {
     } else if (this.view.service === 'WebSockets') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditWebsocketComponent, { injector: componentInjector });
+    } else if (this.view.service === 'Queues') {
+      const componentInjector = this.componentInjector.createServiceEditInjector();
+      this.componentHostRef = this.componentHost.createComponent(EditQueueComponent, { injector: componentInjector });
     } else if (this.view.service === 'Workflows') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditWorkflowComponent, { injector: componentInjector });

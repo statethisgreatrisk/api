@@ -24,8 +24,8 @@
         </div>
         <div class="services">
             <div *ngFor="let service of services;">
-                <div class="service" *ngIf="service.name === 'Workflows' || service.name === 'APIs'">
-                    <p *ngIf="service.name === 'Workflows' || service.name === 'APIs'">{{ service.name }}</p>
+                <div class="service" *ngIf="service.name === 'Workflows' || service.name === 'APIs' || service.name === 'Queues'">
+                    <p *ngIf="service.name === 'Workflows' || service.name === 'APIs' || service.name === 'Queues'">{{ service.name }}</p>
                     <p (click)="create(service.name)">New +</p>
                 </div>
                 <!-- Workflow -->
@@ -40,6 +40,13 @@
                     <div class="service-data" [ngClass]="{ 'active': view.serviceId === a._id }" *ngFor="let a of apis" (click)="selectService(service.name, a._id)">
                         <img [src]="service.icon">
                         <p>{{ a.name }}</p>
+                    </div>
+                </div>
+                <!-- Queue -->
+                <div class="service-data-list" *ngIf="service.name === 'Queues'">
+                    <div class="service-data" [ngClass]="{ 'active': view.serviceId === q._id }" *ngFor="let q of queues" (click)="selectService(service.name, q._id)">
+                        <img [src]="service.icon">
+                        <p>{{ q.name }}</p>
                     </div>
                 </div>
             </div>

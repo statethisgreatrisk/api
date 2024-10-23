@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm, Variable, Websocket } from '../../store/interfaces/app.interface';
-import { changeProject, clearData, createAPI, createFn, createObj, createProject, createRequest, createSchema, createStorage, createValidator, createVariable, createWebsocket, createWorkflow, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
-import { selectAPIs, selectFns, selectMainProject, selectObjs, selectProjects, selectRequests, selectSchemas, selectStorages, selectUser, selectValidators, selectVariables, selectView, selectWebsockets, selectWorkflows } from '../../store/selectors/app.selector';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm, Variable, Websocket, Queue } from '../../store/interfaces/app.interface';
+import { changeProject, clearData, createAPI, createFn, createObj, createProject, createQueue, createRequest, createSchema, createStorage, createValidator, createVariable, createWebsocket, createWorkflow, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
+import { selectAPIs, selectFns, selectMainProject, selectObjs, selectProjects, selectQueues, selectRequests, selectSchemas, selectStorages, selectUser, selectValidators, selectVariables, selectView, selectWebsockets, selectWorkflows } from '../../store/selectors/app.selector';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth.service';
-import { combineLatest, Subscription } from 'rxjs';
+import { combineLatest, queue, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-services',
@@ -33,6 +33,7 @@ export class ServicesComponent {
   requests: Request[] = [];
   variables: Variable[] = [];
   websockets: Websocket[] = [];
+  queues: Queue[] = [];
 
   services: Service[] =  [
     { name: 'Workflows', icon: '/workflow.png' },
@@ -45,6 +46,7 @@ export class ServicesComponent {
     { name: 'Requests', icon: '/tool.png' },
     { name: 'Variables', icon: '/tool.png' },
     { name: 'WebSockets', icon: '/tool.png' },
+    { name: 'Queues', icon: '/tool.png' },
   ];
 
   dropdown: boolean = false;
@@ -113,7 +115,8 @@ export class ServicesComponent {
       this.store.select(selectRequests),
       this.store.select(selectVariables),
       this.store.select(selectWebsockets),
-    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, fns, objs, requests, variables, websockets]) => {
+      this.store.select(selectQueues),
+    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, fns, objs, requests, variables, websockets, queues]) => {
       this.user = user;
       this.view = view;
       this.allProjects = allProjects;
@@ -128,6 +131,7 @@ export class ServicesComponent {
       this.requests = requests;
       this.variables = variables;
       this.websockets = websockets;
+      this.queues = queues;
     });
   }
 
@@ -142,6 +146,7 @@ export class ServicesComponent {
     if (service === 'Requests') return this.createRequest();
     if (service === 'Variables') return this.createVariable();
     if (service === 'WebSockets') return this.createWebsocket();
+    if (service === 'Queues') return this.createQueue();
     if (service === 'Projects') return this.createProject();
   }
 
@@ -326,5 +331,19 @@ export class ServicesComponent {
     const active = true;
 
     this.store.dispatch(createWebsocket({ projectId, websocket: { _id, projectId, userId, name, date, active } }));
+  }
+
+  createQueue() {
+    if (!this.project) return;
+    if (!this.user) return;
+
+    const userId = this.user._id;
+    const projectId = this.project._id;
+    const _id = '';
+    const name = 'Queue';
+    const date = new Date().toISOString();
+    const active = true;
+
+    this.store.dispatch(createQueue({ projectId, queue: { _id, projectId, userId, name, date, active } }));
   }
 }

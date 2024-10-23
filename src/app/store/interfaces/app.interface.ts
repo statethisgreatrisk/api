@@ -185,6 +185,15 @@ export interface Websocket {
     name: string;
 }
 
+export interface Queue {
+    _id: string;
+    userId: string;
+    projectId: string;
+    date: string;
+    active: boolean;
+    name: string;
+}
+
 export interface Document {
     _id: string;
     userId: string;
@@ -322,6 +331,7 @@ export interface AppState {
     requests: Request[];
     variables: Variable[];
     websockets: Websocket[];
+    queues: Queue[];
     documents: Document[];
 
     instances: Instance[];
