@@ -16,6 +16,82 @@
                 <input type="text" placeholder="Enter queue name" [(ngModel)]="queue.name">
             </div>
         </div>
+        <div class="edit-queue-label">
+            <p>Queue name can have up to 80 characters, is case sensitive and may only contain alphanumeric characters, hyphens (-) and underscores (_).</p>
+        </div>
+        <div class="edit-queue-label">
+            <p>Settings</p>
+        </div>
+        <div class="edit-queue-tab-detail-container">
+            <div class="edit-queue-tab-detail-group">
+                <div class="edit-queue-tab-detail">
+                    <p>Delay Seconds</p>
+                </div>
+                <div class="edit-queue-select-container">
+                    <div class="edit-queue-select">
+                        <div class="edit-queue-select-button">
+                            <p>0 seconds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-queue-tab-detail-container">
+            <div class="edit-queue-tab-detail-group">
+                <div class="edit-queue-tab-detail">
+                    <p>Maximum Message Size</p>
+                </div>
+                <div class="edit-queue-select-container">
+                    <div class="edit-queue-select">
+                        <div class="edit-queue-select-button">
+                            <p>246 KiB</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-queue-tab-detail-container">
+            <div class="edit-queue-tab-detail-group">
+                <div class="edit-queue-tab-detail">
+                    <p>Message Retention Period</p>
+                </div>
+                <div class="edit-queue-select-container">
+                    <div class="edit-queue-select">
+                        <div class="edit-queue-select-button">
+                            <p>4 Days</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-queue-tab-detail-container">
+            <div class="edit-queue-tab-detail-group">
+                <div class="edit-queue-tab-detail">
+                    <p>Receive Message Wait Period</p>
+                </div>
+                <div class="edit-queue-select-container">
+                    <div class="edit-queue-select">
+                        <div class="edit-queue-select-button">
+                            <p>0 seconds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-queue-tab-detail-container">
+            <div class="edit-queue-tab-detail-group">
+                <div class="edit-queue-tab-detail">
+                    <p>Visibility Timeout</p>
+                </div>
+                <div class="edit-queue-select-container">
+                    <div class="edit-queue-select">
+                        <div class="edit-queue-select-button">
+                            <p>30 seconds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="edit-queue-buttons">
             <div class="edit-queue-cancel" (click)="cancel()">
                 <p>Cancel</p>
