@@ -15,6 +15,7 @@ export const appState: AppState = {
     variables: [],
     websockets: [],
     queues: [],
+    schedulers: [],
     documents: [],
 
     instances: [],

@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler } from "../interfaces/app.interface";
 
 // User
 
@@ -343,6 +343,34 @@ export const removeQueueFn: (state: AppState, queueId: string) => AppState = (st
     return { ...state, queues: state.queues.filter((queue) => queue._id !== queueId) };
 }
 
+// Scheduler
+
+export const addSchedulersFn: (state: AppState, schedulers: Scheduler[]) => AppState = (state: AppState, schedulers: Scheduler[]) => {
+    if (!schedulers) return { ...state };
+    return { ...state, schedulers: schedulers };
+}
+
+export const addSchedulerFn: (state: AppState, scheduler: Scheduler) => AppState = (state: AppState, scheduler: Scheduler) => {
+    if (!scheduler) return { ...state };
+    return { ...state, schedulers: state.schedulers.concat([scheduler]) };
+}
+
+export const replaceSchedulerFn: (state: AppState, scheduler: Scheduler) => AppState = (state: AppState, scheduler: Scheduler) => {
+    if (!scheduler) return { ...state };
+
+    const schedulers = state.schedulers.map((existingScheduler) => {
+        if (existingScheduler._id !== scheduler._id) return existingScheduler;
+        return scheduler;
+    });
+
+    return { ...state, schedulers: schedulers };
+}
+
+export const removeSchedulerFn: (state: AppState, schedulerId: string) => AppState = (state: AppState, schedulerId: string) => {
+    if (!schedulerId) return { ...state };
+    return { ...state, schedulers: state.schedulers.filter((scheduler) => scheduler._id !== schedulerId) };
+}
+
 // Document
 
 export const addDocumentsFn: (state: AppState, documents: Document[]) => AppState = (state: AppState, documents: Document[]) => {
@@ -575,6 +603,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         variables: [],
         websockets: [],
         queues: [],
+        schedulers: [],
         documents: [],
 
         instances: [],
@@ -609,6 +638,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         variables: [],
         websockets: [],
         queues: [],
+        schedulers: [],
         documents: [],
 
         instances: [],

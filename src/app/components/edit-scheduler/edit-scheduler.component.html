@@ -1,0 +1,28 @@
+<div class="edit-scheduler-container">
+    <div class="edit-scheduler">
+        <div class="edit-scheduler-header-container">
+            <div class="edit-scheduler-header">
+                <p>Scheduler</p>
+            </div>
+            <div class="edit-scheduler-slim-button inline" (click)="delete()">
+                <p>Delete</p>
+            </div>
+        </div>
+        <div class="edit-scheduler-label">
+            <p>Name</p>
+        </div>
+        <div class="edit-scheduler-input-container">
+            <div class="edit-scheduler-input" *ngIf="scheduler">
+                <input type="text" placeholder="Enter collection name" [(ngModel)]="scheduler.name">
+            </div>
+        </div>
+        <div class="edit-scheduler-buttons">
+            <div class="edit-scheduler-cancel" (click)="cancel()">
+                <p>Cancel</p>
+            </div>
+            <div class="edit-scheduler-save" (click)="save()">
+                <p>Save</p>
+            </div>
+        </div>
+    </div>
+</div>

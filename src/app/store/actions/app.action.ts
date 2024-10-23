@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -145,6 +145,16 @@ export const updateQueue = createAction('[UPDATE] Queue', props<{projectId: stri
 export const replaceQueue = createAction('[REPLACE] Queue', props<{queue: Queue}>());
 export const deleteQueue = createAction('[DELETE] Queue', props<{projectId: string, queueId: string}>());
 export const removeQueue = createAction('[REMOVE] Queue', props<{queueId: string}>());
+
+// Scheduler
+export const getSchedulers = createAction('[GET] Schedulers', props<{projectId: string}>());
+export const addSchedulers = createAction('[ADD] Schedulers', props<{schedulers: Scheduler[]}>());
+export const createScheduler = createAction('[CREATE] Scheduler', props<{projectId: string, scheduler: Scheduler}>());
+export const addScheduler = createAction('[ADD] Scheduler', props<{scheduler: Scheduler}>());
+export const updateScheduler = createAction('[UPDATE] Scheduler', props<{projectId: string, scheduler: Scheduler}>());
+export const replaceScheduler = createAction('[REPLACE] Scheduler', props<{scheduler: Scheduler}>());
+export const deleteScheduler = createAction('[DELETE] Scheduler', props<{projectId: string, schedulerId: string}>());
+export const removeScheduler = createAction('[REMOVE] Scheduler', props<{schedulerId: string}>());
 
 // Document
 export const getDocuments = createAction('[GET] Documents', props<{projectId: string}>());

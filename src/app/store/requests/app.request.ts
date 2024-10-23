@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -335,6 +335,28 @@ export class AppRequest {
   
   deleteQueue(projectId: string, queueId: string): Observable<ResponseMessage> {
     const endpoint = `${this.url}/queue/:projectId/:queueId`.replace(':queueId', queueId).replace(':projectId', projectId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
+  }
+
+  // Scheduler
+
+  getSchedulers(projectId: string): Observable<Scheduler[]> {
+    const endpoint = `${this.url}/scheduler/:projectId`.replace(':projectId', projectId);
+    return this.http.get<Scheduler[]>(endpoint, { withCredentials: true });
+  }
+  
+  createScheduler(projectId: string, scheduler: Scheduler): Observable<Scheduler> {
+    const endpoint = `${this.url}/scheduler/:projectId`.replace(':projectId', projectId);
+    return this.http.post<Scheduler>(endpoint, { scheduler }, { withCredentials: true });
+  }
+  
+  updateScheduler(projectId: string, scheduler: Scheduler): Observable<Scheduler> {
+    const endpoint = `${this.url}/scheduler/:projectId`.replace(':projectId', projectId);
+    return this.http.put<Scheduler>(endpoint, { scheduler }, { withCredentials: true });
+  }
+  
+  deleteScheduler(projectId: string, schedulerId: string): Observable<ResponseMessage> {
+    const endpoint = `${this.url}/scheduler/:projectId/:schedulerId`.replace(':schedulerId', schedulerId).replace(':projectId', projectId);
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 

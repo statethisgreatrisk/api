@@ -2,7 +2,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, mergeMap, of } from "rxjs";
 import { Injectable } from "@angular/core";
 import { AppRequest } from "../requests/app.request";
-import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateKey, updateLog, updateUsage, signupUser, authError, authSuccess, resendUser, confirmUser, forgotUser, resetUser, loginUser, logoutUser, refreshUser, checkUser, addProject, addProjects, createProject, deleteProject, getProjects, removeProject, replaceProject, updateProject, deleteKey, removeKey, billingError, billingSuccess, deployStartSuccess, deployStartError, addFn, addFns, addObj, addObjs, createFn, createObj, deleteFn, deleteObj, getFns, getObjs, removeFn, removeObj, replaceFn, replaceObj, updateFn, updateObj, addDocument, addDocuments, createDocument, deleteDocument, getDocuments, removeDocument, replaceDocument, updateDocument, addSub, addSubs, createSub, deleteSub, getSubs, removeSub, replaceSub, updateSub, startDeploy, stopDeploy, deployStopSuccess, deployStopError, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, getInstances, addInstances, addRequest, addRequests, createRequest, deleteRequest, getRequests, removeRequest, replaceRequest, updateRequest, createRequestSuccess, addVariable, addVariables, createVariable, deleteVariable, getVariables, removeVariable, replaceVariable, updateVariable, addWebsocket, addWebsockets, createWebsocket, deleteWebsocket, getWebsockets, removeWebsocket, replaceWebsocket, updateWebsocket, addQueue, addQueues, createQueue, deleteQueue, getQueues, removeQueue, replaceQueue, updateQueue } from "../actions/app.action";
+import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateKey, updateLog, updateUsage, signupUser, authError, authSuccess, resendUser, confirmUser, forgotUser, resetUser, loginUser, logoutUser, refreshUser, checkUser, addProject, addProjects, createProject, deleteProject, getProjects, removeProject, replaceProject, updateProject, deleteKey, removeKey, billingError, billingSuccess, deployStartSuccess, deployStartError, addFn, addFns, addObj, addObjs, createFn, createObj, deleteFn, deleteObj, getFns, getObjs, removeFn, removeObj, replaceFn, replaceObj, updateFn, updateObj, addDocument, addDocuments, createDocument, deleteDocument, getDocuments, removeDocument, replaceDocument, updateDocument, addSub, addSubs, createSub, deleteSub, getSubs, removeSub, replaceSub, updateSub, startDeploy, stopDeploy, deployStopSuccess, deployStopError, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, getInstances, addInstances, addRequest, addRequests, createRequest, deleteRequest, getRequests, removeRequest, replaceRequest, updateRequest, createRequestSuccess, addVariable, addVariables, createVariable, deleteVariable, getVariables, removeVariable, replaceVariable, updateVariable, addWebsocket, addWebsockets, createWebsocket, deleteWebsocket, getWebsockets, removeWebsocket, replaceWebsocket, updateWebsocket, addQueue, addQueues, createQueue, deleteQueue, getQueues, removeQueue, replaceQueue, updateQueue, addScheduler, addSchedulers, createScheduler, deleteScheduler, getSchedulers, removeScheduler, replaceScheduler, updateScheduler } from "../actions/app.action";
 
 @Injectable()
 export class AppEffect {
@@ -627,6 +627,49 @@ export class AppEffect {
             )),
         );
     });
+
+    // Scheduler
+
+    getSchedulers$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(getSchedulers),
+            exhaustMap((action) => this.appRequest.getSchedulers(action.projectId).pipe(
+                map(data => addSchedulers({ schedulers: data })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    createScheduler$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(createScheduler),
+            exhaustMap((action) => this.appRequest.createScheduler(action.projectId, action.scheduler).pipe(
+                map(data => addScheduler({ scheduler: data })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    updateScheduler$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updateScheduler),
+            exhaustMap((action) => this.appRequest.updateScheduler(action.projectId, action.scheduler).pipe(
+                map(data => replaceScheduler({ scheduler: data })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    deleteScheduler$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(deleteScheduler),
+            exhaustMap((action) => this.appRequest.deleteScheduler(action.projectId, action.schedulerId).pipe(
+                map(data => removeScheduler({ schedulerId: data.message })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
 
     // Document
 

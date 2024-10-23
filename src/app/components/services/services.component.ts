@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm, Variable, Websocket, Queue } from '../../store/interfaces/app.interface';
-import { changeProject, clearData, createAPI, createFn, createObj, createProject, createQueue, createRequest, createSchema, createStorage, createValidator, createVariable, createWebsocket, createWorkflow, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
-import { selectAPIs, selectFns, selectMainProject, selectObjs, selectProjects, selectQueues, selectRequests, selectSchemas, selectStorages, selectUser, selectValidators, selectVariables, selectView, selectWebsockets, selectWorkflows } from '../../store/selectors/app.selector';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm, Variable, Websocket, Queue, Scheduler } from '../../store/interfaces/app.interface';
+import { changeProject, clearData, createAPI, createFn, createObj, createProject, createQueue, createRequest, createScheduler, createSchema, createStorage, createValidator, createVariable, createWebsocket, createWorkflow, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
+import { selectAPIs, selectFns, selectMainProject, selectObjs, selectProjects, selectQueues, selectRequests, selectSchedulers, selectSchemas, selectStorages, selectUser, selectValidators, selectVariables, selectView, selectWebsockets, selectWorkflows } from '../../store/selectors/app.selector';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth.service';
 import { combineLatest, queue, Subscription } from 'rxjs';
@@ -34,6 +34,7 @@ export class ServicesComponent {
   variables: Variable[] = [];
   websockets: Websocket[] = [];
   queues: Queue[] = [];
+  schedulers: Scheduler[] = [];
 
   services: Service[] =  [
     { name: 'Workflows', icon: '/workflow.png' },
@@ -47,6 +48,7 @@ export class ServicesComponent {
     { name: 'Variables', icon: '/tool.png' },
     { name: 'WebSockets', icon: '/tool.png' },
     { name: 'Queues', icon: '/tool.png' },
+    { name: 'Schedulers', icon: '/tool.png' },
   ];
 
   dropdown: boolean = false;
@@ -116,7 +118,8 @@ export class ServicesComponent {
       this.store.select(selectVariables),
       this.store.select(selectWebsockets),
       this.store.select(selectQueues),
-    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, fns, objs, requests, variables, websockets, queues]) => {
+      this.store.select(selectSchedulers)
+    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, fns, objs, requests, variables, websockets, queues, schedulers]) => {
       this.user = user;
       this.view = view;
       this.allProjects = allProjects;
@@ -132,6 +135,7 @@ export class ServicesComponent {
       this.variables = variables;
       this.websockets = websockets;
       this.queues = queues;
+      this.schedulers = schedulers;
     });
   }
 
@@ -147,6 +151,7 @@ export class ServicesComponent {
     if (service === 'Variables') return this.createVariable();
     if (service === 'WebSockets') return this.createWebsocket();
     if (service === 'Queues') return this.createQueue();
+    if (service === 'Schedulers') return this.createScheduler();
     if (service === 'Projects') return this.createProject();
   }
 
@@ -345,5 +350,19 @@ export class ServicesComponent {
     const active = true;
 
     this.store.dispatch(createQueue({ projectId, queue: { _id, projectId, userId, name, date, active } }));
+  }
+
+  createScheduler() {
+    if (!this.project) return;
+    if (!this.user) return;
+
+    const userId = this.user._id;
+    const projectId = this.project._id;
+    const _id = '';
+    const name = 'Scheduler';
+    const date = new Date().toISOString();
+    const active = true;
+
+    this.store.dispatch(createScheduler({ projectId, scheduler: { _id, projectId, userId, name, date, active } }));
   }
 }

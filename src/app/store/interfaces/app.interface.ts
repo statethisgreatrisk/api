@@ -194,6 +194,15 @@ export interface Queue {
     name: string;
 }
 
+export interface Scheduler {
+    _id: string;
+    userId: string;
+    projectId: string;
+    date: string;
+    active: boolean;
+    name: string;
+}
+
 export interface Document {
     _id: string;
     userId: string;
@@ -332,6 +341,7 @@ export interface AppState {
     variables: Variable[];
     websockets: Websocket[];
     queues: Queue[];
+    schedulers: Scheduler[];
     documents: Document[];
 
     instances: Instance[];
