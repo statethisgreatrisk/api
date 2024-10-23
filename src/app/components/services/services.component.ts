@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm, Variable } from '../../store/interfaces/app.interface';
-import { changeProject, clearData, createAPI, createFn, createObj, createProject, createRequest, createSchema, createStorage, createValidator, createVariable, createWorkflow, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
-import { selectAPIs, selectFns, selectMainProject, selectObjs, selectProjects, selectRequests, selectSchemas, selectStorages, selectUser, selectValidators, selectVariables, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm, Variable, Websocket } from '../../store/interfaces/app.interface';
+import { changeProject, clearData, createAPI, createFn, createObj, createProject, createRequest, createSchema, createStorage, createValidator, createVariable, createWebsocket, createWorkflow, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
+import { selectAPIs, selectFns, selectMainProject, selectObjs, selectProjects, selectRequests, selectSchemas, selectStorages, selectUser, selectValidators, selectVariables, selectView, selectWebsockets, selectWorkflows } from '../../store/selectors/app.selector';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth.service';
 import { combineLatest, Subscription } from 'rxjs';
@@ -32,6 +32,7 @@ export class ServicesComponent {
   objs: Obj[] = [];
   requests: Request[] = [];
   variables: Variable[] = [];
+  websockets: Websocket[] = [];
 
   services: Service[] =  [
     { name: 'Workflows', icon: '/workflow.png' },
@@ -43,6 +44,7 @@ export class ServicesComponent {
     { name: 'Objects', icon: '/tool.png' },
     { name: 'Requests', icon: '/tool.png' },
     { name: 'Variables', icon: '/tool.png' },
+    { name: 'WebSockets', icon: '/tool.png' },
   ];
 
   dropdown: boolean = false;
@@ -110,7 +112,8 @@ export class ServicesComponent {
       this.store.select(selectObjs),
       this.store.select(selectRequests),
       this.store.select(selectVariables),
-    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, fns, objs, requests, variables]) => {
+      this.store.select(selectWebsockets),
+    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, fns, objs, requests, variables, websockets]) => {
       this.user = user;
       this.view = view;
       this.allProjects = allProjects;
@@ -124,6 +127,7 @@ export class ServicesComponent {
       this.objs = objs;
       this.requests = requests;
       this.variables = variables;
+      this.websockets = websockets;
     });
   }
 
@@ -137,6 +141,7 @@ export class ServicesComponent {
     if (service === 'Objects') return this.createObj();
     if (service === 'Requests') return this.createRequest();
     if (service === 'Variables') return this.createVariable();
+    if (service === 'WebSockets') return this.createWebsocket();
     if (service === 'Projects') return this.createProject();
   }
 
@@ -307,5 +312,19 @@ export class ServicesComponent {
     const value = '';
 
     this.store.dispatch(createVariable({ projectId, variable: { _id, projectId, userId, name, date, active, key, value } }));
+  }
+
+  createWebsocket() {
+    if (!this.project) return;
+    if (!this.user) return;
+
+    const userId = this.user._id;
+    const projectId = this.project._id;
+    const _id = '';
+    const name = 'WebSocket';
+    const date = new Date().toISOString();
+    const active = true;
+
+    this.store.dispatch(createWebsocket({ projectId, websocket: { _id, projectId, userId, name, date, active } }));
   }
 }

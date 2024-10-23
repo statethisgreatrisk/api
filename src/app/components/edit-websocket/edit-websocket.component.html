@@ -1,0 +1,28 @@
+<div class="edit-websocket-container">
+    <div class="edit-websocket">
+        <div class="edit-websocket-header-container">
+            <div class="edit-websocket-header">
+                <p>WebSocket</p>
+            </div>
+            <div class="edit-websocket-slim-button inline" (click)="delete()">
+                <p>Delete</p>
+            </div>
+        </div>
+        <div class="edit-websocket-label">
+            <p>Name</p>
+        </div>
+        <div class="edit-websocket-input-container">
+            <div class="edit-websocket-input" *ngIf="websocket">
+                <input type="text" placeholder="Enter collection name" [(ngModel)]="websocket.name">
+            </div>
+        </div>
+        <div class="edit-websocket-buttons">
+            <div class="edit-websocket-cancel" (click)="cancel()">
+                <p>Cancel</p>
+            </div>
+            <div class="edit-websocket-save" (click)="save()">
+                <p>Save</p>
+            </div>
+        </div>
+    </div>
+</div>

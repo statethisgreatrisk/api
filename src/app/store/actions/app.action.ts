@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -125,6 +125,16 @@ export const updateVariable = createAction('[UPDATE] Variable', props<{projectId
 export const replaceVariable = createAction('[REPLACE] Variable', props<{variable: Variable}>());
 export const deleteVariable = createAction('[DELETE] Variable', props<{projectId: string, variableId: string}>());
 export const removeVariable = createAction('[REMOVE] Variable', props<{variableId: string}>());
+
+// Websocket
+export const getWebsockets = createAction('[GET] Websockets', props<{projectId: string}>());
+export const addWebsockets = createAction('[ADD] Websockets', props<{websockets: Websocket[]}>());
+export const createWebsocket = createAction('[CREATE] Websocket', props<{projectId: string, websocket: Websocket}>());
+export const addWebsocket = createAction('[ADD] Websocket', props<{websocket: Websocket}>());
+export const updateWebsocket = createAction('[UPDATE] Websocket', props<{projectId: string, websocket: Websocket}>());
+export const replaceWebsocket = createAction('[REPLACE] Websocket', props<{websocket: Websocket}>());
+export const deleteWebsocket = createAction('[DELETE] Websocket', props<{projectId: string, websocketId: string}>());
+export const removeWebsocket = createAction('[REMOVE] Websocket', props<{websocketId: string}>());
 
 // Document
 export const getDocuments = createAction('[GET] Documents', props<{projectId: string}>());

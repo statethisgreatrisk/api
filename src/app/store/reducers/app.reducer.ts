@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket } from "../interfaces/app.interface";
 
 // User
 
@@ -287,6 +287,34 @@ export const removeVariableFn: (state: AppState, variableId: string) => AppState
     return { ...state, variables: state.variables.filter((variable) => variable._id !== variableId) };
 }
 
+// Websocket
+
+export const addWebsocketsFn: (state: AppState, websockets: Websocket[]) => AppState = (state: AppState, websockets: Websocket[]) => {
+    if (!websockets) return { ...state };
+    return { ...state, websockets: websockets };
+}
+
+export const addWebsocketFn: (state: AppState, websocket: Websocket) => AppState = (state: AppState, websocket: Websocket) => {
+    if (!websocket) return { ...state };
+    return { ...state, websockets: state.websockets.concat([websocket]) };
+}
+
+export const replaceWebsocketFn: (state: AppState, websocket: Websocket) => AppState = (state: AppState, websocket: Websocket) => {
+    if (!websocket) return { ...state };
+
+    const websockets = state.websockets.map((existingWebsocket) => {
+        if (existingWebsocket._id !== websocket._id) return existingWebsocket;
+        return websocket;
+    });
+
+    return { ...state, websockets: websockets };
+}
+
+export const removeWebsocketFn: (state: AppState, websocketId: string) => AppState = (state: AppState, websocketId: string) => {
+    if (!websocketId) return { ...state };
+    return { ...state, websockets: state.websockets.filter((websocket) => websocket._id !== websocketId) };
+}
+
 // Document
 
 export const addDocumentsFn: (state: AppState, documents: Document[]) => AppState = (state: AppState, documents: Document[]) => {
@@ -517,6 +545,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         objs: [],
         requests: [],
         variables: [],
+        websockets: [],
         documents: [],
 
         instances: [],
@@ -549,6 +578,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         objs: [],
         requests: [],
         variables: [],
+        websockets: [],
         documents: [],
 
         instances: [],

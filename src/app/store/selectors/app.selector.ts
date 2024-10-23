@@ -1,5 +1,5 @@
 import { createSelector } from "@ngrx/store";
-import { API, Storage, AppState, AppStateInit, Schema, Validator, Billing, Deploy, Key, Log, Usage, Workflow, Fn, Obj, Document, Sub, Instance, Request, Variable } from "../interfaces/app.interface";
+import { API, Storage, AppState, AppStateInit, Schema, Validator, Billing, Deploy, Key, Log, Usage, Workflow, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket } from "../interfaces/app.interface";
 
 export const selectApp = (state: AppStateInit) => state.app;
 
@@ -34,6 +34,7 @@ export const selectFns = createSelector(selectApp, (state: AppState) => state.fn
 export const selectObjs = createSelector(selectApp, (state: AppState) => state.objs);
 export const selectRequests = createSelector(selectApp, (state: AppState) => state.requests);
 export const selectVariables = createSelector(selectApp, (state: AppState) => state.variables);
+export const selectWebsockets = createSelector(selectApp, (state: AppState) => state.websockets);
 export const selectDocuments = createSelector(selectApp, (state: AppState) => state.documents);
 export const selectInstances = createSelector(selectApp, (state: AppState) => state.instances);
 export const selectDeploys = createSelector(selectApp, (state: AppState) => state.deploys);
@@ -52,6 +53,7 @@ export const selectProjectFns = (projectId: string) => createSelector(selectFns,
 export const selectProjectObjs = (projectId: string) => createSelector(selectObjs, (objs: Obj[]) => objs.filter((obj) => projectId === obj.projectId));
 export const selectProjectRequests = (projectId: string) => createSelector(selectRequests, (requests: Request[]) => requests.filter((request) => projectId === request.projectId));
 export const selectProjectVariables = (projectId: string) => createSelector(selectVariables, (variables: Variable[]) => variables.filter((variable) => projectId === variable.projectId));
+export const selectProjectWebsockets = (projectId: string) => createSelector(selectWebsockets, (websockets: Websocket[]) => websockets.filter((websocket) => projectId === websocket.projectId));
 export const selectProjectDocuments = (projectId: string) => createSelector(selectDocuments, (documents: Document[]) => documents.filter((document) => projectId === document.projectId));
 export const selectProjectInstances = (projectId: string) => createSelector(selectInstances, (instances: Instance[]) => instances.filter((instance) => projectId === instance.projectId));
 export const selectProjectDeploys = (projectId: string) => createSelector(selectDeploys, (deploys: Deploy[]) => deploys.filter((deploy) => projectId === deploy.projectId));

@@ -13,6 +13,7 @@ export const appState: AppState = {
     objs: [],
     requests: [],
     variables: [],
+    websockets: [],
     documents: [],
 
     instances: [],

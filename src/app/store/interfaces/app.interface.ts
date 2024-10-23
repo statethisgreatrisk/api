@@ -176,6 +176,15 @@ export interface Variable {
     value: string;
 }
 
+export interface Websocket {
+    _id: string;
+    userId: string;
+    projectId: string;
+    date: string;
+    active: boolean;
+    name: string;
+}
+
 export interface Document {
     _id: string;
     userId: string;
@@ -312,6 +321,7 @@ export interface AppState {
     objs: Obj[];
     requests: Request[];
     variables: Variable[];
+    websockets: Websocket[];
     documents: Document[];
 
     instances: Instance[];
