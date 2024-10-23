@@ -16,12 +16,26 @@
                 <input type="text" placeholder="Enter websocket name" [(ngModel)]="websocket.name">
             </div>
         </div>
+        <div class="edit-websocket-label">
+            <p>WebSocket messages are exchanged using a WebSocket schema (below). The schema is required when sending messages to the server and should be expected when receiving messages in your client application.</p>
+        </div>
+        <div class="edit-websocket-pre">
+            <pre>{{ websocketSchema }}</pre>
+        </div>
         <div class="edit-websocket-buttons">
             <div class="edit-websocket-cancel" (click)="cancel()">
                 <p>Cancel</p>
             </div>
             <div class="edit-websocket-save" (click)="save()">
                 <p>Save</p>
+            </div>
+        </div>
+        <div class="edit-websocket-divider">
+            <div class="divider"></div>
+        </div>
+        <div class="edit-websocket-path-docs">
+            <div class="edit-websocket-path-doc">
+                <p>WebSockets are based on the latest JavaScript WebSocket API. See the MDN WebSocket API docs for details.</p>
             </div>
         </div>
     </div>
