@@ -24,6 +24,17 @@
     color: white;
 }
 
+.services-scroll-container {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+
+    padding-bottom: 25px;
+
+    overflow-y: scroll;
+}
+
 .service {
     display: flex;
     flex-direction: row;
@@ -121,6 +132,8 @@
     align-items: center;
 
     height: 35px;
+    min-height: 35px;
+    max-height: 35px;
     
     margin: 0 10px 10px 10px;
     padding-left: 10px;

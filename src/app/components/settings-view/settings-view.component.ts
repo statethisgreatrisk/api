@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { Actions, ofType } from '@ngrx/effects';
 import { selectMainProject, selectUser } from '../../store/selectors/app.selector';
 import { SubViewComponent } from '../sub-view/sub-view.component';
+import { UpgradeViewComponent } from '../upgrade-view/upgrade-view.component';
 
 @Component({
   selector: 'app-settings-view',
@@ -30,6 +31,7 @@ import { SubViewComponent } from '../sub-view/sub-view.component';
     UsageViewComponent,
     ProjectDetailViewComponent,
     SubViewComponent,
+    UpgradeViewComponent,
   ],
   templateUrl: './settings-view.component.html',
   styleUrl: './settings-view.component.scss'

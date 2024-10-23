@@ -1,0 +1,60 @@
+@import '../../styles/palette.component.scss';
+
+.upgrade-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.upgrade-create {
+    display: flex;
+    flex-direction: row;
+
+    height: 40px;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.upgrade-create-description {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+}
+
+.upgrade-create-description p:nth-child(1) {
+    font-size: 12px;
+    font-weight: 800;
+
+    color: white;
+
+    width: 85px;
+}
+
+.upgrade-create-description p:nth-child(2) {
+    font-size: 10px;
+    font-weight: 600;
+
+    color: white;
+}
+
+.upgrade-button {
+    font-size: 12px;
+    font-weight: 600;
+
+    padding: 3px 15px;
+
+    width: 115px;
+
+    color: white;
+
+    text-align: center;
+
+    border-radius: 5px;
+    border: 1px solid $primary-800;
+    background: $primary-800;
+
+    cursor: pointer;
+}
