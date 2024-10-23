@@ -1,0 +1,28 @@
+<div class="edit-variable-container">
+    <div class="edit-variable">
+        <div class="edit-variable-header-container">
+            <div class="edit-variable-header">
+                <p>Variable</p>
+            </div>
+            <div class="edit-variable-slim-button inline" (click)="delete()">
+                <p>Delete</p>
+            </div>
+        </div>
+        <div class="edit-variable-label">
+            <p>Name</p>
+        </div>
+        <div class="edit-variable-input-container">
+            <div class="edit-variable-input" *ngIf="variable">
+                <input type="text" placeholder="Enter collection name" [(ngModel)]="variable.name">
+            </div>
+        </div>
+        <div class="edit-variable-buttons">
+            <div class="edit-variable-cancel" (click)="cancel()">
+                <p>Cancel</p>
+            </div>
+            <div class="edit-variable-save" (click)="save()">
+                <p>Save</p>
+            </div>
+        </div>
+    </div>
+</div>

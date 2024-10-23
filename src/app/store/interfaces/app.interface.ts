@@ -165,6 +165,17 @@ export interface Request {
     bearerToken: string;
 }
 
+export interface Variable {
+    _id: string;
+    userId: string;
+    projectId: string;
+    date: string;
+    active: boolean;
+    name: string;
+    key: string;
+    value: string;
+}
+
 export interface Document {
     _id: string;
     userId: string;
@@ -300,6 +311,7 @@ export interface AppState {
     fns: Fn[];
     objs: Obj[];
     requests: Request[];
+    variables: Variable[];
     documents: Document[];
 
     instances: Instance[];

@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -269,6 +269,28 @@ export class AppRequest {
   
   deleteRequest(projectId: string, requestId: string): Observable<ResponseMessage> {
     const endpoint = `${this.url}/request/:projectId/:requestId`.replace(':requestId', requestId).replace(':projectId', projectId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
+  }
+
+  // Variable
+
+  getVariables(projectId: string): Observable<Variable[]> {
+    const endpoint = `${this.url}/variable/:projectId`.replace(':projectId', projectId);
+    return this.http.get<Variable[]>(endpoint, { withCredentials: true });
+  }
+  
+  createVariable(projectId: string, variable: Variable): Observable<Variable> {
+    const endpoint = `${this.url}/variable/:projectId`.replace(':projectId', projectId);
+    return this.http.post<Variable>(endpoint, { variable }, { withCredentials: true });
+  }
+  
+  updateVariable(projectId: string, variable: Variable): Observable<Variable> {
+    const endpoint = `${this.url}/variable/:projectId`.replace(':projectId', projectId);
+    return this.http.put<Variable>(endpoint, { variable }, { withCredentials: true });
+  }
+  
+  deleteVariable(projectId: string, variableId: string): Observable<ResponseMessage> {
+    const endpoint = `${this.url}/variable/:projectId/:variableId`.replace(':variableId', variableId).replace(':projectId', projectId);
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 

@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable } from "../interfaces/app.interface";
 
 // User
 
@@ -259,6 +259,34 @@ export const removeRequestFn: (state: AppState, requestId: string) => AppState =
     return { ...state, requests: state.requests.filter((request) => request._id !== requestId) };
 }
 
+// Variable
+
+export const addVariablesFn: (state: AppState, variables: Variable[]) => AppState = (state: AppState, variables: Variable[]) => {
+    if (!variables) return { ...state };
+    return { ...state, variables: variables };
+}
+
+export const addVariableFn: (state: AppState, variable: Variable) => AppState = (state: AppState, variable: Variable) => {
+    if (!variable) return { ...state };
+    return { ...state, variables: state.variables.concat([variable]) };
+}
+
+export const replaceVariableFn: (state: AppState, variable: Variable) => AppState = (state: AppState, variable: Variable) => {
+    if (!variable) return { ...state };
+
+    const variables = state.variables.map((existingVariable) => {
+        if (existingVariable._id !== variable._id) return existingVariable;
+        return variable;
+    });
+
+    return { ...state, variables: variables };
+}
+
+export const removeVariableFn: (state: AppState, variableId: string) => AppState = (state: AppState, variableId: string) => {
+    if (!variableId) return { ...state };
+    return { ...state, variables: state.variables.filter((variable) => variable._id !== variableId) };
+}
+
 // Document
 
 export const addDocumentsFn: (state: AppState, documents: Document[]) => AppState = (state: AppState, documents: Document[]) => {
@@ -488,6 +516,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         fns: [],
         objs: [],
         requests: [],
+        variables: [],
         documents: [],
 
         instances: [],
@@ -519,6 +548,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         fns: [],
         objs: [],
         requests: [],
+        variables: [],
         documents: [],
 
         instances: [],

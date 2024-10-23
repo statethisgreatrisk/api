@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm } from '../../store/interfaces/app.interface';
-import { changeProject, clearData, createAPI, createFn, createObj, createProject, createRequest, createSchema, createStorage, createValidator, createWorkflow, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
-import { selectAPIs, selectFns, selectMainProject, selectObjs, selectProjects, selectRequests, selectSchemas, selectStorages, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm, Variable } from '../../store/interfaces/app.interface';
+import { changeProject, clearData, createAPI, createFn, createObj, createProject, createRequest, createSchema, createStorage, createValidator, createVariable, createWorkflow, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
+import { selectAPIs, selectFns, selectMainProject, selectObjs, selectProjects, selectRequests, selectSchemas, selectStorages, selectUser, selectValidators, selectVariables, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth.service';
 import { combineLatest, Subscription } from 'rxjs';
@@ -31,6 +31,7 @@ export class ServicesComponent {
   fns: Fn[] = [];
   objs: Obj[] = [];
   requests: Request[] = [];
+  variables: Variable[] = [];
 
   services: Service[] =  [
     { name: 'Workflows', icon: '/workflow.png' },
@@ -41,6 +42,7 @@ export class ServicesComponent {
     { name: 'Functions', icon: '/tool.png' },
     { name: 'Objects', icon: '/tool.png' },
     { name: 'Requests', icon: '/tool.png' },
+    { name: 'Variables', icon: '/tool.png' },
   ];
 
   dropdown: boolean = false;
@@ -107,7 +109,8 @@ export class ServicesComponent {
       this.store.select(selectFns),
       this.store.select(selectObjs),
       this.store.select(selectRequests),
-    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, fns, objs, requests]) => {
+      this.store.select(selectVariables),
+    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, fns, objs, requests, variables]) => {
       this.user = user;
       this.view = view;
       this.allProjects = allProjects;
@@ -120,6 +123,7 @@ export class ServicesComponent {
       this.fns = fns;
       this.objs = objs;
       this.requests = requests;
+      this.variables = variables;
     });
   }
 
@@ -132,6 +136,7 @@ export class ServicesComponent {
     if (service === 'Functions') return this.createFn();
     if (service === 'Objects') return this.createObj();
     if (service === 'Requests') return this.createRequest();
+    if (service === 'Variables') return this.createVariable();
     if (service === 'Projects') return this.createProject();
   }
 
@@ -286,5 +291,21 @@ export class ServicesComponent {
     const wideRequest = false;
 
     this.store.dispatch(createRequest({ projectId, wideRequest, request: { _id, projectId, userId, name, date, active, action, url, parameters, headers, contentType, authorizationType, apiKeyPassBy, bodyJson, bodyText, bodyForm, apiKeyKey, apiKeyValue, basicAuthUsername, basicAuthPassword, bearerToken } }));
+  }
+
+  createVariable() {
+    if (!this.project) return;
+    if (!this.user) return;
+
+    const userId = this.user._id;
+    const projectId = this.project._id;
+    const _id = '';
+    const name = 'Variable';
+    const date = new Date().toISOString();
+    const active = true;
+    const key = '';
+    const value = '';
+
+    this.store.dispatch(createVariable({ projectId, variable: { _id, projectId, userId, name, date, active, key, value } }));
   }
 }

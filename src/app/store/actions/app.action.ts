@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -115,6 +115,16 @@ export const deleteRequest = createAction('[DELETE] Request', props<{projectId: 
 export const removeRequest = createAction('[REMOVE] Request', props<{requestId: string}>());
 
 export const createRequestSuccess = createAction('[SUCCESS] Create Request', props<{request: Request, wideRequest: boolean}>());
+
+// Variable
+export const getVariables = createAction('[GET] Variables', props<{projectId: string}>());
+export const addVariables = createAction('[ADD] Variables', props<{variables: Variable[]}>());
+export const createVariable = createAction('[CREATE] Variable', props<{projectId: string, variable: Variable}>());
+export const addVariable = createAction('[ADD] Variable', props<{variable: Variable}>());
+export const updateVariable = createAction('[UPDATE] Variable', props<{projectId: string, variable: Variable}>());
+export const replaceVariable = createAction('[REPLACE] Variable', props<{variable: Variable}>());
+export const deleteVariable = createAction('[DELETE] Variable', props<{projectId: string, variableId: string}>());
+export const removeVariable = createAction('[REMOVE] Variable', props<{variableId: string}>());
 
 // Document
 export const getDocuments = createAction('[GET] Documents', props<{projectId: string}>());

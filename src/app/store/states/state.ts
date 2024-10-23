@@ -12,6 +12,7 @@ export const appState: AppState = {
     fns: [],
     objs: [],
     requests: [],
+    variables: [],
     documents: [],
 
     instances: [],

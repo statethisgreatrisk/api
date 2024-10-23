@@ -96,7 +96,7 @@
         </div>
         <div class="services">
             <div *ngFor="let service of services;">
-                <div class="service" *ngIf="service.name === 'Requests'">
+                <div class="service" *ngIf="service.name === 'Requests' || service.name === 'Variables'">
                     <p>{{ service.name }}</p>
                     <p (click)="create(service.name)">New +</p>
                 </div>
@@ -105,6 +105,13 @@
                     <div class="service-data" [ngClass]="{ 'active': view.serviceId === r._id }" *ngFor="let r of requests" (click)="selectService(service.name, r._id)">
                         <img [src]="service.icon">
                         <p>{{ r.name }}</p>
+                    </div>
+                </div>
+                <!-- Variable -->
+                <div class="service-data-list" *ngIf="service.name === 'Variables'">
+                    <div class="service-data" [ngClass]="{ 'active': view.serviceId === v._id }" *ngFor="let v of variables" (click)="selectService(service.name, v._id)">
+                        <img [src]="service.icon">
+                        <p>{{ v.name }}</p>
                     </div>
                 </div>
             </div>
