@@ -362,7 +362,12 @@ export class ServicesComponent {
     const name = 'Scheduler';
     const date = new Date().toISOString();
     const active = true;
+    const cron = '';
+    const cronType = 'none';
+    const cronHour = 0;
+    const cronMinute = 0;
+    const cronTimezone = 'America/New_York';
 
-    this.store.dispatch(createScheduler({ projectId, scheduler: { _id, projectId, userId, name, date, active } }));
+    this.store.dispatch(createScheduler({ projectId, scheduler: { _id, projectId, userId, name, date, active, cron, cronType, cronHour, cronMinute, cronTimezone } }));
   }
 }

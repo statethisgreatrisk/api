@@ -27,8 +27,11 @@
     "@ngrx/store-devtools": "^18.0.2",
     "bson-objectid": "^2.0.4",
     "codemirror": "^6.0.1",
+    "cron-time-generator": "^2.0.3",
+    "cronstrue": "^2.50.0",
     "lodash": "^4.17.21",
     "rxjs": "~7.8.0",
+    "timezones-list": "^3.0.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

@@ -13,7 +13,137 @@
         </div>
         <div class="edit-scheduler-input-container">
             <div class="edit-scheduler-input" *ngIf="scheduler">
-                <input type="text" placeholder="Enter collection name" [(ngModel)]="scheduler.name">
+                <input type="text" placeholder="Enter scheduler name" [(ngModel)]="scheduler.name">
+            </div>
+        </div>
+        <div class="edit-scheduler-label">
+            <p>Schedule</p>
+        </div>
+        <div class="edit-scheduler-tab-detail-container">
+            <div class="edit-scheduler-tab-detail-group">
+                <div class="edit-scheduler-tab-detail">
+                    <p>Cron Type</p>
+                </div>
+                <div class="edit-scheduler-select-container">
+                    <div class="edit-scheduler-select">
+                        <div class="edit-scheduler-select-button" (click)="toggleCronTypeDropdown()" *ngIf="scheduler">
+                            <p *ngIf="scheduler.cronType === 'none'">None</p>
+                            <p *ngIf="scheduler.cronType === 'everyMinute'">Every minute</p>
+                            <p *ngIf="scheduler.cronType === 'everyHour'">Every hour</p>
+                            <p *ngIf="scheduler.cronType === 'everyDayAt'">Every day at</p>
+                            <p *ngIf="scheduler.cronType === 'everySundayAt'">Every Sunday at</p>
+                            <p *ngIf="scheduler.cronType === 'everyMondayAt'">Every Monday at</p>
+                            <p *ngIf="scheduler.cronType === 'everyTuesdayAt'">Every Tuesday at</p>
+                            <p *ngIf="scheduler.cronType === 'everyWednesdayAt'">Every Wednesday at</p>
+                            <p *ngIf="scheduler.cronType === 'everyThursdayAt'">Every Thursday at</p>
+                            <p *ngIf="scheduler.cronType === 'everyFridayAt'">Every Friday at</p>
+                            <p *ngIf="scheduler.cronType === 'everySaturdayAt'">Every Saturday at</p>
+                            <p *ngIf="scheduler.cronType === 'everyWeekDayAt'">Every weekday at</p>
+                            <p *ngIf="scheduler.cronType === 'everyWeekendAt'">Every weekend at</p>
+                            <img src="/down.png">
+                        </div>
+                        <div class="edit-scheduler-select-dropdown" *ngIf="cronTypeDropdown">
+                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('none')">
+                                <p>None</p>
+                            </div>
+                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyMinute')">
+                                <p>Every minute</p>
+                            </div>
+                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyHour')">
+                                <p>Every hour</p>
+                            </div>
+                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyDayAt')">
+                                <p>Every day at</p>
+                            </div>
+                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everySundayAt')">
+                                <p>Every Sunday at</p>
+                            </div>
+                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyMondayAt')">
+                                <p>Every Monday at</p>
+                            </div>
+                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyTuesdayAt')">
+                                <p>Every Tuesday at</p>
+                            </div>
+                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyWednesdayAt')">
+                                <p>Every Wednesday at</p>
+                            </div>
+                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyThursdayAt')">
+                                <p>Every Thursday at</p>
+                            </div>
+                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyFridayAt')">
+                                <p>Every Friday at</p>
+                            </div>
+                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everySaturdayAt')">
+                                <p>Every Saturday at</p>
+                            </div>
+                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyWeekDayAt')">
+                                <p>Every weekday at</p>
+                            </div>
+                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyWeekendAt')">
+                                <p>Every weekend at</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="edit-scheduler-tab-detail" *ngIf="scheduler && scheduler.cronType.includes('At')">
+                    <p>H</p>
+                </div>
+                <div class="edit-scheduler-select-container" *ngIf="scheduler && scheduler.cronType.includes('At')">
+                    <div class="edit-scheduler-select">
+                        <div class="edit-scheduler-select-button" (click)="toggleCronHourDropdown()" *ngIf="scheduler">
+                            <p>{{ scheduler.cronHour }}</p>
+                            <img src="/down.png">
+                        </div>
+                        <div class="edit-scheduler-select-dropdown" *ngIf="cronHourDropdown">
+                            <div class="edit-scheduler-select-dropdown-button" *ngFor="let n of times(24)" (click)="selectCronHour(n)">
+                                <p>{{ n }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="edit-scheduler-tab-detail" *ngIf="scheduler && scheduler.cronType.includes('At')">
+                    <p>M</p>
+                </div>
+                <div class="edit-scheduler-select-container" *ngIf="scheduler && scheduler.cronType.includes('At')">
+                    <div class="edit-scheduler-select">
+                        <div class="edit-scheduler-select-button" (click)="toggleCronMinuteDropdown()" *ngIf="scheduler">
+                            <p>{{ scheduler.cronMinute }}</p>
+                            <img src="/down.png">
+                        </div>
+                        <div class="edit-scheduler-select-dropdown" *ngIf="cronMinuteDropdown">
+                            <div class="edit-scheduler-select-dropdown-button" *ngFor="let n of times(60)" (click)="selectCronMinute(n)">
+                                <p>{{ n }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-scheduler-tab-detail-container">
+            <div class="edit-scheduler-tab-detail-group">
+                <div class="edit-scheduler-tab-detail">
+                    <p>Time Zone</p>
+                </div>
+                <div class="edit-scheduler-select-container">
+                    <div class="edit-scheduler-select">
+                        <div class="edit-scheduler-select-button" (click)="toggleCronTimezoneDropdown()" *ngIf="scheduler">
+                            <p>{{ scheduler.cronTimezone }}</p>
+                            <img src="/down.png">
+                        </div>
+                        <div class="edit-scheduler-select-dropdown wide" *ngIf="cronTimezoneDropdown">
+                            <div class="edit-scheduler-select-dropdown-button" *ngFor="let timezone of alphaTimezones" (click)="selectCronTimezone(timezone)">
+                                <p>{{ timezone }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-scheduler-tab-detail-container">
+            <div class="edit-scheduler-tab-detail-group">
+                <div class="edit-scheduler-tab-detail">
+                    <p *ngIf="scheduler">{{ readCron }} ({{ scheduler.cron }})</p>
+                </div>
             </div>
         </div>
         <div class="edit-scheduler-buttons">

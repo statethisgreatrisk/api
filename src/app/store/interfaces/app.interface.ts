@@ -201,6 +201,11 @@ export interface Scheduler {
     date: string;
     active: boolean;
     name: string;
+    cron: string;
+    cronType: string;
+    cronHour: number;
+    cronMinute: number;
+    cronTimezone: string;
 }
 
 export interface Document {
