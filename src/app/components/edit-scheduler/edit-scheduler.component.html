@@ -142,7 +142,7 @@
         <div class="edit-scheduler-tab-detail-container">
             <div class="edit-scheduler-tab-detail-group">
                 <div class="edit-scheduler-tab-detail">
-                    <p *ngIf="scheduler">{{ readCron }} ({{ scheduler.cron }})</p>
+                    <p *ngIf="scheduler && scheduler.cronType !== 'none'">{{ readCron }} ({{ scheduler.cron }})</p>
                 </div>
             </div>
         </div>
