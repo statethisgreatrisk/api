@@ -24,8 +24,7 @@
         </div>
         <div class="services">
             <div *ngFor="let service of services;">
-                <div class="service" *ngIf="service.name === 'Workflows' || service.name === 'APIs' || service.name === 'Storages'">
-                    <p *ngIf="service.name === 'Storages'">Storage</p>
+                <div class="service" *ngIf="service.name === 'Workflows' || service.name === 'APIs'">
                     <p *ngIf="service.name === 'Workflows' || service.name === 'APIs'">{{ service.name }}</p>
                     <p (click)="create(service.name)">New +</p>
                 </div>
@@ -42,6 +41,17 @@
                         <img [src]="service.icon">
                         <p>{{ a.name }}</p>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="small-spacer tall">
+            <p>Storage</p>
+        </div>
+        <div class="services">
+            <div *ngFor="let service of services;">
+                <div class="service" *ngIf="service.name === 'Storages'">
+                    <p *ngIf="service.name === 'Storages'">Storage</p>
+                    <p (click)="create(service.name)">New +</p>
                 </div>
                 <!-- Storage -->
                 <div class="service-data-list" *ngIf="service.name === 'Storages'">
