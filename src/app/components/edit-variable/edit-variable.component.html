@@ -16,6 +16,14 @@
                 <input type="text" placeholder="Enter variable name" [(ngModel)]="variable.name">
             </div>
         </div>
+        <div class="edit-variable-label">
+            <p>Value</p>
+        </div>
+        <div class="edit-variable-textarea-container">
+            <div class="edit-variable-textarea" *ngIf="variable">
+                <textarea placeholder="Enter value" [(ngModel)]="variable.value" spellcheck="false"></textarea>
+            </div>
+        </div>
         <div class="edit-variable-buttons">
             <div class="edit-variable-cancel" (click)="cancel()">
                 <p>Cancel</p>

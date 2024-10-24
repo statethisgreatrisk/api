@@ -318,10 +318,9 @@ export class ServicesComponent {
     const name = 'Variable';
     const date = new Date().toISOString();
     const active = true;
-    const key = '';
     const value = '';
 
-    this.store.dispatch(createVariable({ projectId, variable: { _id, projectId, userId, name, date, active, key, value } }));
+    this.store.dispatch(createVariable({ projectId, variable: { _id, projectId, userId, name, date, active, value } }));
   }
 
   createWebsocket() {

@@ -172,7 +172,6 @@ export interface Variable {
     date: string;
     active: boolean;
     name: string;
-    key: string;
     value: string;
 }
 
