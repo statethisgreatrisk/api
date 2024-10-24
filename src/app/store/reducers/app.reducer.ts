@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings } from "../interfaces/app.interface";
 
 // User
 
@@ -8,6 +8,51 @@ export const addUserFn: (state: AppState, user: User) => AppState = (state: AppS
 }
 
 // Project
+
+export const addProjectSetupFn: (state: AppState, setup: ProjectSetup) => AppState = (state: AppState, setup: ProjectSetup) => {
+    if (!setup) return { ...state };
+    return {
+        ...state,
+        user: setup.user,
+        apps: setup.apps,
+        projects: setup.projects,
+    };
+}
+
+export const addProjectDataFn: (state: AppState, data: ProjectData) => AppState = (state: AppState, data: ProjectData) => {
+    if (!data) return { ...state };
+    return {
+        ...state,
+        workflows: data.workflows,
+        apis: data.apis,
+        storages: data.storages,
+        schemas: data.schemas,
+        validators: data.validators,
+        fns: data.fns,
+        objs: data.objs,
+        requests: data.requests,
+        variables: data.variables,
+        websockets: data.websockets,
+        queues: data.queues,
+        schedulers: data.schedulers,
+        documents: data.documents,
+     };
+}
+
+export const addProjectSettingsFn: (state: AppState, settings: ProjectSettings) => AppState = (state: AppState, settings: ProjectSettings) => {
+    if (!settings) return { ...state };
+    return {
+        ...state,
+        instances: [settings.instance],
+        deploys: settings.deploys,
+        logs: settings.logs,
+        keys: settings.keys,
+        billings: settings.billings,
+        usages: settings.usages,
+        subs: settings.subs,
+        registers: settings.registers,
+    };
+}
 
 export const addProjectsFn: (state: AppState, projects: Project[]) => AppState = (state: AppState, projects: Project[]) => {
     if (!projects) return { ...state };

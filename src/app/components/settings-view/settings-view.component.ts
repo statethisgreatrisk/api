@@ -8,7 +8,7 @@ import { KeyViewComponent } from '../key-view/key-view.component';
 import { BillingViewComponent } from '../billing-view/billing-view.component';
 import { UsageViewComponent } from '../usage-view/usage-view.component';
 import { Store } from '@ngrx/store';
-import { getDeploys, getLogs, getKeys, getBillings, getUsages, authSuccess, logoutUser, getSubs, getInstances, getDeployStatus, getRegisters } from '../../store/actions/app.action';
+import { authSuccess, logoutUser, getProjectSettings } from '../../store/actions/app.action';
 import { AppStateInit, Project, User } from '../../store/interfaces/app.interface';
 import { ProjectDetailViewComponent } from '../project-detail-view/project-detail-view.component';
 import { Subscription } from 'rxjs';
@@ -80,15 +80,7 @@ export class SettingsViewComponent {
     };
 
     const projectActions = [
-      this.dispatchInstances,
-      this.dispatchDeploys,
-
-      this.dispatchLogs,
-      this.dispatchKeys,
-      this.dispatchBillings,
-      this.dispatchUsages,
-      this.dispatchSubs,
-      this.dispatchRegisters,
+      this.dispatchProjectSettings,
     ];
 
     this.projectSub = this.store.select(selectMainProject).subscribe(async (project) => {
@@ -106,36 +98,8 @@ export class SettingsViewComponent {
     });
   }
 
-  dispatchInstances(projectId: string) {
-    this.store.dispatch(getInstances({ projectId: projectId }));
-  }
-
-  dispatchDeploys(projectId: string) {
-    this.store.dispatch(getDeploys({ projectId: projectId }));
-  }
-
-  dispatchLogs(projectId: string) {
-    this.store.dispatch(getLogs({ projectId: projectId }));
-  }
-
-  dispatchKeys(projectId: string) {
-    this.store.dispatch(getKeys({ projectId: projectId }));
-  }
-
-  dispatchBillings(projectId: string) {
-    this.store.dispatch(getBillings({ projectId: projectId }));
-  }
-
-  dispatchUsages(projectId: string) {
-    this.store.dispatch(getUsages({ projectId: projectId }));
-  }
-
-  dispatchSubs(projectId: string) {
-    this.store.dispatch(getSubs({ projectId: projectId }));
-  }
-
-  dispatchRegisters(projectId: string) {
-    this.store.dispatch(getRegisters({ projectId: projectId }));
+  dispatchProjectSettings(projectId: string) {
+    this.store.dispatch(getProjectSettings({ projectId: projectId }));
   }
   
   closeSettings() {

@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -23,6 +23,13 @@ export const authSuccess = createAction('[SUCCESS] Auth', props<{action: Auth['a
 export const authError = createAction('[ERROR] Auth', props<{action: Auth['action'], success: boolean, message: string }>());
 
 // Project
+export const getProjectSetup = createAction('[GET] Project Setup');
+export const addProjectSetup = createAction('[ADD] Project Setup', props<{setup: ProjectSetup}>());
+export const getProjectData = createAction('[GET] Project Data', props<{projectId: string}>());
+export const addProjectData = createAction('[ADD] Project Data', props<{data: ProjectData}>());
+export const getProjectSettings = createAction('[GET] Project Settings', props<{projectId: string}>());
+export const addProjectSettings = createAction('[ADD] Project Settings', props<{settings: ProjectSettings}>());
+
 export const getProjects = createAction('[GET] Projects');
 export const addProjects = createAction('[ADD] Projects', props<{projects: Project[]}>());
 export const createProject = createAction('[CREATE] Project', props<{project: Project}>());

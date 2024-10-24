@@ -339,6 +339,39 @@ export interface ResponseMessage {
     message: string;
 }
 
+export interface ProjectSetup {
+    user: User;
+    apps: App[];
+    projects: Project[];
+}
+
+export interface ProjectData {
+    workflows: Workflow[];
+    apis: API[];
+    storages: Storage[];
+    schemas: Schema[];
+    validators: Validator[];
+    fns: Fn[];
+    objs: Obj[];
+    requests: Request[];
+    variables: Variable[];
+    websockets: Websocket[];
+    queues: Queue[];
+    schedulers: Scheduler[];
+    documents: Document[];
+}
+
+export interface ProjectSettings {
+    instance: Instance;
+    deploys: Deploy[];
+    logs: Log[];
+    keys: Key[];
+    billings: Billing[];
+    usages: Usage[];
+    subs: Sub[];
+    registers: Register[];
+}
+
 export interface AppState {
     projects: Project[];
     apps: App[];

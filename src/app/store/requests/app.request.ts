@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -75,6 +75,21 @@ export class AppRequest {
   }
 
   // Project
+
+  getProjectSetup(): Observable<ProjectSetup> {
+    const endpoint = `${this.url}/project/setup`;
+    return this.http.get<ProjectSetup>(endpoint, { withCredentials: true });
+  }
+
+  getProjectData(projectId: string): Observable<ProjectData> {
+    const endpoint = `${this.url}/project/:projectId/data`.replace(':projectId', projectId);
+    return this.http.get<ProjectData>(endpoint, { withCredentials: true });
+  }
+
+  getProjectSettings(projectId: string): Observable<ProjectSettings> {
+    const endpoint = `${this.url}/project/:projectId/settings`.replace(':projectId', projectId);
+    return this.http.get<ProjectSettings>(endpoint, { withCredentials: true });
+  }
 
   getProjects(): Observable<Project[]> {
     const endpoint = `${this.url}/project`;

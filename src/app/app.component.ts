@@ -9,7 +9,7 @@ import { StorageViewComponent } from './components/storage-view/storage-view.com
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
-import { addProject, authError, authSuccess, changeProject, checkUser, clearData, clearStore, getAPIs, getApps, getDocuments, getFns, getObjs, getProjects, getQueues, getRequests, getSchedulers, getSchemas, getStorages, getUser, getValidators, getVariables, getWebsockets, getWorkflows, requestError } from './store/actions/app.action';
+import { addProject, authError, authSuccess, changeProject, checkUser, clearData, clearStore, getProjectData, getProjectSetup, requestError } from './store/actions/app.action';
 import { selectMainProject, selectView } from './store/selectors/app.selector';
 import { DeleteViewComponent } from './components/delete-view/delete-view.component';
 import { DeleteService } from './services/delete.service';
@@ -145,25 +145,11 @@ export class AppComponent {
     };
 
     const actions = [
-      this.dispatchUser,
-      this.dispatchApps,
-      this.dispatchProjects,
+      this.dispatchProjectSetup,
     ];
 
     const projectActions = [
-      this.dispatchWorkflows,
-      this.dispatchAPIs,
-      this.dispatchStorages,
-      this.dispatchSchemas,
-      this.dispatchValidators,
-      this.dispatchFns,
-      this.dispatchObjs,
-      this.dispatchRequests,
-      this.dispatchVariables,
-      this.dispatchWebsockets,
-      this.dispatchQueues,
-      this.dispatchSchedulers,
-      this.dispatchDocuments,
+      this.dispatchProjectData,
     ];
 
     if (!projectId) {
@@ -196,68 +182,12 @@ export class AppComponent {
     this.store.dispatch(checkUser());
   }
 
-  dispatchUser() {
-    this.store.dispatch(getUser());
+  dispatchProjectSetup() {
+    this.store.dispatch(getProjectSetup());
   }
 
-  dispatchProjects() {
-    this.store.dispatch(getProjects());
-  }
-
-  dispatchApps() {
-    this.store.dispatch(getApps());
-  }
-
-  dispatchAPIs(projectId: string) {
-    this.store.dispatch(getAPIs({ projectId: projectId }));
-  }
-
-  dispatchStorages(projectId: string) {
-    this.store.dispatch(getStorages({ projectId: projectId }));
-  }
-
-  dispatchSchemas(projectId: string) {
-    this.store.dispatch(getSchemas({ projectId: projectId }));
-  }
-
-  dispatchValidators(projectId: string) {
-    this.store.dispatch(getValidators({ projectId: projectId }));
-  }
-
-  dispatchWorkflows(projectId: string) {
-    this.store.dispatch(getWorkflows({ projectId: projectId }));
-  }
-
-  dispatchFns(projectId: string) {
-    this.store.dispatch(getFns({ projectId: projectId }));
-  }
-
-  dispatchObjs(projectId: string) {
-    this.store.dispatch(getObjs({ projectId: projectId }));
-  }
-
-  dispatchRequests(projectId: string) {
-    this.store.dispatch(getRequests({ projectId: projectId }));
-  }
-
-  dispatchVariables(projectId: string) {
-    this.store.dispatch(getVariables({ projectId: projectId }));
-  }
-
-  dispatchWebsockets(projectId: string) {
-    this.store.dispatch(getWebsockets({ projectId: projectId }));
-  }
-  
-  dispatchQueues(projectId: string) {
-    this.store.dispatch(getQueues({ projectId: projectId }));
-  }
-
-  dispatchSchedulers(projectId: string) {
-    this.store.dispatch(getSchedulers({ projectId: projectId }));
-  }
-
-  dispatchDocuments(projectId: string) {
-    this.store.dispatch(getDocuments({ projectId: projectId }));
+  dispatchProjectData(projectId: string) {
+    this.store.dispatch(getProjectData({ projectId: projectId }));
   }
 
   clearStore() {
