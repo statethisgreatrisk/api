@@ -8,7 +8,7 @@ import { KeyViewComponent } from '../key-view/key-view.component';
 import { BillingViewComponent } from '../billing-view/billing-view.component';
 import { UsageViewComponent } from '../usage-view/usage-view.component';
 import { Store } from '@ngrx/store';
-import { getDeploys, getLogs, getKeys, getBillings, getUsages, authSuccess, logoutUser, getSubs, getInstances, getDeployStatus } from '../../store/actions/app.action';
+import { getDeploys, getLogs, getKeys, getBillings, getUsages, authSuccess, logoutUser, getSubs, getInstances, getDeployStatus, getRegisters } from '../../store/actions/app.action';
 import { AppStateInit, Project, User } from '../../store/interfaces/app.interface';
 import { ProjectDetailViewComponent } from '../project-detail-view/project-detail-view.component';
 import { Subscription } from 'rxjs';
@@ -16,6 +16,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { selectMainProject, selectUser } from '../../store/selectors/app.selector';
 import { SubViewComponent } from '../sub-view/sub-view.component';
 import { UpgradeViewComponent } from '../upgrade-view/upgrade-view.component';
+import { RegisterViewComponent } from '../register-view/register-view.component';
 
 @Component({
   selector: 'app-settings-view',
@@ -32,6 +33,7 @@ import { UpgradeViewComponent } from '../upgrade-view/upgrade-view.component';
     ProjectDetailViewComponent,
     SubViewComponent,
     UpgradeViewComponent,
+    RegisterViewComponent
   ],
   templateUrl: './settings-view.component.html',
   styleUrl: './settings-view.component.scss'
@@ -86,6 +88,7 @@ export class SettingsViewComponent {
       this.dispatchBillings,
       this.dispatchUsages,
       this.dispatchSubs,
+      this.dispatchRegisters,
     ];
 
     this.projectSub = this.store.select(selectMainProject).subscribe(async (project) => {
@@ -129,6 +132,10 @@ export class SettingsViewComponent {
 
   dispatchSubs(projectId: string) {
     this.store.dispatch(getSubs({ projectId: projectId }));
+  }
+
+  dispatchRegisters(projectId: string) {
+    this.store.dispatch(getRegisters({ projectId: projectId }));
   }
   
   closeSettings() {

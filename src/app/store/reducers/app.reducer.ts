@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register } from "../interfaces/app.interface";
 
 // User
 
@@ -371,6 +371,34 @@ export const removeSchedulerFn: (state: AppState, schedulerId: string) => AppSta
     return { ...state, schedulers: state.schedulers.filter((scheduler) => scheduler._id !== schedulerId) };
 }
 
+// Register
+
+export const addRegistersFn: (state: AppState, registers: Register[]) => AppState = (state: AppState, registers: Register[]) => {
+    if (!registers) return { ...state };
+    return { ...state, registers: registers };
+}
+
+export const addRegisterFn: (state: AppState, register: Register) => AppState = (state: AppState, register: Register) => {
+    if (!register) return { ...state };
+    return { ...state, registers: state.registers.concat([register]) };
+}
+
+export const replaceRegisterFn: (state: AppState, register: Register) => AppState = (state: AppState, register: Register) => {
+    if (!register) return { ...state };
+
+    const registers = state.registers.map((existingRegister) => {
+        if (existingRegister._id !== register._id) return existingRegister;
+        return register;
+    });
+
+    return { ...state, registers: registers };
+}
+
+export const removeRegisterFn: (state: AppState, registerId: string) => AppState = (state: AppState, registerId: string) => {
+    if (!registerId) return { ...state };
+    return { ...state, registers: state.registers.filter((register) => register._id !== registerId) };
+}
+
 // Document
 
 export const addDocumentsFn: (state: AppState, documents: Document[]) => AppState = (state: AppState, documents: Document[]) => {
@@ -604,6 +632,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         websockets: [],
         queues: [],
         schedulers: [],
+        registers: [],
         documents: [],
 
         instances: [],
@@ -639,6 +668,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         websockets: [],
         queues: [],
         schedulers: [],
+        registers: [],
         documents: [],
 
         instances: [],

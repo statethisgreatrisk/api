@@ -4,6 +4,7 @@
         <p *ngIf="setting === 'deploy'">Deploy Settings - {{ project.name }}</p>
         <p *ngIf="setting === 'logs'">Logs - {{ project.name }}</p>
         <p *ngIf="setting === 'apiKeys'">API Keys - {{ project.name }}</p>
+        <p *ngIf="setting === 'register'">Packages - {{ project.name }}</p>
         <p *ngIf="setting === 'upgrades'">Upgrades - {{ project.name }}</p>
         <p *ngIf="setting === 'usageCosts'">Usage Costs - {{ project.name }}</p>
         <p *ngIf="setting === 'subs'">Users - {{ project.name }}</p>
@@ -31,6 +32,10 @@
             <div class="settings-button" [ngClass]="{'active': setting === 'apiKeys'}" (click)="selectSetting('apiKeys')">
                 <img src="/key.png">
                 <p>API Keys</p>
+            </div>
+            <div class="settings-button" [ngClass]="{'active': setting === 'register'}" (click)="selectSetting('register')">
+                <img src="/package.png">
+                <p>Packages</p>
             </div>
             <div class="settings-button" [ngClass]="{'active': setting === 'upgrades'}" (click)="selectSetting('upgrades')">
                 <img src="/upgrade.png">
@@ -69,6 +74,7 @@
             <app-log-view *ngIf="setting === 'logs'"></app-log-view>
             <app-key-view *ngIf="setting === 'apiKeys'"></app-key-view>
             <app-billing-view *ngIf="setting === 'billing'"></app-billing-view>
+            <app-register-view *ngIf="setting === 'register'"></app-register-view>
             <app-usage-view *ngIf="setting === 'usageCosts'"></app-usage-view>
             <app-upgrade-view *ngIf="setting === 'upgrades'"></app-upgrade-view>
             <app-sub-view *ngIf="setting === 'subs'"></app-sub-view>

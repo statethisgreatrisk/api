@@ -1,0 +1,20 @@
+<div class="register-view">
+    <div class="register-setup">
+        <p>NPM Package</p>
+        <div class="register-input-container">
+            <div class="register-input">
+                <input type="text" placeholder="Enter NPM package name" [(ngModel)]="register">
+            </div>
+        </div>
+    </div>
+    <div class="register-create">
+        <p>Add to Deployment</p>
+        <p>Add Package</p>
+    </div>
+    <div class="register-list-item-container" *ngIf="registers">
+        <div class="register-list-item" *ngFor="let register of registers">
+            <p>{{ register.name }}</p>
+            <img src="/x.png">
+        </div>
+    </div>
+</div>

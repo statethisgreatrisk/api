@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -155,6 +155,16 @@ export const updateScheduler = createAction('[UPDATE] Scheduler', props<{project
 export const replaceScheduler = createAction('[REPLACE] Scheduler', props<{scheduler: Scheduler}>());
 export const deleteScheduler = createAction('[DELETE] Scheduler', props<{projectId: string, schedulerId: string}>());
 export const removeScheduler = createAction('[REMOVE] Scheduler', props<{schedulerId: string}>());
+
+// Register
+export const getRegisters = createAction('[GET] Registers', props<{projectId: string}>());
+export const addRegisters = createAction('[ADD] Registers', props<{registers: Register[]}>());
+export const createRegister = createAction('[CREATE] Register', props<{projectId: string, register: Register}>());
+export const addRegister = createAction('[ADD] Register', props<{register: Register}>());
+export const updateRegister = createAction('[UPDATE] Register', props<{projectId: string, register: Register}>());
+export const replaceRegister = createAction('[REPLACE] Register', props<{register: Register}>());
+export const deleteRegister = createAction('[DELETE] Register', props<{projectId: string, registerId: string}>());
+export const removeRegister = createAction('[REMOVE] Register', props<{registerId: string}>());
 
 // Document
 export const getDocuments = createAction('[GET] Documents', props<{projectId: string}>());

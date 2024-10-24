@@ -208,6 +208,15 @@ export interface Scheduler {
     cronTimezone: string;
 }
 
+export interface Register {
+    _id: string;
+    userId: string;
+    projectId: string;
+    date: string;
+    active: boolean;
+    name: string;
+}
+
 export interface Document {
     _id: string;
     userId: string;
@@ -347,6 +356,7 @@ export interface AppState {
     websockets: Websocket[];
     queues: Queue[];
     schedulers: Scheduler[];
+    registers: Register[];
     documents: Document[];
 
     instances: Instance[];

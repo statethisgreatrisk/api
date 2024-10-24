@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -357,6 +357,28 @@ export class AppRequest {
   
   deleteScheduler(projectId: string, schedulerId: string): Observable<ResponseMessage> {
     const endpoint = `${this.url}/scheduler/:projectId/:schedulerId`.replace(':schedulerId', schedulerId).replace(':projectId', projectId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
+  }
+
+  // Register
+
+  getRegisters(projectId: string): Observable<Register[]> {
+    const endpoint = `${this.url}/register/:projectId`.replace(':projectId', projectId);
+    return this.http.get<Register[]>(endpoint, { withCredentials: true });
+  }
+  
+  createRegister(projectId: string, register: Register): Observable<Register> {
+    const endpoint = `${this.url}/register/:projectId`.replace(':projectId', projectId);
+    return this.http.post<Register>(endpoint, { register }, { withCredentials: true });
+  }
+  
+  updateRegister(projectId: string, register: Register): Observable<Register> {
+    const endpoint = `${this.url}/register/:projectId`.replace(':projectId', projectId);
+    return this.http.put<Register>(endpoint, { register }, { withCredentials: true });
+  }
+  
+  deleteRegister(projectId: string, registerId: string): Observable<ResponseMessage> {
+    const endpoint = `${this.url}/register/:projectId/:registerId`.replace(':registerId', registerId).replace(':projectId', projectId);
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 
