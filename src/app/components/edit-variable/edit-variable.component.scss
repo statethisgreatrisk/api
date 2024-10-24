@@ -273,3 +273,48 @@
     font-weight: 500;
     color: $surface-mixed-600;
 }
+
+.edit-variable-path-docs {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 15px;
+}
+
+.edit-variable-path-docs {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 15px;
+}
+
+.edit-variable-path-doc {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    padding: 10px;
+
+    background-color: $surface-mixed-200;
+    border-radius: 4px;
+}
+
+.edit-variable-path-doc p {
+    font-size: 11px;
+    font-weight: 500;
+    color: $surface-mixed-600;
+}
+
+.edit-variable-path-doc span {
+    font-weight: 800;
+    color: $api;
+}
+
+.edit-variable-path-doc br {
+    margin-top: 15px;
+}

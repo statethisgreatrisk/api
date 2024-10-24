@@ -33,6 +33,10 @@
         <div class="edit-validator-path-docs">
             <div class="edit-validator-path-doc">
                 <p>Field selection and validators are based on express-validator 7.x. See the express-validator documentation for details.</p>
+                <br>
+                <p>Validator functions must begin with <span>function fn(check, body, cookie, header, param, query, schemas, ObjectId) &#123;</span> and end with <span>&#125;</span>.</p>
+                <br>
+                <p>The validator function should return an express-validator validator or sanitizer and may be rejected for using certain restricted words within the function body.</p>
             </div>
         </div>
     </div>
