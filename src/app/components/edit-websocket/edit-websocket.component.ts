@@ -23,8 +23,6 @@ export class EditWebsocketComponent {
 
   sub: Subscription | null = null;
 
-  websocketSchema = JSON.stringify({ name: "", message: "" }, null, 2);
-
   constructor(
     private store: Store<AppStateInit>,
     private deleteService: DeleteService,
@@ -54,6 +52,10 @@ export class EditWebsocketComponent {
         this.websocket = websocket ? { ...websocket } : null;
       }
     });
+  }
+
+  get websocketSchema() {
+    return JSON.stringify({ name: this.websocket?.name || '', message: '' }, null, 2);
   }
 
   cancel() {
