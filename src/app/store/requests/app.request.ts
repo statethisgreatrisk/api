@@ -293,6 +293,11 @@ export class AppRequest {
     const endpoint = `${this.url}/variable/:projectId`.replace(':projectId', projectId);
     return this.http.get<Variable[]>(endpoint, { withCredentials: true });
   }
+
+  getVariableValue(projectId: string, variableId: string): Observable<Variable> {
+    const endpoint = `${this.url}/variable/:projectId/:variableId`.replace(':projectId', projectId).replace(':variableId', variableId);
+    return this.http.get<Variable>(endpoint, { withCredentials: true });
+  }
   
   createVariable(projectId: string, variable: Variable): Observable<Variable> {
     const endpoint = `${this.url}/variable/:projectId`.replace(':projectId', projectId);

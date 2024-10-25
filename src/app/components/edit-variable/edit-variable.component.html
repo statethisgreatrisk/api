@@ -17,10 +17,17 @@
             </div>
         </div>
         <div class="edit-variable-label">
+            <p>Variable name can have up to 80 characters, is case sensitive and may only contain alphanumeric characters and underscores (_).</p>
+        </div>
+        <div class="edit-variable-label">
             <p>Value</p>
         </div>
-        <div class="edit-variable-textarea-container">
-            <div class="edit-variable-textarea" *ngIf="variable">
+        <div class="edit-variable-action-button" *ngIf="variable && variable.put && !showingValue" (click)="showValue()">
+            <p *ngIf="!loading">Show Value</p>
+            <p *ngIf="loading">Loading...</p>
+        </div>
+        <div class="edit-variable-textarea-container" *ngIf="(variable && !variable.put) || (variable && variable.put && showingValue)">
+            <div class="edit-variable-textarea">
                 <textarea placeholder="Enter value" [(ngModel)]="variable.value" spellcheck="false"></textarea>
             </div>
         </div>

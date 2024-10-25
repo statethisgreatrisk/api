@@ -319,8 +319,9 @@ export class ServicesComponent {
     const date = new Date().toISOString();
     const active = true;
     const value = '';
+    const put = false;
 
-    this.store.dispatch(createVariable({ projectId, variable: { _id, projectId, userId, name, date, active, value } }));
+    this.store.dispatch(createVariable({ projectId, variable: { _id, projectId, userId, name, date, active, value, put } }));
   }
 
   createWebsocket() {

@@ -133,6 +133,9 @@ export const replaceVariable = createAction('[REPLACE] Variable', props<{variabl
 export const deleteVariable = createAction('[DELETE] Variable', props<{projectId: string, variableId: string}>());
 export const removeVariable = createAction('[REMOVE] Variable', props<{variableId: string}>());
 
+export const getVariableValue = createAction('[GET] Variable Value', props<{projectId: string, variableId: string}>());
+export const getVariableValueSuccess = createAction('[SUCCESS] Get Variable Value');
+
 // Websocket
 export const getWebsockets = createAction('[GET] Websockets', props<{projectId: string}>());
 export const addWebsockets = createAction('[ADD] Websockets', props<{websockets: Websocket[]}>());

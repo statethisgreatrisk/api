@@ -173,6 +173,7 @@ export interface Variable {
     active: boolean;
     name: string;
     value: string;
+    put: boolean;
 }
 
 export interface Websocket {

@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppStateInit, Project, User, Variable, View } from '../../store/interfaces/app.interface';
 import { selectMainProject, selectUser, selectVariables, selectView } from '../../store/selectors/app.selector';
-import { deleteVariable, deselectService, updateVariable } from '../../store/actions/app.action';
+import { deleteVariable, deselectService, getVariableValue, getVariableValueSuccess, updateVariable } from '../../store/actions/app.action';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { DeleteService } from '../../services/delete.service';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-edit-variable',
@@ -22,18 +23,25 @@ export class EditVariableComponent {
   variable: Variable | null = null;
 
   sub: Subscription | null = null;
+  showValueSub: Subscription | null = null;
+
+  showingValue = false;
+  loading = false;
 
   constructor(
     private store: Store<AppStateInit>,
+    private actions$: Actions,
     private deleteService: DeleteService,
   ) {}
 
   ngOnInit() {
     this.initLatest();
+    this.initShowValueSuccess();
   }
 
   ngOnDestroy() {
     this.sub?.unsubscribe();
+    this.showValueSub?.unsubscribe();
   }
 
   initLatest() {
@@ -52,6 +60,21 @@ export class EditVariableComponent {
         this.variable = variable ? { ...variable } : null;
       }
     });
+  }
+
+  initShowValueSuccess() {
+    this.showValueSub = this.actions$.pipe((ofType(getVariableValueSuccess))).subscribe(() => {
+      this.showingValue = true;
+      this.loading = false;
+    });
+  }
+
+  showValue() {
+    if (!this.project) return;
+    if (!this.variable) return;
+
+    this.loading = true;
+    this.store.dispatch(getVariableValue({ projectId: this.project._id, variableId: this.variable._id }));
   }
 
   cancel() {
