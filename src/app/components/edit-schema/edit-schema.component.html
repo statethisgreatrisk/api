@@ -16,6 +16,9 @@
                 <input type="text" placeholder="Enter schema name" [(ngModel)]="schema.name">
             </div>
         </div>
+        <div class="edit-schema-label">
+            <p>Schema name can have up to 80 characters, is case sensitive and may only contain alphanumeric characters and underscores (_).</p>
+        </div>
         <div class="edit-schema-code-container">
             <div #codeEditor></div>
         </div>

@@ -16,6 +16,9 @@
                 <input type="text" placeholder="Enter validator name" [(ngModel)]="validator.name">
             </div>
         </div>
+        <div class="edit-validator-label">
+            <p>Validator name can have up to 80 characters, is case sensitive and may only contain alphanumeric characters and underscores (_).</p>
+        </div>
         <div class="edit-validator-code-container">
             <div #codeEditor></div>
         </div>

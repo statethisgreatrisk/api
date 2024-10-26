@@ -55,7 +55,7 @@ export class EditWebsocketComponent {
   }
 
   get websocketSchema() {
-    return JSON.stringify({ name: this.websocket?.name || '', message: '' }, null, 2);
+    return JSON.stringify({ id: '', name: this.websocket?.name || '', message: '' }, null, 2);
   }
 
   cancel() {
