@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { DeleteService } from '../../services/delete.service';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { deselectService, deselectWindow } from '../../store/actions/app.action';
+import { createDocument, deselectService, deselectWindow } from '../../store/actions/app.action';
 import { DocumentService } from '../../services/document.service';
 
 interface Header {
@@ -30,6 +30,8 @@ export class StorageViewComponent {
   schemas: Schema[] = [];
   documents: Document[] = [];
   documentsParsed: any[] = [];
+
+  schemaVersion = 0;
 
   headers: Header[] = [];
 
@@ -74,8 +76,8 @@ export class StorageViewComponent {
           const schema = schemas.find((schema) => schema._id === this.storage!.schemaId);
           if (!schema) return;
 
-          const version = schema.version;
-          const storageDocuments = documents.filter((document) => document.storageId === this.storage!._id && document.version === version);
+          this.schemaVersion = schema.version;
+          const storageDocuments = documents.filter((document) => document.storageId === this.storage!._id && document.version === this.schemaVersion);
 
           this.documents = storageDocuments || [];
           this.documentsParsed = this.documents.map((document) => {
@@ -107,6 +109,23 @@ export class StorageViewComponent {
   editDocument(documentParsed: any) {
     this.selectedRowId = documentParsed._id;
     this.documentService.selectDocument(documentParsed);
+  }
+
+  addDocument() {
+    if (!this.user) return;
+    if (!this.project) return;
+    if (!this.storage) return;
+
+    const _id = '';
+    const userId = this.user._id;
+    const projectId = this.project._id;
+    const storageId = this.storage._id;
+    const date = new Date().toISOString();
+    const active = true;
+    const version = this.schemaVersion;
+    const document = JSON.stringify({ foo: 'bar' });
+
+    this.store.dispatch(createDocument({ projectId: projectId, document: { _id, userId, projectId, storageId, date, active, version, document } }));
   }
 
   close() {
