@@ -215,6 +215,7 @@ export interface Register {
     date: string;
     active: boolean;
     name: string;
+    version: string;
 }
 
 export interface Document {
