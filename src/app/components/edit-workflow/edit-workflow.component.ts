@@ -65,26 +65,6 @@ export class EditWorkflowComponent {
     });
   }
 
-  selectAPI(apiId: string) {
-    if (!apiId || !this.workflow) return;
-
-    this.workflow.apiId = apiId;
-  }
-
-  removeAPI() {
-    if (!this.workflow) return;
-    this.workflow.apiId = '';
-  }
-
-  findAPI(apiId: string) {
-    if (!apiId || !this.workflow) return;
-
-    const api = this.apis.find((api) => api._id === apiId);
-
-    if (!api) return '';
-    return api.name;
-  }
-
   cancel() {
     this.store.dispatch(deselectService({ serviceName: this.view.service, serviceId: this.view.serviceId }));
   }

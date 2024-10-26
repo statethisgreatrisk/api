@@ -244,9 +244,8 @@ export class ServicesComponent {
     const date = new Date().toISOString();
     const active = true;
     const rows: WorkflowRow[] = [];
-    const apiId = '';
 
-    this.store.dispatch(createWorkflow({ projectId, workflow: { _id, projectId, userId, apiId, name, date, active, rows } }));
+    this.store.dispatch(createWorkflow({ projectId, workflow: { _id, projectId, userId, name, date, active, rows } }));
   }
 
   createFn() {

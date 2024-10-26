@@ -115,7 +115,6 @@ export interface Workflow {
     _id: string;
     userId: string;
     projectId: string;
-    apiId: string;
     date: string;
     active: boolean;
     name: string;
