@@ -63,11 +63,34 @@
                 </div>
             </div>
         </div>
-        <div class="edit-api-list-item-container" *ngIf="api">
+        <div class="edit-api-list-item-container" *ngIf="api && api.validators && api.validators.length">
             <div class="edit-api-list-item" *ngFor="let v of api.validators" (click)="removeValidator(v)">
                 <img class="check" src="/check.png">
                 <img class="x" src="/x.png">
                 <p>{{ findValidator(v) }}</p>
+            </div>
+        </div>
+        <div class="edit-api-label">
+            <p>Workflow</p>
+        </div>
+        <div class="edit-api-select-container" *ngIf="api && !api.workflowId">
+            <div class="edit-api-select" (click)="toggleWorkflowDropdown()">
+                <div class="edit-api-select-button">
+                    <p>Select Workflow</p>
+                    <img src="/down.png">
+                </div>
+                <div class="edit-api-select-dropdown" *ngIf="workflowDropdown && workflows">
+                    <div class="edit-api-select-dropdown-button" *ngFor="let w of workflows" (click)="selectWorkflow(w._id)">
+                        <p>{{ w.name }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-api-list-item-container" *ngIf="api && api.workflowId">
+            <div class="edit-api-list-item" (click)="removeWorkflow()">
+                <img class="check" src="/check.png">
+                <img class="x" src="/x.png">
+                <p>{{ findWorkflow(api.workflowId) }}</p>
             </div>
         </div>
         <div class="edit-api-buttons">

@@ -74,6 +74,7 @@ export interface API {
     date: string;
     active: boolean;
     name: string;
+    workflowId: string;
     action: 'get' | 'post' | 'put' | 'delete';
     url: string;
     validators: string[];
@@ -192,6 +193,7 @@ export interface Queue {
     date: string;
     active: boolean;
     name: string;
+    workflowId: string;
 }
 
 export interface Scheduler {
@@ -201,6 +203,7 @@ export interface Scheduler {
     date: string;
     active: boolean;
     name: string;
+    workflowId: string;
     cron: string;
     cronType: string;
     cronHour: number;

@@ -27,16 +27,15 @@
                 <div class="edit-scheduler-tab-detail">
                     <p>Cron Type</p>
                 </div>
-                <div class="edit-scheduler-select-container">
-                    <div class="edit-scheduler-select">
-                        <div class="edit-scheduler-select-button" (click)="toggleCronTypeDropdown()" *ngIf="scheduler">
+                <div class="edit-scheduler-select-container-slim">
+                    <div class="edit-scheduler-select-slim">
+                        <div class="edit-scheduler-select-button-slim" (click)="toggleCronTypeDropdown()" *ngIf="scheduler">
                             <p *ngIf="scheduler.cronType === 'none'">None</p>
                             <p *ngIf="scheduler.cronType === 'everyMinute'">Every minute</p>
                             <p *ngIf="scheduler.cronType === 'everyHour'">Every hour</p>
                             <p *ngIf="scheduler.cronType === 'everyDayAt'">Every day at</p>
                             <p *ngIf="scheduler.cronType === 'everySundayAt'">Every Sunday at</p>
                             <p *ngIf="scheduler.cronType === 'everyMondayAt'">Every Monday at</p>
-                            <p *ngIf="scheduler.cronType === 'everyTuesdayAt'">Every Tuesday at</p>
                             <p *ngIf="scheduler.cronType === 'everyWednesdayAt'">Every Wednesday at</p>
                             <p *ngIf="scheduler.cronType === 'everyThursdayAt'">Every Thursday at</p>
                             <p *ngIf="scheduler.cronType === 'everyFridayAt'">Every Friday at</p>
@@ -45,44 +44,44 @@
                             <p *ngIf="scheduler.cronType === 'everyWeekendAt'">Every weekend at</p>
                             <img src="/down.png">
                         </div>
-                        <div class="edit-scheduler-select-dropdown" *ngIf="cronTypeDropdown">
-                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('none')">
+                        <div class="edit-scheduler-select-dropdown-slim" *ngIf="cronTypeDropdown">
+                            <div class="edit-scheduler-select-dropdown-button-slim" (click)="selectCronType('none')">
                                 <p>None</p>
                             </div>
-                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyMinute')">
+                            <div class="edit-scheduler-select-dropdown-button-slim" (click)="selectCronType('everyMinute')">
                                 <p>Every minute</p>
                             </div>
-                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyHour')">
+                            <div class="edit-scheduler-select-dropdown-button-slim" (click)="selectCronType('everyHour')">
                                 <p>Every hour</p>
                             </div>
-                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyDayAt')">
+                            <div class="edit-scheduler-select-dropdown-button-slim" (click)="selectCronType('everyDayAt')">
                                 <p>Every day at</p>
                             </div>
-                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everySundayAt')">
+                            <div class="edit-scheduler-select-dropdown-button-slim" (click)="selectCronType('everySundayAt')">
                                 <p>Every Sunday at</p>
                             </div>
-                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyMondayAt')">
+                            <div class="edit-scheduler-select-dropdown-button-slim" (click)="selectCronType('everyMondayAt')">
                                 <p>Every Monday at</p>
                             </div>
-                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyTuesdayAt')">
+                            <div class="edit-scheduler-select-dropdown-button-slim" (click)="selectCronType('everyTuesdayAt')">
                                 <p>Every Tuesday at</p>
                             </div>
-                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyWednesdayAt')">
+                            <div class="edit-scheduler-select-dropdown-button-slim" (click)="selectCronType('everyWednesdayAt')">
                                 <p>Every Wednesday at</p>
                             </div>
-                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyThursdayAt')">
+                            <div class="edit-scheduler-select-dropdown-button-slim" (click)="selectCronType('everyThursdayAt')">
                                 <p>Every Thursday at</p>
                             </div>
-                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyFridayAt')">
+                            <div class="edit-scheduler-select-dropdown-button-slim" (click)="selectCronType('everyFridayAt')">
                                 <p>Every Friday at</p>
                             </div>
-                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everySaturdayAt')">
+                            <div class="edit-scheduler-select-dropdown-button-slim" (click)="selectCronType('everySaturdayAt')">
                                 <p>Every Saturday at</p>
                             </div>
-                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyWeekDayAt')">
+                            <div class="edit-scheduler-select-dropdown-button-slim" (click)="selectCronType('everyWeekDayAt')">
                                 <p>Every weekday at</p>
                             </div>
-                            <div class="edit-scheduler-select-dropdown-button" (click)="selectCronType('everyWeekendAt')">
+                            <div class="edit-scheduler-select-dropdown-button-slim" (click)="selectCronType('everyWeekendAt')">
                                 <p>Every weekend at</p>
                             </div>
                         </div>
@@ -91,14 +90,14 @@
                 <div class="edit-scheduler-tab-detail" *ngIf="scheduler && scheduler.cronType.includes('At')">
                     <p>H</p>
                 </div>
-                <div class="edit-scheduler-select-container" *ngIf="scheduler && scheduler.cronType.includes('At')">
-                    <div class="edit-scheduler-select">
-                        <div class="edit-scheduler-select-button" (click)="toggleCronHourDropdown()" *ngIf="scheduler">
+                <div class="edit-scheduler-select-container-slim" *ngIf="scheduler && scheduler.cronType.includes('At')">
+                    <div class="edit-scheduler-select-slim">
+                        <div class="edit-scheduler-select-button-slim" (click)="toggleCronHourDropdown()" *ngIf="scheduler">
                             <p>{{ scheduler.cronHour }}</p>
                             <img src="/down.png">
                         </div>
-                        <div class="edit-scheduler-select-dropdown" *ngIf="cronHourDropdown">
-                            <div class="edit-scheduler-select-dropdown-button" *ngFor="let n of times(24)" (click)="selectCronHour(n)">
+                        <div class="edit-scheduler-select-dropdown-slim" *ngIf="cronHourDropdown">
+                            <div class="edit-scheduler-select-dropdown-button-slim" *ngFor="let n of times(24)" (click)="selectCronHour(n)">
                                 <p>{{ n }}</p>
                             </div>
                         </div>
@@ -107,14 +106,14 @@
                 <div class="edit-scheduler-tab-detail" *ngIf="scheduler && scheduler.cronType.includes('At')">
                     <p>M</p>
                 </div>
-                <div class="edit-scheduler-select-container" *ngIf="scheduler && scheduler.cronType.includes('At')">
-                    <div class="edit-scheduler-select">
-                        <div class="edit-scheduler-select-button" (click)="toggleCronMinuteDropdown()" *ngIf="scheduler">
+                <div class="edit-scheduler-select-container-slim" *ngIf="scheduler && scheduler.cronType.includes('At')">
+                    <div class="edit-scheduler-select-slim">
+                        <div class="edit-scheduler-select-button-slim" (click)="toggleCronMinuteDropdown()" *ngIf="scheduler">
                             <p>{{ scheduler.cronMinute }}</p>
                             <img src="/down.png">
                         </div>
-                        <div class="edit-scheduler-select-dropdown" *ngIf="cronMinuteDropdown">
-                            <div class="edit-scheduler-select-dropdown-button" *ngFor="let n of times(60)" (click)="selectCronMinute(n)">
+                        <div class="edit-scheduler-select-dropdown-slim" *ngIf="cronMinuteDropdown">
+                            <div class="edit-scheduler-select-dropdown-button-slim" *ngFor="let n of times(60)" (click)="selectCronMinute(n)">
                                 <p>{{ n }}</p>
                             </div>
                         </div>
@@ -127,14 +126,14 @@
                 <div class="edit-scheduler-tab-detail">
                     <p>Time Zone</p>
                 </div>
-                <div class="edit-scheduler-select-container">
-                    <div class="edit-scheduler-select">
-                        <div class="edit-scheduler-select-button" (click)="toggleCronTimezoneDropdown()" *ngIf="scheduler">
+                <div class="edit-scheduler-select-container-slim">
+                    <div class="edit-scheduler-select-slim">
+                        <div class="edit-scheduler-select-button-slim" (click)="toggleCronTimezoneDropdown()" *ngIf="scheduler">
                             <p>{{ scheduler.cronTimezone }}</p>
                             <img src="/down.png">
                         </div>
-                        <div class="edit-scheduler-select-dropdown wide" *ngIf="cronTimezoneDropdown">
-                            <div class="edit-scheduler-select-dropdown-button" *ngFor="let timezone of alphaTimezones" (click)="selectCronTimezone(timezone)">
+                        <div class="edit-scheduler-select-dropdown-slim wide" *ngIf="cronTimezoneDropdown">
+                            <div class="edit-scheduler-select-dropdown-button-slim" *ngFor="let timezone of alphaTimezones" (click)="selectCronTimezone(timezone)">
                                 <p>{{ timezone }}</p>
                             </div>
                         </div>
@@ -147,6 +146,29 @@
                 <div class="edit-scheduler-tab-detail">
                     <p *ngIf="scheduler && scheduler.cronType !== 'none'">{{ readCron }} ({{ scheduler.cron }})</p>
                 </div>
+            </div>
+        </div>
+        <div class="edit-scheduler-label">
+            <p>Workflow</p>
+        </div>
+        <div class="edit-scheduler-select-container" *ngIf="scheduler && !scheduler.workflowId">
+            <div class="edit-scheduler-select" (click)="toggleWorkflowDropdown()">
+                <div class="edit-scheduler-select-button">
+                    <p>Select Workflow</p>
+                    <img src="/down.png">
+                </div>
+                <div class="edit-scheduler-select-dropdown" *ngIf="workflowDropdown && workflows">
+                    <div class="edit-scheduler-select-dropdown-button" *ngFor="let w of workflows" (click)="selectWorkflow(w._id)">
+                        <p>{{ w.name }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-scheduler-list-item-container" *ngIf="scheduler && scheduler.workflowId">
+            <div class="edit-scheduler-list-item" (click)="removeWorkflow()">
+                <img class="check" src="/check.png">
+                <img class="x" src="/x.png">
+                <p>{{ findWorkflow(scheduler.workflowId) }}</p>
             </div>
         </div>
         <div class="edit-scheduler-buttons">

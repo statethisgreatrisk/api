@@ -27,9 +27,9 @@
                 <div class="edit-queue-tab-detail">
                     <p>Delay Seconds</p>
                 </div>
-                <div class="edit-queue-select-container">
-                    <div class="edit-queue-select">
-                        <div class="edit-queue-select-button">
+                <div class="edit-queue-select-container-slim">
+                    <div class="edit-queue-select-slim">
+                        <div class="edit-queue-select-button-slim">
                             <p>0 seconds</p>
                         </div>
                     </div>
@@ -41,9 +41,9 @@
                 <div class="edit-queue-tab-detail">
                     <p>Maximum Messages</p>
                 </div>
-                <div class="edit-queue-select-container">
-                    <div class="edit-queue-select">
-                        <div class="edit-queue-select-button">
+                <div class="edit-queue-select-container-slim">
+                    <div class="edit-queue-select-slim">
+                        <div class="edit-queue-select-button-slim">
                             <p>1 message</p>
                         </div>
                     </div>
@@ -55,9 +55,9 @@
                 <div class="edit-queue-tab-detail">
                     <p>Maximum Message Size</p>
                 </div>
-                <div class="edit-queue-select-container">
-                    <div class="edit-queue-select">
-                        <div class="edit-queue-select-button">
+                <div class="edit-queue-select-container-slim">
+                    <div class="edit-queue-select-slim">
+                        <div class="edit-queue-select-button-slim">
                             <p>246 KiB</p>
                         </div>
                     </div>
@@ -69,9 +69,9 @@
                 <div class="edit-queue-tab-detail">
                     <p>Message Retention Period</p>
                 </div>
-                <div class="edit-queue-select-container">
-                    <div class="edit-queue-select">
-                        <div class="edit-queue-select-button">
+                <div class="edit-queue-select-container-slim">
+                    <div class="edit-queue-select-slim">
+                        <div class="edit-queue-select-button-slim">
                             <p>4 Days</p>
                         </div>
                     </div>
@@ -83,9 +83,9 @@
                 <div class="edit-queue-tab-detail">
                     <p>Receive Message Wait Period</p>
                 </div>
-                <div class="edit-queue-select-container">
-                    <div class="edit-queue-select">
-                        <div class="edit-queue-select-button">
+                <div class="edit-queue-select-container-slim">
+                    <div class="edit-queue-select-slim">
+                        <div class="edit-queue-select-button-slim">
                             <p>20 seconds</p>
                         </div>
                     </div>
@@ -97,9 +97,9 @@
                 <div class="edit-queue-tab-detail">
                     <p>Visibility Timeout</p>
                 </div>
-                <div class="edit-queue-select-container">
-                    <div class="edit-queue-select">
-                        <div class="edit-queue-select-button">
+                <div class="edit-queue-select-container-slim">
+                    <div class="edit-queue-select-slim">
+                        <div class="edit-queue-select-button-slim">
                             <p>30 seconds</p>
                         </div>
                     </div>
@@ -111,13 +111,36 @@
                 <div class="edit-queue-tab-detail">
                     <p>Content Based Deduplication</p>
                 </div>
-                <div class="edit-queue-select-container">
-                    <div class="edit-queue-select">
-                        <div class="edit-queue-select-button">
+                <div class="edit-queue-select-container-slim">
+                    <div class="edit-queue-select-slim">
+                        <div class="edit-queue-select-button-slim">
                             <p>Yes</p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="edit-queue-label">
+            <p>Workflow</p>
+        </div>
+        <div class="edit-queue-select-container" *ngIf="queue && !queue.workflowId">
+            <div class="edit-queue-select" (click)="toggleWorkflowDropdown()">
+                <div class="edit-queue-select-button">
+                    <p>Select Workflow</p>
+                    <img src="/down.png">
+                </div>
+                <div class="edit-queue-select-dropdown" *ngIf="workflowDropdown && workflows">
+                    <div class="edit-queue-select-dropdown-button" *ngFor="let w of workflows" (click)="selectWorkflow(w._id)">
+                        <p>{{ w.name }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-queue-list-item-container" *ngIf="queue && queue.workflowId">
+            <div class="edit-queue-list-item" (click)="removeWorkflow()">
+                <img class="check" src="/check.png">
+                <img class="x" src="/x.png">
+                <p>{{ findWorkflow(queue.workflowId) }}</p>
             </div>
         </div>
         <div class="edit-queue-buttons">

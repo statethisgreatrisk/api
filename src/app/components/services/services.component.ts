@@ -182,8 +182,9 @@ export class ServicesComponent {
     const action = 'get';
     const url = '/hello-world';
     const validators: string[] = [];
+    const workflowId = '';
 
-    this.store.dispatch(createAPI({ projectId, api: { _id, projectId, userId, name, date, active, action, url, validators } }));
+    this.store.dispatch(createAPI({ projectId, api: { _id, projectId, userId, name, date, active, action, url, validators, workflowId } }));
   }
 
   createStorage() {
@@ -348,8 +349,9 @@ export class ServicesComponent {
     const name = 'Queue';
     const date = new Date().toISOString();
     const active = true;
+    const workflowId = '';
 
-    this.store.dispatch(createQueue({ projectId, queue: { _id, projectId, userId, name, date, active } }));
+    this.store.dispatch(createQueue({ projectId, queue: { _id, projectId, userId, name, date, active, workflowId } }));
   }
 
   createScheduler() {
@@ -367,7 +369,8 @@ export class ServicesComponent {
     const cronHour = 0;
     const cronMinute = 0;
     const cronTimezone = 'America/New_York';
+    const workflowId = '';
 
-    this.store.dispatch(createScheduler({ projectId, scheduler: { _id, projectId, userId, name, date, active, cron, cronType, cronHour, cronMinute, cronTimezone } }));
+    this.store.dispatch(createScheduler({ projectId, scheduler: { _id, projectId, userId, name, date, active, cron, cronType, cronHour, cronMinute, cronTimezone, workflowId } }));
   }
 }

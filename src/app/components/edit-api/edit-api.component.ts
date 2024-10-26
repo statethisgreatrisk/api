@@ -1,10 +1,10 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { API, AppStateInit, Project, User, Validator, View } from '../../store/interfaces/app.interface';
+import { API, AppStateInit, Project, User, Validator, View, Workflow } from '../../store/interfaces/app.interface';
 import { combineLatest, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectAPIs, selectMainProject, selectUser, selectValidators, selectView } from '../../store/selectors/app.selector';
+import { selectAPIs, selectMainProject, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { deleteAPI, deselectService, updateAPI } from '../../store/actions/app.action';
 import { UpperCasePipe } from '../../services/uppercase.pipe';
 import { DeleteService } from '../../services/delete.service';
@@ -21,12 +21,14 @@ export class EditApiComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   api: API | null = null;
   project: Project | null = null;
+  workflows: Workflow[] | null = null;
 
   sub: Subscription | null = null;
 
   validators: Validator[] = [];
 
   prefixDropdown = false;
+  workflowDropdown = false;
   dropdown = false;
 
   constructor(
@@ -49,10 +51,12 @@ export class EditApiComponent {
       this.store.select(selectView),
       this.store.select(selectMainProject),
       this.store.select(selectAPIs),
-    ]).subscribe(([user, view, project, apis]) => {
+      this.store.select(selectWorkflows),
+    ]).subscribe(([user, view, project, apis, workflows]) => {
       this.user = user;
       this.view = view;
       this.project = project;
+      this.workflows = workflows;
 
       if (this.user && this.view && this.view.serviceId) {
         const api = apis.find((existingAPI) => existingAPI._id === this.view.serviceId);
@@ -98,6 +102,27 @@ export class EditApiComponent {
     return validator.name;
   }
 
+  selectWorkflow(workflowId: string) {
+    if (!workflowId || !this.api) return;
+
+    this.api.workflowId = workflowId;
+  }
+
+  removeWorkflow() {
+    if (!this.api) return;
+    this.api.workflowId = '';
+  }
+
+  findWorkflow(workflowId: string) {
+    if (!workflowId || !this.api) return;
+    if (!this.workflows) return;
+
+    const workflow = this.workflows.find((workflow) => workflow._id === workflowId);
+
+    if (!workflow) return '';
+    return workflow.name;
+  }
+
   cancel() {
     this.store.dispatch(deselectService({ serviceName: this.view.service, serviceId: this.view.serviceId }));
   }
@@ -126,6 +151,10 @@ export class EditApiComponent {
 
   togglePrefixDropdown() {
     this.prefixDropdown = !this.prefixDropdown;
+  }
+
+  toggleWorkflowDropdown() {
+    this.workflowDropdown = !this.workflowDropdown;
   }
 
   toggleDropdown() {

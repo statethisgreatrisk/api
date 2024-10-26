@@ -1,8 +1,8 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AppStateInit, Project, Scheduler, User, View } from '../../store/interfaces/app.interface';
-import { selectMainProject, selectSchedulers, selectUser, selectView } from '../../store/selectors/app.selector';
+import { AppStateInit, Project, Scheduler, User, View, Workflow } from '../../store/interfaces/app.interface';
+import { selectMainProject, selectSchedulers, selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { DeleteService } from '../../services/delete.service';
@@ -24,6 +24,7 @@ export class EditSchedulerComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   project: Project | null = null;
   scheduler: Scheduler | null = null;
+  workflows: Workflow[] | null = null;
 
   sub: Subscription | null = null;
 
@@ -33,6 +34,7 @@ export class EditSchedulerComponent {
   cronHourDropdown = false;
   cronMinuteDropdown = false;
   cronTimezoneDropdown = false;
+  workflowDropdown = false;
 
   constructor(
     private store: Store<AppStateInit>,
@@ -53,10 +55,12 @@ export class EditSchedulerComponent {
       this.store.select(selectView),
       this.store.select(selectMainProject),
       this.store.select(selectSchedulers),
-    ]).subscribe(([user, view, project, schedulers]) => {
+      this.store.select(selectWorkflows),
+    ]).subscribe(([user, view, project, schedulers, workflows]) => {
       this.user = user;
       this.view = view;
       this.project = project;
+      this.workflows = workflows;
 
       if (this.user && this.view && this.view.serviceId) {
         const scheduler = schedulers.find((existingScheduler) => existingScheduler._id === this.view.serviceId);
@@ -93,6 +97,10 @@ export class EditSchedulerComponent {
     if (this.cronHourDropdown) this.cronHourDropdown = false;
     if (this.cronMinuteDropdown) this.cronMinuteDropdown = false;
     this.cronTimezoneDropdown = !this.cronTimezoneDropdown;
+  }
+
+  toggleWorkflowDropdown() {
+    this.workflowDropdown = !this.workflowDropdown;
   }
 
   selectCronType(cronType: string) {
@@ -174,6 +182,27 @@ export class EditSchedulerComponent {
 
   get alphaTimezones() {
     return timezones.filter(timezone => timezone.label.startsWith('America/')).map(timezone => timezone.label.split(' ')[0]).sort();
+  }
+
+  selectWorkflow(workflowId: string) {
+    if (!workflowId || !this.scheduler) return;
+
+    this.scheduler.workflowId = workflowId;
+  }
+
+  removeWorkflow() {
+    if (!this.scheduler) return;
+    this.scheduler.workflowId = '';
+  }
+
+  findWorkflow(workflowId: string) {
+    if (!workflowId || !this.scheduler) return;
+    if (!this.workflows) return;
+
+    const workflow = this.workflows.find((workflow) => workflow._id === workflowId);
+
+    if (!workflow) return '';
+    return workflow.name;
   }
 
   cancel() {
