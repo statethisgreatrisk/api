@@ -99,6 +99,7 @@ export interface Schema {
     name: string;
     schema: string;
     version: number;
+    valid: boolean;
 }
 
 export interface Validator {

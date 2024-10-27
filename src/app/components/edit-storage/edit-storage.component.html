@@ -55,7 +55,9 @@
         </div>
         <div class="edit-storage-path-docs">
             <div class="edit-storage-path-doc">
-                <p>Storage documents must pass the selected schema and must be JSON parsable to be stored.</p>
+                <p>Storage documents must pass the selected schema and must be JSON parsable to be stored. Storages configured without a schema or invalid schemas will prevent documents from being stored.</p>
+                <br>
+                <p>Schemas are versioned and documents will only be shown in the Document Viewer if they pass the latest version of the schema.</p>
                 <br>
                 <p>Storage is only available when the deployment is online. Stopping a deployment may interrupt existing storage operations and will prevent new documents from being stored.</p>
             </div>
