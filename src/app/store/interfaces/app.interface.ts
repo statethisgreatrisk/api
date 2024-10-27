@@ -110,6 +110,7 @@ export interface Validator {
     active: boolean;
     name: string;
     validator: string;
+    valid: boolean;
 }
 
 export interface Workflow {

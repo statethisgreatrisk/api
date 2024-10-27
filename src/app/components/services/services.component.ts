@@ -230,8 +230,9 @@ export class ServicesComponent {
     const date = new Date().toISOString();
     const active = true;
     const validator = '';
+    const valid = false;
 
-    this.store.dispatch(createValidator({ projectId, validator: { _id, projectId, userId, name, date, active, validator } }));
+    this.store.dispatch(createValidator({ projectId, validator: { _id, projectId, userId, name, date, active, validator, valid } }));
   }
 
   createWorkflow() {
