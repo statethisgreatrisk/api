@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { AppStateInit, Document, Project, Schema, Storage, User, View } from '../../store/interfaces/app.interface';
 import { selectDocuments, selectMainProject, selectSchemas, selectStorages, selectUser, selectView } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { DeleteService } from '../../services/delete.service';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { DOCUMENT, NgClass, NgFor, NgIf } from '@angular/common';
 import { createDocument, deselectService, deselectWindow } from '../../store/actions/app.action';
 import { DocumentService } from '../../services/document.service';
+import { json } from '@codemirror/lang-json';
+import { EditorState, Extension } from '@codemirror/state';
+import { EditorView, basicSetup } from 'codemirror';
+import { oneDarkSmall } from '../../styles/one-dark-small';
 
 interface Header {
   key: string;
@@ -36,21 +40,32 @@ export class StorageViewComponent {
   headers: Header[] = [];
 
   sub: Subscription | null = null;
+  selectedDocumentSub: Subscription | null = null;
 
   selectedRowId: string = '';
+
+  addDocumentDropdown = false;
+
+  @ViewChild('jsonEditor') jsonEditor: any;
+  editorState!: EditorState;
+  editorView!: EditorView;
 
   constructor(
     private store: Store<AppStateInit>,
     private documentService: DocumentService,
     private deleteService: DeleteService,
+    private cdr: ChangeDetectorRef,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit() {
     this.initLatest();
+    this.initSelectedDocument();
   }
 
   ngOnDestroy() {
     this.sub?.unsubscribe();
+    this.selectedDocumentSub?.unsubscribe();
   }
 
   initLatest() {
@@ -102,6 +117,34 @@ export class StorageViewComponent {
     });
   }
 
+  initSelectedDocument() {
+    this.selectedDocumentSub = this.documentService.document$.subscribe((document) => {
+      if (!document) this.selectedRowId = '';
+    });
+  }
+
+  createEditor() {
+    let jsonEditorElement = this.jsonEditor.nativeElement;
+    let myExt: Extension = [basicSetup, json(), oneDarkSmall];
+    const jsonDoc = JSON.stringify({}, null, 2);
+    
+    try {
+      this.editorState = EditorState.create({
+        doc: jsonDoc,
+        extensions: myExt,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
+    this.editorView = new EditorView({
+      state: this.editorState,
+      parent: jsonEditorElement,
+    });
+
+    this.editorView.focus();
+  }
+
   cellValue(document: any, headerKey: string) {
     return String(document[headerKey]) || '';
   }
@@ -123,7 +166,7 @@ export class StorageViewComponent {
     const date = new Date().toISOString();
     const active = true;
     const version = this.schemaVersion;
-    const document = JSON.stringify({ foo: 'bar' });
+    const document = this.editorView.state.doc.toString().trim();
 
     this.store.dispatch(createDocument({ projectId: projectId, document: { _id, userId, projectId, storageId, date, active, version, document } }));
   }
@@ -131,5 +174,14 @@ export class StorageViewComponent {
   close() {
     if (this.view.service === 'Storages') this.store.dispatch(deselectService({ serviceName: '', serviceId: '' }));
     this.store.dispatch(deselectWindow({ windowName: this.view.window, windowId: this.view.windowId }));
+  }
+
+  toggleAddDocumentDropdown() {
+    this.addDocumentDropdown = !this.addDocumentDropdown;
+
+    if (this.addDocumentDropdown) {
+      this.cdr.detectChanges();
+      this.createEditor();
+    }
   }
 }

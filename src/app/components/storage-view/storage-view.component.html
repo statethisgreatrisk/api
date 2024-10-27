@@ -8,7 +8,18 @@
             <div class="storage-view-slim-button inline" (click)="close()">
                 <p>Close View</p>
             </div>
-            <p class="add" (click)="addDocument()">Add Document</p>
+            <div class="storage-view-add-document-container">
+                <p class="add" (click)="toggleAddDocumentDropdown()">Add Document</p>
+                <div class="storage-view-add-document-dropdown" *ngIf="addDocumentDropdown">
+                    <div class="storage-view-add-document-code-container">
+                        <div #jsonEditor></div>
+                    </div>
+                    <div class="storage-view-add-document-actions">
+                        <p class="cancel" (click)="toggleAddDocumentDropdown()">Cancel</p>
+                        <p class="save" (click)="addDocument()">Save</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="storage-view-table-container">
             <table>

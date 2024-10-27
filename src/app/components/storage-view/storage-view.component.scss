@@ -64,37 +64,22 @@
     margin-left: 15px;
 }
 
-.storage-view-breadcrumb-container .cancel {
-    font-size: 11px;
-    font-weight:700;
-
-    width: 45px;
-    text-align: center;
-    
-    margin-left: 15px;
-    padding: 0 10px;
-
-    color: #eae1ff;
-
-    border: 1px solid #eae1ff;
-    border-radius: 10px;
-
-    cursor: pointer;
-}
-
 .storage-view-breadcrumb-container .spacer {
     display: flex;
     flex-grow: 1;
 }
 
-.storage-view-breadcrumb-container .add {
+.storage-view-add-document-container {
+    position: relative;
+}
+
+.storage-view-add-document-container .add {
     font-size: 11px;
     font-weight:700;
 
     width: 85px;
     text-align: center;
     
-    margin-left: 15px;
     padding: 0 10px;
 
     color: $primary-600;
@@ -103,6 +88,74 @@
     border-radius: 10px;
 
     cursor: pointer;
+}
+
+.storage-view-add-document-code-container {
+    width: 100%;
+    height: 200px;
+
+    overflow-y: scroll;
+}
+
+.storage-view-add-document-dropdown {
+    display: flex;
+    flex-direction: column;
+
+    align-items: end;
+
+    width: 300px;
+
+    top: 20px;
+    right: 0;
+    position: absolute;
+
+    padding: 5px;
+
+    background-color: $surface-dark;
+    border: 1px solid black;
+
+    z-index: 2;
+}
+
+.storage-view-add-document-dropdown p.cancel {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: end;
+
+    width: auto;
+
+    margin-right: 15px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-600;
+
+    border-bottom: 1px solid $surface-mixed-600;
+}
+
+.storage-view-add-document-dropdown p.save {
+    font-size: 11px;
+    font-weight:700;
+
+    width: 45px;
+    text-align: center;
+    
+    padding: 0 10px;
+
+    color: $primary-600;
+
+    border: 1px solid $primary-600;
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.storage-view-add-document-actions {
+    display: flex;
+    flex-direction: row;
 }
 
 .storage-view-slim-button {
@@ -121,6 +174,7 @@
 
 .storage-view-slim-button.inline {
     width: auto;
+    margin-right: 15px;
 }
 
 .storage-view-slim-button.text {

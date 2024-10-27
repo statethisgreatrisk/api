@@ -75,6 +75,8 @@ export class DocumentEditComponent {
 
   initDocument() {
     this.documentSub = this.documentService.document$.subscribe((document) => {
+      if (!document) return;
+
       this.documentParsed = { ...document };
 
       const documentString = { ...document };
@@ -110,22 +112,12 @@ export class DocumentEditComponent {
   }
 
   cancel() {
-    const document = { ...this.documentParsed };
-    delete document._id;
-    delete document.date;
-
-    this.documentString = JSON.stringify(document, null, 2);
-
-    let currentText = this.editorView.state.doc.toString();
-    this.editorView.dispatch({ changes: { from: 0, to: currentText.length, insert: this.documentString } });
-  }
-
-  clear() {
     this.documentParsed = null;
     this.documentString = '{}';
 
     let currentText = this.editorView.state.doc.toString();
     this.editorView.dispatch({ changes: { from: 0, to: currentText.length, insert: this.documentString } });
+    this.documentService.deselectDocument();
   }
   
   save() {
@@ -158,7 +150,7 @@ export class DocumentEditComponent {
       serviceData: this.documentParsed,
       deleteFn: () => {
         this.store.dispatch(deleteDocument({ projectId: this.project!._id, documentId: this.documentParsed._id }));
-        this.clear();
+        this.cancel();
       },
     });
   }

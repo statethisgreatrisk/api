@@ -11,4 +11,8 @@ export class DocumentService {
   selectDocument(document: any) {
     this.document.next(document);
   }
+
+  deselectDocument() {
+    this.document.next(null);
+  }
 }
