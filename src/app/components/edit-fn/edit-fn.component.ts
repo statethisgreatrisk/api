@@ -106,8 +106,10 @@ export class EditFnComponent {
     if (!this.project) return;
     if (!this.fn) return;
 
-    this.fn.fn = this.parseEditor();
-    this.store.dispatch(updateFn({ projectId: this.project._id, fn: this.fn }));
+    const fn = { ...this.fn} ;
+    fn.fn = this.parseEditor();
+
+    this.store.dispatch(updateFn({ projectId: this.project._id, fn: fn }));
   }
 
   delete() {
