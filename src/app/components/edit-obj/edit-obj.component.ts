@@ -106,8 +106,10 @@ export class EditObjComponent {
     if (!this.project) return;
     if (!this.obj) return;
 
-    this.obj.obj = this.parseEditor();
-    this.store.dispatch(updateObj({ projectId: this.project._id, obj: this.obj }));
+    const obj = { ...this.obj} ;
+    obj.obj = this.parseEditor();
+
+    this.store.dispatch(updateObj({ projectId: this.project._id, obj: obj }));
   }
 
   delete() {
