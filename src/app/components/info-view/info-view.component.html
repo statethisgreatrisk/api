@@ -1,0 +1,15 @@
+<div class="info-view" *ngIf="infoData">
+    <div class="info-header">
+        <p>Info</p>
+    </div>
+    
+    <div class="info-detail">
+        <pre>{{ infoData.data | json }}</pre>
+    </div>
+    
+    <div class="info-buttons">
+        <div class="info-buttons-close" (click)="close()">
+            <p>Close</p>
+        </div>
+    </div>
+</div>

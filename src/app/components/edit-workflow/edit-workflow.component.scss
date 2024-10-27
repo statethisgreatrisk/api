@@ -65,6 +65,19 @@
     color: $surface-mixed-600;
 }
 
+.edit-workflow-label p.active {
+    font-weight: 600;
+    color: $primary-600;
+}
+
+.edit-workflow-label.button {
+    flex-direction: row;
+}
+
+.edit-workflow-label.button p {
+    cursor: pointer;
+}
+
 .edit-workflow-input-container {
     display: flex;
     flex-direction: row;

@@ -1,0 +1,265 @@
+@import '../../styles/palette.component.scss';
+
+.activity-view-container {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    height: 300px;
+    min-height: 300px;
+    max-height: 300px;
+
+    background-color: $surface-dark;
+
+    border-top: 1px solid black;
+}
+
+.activity-view {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+
+    width: 100%;
+}
+
+.activity-view-header-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: start;
+
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.activity-view-header {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+}
+
+.activity-view-header p.header {
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+}
+
+.activity-view-search-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.activity-view-search {
+    display: flex;
+    flex-direction: row;
+
+    width: 215px;
+}
+
+.activity-view-search input {
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+
+    width: 99%;
+    height: 10px;
+
+    padding: 7px 7px;
+
+    background-color: $surface-mixed-200;
+    border: none;
+    border-radius: 3px;
+
+    font-family: "Roboto", sans-serif;
+}
+
+.activity-view-search input:focus-visible {
+    outline: none;
+}
+
+.activity-view-tab-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.activity-view-tab {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    padding: 5px 10px;
+
+    cursor: pointer;
+}
+
+.activity-view-tab p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-600;
+}
+
+.activity-view-tab.active p,
+.activity-view-tab:hover p {
+    color: $get;
+}
+
+.spacer {
+    display: flex;
+    flex-grow: 1;
+}
+
+.activity-view-table-container {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 10px;
+}
+
+.activity-view-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 0px solid $primary-500;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+}
+
+tr:nth-child(even) {
+    background-color: $surface-mixed-100;
+}
+
+tr td:last-child {
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+thead {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+tbody {
+    display: block;
+    width: 100%;
+    max-height: 170px;
+    overflow-y: scroll;
+}
+
+.activity-view-table-header {
+    font-size: 11px;
+    font-weight: 700;
+
+    color: $get;
+
+    text-align: left;
+}
+
+.activity-view-table-data {
+    font-size: 11px;
+    font-weight: 700;
+
+    color: $get;
+}
+
+.activity-view-table-actions {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: end;
+
+    margin-top: 10px;
+}
+
+.activity-view-table-load {
+    margin-right: 15px;
+}
+
+.activity-view-table-load p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-400;
+
+    border-bottom: 1px solid $surface-dark;
+
+    cursor: default;
+}
+
+.activity-view-table-load p.active {
+    color: $surface-mixed-600;
+
+    border-bottom: 1px solid $surface-mixed-600;
+
+    cursor: pointer;
+}
+
+.activity-view-table-paginator {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+}
+
+.activity-view-table-paginator .left.active, 
+.activity-view-table-paginator .right.active {
+    cursor: pointer;
+}
+
+.activity-view-table-paginator .left img, 
+.activity-view-table-paginator .right img {
+    width: 10px;
+    height: 10px;
+}
+
+.activity-view-table-paginator .number {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 20px;
+    width: 50px;
+
+    margin-left: 10px;
+    margin-right: 10px;
+
+    background-color: $primary-900;
+    border-radius: 2px;
+
+    cursor: default;
+}
+
+.activity-view-table-paginator .number p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $primary-600;
+}

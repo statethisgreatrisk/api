@@ -4,7 +4,7 @@ import { ServicesComponent } from './components/services/services.component';
 import { ServiceEditComponent } from './components/service-edit/service-edit.component';
 import { NgIf } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { View, AppStateInit, DeleteData } from './store/interfaces/app.interface';
+import { View, AppStateInit, DeleteData, InfoData } from './store/interfaces/app.interface';
 import { StorageViewComponent } from './components/storage-view/storage-view.component';
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
@@ -22,7 +22,10 @@ import { Actions, ofType } from '@ngrx/effects';
 import { ToastService } from './services/toast.service';
 import { Subscription } from 'rxjs';
 import { DocumentEditComponent } from './components/document-edit/document-edit.component';
-import { RowEditComponent } from './components/row-edit/row-edit.component';
+import { ActivityViewComponent } from './components/activity-view/activity-view.component';
+import { ActivityViewService } from './services/activity-view.service';
+import { InfoService } from './services/info.service';
+import { InfoViewComponent } from './components/info-view/info-view.component';
 
 @Component({
   selector: 'app-root',
@@ -41,7 +44,8 @@ import { RowEditComponent } from './components/row-edit/row-edit.component';
     SettingsViewComponent,
     LoginViewComponent,
     DocumentEditComponent,
-    RowEditComponent,
+    ActivityViewComponent,
+    InfoViewComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -49,25 +53,31 @@ import { RowEditComponent } from './components/row-edit/row-edit.component';
 export class AppComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   deleteData: DeleteData | null = null;
+  infoData: InfoData | null = null;
   settingsOpen: boolean = false;
   loginOpen: boolean = false;
+  activityViewOpen: boolean = false;
   
   projectsSub: Subscription | null = null;
 
   constructor(
     private store: Store<AppStateInit>,
     private deleteService: DeleteService,
+    private infoService: InfoService,
     private settingsService: SettingsService,
     private authService: AuthService,
     private toastService: ToastService,
+    private activityViewService: ActivityViewService,
     private actions$: Actions,
   ) {}
 
   ngOnInit() {
     this.initView();
     this.initDeleteView();
+    this.initInfoView();
     this.initSettingsView();
     this.initLoginView();
+    this.initActivityView();
     this.initRequestErrors();
     this.initAuthSuccessResponses();
     this.initAuthErrors();
@@ -87,12 +97,20 @@ export class AppComponent {
     this.deleteService.deleteData$.subscribe((deleteData) => this.deleteData = deleteData);
   }
 
+  initInfoView() {
+    this.infoService.infoData$.subscribe((infoData) => this.infoData = infoData);
+  }
+
   initSettingsView() {
     this.settingsService.settingsOpen$.subscribe((settingsOpen) => this.settingsOpen = settingsOpen);
   }
 
   initLoginView() {
     this.authService.loginOpen$.subscribe((loginOpen) => this.loginOpen = loginOpen);
+  }
+
+  initActivityView() {
+    this.activityViewService.activityView$.subscribe((activityView) => this.activityViewOpen = activityView);
   }
   
   initAuthSuccessResponses() {

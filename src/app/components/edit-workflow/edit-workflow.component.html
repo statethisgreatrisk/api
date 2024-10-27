@@ -19,6 +19,10 @@
         <div class="edit-workflow-label">
             <p>Workflow name can have up to 80 characters, may only contain alphanumeric characters and underscores (_), is case sensitive and must be unique.</p>
         </div>
+        <div class="edit-workflow-label button">
+            <p class="active" *ngIf="!activityViewOpen" (click)="toggleActivityView()">View Workflow Activity</p>
+            <p class="active" *ngIf="activityViewOpen" (click)="toggleActivityView()">Close Workflow Activity</p>
+        </div>
         <div class="edit-workflow-buttons">
             <div class="edit-workflow-cancel" (click)="cancel()">
                 <p>Cancel</p>

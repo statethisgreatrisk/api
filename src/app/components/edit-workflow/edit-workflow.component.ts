@@ -7,6 +7,7 @@ import { selectUser, selectView, selectMainProject, selectAPIs, selectWorkflows 
 import { deleteWorkflow, deselectService, updateWorkflow } from '../../store/actions/app.action';
 import { NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivityViewService } from '../../services/activity-view.service';
 
 @Component({
   selector: 'app-edit-workflow',
@@ -20,8 +21,10 @@ export class EditWorkflowComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   workflow: Workflow | null = null;
   project: Project | null = null;
+  activityViewOpen: boolean = false;
 
   sub: Subscription | null = null;
+  activityViewSub: Subscription | null = null;
 
   apis: API[] = [];
 
@@ -29,16 +32,19 @@ export class EditWorkflowComponent {
 
   constructor(
     private store: Store<AppStateInit>,
+    private activityViewService: ActivityViewService,
     private deleteService: DeleteService,
   ) {}
 
   ngOnInit() {
     this.initLatest();
     this.initAPIs();
+    this.initActivityView();
   }
 
   ngOnDestroy() {
     this.sub?.unsubscribe();
+    this.activityViewSub?.unsubscribe();
   }
 
   initLatest() {
@@ -63,6 +69,14 @@ export class EditWorkflowComponent {
     this.store.select(selectAPIs).subscribe((apis) => {
       this.apis = apis;
     });
+  }
+
+  initActivityView() {
+    this.activityViewService.activityView$.subscribe((activityView) => this.activityViewOpen = activityView);
+  }
+
+  toggleActivityView() {
+    this.activityViewService.toggleActivityView();
   }
 
   cancel() {

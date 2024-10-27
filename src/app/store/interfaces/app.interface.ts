@@ -341,6 +341,10 @@ export interface DeleteData {
     deleteFn: () => void;
 }
 
+export interface InfoData {
+    data: Object;
+}
+
 export interface ResponseMessage {
     message: string;
 }
