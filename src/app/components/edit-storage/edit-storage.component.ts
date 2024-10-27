@@ -61,7 +61,7 @@ export class EditStorageComponent {
 
   initSchemas() {
     this.store.select(selectSchemas).subscribe((schemas) => {
-      this.schemas = schemas;
+      this.schemas = schemas.filter((schema) => schema.valid);
     });
   }
 

@@ -35,6 +35,9 @@
                 </div>
             </div>
         </div>
+        <div class="edit-storage-label" *ngIf="storage && !storage.schemaId">
+            <p>Only valid schemas are listed as options.</p>
+        </div>
         <div class="edit-storage-list-item-container" *ngIf="storage">
             <div class="edit-storage-list-item" *ngIf="storage.schemaId" (click)="removeSchema()">
                 <img class="check" src="/check.png">
