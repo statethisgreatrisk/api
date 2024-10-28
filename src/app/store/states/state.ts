@@ -22,6 +22,7 @@ export const appState: AppState = {
     instances: [],
     deploys: [],
     logs: [],
+    jobs: [],
     keys: [],
     billings: [],
     usages: [],

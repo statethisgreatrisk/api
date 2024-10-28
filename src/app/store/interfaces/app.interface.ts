@@ -271,6 +271,22 @@ export interface Log {
     logs: string[];
 }
 
+export interface Job {
+    _id: string;
+    userId: string;
+    projectId: string;
+    deployId: string;
+    workflowId: string;
+    jobId: string;
+    apiId: string;
+    queueId: string;
+    schedulerId: string;
+    active: boolean;
+    date: string;
+    type: 'start' | 'stop';
+    activity: string;
+}
+
 export interface Key {
     _id: string;
     userId: string;
@@ -404,6 +420,7 @@ export interface AppState {
     instances: Instance[];
     deploys: Deploy[];
     logs: Log[];
+    jobs: Job[];
     keys: Key[];
     billings: Billing[];
     usages: Usage[];

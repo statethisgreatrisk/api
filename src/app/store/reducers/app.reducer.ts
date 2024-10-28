@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job } from "../interfaces/app.interface";
 
 // User
 
@@ -525,6 +525,18 @@ export const replaceLogFn: (state: AppState, log: Log) => AppState = (state: App
     return { ...state, logs: logs };
 }
 
+// Job
+
+export const addJobsFn: (state: AppState, jobs: Job[]) => AppState = (state: AppState, jobs: Job[]) => {
+    if (!jobs) return { ...state };
+    return { ...state, jobs: jobs };
+}
+
+export const addJobFn: (state: AppState, job: Job) => AppState = (state: AppState, job: Job) => {
+    if (!job) return { ...state };
+    return { ...state, jobs: state.jobs.concat([job]) };
+}
+
 // Key
 
 export const addKeysFn: (state: AppState, keys: Key[]) => AppState = (state: AppState, keys: Key[]) => {
@@ -683,6 +695,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         instances: [],
         deploys: [],
         logs: [],
+        jobs: [],
         keys: [],
         billings: [],
         usages: [],
@@ -719,6 +732,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         instances: [],
         deploys: [],
         logs: [],
+        jobs: [],
         keys: [],
         billings: [],
         usages: [],
