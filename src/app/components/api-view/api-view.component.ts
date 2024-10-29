@@ -1,14 +1,14 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
-import { App, AppStateInit, Project, User, View, Workflow, WorkflowRow } from '../../store/interfaces/app.interface';
-import { selectApps, selectMainProject, selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { ChangeDetectorRef, Component, ElementRef, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { App, AppStateInit, Arg, Argtype, Project, User, View, Workflow, WorkflowRow } from '../../store/interfaces/app.interface';
+import { selectApps, selectArgtypes, selectMainProject, selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import ObjectId from 'bson-objectid';
 import { deselectService, deselectWindow, updateWorkflow } from '../../store/actions/app.action';
 import { FormsModule } from '@angular/forms';
 import { SelectAppService } from '../../services/select-app.service';
-import { each, isEqual, times } from 'lodash';
+import { cloneDeep, each, isEqual, times } from 'lodash';
 
 type indentPairIds = string[];
 type indentIds = indentPairIds[];
@@ -25,6 +25,7 @@ export class ApiViewComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   workflow: Workflow | null = null;
   project: Project | null = null;
+  argtypes: Argtype[] | null = null;
 
   apps: App[] = [];
 
@@ -36,31 +37,8 @@ export class ApiViewComponent {
 
   selectedRowId: string = '';
 
-  @ViewChildren('rowVariableInputs') rowVariableInputs!: QueryList<ElementRef>;
-  @ViewChildren('rowVariableSpans') rowVariableSpans!: QueryList<ElementRef>;
-
-  @ViewChildren('rowArgsInputs') rowArgsInputs!: QueryList<ElementRef>;
-  @ViewChildren('rowArgsSpans') rowArgsSpans!: QueryList<ElementRef>;
-
-  @ViewChildren('rowCommentInputs') rowCommentInputs!: QueryList<ElementRef>;
-  @ViewChildren('rowCommentSpans') rowCommentSpans!: QueryList<ElementRef>;
-
-  @ViewChildren('rowConditionalsInputs') rowConditionalsInputs!: QueryList<ElementRef>;
-  @ViewChildren('rowConditionalsSpans') rowConditionalsSpans!: QueryList<ElementRef>;
-
-  @ViewChildren('rowArrayVariableInputs') rowArrayVariableInputs!: QueryList<ElementRef>;
-  @ViewChildren('rowArrayVariableSpans') rowArrayVariableSpans!: QueryList<ElementRef>;
-  @ViewChildren('rowArrayArgsInputs') rowArrayArgsInputs!: QueryList<ElementRef>;
-  @ViewChildren('rowArrayArgsSpans') rowArrayArgsSpans!: QueryList<ElementRef>;
-  @ViewChildren('rowArrayKeyInputs') rowArrayKeyInputs!: QueryList<ElementRef>;
-  @ViewChildren('rowArrayKeySpans') rowArrayKeySpans!: QueryList<ElementRef>;
-
-  @ViewChildren('rowObjectVariableInputs') rowObjectVariableInputs!: QueryList<ElementRef>;
-  @ViewChildren('rowObjectVariableSpans') rowObjectVariableSpans!: QueryList<ElementRef>;
-  @ViewChildren('rowObjectArgsInputs') rowObjectArgsInputs!: QueryList<ElementRef>;
-  @ViewChildren('rowObjectArgsSpans') rowObjectArgsSpans!: QueryList<ElementRef>;
-  @ViewChildren('rowObjectKeyInputs') rowObjectKeyInputs!: QueryList<ElementRef>;
-  @ViewChildren('rowObjectKeySpans') rowObjectKeySpans!: QueryList<ElementRef>;
+  @ViewChildren('rowInputs') rowInputs!: QueryList<ElementRef>;
+  @ViewChildren('rowSpans') rowSpans!: QueryList<ElementRef>;
 
   ifApp: App | null = null;
   ifCloseApp: App | null = null;
@@ -77,10 +55,13 @@ export class ApiViewComponent {
 
   commentApp: App | null = null;
 
+  argtype: any = {};
+
   constructor(
     private store: Store<AppStateInit>,
     private selectAppService: SelectAppService,
     private cdr: ChangeDetectorRef,
+    private renderer: Renderer2,
   ) {}
 
   ngOnInit() {
@@ -112,22 +93,21 @@ export class ApiViewComponent {
       this.store.select(selectApps),
       this.store.select(selectMainProject),
       this.store.select(selectWorkflows),
-    ]).subscribe(([user, view, apps, project, workflows]) => {
+      this.store.select(selectArgtypes),
+    ]).subscribe(([user, view, apps, project, workflows, argtypes]) => {
       this.user = user;
       this.view = view;
       this.project = project;
       this.apps = apps;
+      this.argtypes = argtypes;
       this.setApps();
+      this.setArgtypes();
 
       if (this.user && this.view && this.view.windowId) {
         const workflow = workflows.find((existingWorkflow) => existingWorkflow._id === this.view.windowId);
-        this.workflow = workflow ? { ...workflow } : null;
+        this.workflow = workflow ? cloneDeep(workflow) : null;
 
-        if (this.workflow && this.workflow.rows) this.workflow.rows = [...this.workflow.rows];
-        if (this.workflow && this.workflow.rows) this.workflow.rows = this.workflow.rows.map((row) => {
-          let mutableRow = { ...row };
-          return mutableRow;
-        });
+        if (this.workflow && this.workflow.rows) this.workflow.rows = cloneDeep(this.workflow.rows);
 
         this.indentIds = [];
         const pairs: any = {};
@@ -174,223 +154,77 @@ export class ApiViewComponent {
     this.commentApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'comment')!;
   }
 
+  setArgtypes() {
+    this.argtype['null'] = this.argtypes!.find((argtype) => argtype.name === 'null')!.regex;
+    this.argtype['boolean'] = this.argtypes!.find((argtype) => argtype.name === 'boolean')!.regex;
+    this.argtype['number'] = this.argtypes!.find((argtype) => argtype.name === 'number')!.regex;
+    this.argtype['string'] = this.argtypes!.find((argtype) => argtype.name === 'string')!.regex;
+    this.argtype['storage'] = this.argtypes!.find((argtype) => argtype.name === 'storage')!.regex;
+    this.argtype['function'] = this.argtypes!.find((argtype) => argtype.name === 'function')!.regex;
+    this.argtype['request'] = this.argtypes!.find((argtype) => argtype.name === 'request')!.regex;
+    this.argtype['object'] = this.argtypes!.find((argtype) => argtype.name === 'object')!.regex;
+    this.argtype['array'] = this.argtypes!.find((argtype) => argtype.name === 'array')!.regex;
+    this.argtype['condition'] = this.argtypes!.find((argtype) => argtype.name === 'condition')!.regex;
+    this.argtype['variable'] = this.argtypes!.find((argtype) => argtype.name === 'variable')!.regex;
+    this.argtype['simpleVariable'] = this.argtypes!.find((argtype) => argtype.name === 'simpleVariable')!.regex;
+  }
+
   adjustAllInputs() {
     if (!this.workflow || !this.workflow.rows) return;
 
-    this.workflow.rows.filter((row) => row.appId && row.appId !== this.ifApp!._id && row.appId !== this.ifCloseApp!._id && row.appId !== this.ifElseApp!._id && row.appId !== this.ifElseMiddleApp!._id && row.appId !== this.ifElseCloseApp!._id && row.appId !== this.forArrayApp!._id && row.appId !== this.forArrayCloseApp!._id && row.appId !== this.forObjectApp!._id && row.appId !== this.forObjectCloseApp!._id && row.appId !== this.commentApp!._id).forEach((_, index) => {
-      this.adjustVariableWidth(index);
-      this.adjustArgsWidth(index);
-    });
+    this.cdr.detectChanges();
 
-    this.workflow.rows.filter((row) => row.appId && row.appId === this.commentApp!._id).forEach((_, index) => {
-      this.adjustCommentWidth(index);
-    });
+    this.workflow.rows.forEach((row) => {
+      row.variables.forEach((variable) => {
+        this.adjustInputWidth(variable._id, variable.placeholderWidth, variable.argtypes, variable.value);
+      });
 
-    this.workflow.rows.filter((row) => row.appId && row.appId === this.forArrayApp!._id).forEach((_, index) => {
-      this.adjustArrayVariableWidth(index);
-      this.adjustArrayArgsWidth(index);
-      this.adjustArrayKeyWidth(index);
-    });
-
-    this.workflow.rows.filter((row) => row.appId && row.appId === this.forObjectApp!._id).forEach((_, index) => {
-      this.adjustObjectVariableWidth(index);
-      this.adjustObjectArgsWidth(index);
-      this.adjustObjectKeyWidth(index);
-    });
-
-    this.workflow.rows.filter((row) => row.appId && (row.appId === this.ifApp!._id || row.appId === this.ifElseApp!._id)).forEach((_, index) => {
-      this.adjustConditionalsWidth(index);
+      row.args.forEach((arg) => {
+        this.adjustInputWidth(arg._id, arg.placeholderWidth, arg.argtypes, arg.value);
+      });
     });
   }
 
-  adjustVariableWidth(index: number) {
+  adjustInputWidth(argId: string, placeholderWidth: number, args: string[], value?: string) {
     this.cdr.detectChanges();
 
-    if (!this.rowVariableInputs.toArray().length) return;
-    if (!this.rowVariableSpans.toArray().length) return;
+    if (!this.rowInputs.toArray().length) return;
+    if (!this.rowSpans.toArray().length) return;
 
-    const inputElement = this.rowVariableInputs.toArray()[index].nativeElement;
-    const spanElement = this.rowVariableSpans.toArray()[index].nativeElement;
-    const width = spanElement.offsetWidth === 0 ? 87 : spanElement.offsetWidth + 1;
+    let index = 0;
+
+    this.rowInputs.forEach((element, i) => {
+      if (element.nativeElement.id === argId) {
+        index = i;
+      }
+    });
+
+    const inputElement = this.rowInputs.toArray()[index].nativeElement;
+    const spanElement = this.rowSpans.toArray()[index].nativeElement;
+    const width = spanElement.offsetWidth === 0 ? placeholderWidth : spanElement.offsetWidth + 1;
   
     inputElement.style.width = `${width}px`;
-  }
-  
-  adjustArgsWidth(index: number) {
-    this.cdr.detectChanges();
 
-    if (!this.rowArgsInputs.toArray().length) return;
-    if (!this.rowArgsSpans.toArray().length) return;
-
-    const inputElement = this.rowArgsInputs.toArray()[index].nativeElement;
-    const spanElement = this.rowArgsSpans.toArray()[index].nativeElement;
-    const width = spanElement.offsetWidth === 0 ? 60 : spanElement.offsetWidth + 1;
-
-    inputElement.style.width = `${width}px`;  
+    if (!value) {
+      this.renderer.removeClass(inputElement, 'invalid');
+    } else {
+      const valid = this.validate(value, args);
+      
+      if (!valid) this.renderer.addClass(inputElement, 'invalid');
+      else this.renderer.removeClass(inputElement, 'invalid');
+    }
   }
 
-  adjustArrayVariableWidth(index: number) {
-    this.cdr.detectChanges();
+  validate(value: string, args: string[]): boolean {
+    let valid = false;
 
-    if (!this.rowArrayVariableInputs.toArray().length) return;
-    if (!this.rowArrayVariableSpans.toArray().length) return;
-
-    const inputElement = this.rowArrayVariableInputs.toArray()[index].nativeElement;
-    const spanElement = this.rowArrayVariableSpans.toArray()[index].nativeElement;
-    const width = spanElement.offsetWidth === 0 ? 46 : spanElement.offsetWidth + 1;
-  
-    inputElement.style.width = `${width}px`;
-  }
-
-  adjustArrayArgsWidth(index: number) {
-    this.cdr.detectChanges();
-
-    if (!this.rowArrayArgsInputs.toArray().length) return;
-    if (!this.rowArrayArgsSpans.toArray().length) return;
-
-    const inputElement = this.rowArrayArgsInputs.toArray()[index].nativeElement;
-    const spanElement = this.rowArrayArgsSpans.toArray()[index].nativeElement;
-    const width = spanElement.offsetWidth === 0 ? 34 : spanElement.offsetWidth + 1;
-  
-    inputElement.style.width = `${width}px`;
-  }
-
-  adjustArrayKeyWidth(index: number) {
-    this.cdr.detectChanges();
-
-    if (!this.rowArrayKeyInputs.toArray().length) return;
-    if (!this.rowArrayKeySpans.toArray().length) return;
-
-    const inputElement = this.rowArrayKeyInputs.toArray()[index].nativeElement;
-    const spanElement = this.rowArrayKeySpans.toArray()[index].nativeElement;
-    const width = spanElement.offsetWidth === 0 ? 34 : spanElement.offsetWidth + 1;
-  
-    inputElement.style.width = `${width}px`;
-  }
-
-  adjustObjectVariableWidth(index: number) {
-    this.cdr.detectChanges();
-
-    if (!this.rowObjectVariableInputs.toArray().length) return;
-    if (!this.rowObjectVariableSpans.toArray().length) return;
-
-    const inputElement = this.rowObjectVariableInputs.toArray()[index].nativeElement;
-    const spanElement = this.rowObjectVariableSpans.toArray()[index].nativeElement;
-    const width = spanElement.offsetWidth === 0 ? 34 : spanElement.offsetWidth + 1;
-  
-    inputElement.style.width = `${width}px`;
-  }
-
-  adjustObjectArgsWidth(index: number) {
-    this.cdr.detectChanges();
-
-    if (!this.rowObjectArgsInputs.toArray().length) return;
-    if (!this.rowObjectArgsSpans.toArray().length) return;
-
-    const inputElement = this.rowObjectArgsInputs.toArray()[index].nativeElement;
-    const spanElement = this.rowObjectArgsSpans.toArray()[index].nativeElement;
-    const width = spanElement.offsetWidth === 0 ? 40 : spanElement.offsetWidth + 1;
-  
-    inputElement.style.width = `${width}px`;
-  }
-
-  adjustObjectKeyWidth(index: number) {
-    this.cdr.detectChanges();
-
-    if (!this.rowObjectKeyInputs.toArray().length) return;
-    if (!this.rowObjectKeySpans.toArray().length) return;
-
-    const inputElement = this.rowObjectKeyInputs.toArray()[index].nativeElement;
-    const spanElement = this.rowObjectKeySpans.toArray()[index].nativeElement;
-    const width = spanElement.offsetWidth === 0 ? 20 : spanElement.offsetWidth + 1;
-  
-    inputElement.style.width = `${width}px`;
-  }
-
-  adjustCommentWidth(index: number) {
-    this.cdr.detectChanges();
-
-    if (!this.rowCommentInputs.toArray().length) return;
-    if (!this.rowCommentSpans.toArray().length) return;
-
-    const inputElement = this.rowCommentInputs.toArray()[index].nativeElement;
-    const spanElement = this.rowCommentSpans.toArray()[index].nativeElement;
-    const width = spanElement.offsetWidth === 0 ? 70 : spanElement.offsetWidth + 1;
-
-    inputElement.style.width = `${width}px`;  
-  }
-
-  adjustConditionalsWidth(index: number) {
-    this.cdr.detectChanges();
-
-    if (!this.rowConditionalsInputs.toArray().length) return;
-    if (!this.rowConditionalsSpans.toArray().length) return;
-
-    const inputElement = this.rowConditionalsInputs.toArray()[index].nativeElement;
-    const spanElement = this.rowConditionalsSpans.toArray()[index].nativeElement;
-    const width = spanElement.offsetWidth === 0 ? 79 : spanElement.offsetWidth + 1;
-
-    inputElement.style.width = `${width}px`;  
-  }
-
-  findInputVariableArgsIndex(_id: string) {
-    if (!this.workflow) return -1;
-
-    let inputIndex = -1;
-
-    this.workflow.rows.filter((row) => row.appId && row.appId !== this.ifApp!._id && row.appId !== this.ifCloseApp!._id && row.appId !== this.ifElseApp!._id && row.appId !== this.ifElseMiddleApp!._id && row.appId !== this.ifElseCloseApp!._id && row.appId !== this.forArrayApp!._id && row.appId !== this.forArrayCloseApp!._id && row.appId !== this.forObjectApp!._id && row.appId !== this.forObjectCloseApp!._id && row.appId !== this.commentApp!._id).forEach((_, index) => {
-      if (_._id === _id) inputIndex = index;
+    args.forEach((arg) => {
+      const regex = new RegExp(this.argtype[arg]);
+      const matches = regex.test(value);
+      if (matches) valid = true;
     });
 
-    return inputIndex;
-  }
-
-  findArrayVariableArgsKeyIndex(_id: string) {
-    if (!this.workflow) return -1;
-
-    let inputIndex = -1;
-
-    this.workflow.rows.filter((row) => row.appId && row.appId === this.forArrayApp!._id).forEach((_, index) => {
-      if (_._id === _id) inputIndex = index;
-    });
-
-    return inputIndex;
-  }
-
-  findObjectVariableArgsKeyIndex(_id: string) {
-    if (!this.workflow) return -1;
-
-    let inputIndex = -1;
-
-    this.workflow.rows.filter((row) => row.appId && row.appId === this.forObjectApp!._id).forEach((_, index) => {
-      if (_._id === _id) inputIndex = index;
-    });
-
-    return inputIndex;
-  }
-
-  findInputCommentIndex(_id: string) {
-    if (!this.workflow) return -1;
-
-    let inputIndex = -1;
-
-    this.workflow.rows.filter((row) => row.appId && row.appId === this.commentApp!._id).forEach((_, index) => {
-      if (_._id === _id) inputIndex = index;
-    });
-
-    return inputIndex;
-  }
-
-  findInputConditionalsIndex(_id: string) {
-    if (!this.workflow) return -1;
-
-    let inputIndex = -1;
-
-    this.workflow.rows.filter((row) => row.appId && (row.appId === this.ifApp!._id || row.appId === this.ifElseApp!._id)).forEach((_, index) => {
-      if (_._id === _id) inputIndex = index;
-    });
-
-    return inputIndex;
+    return valid;
   }
 
   addRow(app?: App) {
@@ -419,8 +253,23 @@ export class ApiViewComponent {
       const ifCloseId = new ObjectId().toHexString();
       const pairId = new ObjectId().toHexString();
 
-      const ifOpen = { _id: ifOpenId, appId: this.ifApp!._id, pairId: pairId, variable: '', args: '', key: '', conditionals: '', comment: '', indents };
-      const ifClose = { _id: ifCloseId, appId: this.ifCloseApp!._id, pairId: pairId, variable: '', args: '', key: '', conditionals: '', comment: '', indents };
+      const variables = cloneDeep(this.ifApp!.variables).map((variable) => {
+        variable._id = new ObjectId().toHexString();
+        return variable;
+      });
+
+      const args = cloneDeep(this.ifApp!.args).map((arg) => {
+        arg._id = new ObjectId().toHexString();
+        return arg;
+      });
+
+      const returns = cloneDeep(this.ifApp!.returns).map((rtrn) => {
+        rtrn._id = new ObjectId().toHexString();
+        return rtrn;
+      });
+
+      const ifOpen = { _id: ifOpenId, appId: this.ifApp!._id, pairId: pairId, indents, variables, args, returns };
+      const ifClose = { _id: ifCloseId, appId: this.ifCloseApp!._id, pairId: pairId, indents, variables, args, returns };
 
       const pairIds = [ifOpenId, ifCloseId];
 
@@ -440,9 +289,24 @@ export class ApiViewComponent {
       const ifElseCloseId = new ObjectId().toHexString();
       const pairId = new ObjectId().toHexString();
 
-      const ifElse = { _id: ifElseId, appId: this.ifElseApp!._id, pairId: pairId, variable: '', args: '', key: '', conditionals: '', comment: '', indents };
-      const ifElseMiddle = { _id: ifElseMiddleId, appId: this.ifElseMiddleApp!._id, pairId: pairId, variable: '', args: '', key: '', conditionals: '', comment: '', indents };
-      const ifElseClose = { _id: ifElseCloseId, appId: this.ifElseCloseApp!._id, pairId: pairId, variable: '', args: '', key: '', conditionals: '', comment: '', indents };
+      const variables = cloneDeep(this.ifElseApp!.variables).map((variable) => {
+        variable._id = new ObjectId().toHexString();
+        return variable;
+      });
+
+      const args = cloneDeep(this.ifElseApp!.args).map((arg) => {
+        arg._id = new ObjectId().toHexString();
+        return arg;
+      });
+
+      const returns = cloneDeep(this.ifElseApp!.returns).map((rtrn) => {
+        rtrn._id = new ObjectId().toHexString();
+        return rtrn;
+      });
+
+      const ifElse = { _id: ifElseId, appId: this.ifElseApp!._id, pairId: pairId, indents, variables, args, returns };
+      const ifElseMiddle = { _id: ifElseMiddleId, appId: this.ifElseMiddleApp!._id, pairId: pairId, indents, variables, args, returns };
+      const ifElseClose = { _id: ifElseCloseId, appId: this.ifElseCloseApp!._id, pairId: pairId, indents, variables, args, returns };
 
       const pairIds = [ifElseId, ifElseMiddleId, ifElseCloseId];
 
@@ -462,8 +326,23 @@ export class ApiViewComponent {
       const forArrayCloseId = new ObjectId().toHexString();
       const pairId = new ObjectId().toHexString();
 
-      const forArray = { _id: forArrayId, appId: this.forArrayApp!._id, pairId: pairId, variable: '', args: '', key: '', conditionals: '', comment: '', indents };
-      const forArrayClose = { _id: forArrayCloseId, appId: this.forArrayCloseApp!._id, pairId: pairId, variable: '', args: '', key: '', conditionals: '', comment: '', indents };
+      const variables = cloneDeep(this.forArrayApp!.variables).map((variable) => {
+        variable._id = new ObjectId().toHexString();
+        return variable;
+      });
+
+      const args = cloneDeep(this.forArrayApp!.args).map((arg) => {
+        arg._id = new ObjectId().toHexString();
+        return arg;
+      });
+
+      const returns = cloneDeep(this.forArrayApp!.returns).map((rtrn) => {
+        rtrn._id = new ObjectId().toHexString();
+        return rtrn;
+      });
+
+      const forArray = { _id: forArrayId, appId: this.forArrayApp!._id, pairId: pairId, indents, variables, args, returns };
+      const forArrayClose = { _id: forArrayCloseId, appId: this.forArrayCloseApp!._id, pairId: pairId, indents, variables, args, returns };
 
       const pairIds = [forArrayId, forArrayCloseId];
 
@@ -482,8 +361,23 @@ export class ApiViewComponent {
       const forObjectCloseId = new ObjectId().toHexString();
       const pairId = new ObjectId().toHexString();
 
-      const forObject = { _id: forObjectId, appId: this.forObjectApp!._id, pairId: pairId, variable: '', args: '', key: '', conditionals: '', comment: '', indents };
-      const forObjectClose = { _id: forObjectCloseId, appId: this.forObjectCloseApp!._id, pairId: pairId, variable: '', args: '', key: '', conditionals: '', comment: '', indents };
+      const variables = cloneDeep(this.forObjectApp!.variables).map((variable) => {
+        variable._id = new ObjectId().toHexString();
+        return variable;
+      });
+
+      const args = cloneDeep(this.forObjectApp!.args).map((arg) => {
+        arg._id = new ObjectId().toHexString();
+        return arg;
+      });
+
+      const returns = cloneDeep(this.forObjectApp!.returns).map((rtrn) => {
+        rtrn._id = new ObjectId().toHexString();
+        return rtrn;
+      });
+
+      const forObject = { _id: forObjectId, appId: this.forObjectApp!._id, pairId: pairId, indents, variables, args, returns };
+      const forObjectClose = { _id: forObjectCloseId, appId: this.forObjectCloseApp!._id, pairId: pairId, indents, variables, args, returns };
 
       const pairIds = [forObjectId, forObjectCloseId];
 
@@ -498,14 +392,35 @@ export class ApiViewComponent {
 
       this.selectRow(forObject._id);
     } else if (app) {
-      const newApp = { _id: new ObjectId().toHexString(), appId: app._id, variable: '', args: '', key: '', conditionals: '', comment: '', pairId: '', indents };
+      const variables = cloneDeep(app.variables).map((variable) => {
+        variable._id = new ObjectId().toHexString();
+        return variable;
+      });
+
+      const args = cloneDeep(app.args).map((arg) => {
+        arg._id = new ObjectId().toHexString();
+        return arg;
+      });
+
+      const returns = cloneDeep(app.returns).map((rtrn) => {
+        rtrn._id = new ObjectId().toHexString();
+        return rtrn;
+      });
+
+      const newApp = { _id: new ObjectId().toHexString(), appId: app._id, pairId: '', indents, variables, args, returns };
       this.workflow.rows.splice(index, 0, newApp);
       this.selectRow(newApp._id);
     } else {
-      const blankApp = { _id: new ObjectId().toHexString(), appId: '', variable: '', args: '', key: '', conditionals: '', comment: '', pairId: '', indents: 0 };
+      const variables: Arg[] = [];
+      const args: Arg[] = [];
+      const returns: Arg[] = [];
+
+      const blankApp = { _id: new ObjectId().toHexString(), appId: '', pairId: '', indents: 0, variables, args, returns };
       this.workflow.rows.splice(index, 0, blankApp);
       this.selectRow(blankApp._id);
     }
+
+    this.adjustAllInputs();
   }
 
   removeRow(row: WorkflowRow) {

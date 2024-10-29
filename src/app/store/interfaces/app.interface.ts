@@ -16,9 +16,8 @@ export interface User {
 }
 
 export interface Arg {
-    argtypeIds: string[];
-    returnArgtypeIds: string[];
-    enabled: boolean;
+    _id: string;
+    argtypes: string[];
     placeholder: string;
     placeholderWidth: number;
     value: string;
@@ -31,14 +30,17 @@ export interface Argtype {
     active: boolean;
     name: string;
     schema: string;
+    regex: string;
 }
 
 export interface WorkflowRow {
     _id: string;
     appId: string;
     pairId: string;
-    args: Arg[];
     indents: number;
+    variables: Arg[];
+    args: Arg[];
+    returns: Arg[];
 }
 
 export interface RequestParameter {
@@ -71,7 +73,9 @@ export interface App {
     hidden: boolean;
     name: string;
     method: string;
+    variables: Arg[];
     args: Arg[];
+    returns: Arg[];
 }
 
 export interface Project {

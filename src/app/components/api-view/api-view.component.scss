@@ -262,12 +262,13 @@
     flex-direction: row;
 
     padding: 2px 0;
+    margin-left: 10px;
 }
 
 .api-view-editor-row-variable input {
     font-size: 11px;
     font-weight: 600;
-    color: white;
+    color: $light-green;
 
     width: 87px;
     height: 15px;
@@ -342,7 +343,8 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    color: $primary-600;
 
     white-space: nowrap;
     overflow: hidden;
@@ -360,7 +362,7 @@
 .api-view-editor-row-if-conditionals input {
     font-size: 11px;
     font-weight: 600;
-    color: $light-yellow;
+    color: $peach;
 
     width: 79px;
     height: 15px;
@@ -387,7 +389,8 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    color: $primary-600;
 }
 
 .api-view-editor-row-if-close {
@@ -402,7 +405,8 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    color: $primary-600;
 }
 
 .api-view-editor-row-if-else {
@@ -418,7 +422,8 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    color: $primary-600;
 
     white-space: nowrap;
     overflow: hidden;
@@ -436,7 +441,7 @@
 .api-view-editor-row-if-else-conditionals input {
     font-size: 11px;
     font-weight: 600;
-    color: $light-yellow;
+    color: $peach;
 
     width: 79px;
     height: 15px;
@@ -463,7 +468,8 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    color: $primary-600;
 }
 
 .api-view-editor-row-if-else-close {
@@ -478,7 +484,8 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    color: $primary-600;
 }
 
 .api-view-editor-row-forarray {
@@ -494,7 +501,8 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    color: $primary-600;
 
     white-space: nowrap;
     overflow: hidden;
@@ -512,7 +520,7 @@
 .api-view-editor-row-forarray-variable input {
     font-size: 11px;
     font-weight: 600;
-    color: $light-yellow;
+    color: $peach;
 
     width: 46px;
     height: 15px;
@@ -541,7 +549,9 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    // color: $primary-600;
+    color: white;
 
     white-space: nowrap;
     overflow: hidden;
@@ -559,7 +569,7 @@
 .api-view-editor-row-forarray-args input {
     font-size: 11px;
     font-weight: 600;
-    color: $light-yellow;
+    color: $peach;
 
     width: 34px;
     height: 15px;
@@ -581,14 +591,16 @@
 
     align-items: start;
 
-    padding: 2px 5px 2px 0;
+    padding: 2px 5px 2px 1px;
 }
 
 .api-view-editor-row-forarray-separator p {
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    // color: $primary-600;
+    color: white;
 
     white-space: nowrap;
     overflow: hidden;
@@ -606,7 +618,7 @@
 .api-view-editor-row-forarray-key input {
     font-size: 11px;
     font-weight: 600;
-    color: $light-yellow;
+    color: $peach;
 
     width: 34px;
     height: 15px;
@@ -633,7 +645,8 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    color: $primary-600;
 }
 
 .api-view-editor-row-forarray-close {
@@ -648,7 +661,8 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    color: $primary-600;
 }
 
 .api-view-editor-row-forobject {
@@ -664,7 +678,8 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    color: $primary-600;
 
     white-space: nowrap;
     overflow: hidden;
@@ -682,7 +697,7 @@
 .api-view-editor-row-forobject-variable input {
     font-size: 11px;
     font-weight: 600;
-    color: $light-yellow;
+    color: $peach;
 
     width: 34px;
     height: 15px;
@@ -711,7 +726,9 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    // color: $primary-600;
+    color: white;
 
     white-space: nowrap;
     overflow: hidden;
@@ -729,7 +746,7 @@
 .api-view-editor-row-forobject-args input {
     font-size: 11px;
     font-weight: 600;
-    color: $light-yellow;
+    color: $peach;
 
     width: 40px;
     height: 15px;
@@ -758,7 +775,9 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    // color: $primary-600;
+    color: white;
 
     white-space: nowrap;
     overflow: hidden;
@@ -776,7 +795,7 @@
 .api-view-editor-row-forobject-key input {
     font-size: 11px;
     font-weight: 600;
-    color: $light-yellow;
+    color: $peach;
 
     width: 20px;
     height: 15px;
@@ -803,7 +822,8 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    color: $primary-600;
 }
 
 .api-view-editor-row-forobject-close {
@@ -818,7 +838,8 @@
     font-size: 11px;
     font-weight: 600;
 
-    color: $peach;
+    // color: $peach;
+    color: $primary-600;
 }
 
 .api-view-editor-row-equals {
@@ -873,7 +894,9 @@
 .api-view-editor-row-args input {
     font-size: 11px;
     font-weight: 600;
-    color: white;
+    // color: white;
+    // color: $peach;
+    color: $peach;
 
     width: 60px;
     height: 15px;
@@ -887,6 +910,28 @@
 
 .api-view-editor-row-args input:focus-visible {
     outline: none;
+}
+
+.api-view-editor-row-args-comma {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    padding: 2px 5px 2px 0;
+}
+
+.api-view-editor-row-args-comma p {
+    font-size: 11px;
+    font-weight: 600;
+
+    // color: $primary-600;
+    color: white;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 
 .api-view-editor-row-spacer {
@@ -961,4 +1006,33 @@
     font-family: "Roboto Mono", monospace;
     font-style: normal;
     font-optical-sizing: auto;
+}
+
+.api-view-hidden-row-span {
+    font-size: 11px;
+    font-weight: 600;
+
+    position: fixed;
+    bottom: -100px;
+    
+    white-space: pre;
+
+    color: white;
+
+    font-family: "Roboto Mono", monospace;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+.api-view-editor-row-variable input.invalid,
+.api-view-editor-row-args input.invalid,
+.api-view-editor-row-comment input.invalid,
+.api-view-editor-row-if-conditionals input.invalid,
+.api-view-editor-row-forarray-variable input.invalid,
+.api-view-editor-row-forarray-args input.invalid,
+.api-view-editor-row-forarray-key input.invalid,
+.api-view-editor-row-forobject-variable input.invalid,
+.api-view-editor-row-forobject-args input.invalid,
+.api-view-editor-row-forobject-key input.invalid {
+    color: $delete;
 }
