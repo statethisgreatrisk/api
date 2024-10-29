@@ -15,15 +15,29 @@ export interface User {
     email: string;
 }
 
+export interface Arg {
+    argtypeIds: string[];
+    returnArgtypeIds: string[];
+    enabled: boolean;
+    placeholder: string;
+    placeholderWidth: number;
+    value: string;
+}
+
+export interface Argtype {
+    _id: string;
+    userId: string;
+    date: string;
+    active: boolean;
+    name: string;
+    schema: string;
+}
+
 export interface WorkflowRow {
     _id: string;
     appId: string;
     pairId: string;
-    variable: string;
-    args: string;
-    key: string;
-    conditionals: string;
-    comment: string;
+    args: Arg[];
     indents: number;
 }
 
@@ -57,6 +71,7 @@ export interface App {
     hidden: boolean;
     name: string;
     method: string;
+    args: Arg[];
 }
 
 export interface Project {
@@ -385,6 +400,7 @@ export interface ProjectData {
     queues: Queue[];
     schedulers: Scheduler[];
     documents: Document[];
+    argtypes: Argtype[];
 }
 
 export interface ProjectSettings {
@@ -416,6 +432,7 @@ export interface AppState {
     schedulers: Scheduler[];
     registers: Register[];
     documents: Document[];
+    argtypes: Argtype[];
 
     instances: Instance[];
     deploys: Deploy[];

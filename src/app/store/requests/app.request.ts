@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Argtype } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -475,6 +475,13 @@ export class AppRequest {
   getJobs(projectId: string): Observable<Job[]> {
     const endpoint = `${this.url}/job/:projectId`.replace(':projectId', projectId);
     return this.http.get<Job[]>(endpoint, { withCredentials: true });
+  }
+
+  // Argtype
+
+  getArgtypes(): Observable<Argtype[]> {
+    const endpoint = `${this.url}/argtype`;
+    return this.http.get<Argtype[]>(endpoint, { withCredentials: true });
   }
 
   // Key

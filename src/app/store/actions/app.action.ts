@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -219,6 +219,10 @@ export const replaceLog = createAction('[REPLACE] Log', props<{log: Log}>());
 export const getJobs = createAction('[GET] Jobs', props<{projectId: string}>());
 export const addJobs = createAction('[ADD] Jobs', props<{jobs: Job[]}>());
 export const addJob = createAction('[ADD] Job', props<{job: Job}>());
+
+// Argtype
+export const getArgtypes = createAction('[GET] Argtypes');
+export const addArgtypes = createAction('[ADD] Argtypes', props<{argtypes: Argtype[]}>());
 
 // Key
 export const getKeys = createAction('[GET] Keys', props<{projectId: string}>());

@@ -1,5 +1,5 @@
 import { createSelector } from "@ngrx/store";
-import { API, Storage, AppState, AppStateInit, Schema, Validator, Billing, Deploy, Key, Log, Usage, Workflow, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, Job } from "../interfaces/app.interface";
+import { API, Storage, AppState, AppStateInit, Schema, Validator, Billing, Deploy, Key, Log, Usage, Workflow, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, Job, Argtype } from "../interfaces/app.interface";
 
 export const selectApp = (state: AppStateInit) => state.app;
 
@@ -43,6 +43,7 @@ export const selectInstances = createSelector(selectApp, (state: AppState) => st
 export const selectDeploys = createSelector(selectApp, (state: AppState) => state.deploys);
 export const selectLogs = createSelector(selectApp, (state: AppState) => state.logs);
 export const selectJobs = createSelector(selectApp, (state: AppState) => state.jobs);
+export const selectArgtypes = createSelector(selectApp, (state: AppState) => state.argtypes);
 export const selectKeys = createSelector(selectApp, (state: AppState) => state.keys);
 export const selectBillings = createSelector(selectApp, (state: AppState) => state.billings);
 export const selectUsages = createSelector(selectApp, (state: AppState) => state.usages);
@@ -66,6 +67,7 @@ export const selectProjectInstances = (projectId: string) => createSelector(sele
 export const selectProjectDeploys = (projectId: string) => createSelector(selectDeploys, (deploys: Deploy[]) => deploys.filter((deploy) => projectId === deploy.projectId));
 export const selectProjectLogs = (projectId: string) => createSelector(selectLogs, (logs: Log[]) => logs.filter((log) => projectId === log.projectId));
 export const selectProjectJobs = (projectId: string) => createSelector(selectJobs, (jobs: Job[]) => jobs.filter((job) => projectId === job.projectId));
+export const selectProjectArgtypes = (projectId: string) => createSelector(selectArgtypes, (argtypes: Argtype[]) => argtypes);
 export const selectProjectKeys = (projectId: string) => createSelector(selectKeys, (keys: Key[]) => keys.filter((key) => projectId === key.projectId));
 export const selectProjectBillings = (projectId: string) => createSelector(selectBillings, (billings: Billing[]) => billings.filter((billing) => projectId === billing.projectId));
 export const selectProjectUsages = (projectId: string) => createSelector(selectUsages, (usages: Usage[]) => usages.filter((usage) => projectId === usage.projectId));

@@ -1,4 +1,4 @@
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype } from "../interfaces/app.interface";
 
 // User
 
@@ -36,6 +36,7 @@ export const addProjectDataFn: (state: AppState, data: ProjectData) => AppState 
         queues: data.queues,
         schedulers: data.schedulers,
         documents: data.documents,
+        argtypes: data.argtypes,
      };
 }
 
@@ -537,6 +538,13 @@ export const addJobFn: (state: AppState, job: Job) => AppState = (state: AppStat
     return { ...state, jobs: state.jobs.concat([job]) };
 }
 
+// Argtype
+
+export const addArgtypesFn: (state: AppState, argtypes: Argtype[]) => AppState = (state: AppState, argtypes: Argtype[]) => {
+    if (!argtypes) return { ...state };
+    return { ...state, argtypes: argtypes };
+}
+
 // Key
 
 export const addKeysFn: (state: AppState, keys: Key[]) => AppState = (state: AppState, keys: Key[]) => {
@@ -691,6 +699,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         schedulers: [],
         registers: [],
         documents: [],
+        argtypes: [],
 
         instances: [],
         deploys: [],
@@ -728,6 +737,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         schedulers: [],
         registers: [],
         documents: [],
+        argtypes: [],
 
         instances: [],
         deploys: [],

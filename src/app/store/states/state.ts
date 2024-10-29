@@ -18,6 +18,7 @@ export const appState: AppState = {
     schedulers: [],
     registers: [],
     documents: [],
+    argtypes: [],
 
     instances: [],
     deploys: [],
