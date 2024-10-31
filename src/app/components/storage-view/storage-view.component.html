@@ -21,23 +21,62 @@
                 </div>
             </div>
         </div>
+        <div class="storage-view-search-container">
+            <div class="storage-view-search">
+                <input type="text" placeholder="Search Documents">
+            </div>
+        </div>
         <div class="storage-view-table-container">
             <table>
                 <thead>
                     <tr class="storage-view-table-row">
-                        <th class="storage-view-table-header" *ngFor="let header of headers">
-                            {{ header.value }}
-                        </th>
+                        <ng-content *ngFor="let header of headers">
+                            <th class="storage-view-table-header" style="width: 152px;" *ngIf="header.value === '_id'">
+                                {{ header.value }}
+                            </th>
+                            <th class="storage-view-table-header" style="width: 152px;" *ngIf="header.value === 'Date'">
+                                {{ header.value }}
+                            </th>
+                            <th class="storage-view-table-header" style="width: 100%;" *ngIf="header.value !== '_id' && header.value !== 'Date'">
+                                {{ header.value }}
+                            </th>
+                        </ng-content>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="storage-view-table-row" *ngFor="let document of documentsParsed" (click)="editDocument(document)" [ngClass]="{ 'active': selectedRowId === document._id }">
-                        <td class="storage-view-table-data" *ngFor="let header of headers">
-                            {{ cellValue(document, header.key) }}
-                        </td>
+                        <ng-content *ngFor="let header of headers">
+                            <td class="storage-view-table-data" style="min-width: 152px;" *ngIf="header.value === '_id'">
+                                {{ cellValue(document, header.key) }}
+                            </td>
+                            <td class="storage-view-table-data" style="min-width: 152px;" *ngIf="header.value === 'Date'">
+                                {{ cellValue(document, header.key) }}
+                            </td>
+                            <td class="storage-view-table-data" style="min-width: 100%;" *ngIf="header.value !== '_id' && header.value !== 'Date'">
+                                {{ cellValue(document, header.key) }}
+                            </td>
+                        </ng-content>
                     </tr>
                 </tbody>
              </table>
+             <div class="spacer"></div>
+             <div class="storage-view-table-actions">
+                <div class="storage-view-table-load">
+                    <!-- <p class="active">Load more rows</p> -->
+                    <p>Load more rows</p>
+                </div>
+                <div class="storage-view-table-paginator">
+                    <div class="left">
+                        <img src="/left-arrow.png">
+                    </div>
+                    <div class="number">
+                        <p>1</p>
+                    </div>
+                    <div class="right active">
+                        <img src="/right-arrow-active.png">
+                    </div>
+                </div>
+             </div>
         </div>
     </div>
 </div>

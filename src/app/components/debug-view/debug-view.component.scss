@@ -109,10 +109,6 @@ tr:nth-child(even) {
     background-color: $surface-mixed-100;
 }
 
-tr td:last-child {
-    cursor: pointer;
-}
-
 table {
     width: 100%;
     table-layout: fixed;
