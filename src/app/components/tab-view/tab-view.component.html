@@ -1,0 +1,10 @@
+<div class="tab-view-container">
+    <div class="tab-view">
+        <div class="tab" [ngClass]="{'active': activityViewOpen}" (click)="toggleActivityView()">
+            <p>Activity</p>
+        </div>
+        <div class="tab" [ngClass]="{'active': tab === 'debug'}">
+            <p>Debug</p>
+        </div>
+    </div>
+</div>

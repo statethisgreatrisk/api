@@ -26,6 +26,7 @@ import { ActivityViewComponent } from './components/activity-view/activity-view.
 import { ActivityViewService } from './services/activity-view.service';
 import { InfoService } from './services/info.service';
 import { InfoViewComponent } from './components/info-view/info-view.component';
+import { TabViewComponent } from './components/tab-view/tab-view.component';
 
 @Component({
   selector: 'app-root',
@@ -46,6 +47,7 @@ import { InfoViewComponent } from './components/info-view/info-view.component';
     DocumentEditComponent,
     ActivityViewComponent,
     InfoViewComponent,
+    TabViewComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
