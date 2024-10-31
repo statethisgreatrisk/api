@@ -380,6 +380,11 @@ export interface InfoData {
     data: Object;
 }
 
+export interface DebugData {
+    workflow: Workflow;
+    argtype: any;
+}
+
 export interface ResponseMessage {
     message: string;
 }

@@ -6,7 +6,7 @@
             </div>
             <div class="spacer"></div>
             <div class="debug-view-tab-container">
-                <div class="debug-view-tab" (click)="viewDocumentation()">
+                <div class="debug-view-tab" (click)="openDocumentation()">
                     <p>Open Documentation</p>
                     <img src="/newtab.png">
                 </div>
@@ -19,26 +19,24 @@
                         <th class="debug-view-table-header" style="width: 45px;">
                             Row #
                         </th>
+                        <th class="debug-view-table-header" style="width: 75px;">
+                            Position
+                        </th>
                         <th class="debug-view-table-header" style="width: 100%;">
                             Error
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="debug-view-table-row">
+                    <tr class="debug-view-table-row" *ngFor="let error of validationErrors">
                         <td class="debug-view-table-data" style="min-width: 45px;">
-                            5
+                            {{ error.row }}
+                        </td>
+                        <td class="debug-view-table-data" style="min-width: 75px;">
+                            {{ error.position }}
                         </td>
                         <td class="debug-view-table-data" style="width: 100%;">
-                            5ms
-                        </td>
-                    </tr>
-                    <tr class="debug-view-table-row">
-                        <td class="debug-view-table-data" style="min-width: 45px;">
-                            5
-                        </td>
-                        <td class="debug-view-table-data" style="width: 100%;">
-                            5ms
+                            {{ error.error }}
                         </td>
                     </tr>
                 </tbody>

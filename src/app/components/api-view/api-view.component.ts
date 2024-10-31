@@ -1,6 +1,6 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, QueryList, Renderer2, ViewChildren } from '@angular/core';
-import { App, AppStateInit, Arg, Argtype, Project, User, View, Workflow, WorkflowRow } from '../../store/interfaces/app.interface';
+import { App, AppStateInit, Argtype, Project, User, View, Workflow, WorkflowRow } from '../../store/interfaces/app.interface';
 import { selectApps, selectArgtypes, selectMainProject, selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
@@ -9,6 +9,7 @@ import { deselectService, deselectWindow, updateWorkflow } from '../../store/act
 import { FormsModule } from '@angular/forms';
 import { SelectAppService } from '../../services/select-app.service';
 import { cloneDeep, each, isEqual, times } from 'lodash';
+import { DebugViewService } from '../../services/debug-view.service';
 
 type indentPairIds = string[];
 type indentIds = indentPairIds[];
@@ -60,6 +61,7 @@ export class ApiViewComponent {
   constructor(
     private store: Store<AppStateInit>,
     private selectAppService: SelectAppService,
+    private debugViewService: DebugViewService,
     private cdr: ChangeDetectorRef,
     private renderer: Renderer2,
   ) {}
@@ -176,16 +178,18 @@ export class ApiViewComponent {
 
     this.workflow.rows.forEach((row) => {
       row.variables.forEach((variable) => {
-        this.adjustInputWidth(variable._id, variable.placeholderWidth, variable.argtypes, variable.value);
+        this.adjustInputWidth(variable._id, variable.placeholderWidth, variable.argtypes, variable.value, true);
       });
 
       row.args.forEach((arg) => {
-        this.adjustInputWidth(arg._id, arg.placeholderWidth, arg.argtypes, arg.value);
+        this.adjustInputWidth(arg._id, arg.placeholderWidth, arg.argtypes, arg.value, true);
       });
     });
+
+    this.debugViewService.setDebugData({ workflow: this.workflow, argtype: this.argtype });
   }
 
-  adjustInputWidth(argId: string, placeholderWidth: number, args: string[], value?: string) {
+  adjustInputWidth(argId: string, placeholderWidth: number, args: string[], value: string, bulk: boolean = false) {
     this.cdr.detectChanges();
 
     if (!this.rowInputs.toArray().length) return;
@@ -213,6 +217,8 @@ export class ApiViewComponent {
       if (!valid) this.renderer.addClass(inputElement, 'invalid');
       else this.renderer.removeClass(inputElement, 'invalid');
     }
+
+    if (this.workflow && !bulk) this.debugViewService.setDebugData({ workflow: this.workflow, argtype: this.argtype });
   }
 
   validate(value: string, args: string[]): boolean {
@@ -269,7 +275,7 @@ export class ApiViewComponent {
       });
 
       const ifOpen = { _id: ifOpenId, appId: this.ifApp!._id, pairId: pairId, indents, variables, args, returns };
-      const ifClose = { _id: ifCloseId, appId: this.ifCloseApp!._id, pairId: pairId, indents, variables, args, returns };
+      const ifClose = { _id: ifCloseId, appId: this.ifCloseApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [] };
 
       const pairIds = [ifOpenId, ifCloseId];
 
@@ -305,8 +311,8 @@ export class ApiViewComponent {
       });
 
       const ifElse = { _id: ifElseId, appId: this.ifElseApp!._id, pairId: pairId, indents, variables, args, returns };
-      const ifElseMiddle = { _id: ifElseMiddleId, appId: this.ifElseMiddleApp!._id, pairId: pairId, indents, variables, args, returns };
-      const ifElseClose = { _id: ifElseCloseId, appId: this.ifElseCloseApp!._id, pairId: pairId, indents, variables, args, returns };
+      const ifElseMiddle = { _id: ifElseMiddleId, appId: this.ifElseMiddleApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [] };
+      const ifElseClose = { _id: ifElseCloseId, appId: this.ifElseCloseApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [] };
 
       const pairIds = [ifElseId, ifElseMiddleId, ifElseCloseId];
 
@@ -342,7 +348,7 @@ export class ApiViewComponent {
       });
 
       const forArray = { _id: forArrayId, appId: this.forArrayApp!._id, pairId: pairId, indents, variables, args, returns };
-      const forArrayClose = { _id: forArrayCloseId, appId: this.forArrayCloseApp!._id, pairId: pairId, indents, variables, args, returns };
+      const forArrayClose = { _id: forArrayCloseId, appId: this.forArrayCloseApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [] };
 
       const pairIds = [forArrayId, forArrayCloseId];
 
@@ -377,7 +383,7 @@ export class ApiViewComponent {
       });
 
       const forObject = { _id: forObjectId, appId: this.forObjectApp!._id, pairId: pairId, indents, variables, args, returns };
-      const forObjectClose = { _id: forObjectCloseId, appId: this.forObjectCloseApp!._id, pairId: pairId, indents, variables, args, returns };
+      const forObjectClose = { _id: forObjectCloseId, appId: this.forObjectCloseApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [] };
 
       const pairIds = [forObjectId, forObjectCloseId];
 
@@ -411,11 +417,7 @@ export class ApiViewComponent {
       this.workflow.rows.splice(index, 0, newApp);
       this.selectRow(newApp._id);
     } else {
-      const variables: Arg[] = [];
-      const args: Arg[] = [];
-      const returns: Arg[] = [];
-
-      const blankApp = { _id: new ObjectId().toHexString(), appId: '', pairId: '', indents: 0, variables, args, returns };
+      const blankApp = { _id: new ObjectId().toHexString(), appId: '', pairId: '', indents: 0, variables: [], args: [], returns: [] };
       this.workflow.rows.splice(index, 0, blankApp);
       this.selectRow(blankApp._id);
     }
@@ -468,6 +470,8 @@ export class ApiViewComponent {
         this.indentIds.splice(emptyIndex, 1);
       }
     }
+
+    this.debugViewService.setDebugData({ workflow: this.workflow, argtype: this.argtype });
   }
 
   cancel() {
