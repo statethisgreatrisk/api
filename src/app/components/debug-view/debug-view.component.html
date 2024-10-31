@@ -1,0 +1,40 @@
+<div class="debug-view-container">
+    <div class="debug-view">
+        <div class="debug-view-header-container">
+            <div class="debug-view-header">
+                <p class="header">Debug</p>
+            </div>
+            <div class="spacer"></div>
+            <div class="debug-view-tab-container">
+                <div class="debug-view-tab" (click)="viewDocumentation()">
+                    <p>Open Documentation</p>
+                    <img src="/newtab.png">
+                </div>
+            </div>
+        </div>
+        <div class="debug-view-table-container">
+            <table>
+                <thead>
+                    <tr class="debug-view-table-row">
+                        <th class="debug-view-table-header" style="width: 45px;">
+                            Row #
+                        </th>
+                        <th class="debug-view-table-header" style="width: 100%;">
+                            Error
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="debug-view-table-row">
+                        <td class="debug-view-table-data" style="min-width: 45px;">
+                            5
+                        </td>
+                        <td class="debug-view-table-data" style="width: 100%;">
+                            5ms
+                        </td>
+                    </tr>
+                </tbody>
+             </table>
+        </div>
+    </div>
+</div>

@@ -27,6 +27,8 @@ import { ActivityViewService } from './services/activity-view.service';
 import { InfoService } from './services/info.service';
 import { InfoViewComponent } from './components/info-view/info-view.component';
 import { TabViewComponent } from './components/tab-view/tab-view.component';
+import { DebugViewService } from './services/debug-view.service';
+import { DebugViewComponent } from './components/debug-view/debug-view.component';
 
 @Component({
   selector: 'app-root',
@@ -48,6 +50,7 @@ import { TabViewComponent } from './components/tab-view/tab-view.component';
     ActivityViewComponent,
     InfoViewComponent,
     TabViewComponent,
+    DebugViewComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -59,6 +62,7 @@ export class AppComponent {
   settingsOpen: boolean = false;
   loginOpen: boolean = false;
   activityViewOpen: boolean = false;
+  debugViewOpen: boolean = false;
   
   projectsSub: Subscription | null = null;
 
@@ -70,6 +74,7 @@ export class AppComponent {
     private authService: AuthService,
     private toastService: ToastService,
     private activityViewService: ActivityViewService,
+    private debugViewService: DebugViewService,
     private actions$: Actions,
   ) {}
 
@@ -80,6 +85,7 @@ export class AppComponent {
     this.initSettingsView();
     this.initLoginView();
     this.initActivityView();
+    this.initDebugView();
     this.initRequestErrors();
     this.initAuthSuccessResponses();
     this.initAuthErrors();
@@ -113,6 +119,10 @@ export class AppComponent {
 
   initActivityView() {
     this.activityViewService.activityView$.subscribe((activityView) => this.activityViewOpen = activityView);
+  }
+
+  initDebugView() {
+    this.debugViewService.debugView$.subscribe((debugView) => this.debugViewOpen = debugView);
   }
   
   initAuthSuccessResponses() {

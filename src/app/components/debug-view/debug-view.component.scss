@@ -1,0 +1,153 @@
+@import '../../styles/palette.component.scss';
+
+.debug-view-container {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    height: 250px;
+    min-height: 250px;
+    max-height: 250px;
+
+    background-color: $surface-dark;
+
+    border-top: 1px solid black;
+}
+
+.debug-view {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+
+    width: 100%;
+}
+
+.debug-view-header-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: start;
+
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.debug-view-header {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+}
+
+.debug-view-header p.header {
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+}
+
+.debug-view-tab-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.debug-view-tab {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    padding: 4px 10px;
+
+    cursor: pointer;
+}
+
+.debug-view-tab p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $get;
+}
+
+.debug-view-tab img {
+    width: 15px;
+    height: 15px;
+
+    margin-left: 10px;
+}
+
+.debug-view-table-container {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 5px;
+}
+
+.debug-view-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 0px solid $primary-500;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+}
+
+tr:nth-child(even) {
+    background-color: $surface-mixed-100;
+}
+
+tr td:last-child {
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+thead {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+tbody {
+    display: block;
+    width: 100%;
+    max-height: 120px;
+    overflow-y: scroll;
+}
+
+.debug-view-table-header {
+    font-size: 11px;
+    font-weight: 700;
+
+    color: $get;
+
+    text-align: left;
+}
+
+.debug-view-table-data {
+    font-size: 11px;
+    font-weight: 700;
+
+    color: $get;
+}
+
+.spacer {
+    display: flex;
+    flex-grow: 1;
+}

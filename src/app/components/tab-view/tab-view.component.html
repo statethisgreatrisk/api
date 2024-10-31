@@ -3,7 +3,7 @@
         <div class="tab" [ngClass]="{'active': activityViewOpen}" (click)="toggleActivityView()">
             <p>Activity</p>
         </div>
-        <div class="tab" [ngClass]="{'active': tab === 'debug'}">
+        <div class="tab" [ngClass]="{'active': debugViewOpen}" (click)="toggleDebugView()">
             <p>Debug</p>
         </div>
     </div>
