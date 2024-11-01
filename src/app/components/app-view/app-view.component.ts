@@ -1,15 +1,9 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { App, AppStateInit } from '../../store/interfaces/app.interface';
 import { selectApps } from '../../store/selectors/app.selector';
 import { ApiDocsComponent } from '../../docs/api-docs/api-docs.component';
-import { StorageDocsComponent } from '../../docs/storage-docs/storage-docs.component';
-import { ObjectDocsComponent } from '../../docs/object-docs/object-docs.component';
-import { WorkflowDocsComponent } from '../../docs/workflow-docs/workflow-docs.component';
-import { RequestDocsComponent } from '../../docs/request-docs/request-docs.component';
-import { NumberDocsComponent } from '../../docs/number-docs/number-docs.component';
-import { StringDocsComponent } from '../../docs/string-docs/string-docs.component';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -20,19 +14,14 @@ import { FormsModule } from '@angular/forms';
     NgIf,
     FormsModule,
     ApiDocsComponent,
-    StorageDocsComponent,
-    ObjectDocsComponent,
-    WorkflowDocsComponent,
-    RequestDocsComponent,
-    NumberDocsComponent,
-    StringDocsComponent,
   ],
   templateUrl: './app-view.component.html',
   styleUrl: './app-view.component.scss'
 })
 export class AppViewComponent {
+  @ViewChild(ApiDocsComponent) apiDocComponent!: ApiDocsComponent;
+
   apps: App[] = [];
-  appDocs: string = '';
 
   search = '';
 
@@ -47,7 +36,13 @@ export class AppViewComponent {
   initApps() {
     this.store.select(selectApps).subscribe((apps) => {
       const mutableApps = [...apps];
-      this.apps = mutableApps.filter((app) => !app.hidden).sort((a, b) => (a.name + a.method).localeCompare(b.name + b.method));
+      this.apps = mutableApps.filter((app) => !app.hidden).sort((a, b) => {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        if (a.method < b.method) return -1;
+        if (a.method > b.method) return 1;
+        return 0;
+      });
     });
   }
 
@@ -60,7 +55,7 @@ export class AppViewComponent {
     });
   }
 
-  selectInfo(appName: string) {
-    this.appDocs = appName;
+  scrollToApp(appName: string, appMethod: string) {
+    this.apiDocComponent.scrollToApp(`${appName}${appMethod}`);
   }
 }

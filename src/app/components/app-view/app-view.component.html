@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="app-view-button-list">
-        <div class="app-view-button" *ngFor="let app of filteredApps" (click)="selectInfo(app.name)">
+        <div class="app-view-button" *ngFor="let app of filteredApps" (click)="scrollToApp(app.name, app.method)">
             <div class="app-view-button-info">
                 <img src="/app.png">
                 <p>{{ app.name }}.{{ app.method }}</p>
@@ -25,16 +25,6 @@
         <div class="divider"></div>
     </div>
     <div class="app-view-info-container">
-        <div class="app-view-info" *ngIf="appDocs === ''">
-            <p>Click an app to see more information.</p>
-        </div>
-
-        <app-api-docs *ngIf="appDocs === 'API'"></app-api-docs>
-        <app-storage-docs *ngIf="appDocs === 'Storage'"></app-storage-docs>
-        <app-object-docs *ngIf="appDocs === 'Object'"></app-object-docs>
-        <app-workflow-docs *ngIf="appDocs === 'Workflow'"></app-workflow-docs>
-        <app-request-docs *ngIf="appDocs === 'Request'"></app-request-docs>
-        <app-number-docs *ngIf="appDocs === 'Number'"></app-number-docs>
-        <app-string-docs *ngIf="appDocs === 'String'"></app-string-docs>
+        <app-api-docs></app-api-docs>
     </div>
 </div>
