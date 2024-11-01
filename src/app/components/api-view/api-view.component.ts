@@ -1,7 +1,7 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { App, AppStateInit, Argtype, Project, User, View, Workflow, WorkflowRow } from '../../store/interfaces/app.interface';
-import { selectApps, selectArgtypes, selectMainProject, selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { selectApps, selectArgtypes, selectMainProject, selectSchemas, selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import ObjectId from 'bson-objectid';
@@ -58,6 +58,8 @@ export class ApiViewComponent {
 
   argtype: any = {};
 
+  schemaNames: string[] = [];
+
   constructor(
     private store: Store<AppStateInit>,
     private selectAppService: SelectAppService,
@@ -95,12 +97,14 @@ export class ApiViewComponent {
       this.store.select(selectApps),
       this.store.select(selectMainProject),
       this.store.select(selectWorkflows),
+      this.store.select(selectSchemas),
       this.store.select(selectArgtypes),
-    ]).subscribe(([user, view, apps, project, workflows, argtypes]) => {
+    ]).subscribe(([user, view, apps, project, workflows, schemas, argtypes]) => {
       this.user = user;
       this.view = view;
       this.project = project;
       this.apps = apps;
+      this.schemaNames = schemas.map((schema) => schema.name);
       this.argtypes = argtypes;
       this.setApps();
       this.setArgtypes();
@@ -169,6 +173,18 @@ export class ApiViewComponent {
     this.argtype['condition'] = this.argtypes!.find((argtype) => argtype.name === 'condition')!.regex;
     this.argtype['variable'] = this.argtypes!.find((argtype) => argtype.name === 'variable')!.regex;
     this.argtype['simpleVariable'] = this.argtypes!.find((argtype) => argtype.name === 'simpleVariable')!.regex;
+    this.argtype['null-type'] = this.argtypes!.find((argtype) => argtype.name === 'null-type')!.regex;
+    this.argtype['boolean-type'] = this.argtypes!.find((argtype) => argtype.name === 'boolean-type')!.regex;
+    this.argtype['number-type'] = this.argtypes!.find((argtype) => argtype.name === 'number-type')!.regex;
+    this.argtype['string-type'] = this.argtypes!.find((argtype) => argtype.name === 'string-type')!.regex;
+    this.argtype['storage-type'] = this.argtypes!.find((argtype) => argtype.name === 'storage-type')!.regex;
+    this.argtype['function-type'] = this.argtypes!.find((argtype) => argtype.name === 'function-type')!.regex;
+    this.argtype['request-type'] = this.argtypes!.find((argtype) => argtype.name === 'request-type')!.regex;
+    this.argtype['object-type'] = this.argtypes!.find((argtype) => argtype.name === 'object-type')!.regex;
+    this.argtype['array-type'] = this.argtypes!.find((argtype) => argtype.name === 'array-type')!.regex;
+    this.argtype['document-type'] = this.argtypes!.find((argtype) => argtype.name === 'document-type')!.regex;
+    this.argtype['any-type'] = this.argtypes!.find((argtype) => argtype.name === 'any-type')!.regex;
+    this.argtype['schema-type'] = this.argtypes!.find((argtype) => argtype.name === 'schema-type')!.regex;
   }
 
   adjustAllInputs() {
@@ -177,13 +193,18 @@ export class ApiViewComponent {
     this.cdr.detectChanges();
 
     this.workflow.rows.forEach((row) => {
+      row.returns.forEach((rtrn) => {
+        this.adjustInputWidth(rtrn._id, rtrn.placeholderWidth, rtrn.argtypes, rtrn.value, true);
+      });
+      row.schemas.forEach((schema) => {
+        this.adjustInputWidth(schema._id, schema.placeholderWidth, schema.argtypes, schema.value, true);
+      });
       row.variables.forEach((variable) => {
         this.adjustInputWidth(variable._id, variable.placeholderWidth, variable.argtypes, variable.value, true);
       });
-
       row.args.forEach((arg) => {
         this.adjustInputWidth(arg._id, arg.placeholderWidth, arg.argtypes, arg.value, true);
-      });
+      });      
     });
 
     this.debugViewService.setDebugData({ workflow: this.workflow, argtype: this.argtype });
@@ -274,8 +295,13 @@ export class ApiViewComponent {
         return rtrn;
       });
 
-      const ifOpen = { _id: ifOpenId, appId: this.ifApp!._id, pairId: pairId, indents, variables, args, returns };
-      const ifClose = { _id: ifCloseId, appId: this.ifCloseApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [] };
+      const schemas = cloneDeep(this.ifApp!.schemas).map((schema) => {
+        schema._id = new ObjectId().toHexString();
+        return schema;
+      });
+
+      const ifOpen = { _id: ifOpenId, appId: this.ifApp!._id, pairId: pairId, indents, variables, args, returns, schemas };
+      const ifClose = { _id: ifCloseId, appId: this.ifCloseApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [], schemas: [] };
 
       const pairIds = [ifOpenId, ifCloseId];
 
@@ -310,9 +336,14 @@ export class ApiViewComponent {
         return rtrn;
       });
 
-      const ifElse = { _id: ifElseId, appId: this.ifElseApp!._id, pairId: pairId, indents, variables, args, returns };
-      const ifElseMiddle = { _id: ifElseMiddleId, appId: this.ifElseMiddleApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [] };
-      const ifElseClose = { _id: ifElseCloseId, appId: this.ifElseCloseApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [] };
+      const schemas = cloneDeep(this.ifElseApp!.schemas).map((schema) => {
+        schema._id = new ObjectId().toHexString();
+        return schema;
+      });
+
+      const ifElse = { _id: ifElseId, appId: this.ifElseApp!._id, pairId: pairId, indents, variables, args, returns, schemas };
+      const ifElseMiddle = { _id: ifElseMiddleId, appId: this.ifElseMiddleApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [], schemas: [] };
+      const ifElseClose = { _id: ifElseCloseId, appId: this.ifElseCloseApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [], schemas: [] };
 
       const pairIds = [ifElseId, ifElseMiddleId, ifElseCloseId];
 
@@ -347,8 +378,13 @@ export class ApiViewComponent {
         return rtrn;
       });
 
-      const forArray = { _id: forArrayId, appId: this.forArrayApp!._id, pairId: pairId, indents, variables, args, returns };
-      const forArrayClose = { _id: forArrayCloseId, appId: this.forArrayCloseApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [] };
+      const schemas = cloneDeep(this.forArrayApp!.schemas).map((schema) => {
+        schema._id = new ObjectId().toHexString();
+        return schema;
+      });
+
+      const forArray = { _id: forArrayId, appId: this.forArrayApp!._id, pairId: pairId, indents, variables, args, returns, schemas };
+      const forArrayClose = { _id: forArrayCloseId, appId: this.forArrayCloseApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [], schemas: [] };
 
       const pairIds = [forArrayId, forArrayCloseId];
 
@@ -382,8 +418,13 @@ export class ApiViewComponent {
         return rtrn;
       });
 
-      const forObject = { _id: forObjectId, appId: this.forObjectApp!._id, pairId: pairId, indents, variables, args, returns };
-      const forObjectClose = { _id: forObjectCloseId, appId: this.forObjectCloseApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [] };
+      const schemas = cloneDeep(this.forObjectApp!.schemas).map((schema) => {
+        schema._id = new ObjectId().toHexString();
+        return schema;
+      });
+
+      const forObject = { _id: forObjectId, appId: this.forObjectApp!._id, pairId: pairId, indents, variables, args, returns, schemas };
+      const forObjectClose = { _id: forObjectCloseId, appId: this.forObjectCloseApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [], schemas: [] };
 
       const pairIds = [forObjectId, forObjectCloseId];
 
@@ -413,11 +454,16 @@ export class ApiViewComponent {
         return rtrn;
       });
 
-      const newApp = { _id: new ObjectId().toHexString(), appId: app._id, pairId: '', indents, variables, args, returns };
+      const schemas = cloneDeep(app.schemas).map((schema) => {
+        schema._id = new ObjectId().toHexString();
+        return schema;
+      });
+
+      const newApp = { _id: new ObjectId().toHexString(), appId: app._id, pairId: '', indents, variables, args, returns, schemas };
       this.workflow.rows.splice(index, 0, newApp);
       this.selectRow(newApp._id);
     } else {
-      const blankApp = { _id: new ObjectId().toHexString(), appId: '', pairId: '', indents: 0, variables: [], args: [], returns: [] };
+      const blankApp = { _id: new ObjectId().toHexString(), appId: '', pairId: '', indents: 0, variables: [], args: [], returns: [], schemas: [] };
       this.workflow.rows.splice(index, 0, blankApp);
       this.selectRow(blankApp._id);
     }

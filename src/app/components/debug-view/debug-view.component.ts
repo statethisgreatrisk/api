@@ -44,6 +44,14 @@ export class DebugViewComponent {
     if (!workflow || !workflow.rows) return;
 
     workflow.rows.forEach((row, index) => {
+      row.returns.forEach((rtrns, i) => {
+        if (!rtrns.value) return;
+        this.processArg(index + 1, rtrns, argtype, 'Return', i + 1);
+      });
+      row.schemas.forEach((schema, i) => {
+        if (!schema.value) return;
+        this.processArg(index + 1, schema, argtype, 'Schema', i + 1);
+      });
       row.variables.forEach((variable, i) => {
         if (!variable.value) return;
         this.processArg(index + 1, variable, argtype, 'Variable', i + 1);
@@ -67,7 +75,7 @@ export class DebugViewComponent {
     if (valid) return;
 
     const argtypes = this.formattedArgtypes(arg.argtypes);
-    const position = type === 'Variable' ? `${type}` : `${type} ${typeIndex}`;
+    const position = type === 'Variable' || type === 'Return' || type === 'Schema' ? `${type}` : `${type} ${typeIndex}`;
     const errorMessage = `requires a ${argtypes} type.`;
 
     this.validationErrors.push({ row, position, error: errorMessage });

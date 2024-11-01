@@ -41,6 +41,7 @@ export interface WorkflowRow {
     variables: Arg[];
     args: Arg[];
     returns: Arg[];
+    schemas: Arg[];
 }
 
 export interface RequestParameter {
@@ -76,6 +77,7 @@ export interface App {
     variables: Arg[];
     args: Arg[];
     returns: Arg[];
+    schemas: Arg[];
 }
 
 export interface Project {
