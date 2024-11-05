@@ -47,8 +47,8 @@ export class ServicesComponent {
     { name: 'Requests', icon: '/tool.png' },
     { name: 'Variables', icon: '/tool.png' },
     { name: 'WebSockets', icon: '/tool.png' },
-    { name: 'Queues', icon: '/tool.png' },
-    { name: 'Schedulers', icon: '/tool.png' },
+    // { name: 'Queues', icon: '/tool.png' },
+    // { name: 'Schedulers', icon: '/tool.png' },
   ];
 
   dropdown: boolean = false;

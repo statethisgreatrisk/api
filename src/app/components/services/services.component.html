@@ -43,19 +43,19 @@
                     </div>
                 </div>
                 <!-- Queue -->
-                <div class="service-data-list" *ngIf="service.name === 'Queues'">
+                <!-- <div class="service-data-list" *ngIf="service.name === 'Queues'">
                     <div class="service-data" [ngClass]="{ 'active': view.serviceId === q._id }" *ngFor="let q of queues" (click)="selectService(service.name, q._id)">
                         <img [src]="service.icon">
                         <p>{{ q.name }}</p>
                     </div>
-                </div>
+                </div> -->
                 <!-- Scheduler -->
-                <div class="service-data-list" *ngIf="service.name === 'Schedulers'">
+                <!-- <div class="service-data-list" *ngIf="service.name === 'Schedulers'">
                     <div class="service-data" [ngClass]="{ 'active': view.serviceId === s._id }" *ngFor="let s of schedulers" (click)="selectService(service.name, s._id)">
                         <img [src]="service.icon">
                         <p>{{ s.name }}</p>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="small-spacer tall">
