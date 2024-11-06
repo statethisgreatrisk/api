@@ -300,12 +300,14 @@ export interface Job {
     workflowId: string;
     jobId: string;
     apiId: string;
-    queueId: string;
-    schedulerId: string;
+    // queueId: string;
+    // schedulerId: string;
     active: boolean;
     date: string;
     type: 'start' | 'stop';
     activity: string;
+    error: boolean;
+    errorMessage: string;
 }
 
 export interface Key {
