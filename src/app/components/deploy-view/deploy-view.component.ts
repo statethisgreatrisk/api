@@ -6,6 +6,7 @@ import { Subscription, combineLatest } from 'rxjs';
 import { deployStartError, deployStartSuccess, deployStopError, deployStopSuccess, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, getUsages, startDeploy, stopDeploy } from '../../store/actions/app.action';
 import { User, View, Project, Deploy, AppStateInit, Instance, Usage } from '../../store/interfaces/app.interface';
 import { selectUser, selectView, selectMainProject, selectDeploys, selectInstances, selectUsages } from '../../store/selectors/app.selector';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'app-deploy-view',
@@ -44,6 +45,7 @@ export class DeployViewComponent {
   constructor(
     private store: Store<AppStateInit>,
     private actions$: Actions,
+    public socketService: SocketService,
   ) {}
 
   ngOnInit() {
@@ -132,6 +134,7 @@ export class DeployViewComponent {
 
       if (!this.project) return;
       this.store.dispatch(getUsages({ projectId: this.project._id }));
+      this.socketService.socket = null;
     });
   }
 

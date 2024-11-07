@@ -924,6 +924,10 @@
     color: $primary-600;
 }
 
+.api-view-editor-row-command-open.basic {
+    margin-left: 10px;
+}
+
 .api-view-editor-row-command-close {
     display: flex;
     flex-direction: row;

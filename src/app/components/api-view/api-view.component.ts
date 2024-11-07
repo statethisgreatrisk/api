@@ -55,6 +55,7 @@ export class ApiViewComponent {
   forObjectCloseApp: App | null = null;
 
   commentApp: App | null = null;
+  printApp: App | null = null;
 
   argtype: any = {};
 
@@ -158,6 +159,7 @@ export class ApiViewComponent {
     this.forObjectCloseApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'forObjectClose')!;
 
     this.commentApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'comment')!;
+    this.printApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'print')!;
   }
 
   setArgtypes() {
@@ -170,6 +172,7 @@ export class ApiViewComponent {
     this.argtype['request'] = this.argtypes!.find((argtype) => argtype.name === 'request')!.regex;
     this.argtype['object'] = this.argtypes!.find((argtype) => argtype.name === 'object')!.regex;
     this.argtype['array'] = this.argtypes!.find((argtype) => argtype.name === 'array')!.regex;
+    this.argtype['any'] = this.argtypes!.find((argtype) => argtype.name === 'any')!.regex;
     this.argtype['condition'] = this.argtypes!.find((argtype) => argtype.name === 'condition')!.regex;
     this.argtype['variable'] = this.argtypes!.find((argtype) => argtype.name === 'variable')!.regex;
     this.argtype['simpleVariable'] = this.argtypes!.find((argtype) => argtype.name === 'simpleVariable')!.regex;
@@ -559,6 +562,7 @@ export class ApiViewComponent {
     else if (row.appId === this.forObjectApp!._id) return 'forObject';
     else if (row.appId === this.forObjectCloseApp!._id) return 'forObjectClose';
     else if (row.appId === this.commentApp!._id) return 'comment';
+    else if (row.appId === this.printApp!._id) return 'print';
     else return 'app';
   }
 

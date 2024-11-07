@@ -96,6 +96,35 @@
                             <img src="/x.png">
                         </div>
                     </ng-content>
+                    <!-- Print Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'print'">
+                        <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
+                        </div>
+                        <div class="api-view-editor-row-command-open basic">
+                            <p>{{ findAppName(row.appId) }}(</p>
+                        </div>
+                        <div class="api-view-editor-row-args">
+                            <ng-content *ngFor="let arg of row.args; index as argsIndex">
+                                <input #rowInputs [id]="arg._id" type="text" [placeholder]="arg.placeholder" [(ngModel)]="arg.value" (input)="adjustInputWidth(arg._id, arg.placeholderWidth, arg.argtypes, arg.value)">
+                                <span #rowSpans class="api-view-hidden-row-span">{{ arg.value }}</span>
+
+                                <div class="api-view-editor-row-args-comma" *ngIf="row.args && row.args.length > 1 && argsIndex < row.args.length - 1">
+                                    <p>,</p>
+                                </div>
+                            </ng-content>
+                        </div>
+                        <div class="api-view-editor-row-command-close">
+                            <p>)</p>
+                        </div>
+                        <div class="api-view-editor-row-spacer"></div>
+                        <div class="api-view-editworkflowsor-row-detail">
+                            <p></p>
+                        </div>
+                        <div class="api-view-editor-row-remove" (click)="removeRow(row)">
+                            <img src="/x.png">
+                        </div>
+                    </ng-content>
                     <!-- If Row -->
                     <ng-content *ngIf="row.appId && rowType(row) === 'if'">
                         <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
