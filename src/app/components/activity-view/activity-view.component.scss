@@ -151,10 +151,6 @@ tr:nth-child(even) {
     background-color: $surface-mixed-100;
 }
 
-tr td:last-child {
-    cursor: pointer;
-}
-
 table {
     width: 100%;
     table-layout: fixed;
@@ -187,6 +183,10 @@ tbody {
     font-weight: 700;
 
     color: $get;
+}
+
+.activity-view-table-data.click {
+    cursor: pointer;
 }
 
 .activity-view-table-actions {

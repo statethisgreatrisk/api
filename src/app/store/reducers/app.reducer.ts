@@ -530,11 +530,23 @@ export const replaceLogFn: (state: AppState, log: Log) => AppState = (state: App
 
 export const addJobsFn: (state: AppState, jobs: Job[]) => AppState = (state: AppState, jobs: Job[]) => {
     if (!jobs) return { ...state };
-    return { ...state, jobs: jobs };
+
+    const newJobs = jobs.filter((newJob) => {
+        const foundJob = state.jobs.find((existingJob) => existingJob._id === newJob._id);
+        return !foundJob;
+    });
+
+    if (!newJobs.length) return { ...state };
+
+    return { ...state, jobs: state.jobs.concat(newJobs) };
 }
 
 export const addJobFn: (state: AppState, job: Job) => AppState = (state: AppState, job: Job) => {
     if (!job) return { ...state };
+
+    const foundJob = state.jobs.find((existingJob) => existingJob._id === job._id);
+    if (foundJob) return { ...state };
+
     return { ...state, jobs: state.jobs.concat([job]) };
 }
 

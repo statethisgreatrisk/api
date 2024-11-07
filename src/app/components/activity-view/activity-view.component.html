@@ -9,12 +9,12 @@
                 <div class="activity-view-tab" [ngClass]="{'active': tab === 'api'}" (click)="selectTab('api')">
                     <p>API</p>
                 </div>
-                <div class="activity-view-tab" [ngClass]="{'active': tab === 'queue'}" (click)="selectTab('queue')">
+                <!-- <div class="activity-view-tab" [ngClass]="{'active': tab === 'queue'}" (click)="selectTab('queue')">
                     <p>Queue</p>
                 </div>
                 <div class="activity-view-tab" [ngClass]="{'active': tab === 'scheduler'}" (click)="selectTab('scheduler')">
                     <p>Scheduler</p>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="activity-view-search-container">
@@ -44,8 +44,11 @@
                         <th class="activity-view-table-header" style="width: 40px;">
                             Success
                         </th>
-                        <th class="activity-view-table-header" style="width: 26px;">
+                        <th class="activity-view-table-header" style="width: 40px;">
                             Data
+                        </th>
+                        <th class="activity-view-table-header" style="width: 40px;">
+                            Error
                         </th>
                     </tr>
                 </thead>
@@ -69,8 +72,11 @@
                         <td class="activity-view-table-data" style="min-width: 40px;">
                             Yes
                         </td>
-                        <td class="activity-view-table-data" style="min-width: 25px;" (click)="showData()">
+                        <td class="activity-view-table-data click" style="min-width: 40px;">
                             Data
+                        </td>
+                        <td class="activity-view-table-data click" style="min-width: 40px;">
+                            Error
                         </td>
                     </tr>
                     <tr class="activity-view-table-row">
@@ -92,14 +98,51 @@
                         <td class="activity-view-table-data" style="min-width: 40px;">
                             Yes
                         </td>
-                        <td class="activity-view-table-data" style="min-width: 25px;" (click)="showData()">
+                        <td class="activity-view-table-data click" style="min-width: 40px;">
                             Data
+                        </td>
+                        <td class="activity-view-table-data click" style="min-width: 40px;">
+                            Error
+                        </td>
+                    </tr>
+                    <tr class="activity-view-table-row" *ngFor="let job of jobs">
+                        <td class="activity-view-table-data" style="min-width: 45px;">
+                            {{ job.jobId }}
+                        </td>
+                        <td class="activity-view-table-data" style="min-width: 60px;">
+                            API
+                        </td>
+                        <td class="activity-view-table-data" style="min-width: 180px;">
+                            {{ job.start }}
+                        </td>
+                        <td class="activity-view-table-data" style="min-width: 180px;">
+                            {{ job.stop }}
+                        </td>
+                        <td class="activity-view-table-data" style="width: 100%;">
+                            {{ job.duration }}
+                        </td>
+                        <td class="activity-view-table-data" style="min-width: 40px;">
+                            {{ job.success }}
+                        </td>
+                        <td class="activity-view-table-data click" style="min-width: 40px;">
+                            <ng-content *ngIf="job.activity" (click)="showData(job.activity)">
+                                Data
+                            </ng-content>
+                        </td>
+                        <td class="activity-view-table-data click" style="min-width: 40px;">
+                            <ng-content *ngIf="job.errorMessage" (click)="showError(job.errorMessage)">
+                                Error
+                            </ng-content>
                         </td>
                     </tr>
                 </tbody>
              </table>
              <div class="spacer"></div>
              <div class="activity-view-table-actions">
+                <div class="activity-view-table-load" *ngIf="!socketService.socket && instance && deploy && status === 'running'">
+                    <p class="active" (click)="socketService.init(instance.name)">Connect to Live Updates</p>
+                </div>
+                <div class="spacer"></div>
                 <div class="activity-view-table-load">
                     <!-- <p class="active">Load more rows</p> -->
                     <p>Load more rows</p>
