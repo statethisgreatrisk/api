@@ -120,14 +120,12 @@ export class ActivityViewComponent {
 
   initDeployStatusSuccess() {
     this.deployStatusSuccessSub = this.actions$.pipe((ofType(getDeployStatusSuccess))).subscribe(({ status }) => {
-      console.log('status', status)
       this.status = status.status;
     });
   }
 
   initDeployStatusError() {
     this.deployStatusErrorSub = this.actions$.pipe((ofType(getDeployStatusError))).subscribe(() => {
-      console.log('status error')
       this.status = 'error';
     });
   }

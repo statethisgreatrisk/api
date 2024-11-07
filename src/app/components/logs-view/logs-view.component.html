@@ -1,0 +1,23 @@
+<div class="logs-view-container">
+    <div class="logs-view">
+        <div class="logs-view-header-container">
+            <div class="logs-view-header">
+                <p class="header">Deploy Logs</p>
+            </div>
+            <div class="spacer"></div>
+            <div class="logs-view-tab-container">
+                <div class="logs-view-tab">
+                    <p *ngIf="(!deploy) || deploy && !logStrings.length">Waiting for deployment...</p>
+                    <p *ngIf="deploy && logStrings.length">{{ deploy.ec2Id }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="logs-view-logs-container">
+            <div class="logs-detail">
+                <ng-content *ngIf="logs && deploy">
+                    <pre *ngFor="let log of logStrings">{{ log }}</pre>
+                </ng-content>
+            </div>
+        </div>
+    </div>
+</div>
