@@ -8,7 +8,7 @@ import { KeyViewComponent } from '../key-view/key-view.component';
 import { BillingViewComponent } from '../billing-view/billing-view.component';
 import { UsageViewComponent } from '../usage-view/usage-view.component';
 import { Store } from '@ngrx/store';
-import { authSuccess, logoutUser, getProjectSettings } from '../../store/actions/app.action';
+import { authSuccess, logoutUser } from '../../store/actions/app.action';
 import { AppStateInit, Project, User } from '../../store/interfaces/app.interface';
 import { ProjectDetailViewComponent } from '../project-detail-view/project-detail-view.component';
 import { Subscription } from 'rxjs';
@@ -75,33 +75,14 @@ export class SettingsViewComponent {
   }
 
   dispatchV1 = async () => {
-    const delay = (ms: number) => {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    };
-
-    const projectActions = [
-      this.dispatchProjectSettings,
-    ];
-
     this.projectSub = this.store.select(selectMainProject).subscribe(async (project) => {
       if (!project) return;
 
       this.project = project;
-
-      for (const dispatch of projectActions) {
-        const dispatchAction: (projectId: string) => void = dispatch;
-        dispatchAction.bind(this)(project!._id);
-        await delay(250);
-      }
-
       this.projectSub?.unsubscribe();
     });
   }
 
-  dispatchProjectSettings(projectId: string) {
-    this.store.dispatch(getProjectSettings({ projectId: projectId }));
-  }
-  
   closeSettings() {
     this.settingsService.closeSettings();
   }

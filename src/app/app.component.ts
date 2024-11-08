@@ -9,7 +9,7 @@ import { StorageViewComponent } from './components/storage-view/storage-view.com
 import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
-import { addProject, authError, authSuccess, changeProject, checkUser, clearData, clearStore, getProjectData, getProjectSetup, requestError } from './store/actions/app.action';
+import { addProject, authError, authSuccess, changeProject, checkUser, clearData, clearStore, getProjectData, getProjectSettings, getProjectSetup, requestError } from './store/actions/app.action';
 import { selectMainProject, selectView } from './store/selectors/app.selector';
 import { DeleteViewComponent } from './components/delete-view/delete-view.component';
 import { DeleteService } from './services/delete.service';
@@ -190,6 +190,7 @@ export class AppComponent {
 
     const projectActions = [
       this.dispatchProjectData,
+      this.dispatchProjectSettings,
     ];
 
     if (!projectId) {
@@ -228,6 +229,10 @@ export class AppComponent {
 
   dispatchProjectData(projectId: string) {
     this.store.dispatch(getProjectData({ projectId: projectId }));
+  }
+
+  dispatchProjectSettings(projectId: string) {
+    this.store.dispatch(getProjectSettings({ projectId: projectId }));
   }
 
   clearStore() {
