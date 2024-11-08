@@ -214,6 +214,7 @@ export const createLog = createAction('[CREATE] Log', props<{projectId: string, 
 export const addLog = createAction('[ADD] Log', props<{log: Log}>());
 export const updateLog = createAction('[UPDATE] Log', props<{projectId: string, log: Log}>());
 export const replaceLog = createAction('[REPLACE] Log', props<{log: Log}>());
+export const addLogLine = createAction('[ADD] Log line', props<{logId: string, logLine: string}>());
 
 // Job
 export const getJobs = createAction('[GET] Jobs', props<{projectId: string}>());

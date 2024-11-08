@@ -1,8 +1,9 @@
+import ObjectId from 'bson-objectid';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppStateInit, Job } from '../store/interfaces/app.interface';
+import { AppStateInit } from '../store/interfaces/app.interface';
 import { environment } from '../../environment';
-import { addJob } from '../store/actions/app.action';
+import { addJob, addLogLine } from '../store/actions/app.action';
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +21,10 @@ export class SocketService {
                 this.socket = new WebSocket(this.socketUrl(deploymentDomain));
 
                 this.socket!.addEventListener('message', (event) => this.onMessage(event.data));
-                this.socket!.addEventListener('open', (event) => resolve(true));
+                this.socket!.addEventListener('open', (event) => {
+                    this.sendMessage(new ObjectId().toHexString());
+                    resolve(true);
+                });
             } catch(error) {
                 console.log('WebSocket connection error', error);
                 return reject(error);
@@ -40,9 +44,13 @@ export class SocketService {
     }
 
     onMessage(message: string) {
-        const socketMessage = JSON.parse(message) as Job;
-        console.log('socket message', socketMessage);
-        this.store.dispatch(addJob({ job: socketMessage }));
+        let socketMessage = JSON.parse(message);
+
+        if (socketMessage.jobId) {
+            this.store.dispatch(addJob({ job: socketMessage }));
+        } else if (socketMessage.logId) {
+            this.store.dispatch(addLogLine({ logId: socketMessage.logId, logLine: socketMessage.logLine }));
+        }
     }
 
     close(): void {

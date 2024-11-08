@@ -1,3 +1,4 @@
+import { cloneDeep } from "lodash";
 import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype } from "../interfaces/app.interface";
 
 // User
@@ -507,12 +508,66 @@ export const replaceDeployFn: (state: AppState, deploy: Deploy) => AppState = (s
 
 export const addLogsFn: (state: AppState, logs: Log[]) => AppState = (state: AppState, logs: Log[]) => {
     if (!logs) return { ...state };
-    return { ...state, logs: logs };
+
+    let joinedLogs: Log[] = [];
+
+    state.logs.forEach((existingLog) => {
+        let foundLog = logs.find((log) => log._id === existingLog._id);
+
+        if (!foundLog) joinedLogs.push(existingLog);
+        else {
+            foundLog.logs = foundLog.logs.concat(existingLog.logs);
+            joinedLogs.push(foundLog);
+        }
+    });
+
+    joinedLogs = joinedLogs.map((log) => {
+        log.logs = Object.values(log.logs.reduce((acc, str) => {
+            const obj = JSON.parse(str);
+            acc[obj[obj._id]] = obj
+        }, {} as any));
+
+        log.logs = log.logs.sort((a, b) => {
+            const objA = JSON.parse(a);
+            const objB = JSON.parse(b);
+            return new Date(objA['date']).getTime() - new Date(objB['date']).getTime();
+        });
+
+        return log;
+    });
+
+    return { ...state, logs: joinedLogs };
 }
 
 export const addLogFn: (state: AppState, log: Log) => AppState = (state: AppState, log: Log) => {
     if (!log) return { ...state };
     return { ...state, logs: state.logs.concat([log]) };
+}
+
+export const addLogLineFn: (state: AppState, logId: string, logLine: string) => AppState = (state: AppState, logId: string, logLine: string) => {
+    if (!logId || !logLine) return { ...state };
+
+    const updatedLogs = cloneDeep(state.logs).map((log) => {
+        if (log._id === logId) {
+            log.logs.push(logLine);
+
+            log.logs = Object.values(log.logs.reduce((acc, str) => {
+                const obj = JSON.parse(str);
+                acc[obj._id] = str;
+                return acc;
+            }, {} as any));
+
+            log.logs = log.logs.sort((a, b) => {
+                const objA = JSON.parse(a);
+                const objB = JSON.parse(b);
+                return new Date(objA['date']).getTime() - new Date(objB['date']).getTime();
+            });
+        }
+
+        return log;
+    });
+
+    return { ...state, logs: updatedLogs };
 }
 
 export const replaceLogFn: (state: AppState, log: Log) => AppState = (state: AppState, log: Log) => {
