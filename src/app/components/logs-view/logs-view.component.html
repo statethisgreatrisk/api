@@ -6,9 +6,13 @@
             </div>
             <div class="spacer"></div>
             <div class="logs-view-tab-container">
-                <div class="logs-view-tab">
-                    <p *ngIf="(!deploy) || deploy && !logStrings.length">Waiting for deployment...</p>
-                    <p *ngIf="deploy && logStrings.length">{{ deploy.ec2Id }}</p>
+                <div class="logs-view-tab" (click)="toggleDeployDropdown()">
+                    <p *ngIf="!deploy">Select a deployment</p>
+                    <p *ngIf="deploy">{{ deploy.ec2Id }}</p>
+                    <img src="/down.png">
+                </div>
+                <div class="logs-view-tab-dropdown" *ngIf="deployDropdown">
+                    <p *ngFor="let deploy of deploys" (click)="selectDeploy(deploy)">{{ deploy.ec2Id }}</p>
                 </div>
             </div>
         </div>
@@ -19,5 +23,13 @@
                 </ng-content>
             </div>
         </div>
+        <div class="logs-view-table-actions">
+            <div class="logs-view-table-load">
+                <p class="color" *ngIf="instance && deploy">{{ status | capitalize }}</p>
+                
+                <p class="active" *ngIf="status === 'running' && instance && deploy && !socketService.socket" (click)="connectToSocket()">Connect to Live Updates</p>
+                <p class="color" *ngIf="status === 'running' && instance && deploy && socketService.socket">Connected to Live Updates</p>
+            </div>
+         </div>
     </div>
 </div>

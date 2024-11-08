@@ -6,8 +6,13 @@
             </div>
             <div class="spacer"></div>
             <div class="activity-view-tab-container">
-                <div class="activity-view-tab" [ngClass]="{'active': tab === 'api'}" (click)="selectTab('api')">
-                    <p>API</p>
+                <div class="activity-view-tab" (click)="toggleDeployDropdown()">
+                    <p *ngIf="!deploy">Select a deployment</p>
+                    <p *ngIf="deploy">{{ deploy.ec2Id }}</p>
+                    <img src="/down.png">
+                </div>
+                <div class="activity-view-tab-dropdown" *ngIf="deployDropdown">
+                    <p *ngFor="let deploy of deploys" (click)="selectDeploy(deploy)">{{ deploy.ec2Id }}</p>
                 </div>
                 <!-- <div class="activity-view-tab" [ngClass]="{'active': tab === 'queue'}" (click)="selectTab('queue')">
                     <p>Queue</p>
@@ -139,8 +144,11 @@
              </table>
              <div class="spacer"></div>
              <div class="activity-view-table-actions">
-                <div class="activity-view-table-load" *ngIf="!socketService.socket && instance && deploy && status === 'running'">
-                    <p class="active" (click)="socketService.init(instance.name)">Connect to Live Updates</p>
+                <div class="activity-view-table-load">
+                    <p class="color" *ngIf="instance && deploy">{{ status | capitalize }}</p>
+                    
+                    <p class="active" *ngIf="status === 'running' && instance && deploy && !socketService.socket" (click)="connectToSocket()">Connect to Live Updates</p>
+                    <p class="color" *ngIf="status === 'running' && instance && deploy && socketService.socket">Connected to Live Updates</p>
                 </div>
                 <div class="spacer"></div>
                 <div class="activity-view-table-load">

@@ -6,9 +6,11 @@ import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { User, View, AppStateInit, Instance, Project, Deploy, Job } from '../../store/interfaces/app.interface';
 import { selectDeploys, selectInstances, selectJobs, selectMainProject, selectUser, selectView } from '../../store/selectors/app.selector';
-import { getDeploys, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, getInstances } from '../../store/actions/app.action';
+import { getDeployStatus, getDeployStatusError, getDeployStatusSuccess, getJobs } from '../../store/actions/app.action';
 import { Actions, ofType } from '@ngrx/effects';
 import { each } from 'lodash';
+import { ActivityViewService } from '../../services/activity-view.service';
+import { CapitalizePipe } from '../../services/capitalize.pipe';
 
 interface JobRow {
   jobId: string;
@@ -23,7 +25,7 @@ interface JobRow {
 @Component({
   selector: 'app-activity-view',
   standalone: true,
-  imports: [NgClass, NgIf, NgFor],
+  imports: [NgClass, NgIf, NgFor, CapitalizePipe],
   templateUrl: './activity-view.component.html',
   styleUrl: './activity-view.component.scss'
 })
@@ -32,6 +34,7 @@ export class ActivityViewComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   project: Project | null = null;
   instance: Instance | null = null;
+  deploys: Deploy[] | null = null;
   deploy: Deploy | null = null;
   jobs: JobRow[] | null = null;
 
@@ -39,16 +42,19 @@ export class ActivityViewComponent {
   deployStatusSuccessSub: Subscription | null = null;
   deployStatusErrorSub: Subscription | null = null;
 
-  status: string = '';
+  status: string = 'stopped';
 
   tab = 'api';
 
   selectedRowId = '';
 
+  deployDropdown = false;
+
   constructor(
     private store: Store<AppStateInit>,
     private actions$: Actions,
     private infoService: InfoService,
+    private activityViewService: ActivityViewService,
     public socketService: SocketService,
   ) {}
 
@@ -86,7 +92,8 @@ export class ActivityViewComponent {
       this.store.select(selectInstances),
       this.store.select(selectDeploys),
       this.store.select(selectJobs),
-    ]).subscribe(([user, view, project, instances, deploys, jobs]) => {
+      this.activityViewService.selectedDeployment$,
+    ]).subscribe(([user, view, project, instances, deploys, jobs, selectedDeployment]) => {
       this.user = user;
       this.view = view;
       this.project = project;
@@ -94,19 +101,20 @@ export class ActivityViewComponent {
       if (this.user && this.view && this.project && this.view.windowId) {
         if (!instances.length) {
           this.instance = null;
-          this.store.dispatch(getInstances({ projectId: this.project._id }));
-          this.store.dispatch(getDeploys({ projectId: this.project._id }));
         } else {
           this.instance = instances[0];
         }
 
         if (!deploys.length) {
+          this.deploys = null;
           this.deploy = null;
         } else {
           const sorted = [...deploys].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
-          this.deploy = sorted[0];
-          
-          this.store.dispatch(getDeployStatus({ projectId: this.project._id, deployId: this.deploy._id }));
+          this.deploys = sorted;
+          if (selectedDeployment) {
+            this.deploy = selectedDeployment;
+            this.store.dispatch(getDeployStatus({ projectId: this.project._id, deployId: this.deploy._id }));
+          }
         }
 
         if (!jobs.length) {
@@ -168,5 +176,22 @@ export class ActivityViewComponent {
         });
       }
     });
+  }
+
+  toggleDeployDropdown() {
+    this.deployDropdown = !this.deployDropdown;
+  }
+
+  selectDeploy(deploy: Deploy) {
+    this.activityViewService.setDeployment(deploy);
+    this.toggleDeployDropdown();
+  }
+
+  connectToSocket() {
+    if (!this.instance) return;
+    if (!this.project) return;
+
+    this.socketService.init(this.instance.name);
+    this.store.dispatch(getJobs({ projectId: this.project._id }));
   }
 }

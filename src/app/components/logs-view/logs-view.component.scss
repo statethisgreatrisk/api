@@ -54,6 +54,8 @@
 .logs-view-tab-container {
     display: flex;
     flex-direction: row;
+
+    position: relative;
 }
 
 .logs-view-tab {
@@ -62,7 +64,7 @@
 
     align-items: center;
 
-    padding: 4px 10px;
+    padding: 5px 10px;
 
     cursor: pointer;
 }
@@ -74,10 +76,43 @@
 }
 
 .logs-view-tab img {
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
 
-    margin-left: 10px;
+    margin-left: 5px;
+}
+
+.logs-view-tab-dropdown {
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+
+    width: 200px;
+    height: 100px;
+
+    overflow-y: scroll;
+
+    top: 25px;
+    right: 5px;
+
+    background-color: $surface-mixed-100;
+    border-radius: 1px;
+    border: 1px solid $surface-mixed-200;
+}
+
+.logs-view-tab-dropdown p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $get;
+
+    padding: 5px;
+
+    cursor: pointer;
+}
+
+.logs-view-tab-dropdown p:hover {
+    background-color: $primary-1400;
 }
 
 .logs-view-logs-container {
@@ -92,7 +127,7 @@
 }
 
 .logs-detail {
-    height: 200px;
+    height: 175px;
     overflow-y: scroll;
 
     margin-top: 10px;
@@ -109,6 +144,49 @@
     font-size: 11px;
     font-weight: 800;
     color: white;
+}
+
+.logs-view-table-actions {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: start;
+
+    margin-top: 10px;
+    margin-left: 15px;
+    padding-bottom: 4px;
+}
+
+.logs-view-table-load {
+    display: flex;
+    flex-direction: row;
+
+    margin-right: 15px;
+}
+
+.logs-view-table-load p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-400;
+
+    border-bottom: 1px solid $surface-dark;
+
+    cursor: default;
+
+    margin-right: 10px;
+}
+
+.logs-view-table-load p.active {
+    color: $surface-mixed-600;
+
+    border-bottom: 1px solid $surface-mixed-600;
+
+    cursor: pointer;
+}
+
+.logs-view-table-load p.color {
+    color: $get;
 }
 
 .spacer {

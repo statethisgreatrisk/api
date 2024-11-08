@@ -93,6 +93,8 @@
 .activity-view-tab-container {
     display: flex;
     flex-direction: row;
+
+    position: relative;
 }
 
 .activity-view-tab {
@@ -109,12 +111,46 @@
 .activity-view-tab p {
     font-size: 11px;
     font-weight: 600;
-    color: $surface-mixed-600;
+    color: $get;
 }
 
-.activity-view-tab.active p,
-.activity-view-tab:hover p {
+.activity-view-tab img {
+    width: 10px;
+    height: 10px;
+    margin-left: 5px;
+}
+
+.activity-view-tab-dropdown {
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+
+    width: 200px;
+    height: 100px;
+
+    overflow-y: scroll;
+
+    top: 25px;
+    right: 5px;
+
+    background-color: $surface-mixed-100;
+    border-radius: 1px;
+    border: 1px solid $surface-mixed-200;
+}
+
+.activity-view-tab-dropdown p {
+    font-size: 11px;
+    font-weight: 600;
     color: $get;
+
+    padding: 5px;
+
+    cursor: pointer;
+}
+
+.activity-view-tab-dropdown p:hover {
+    background-color: $primary-1400;
 }
 
 .spacer {
@@ -200,6 +236,9 @@ tbody {
 }
 
 .activity-view-table-load {
+    display: flex;
+    flex-direction: row;
+
     margin-right: 15px;
 }
 
@@ -211,6 +250,8 @@ tbody {
     border-bottom: 1px solid $surface-dark;
 
     cursor: default;
+
+    margin-right: 10px;
 }
 
 .activity-view-table-load p.active {
@@ -219,6 +260,10 @@ tbody {
     border-bottom: 1px solid $surface-mixed-600;
 
     cursor: pointer;
+}
+
+.activity-view-table-load p.color {
+    color: $get;
 }
 
 .activity-view-table-paginator {
