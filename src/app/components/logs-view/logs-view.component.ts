@@ -32,6 +32,7 @@ export class LogsViewComponent {
   deployStatusErrorSub: Subscription | null = null;
 
   status: string = 'stopped';
+  statusInitialLoad = false;
 
   deployDropdown = false;
   
@@ -78,9 +79,10 @@ export class LogsViewComponent {
         if (deploys && deploys.length) {
           const sorted = [...deploys].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
           this.deploys = sorted;
-          if (selectedDeployment) {
-            this.deploy = selectedDeployment;
+          if (selectedDeployment) this.deploy = selectedDeployment;
+          if (this.deploy && !this.statusInitialLoad) {
             this.store.dispatch(getDeployStatus({ projectId: this.project._id, deployId: this.deploy._id }));
+            this.statusInitialLoad = true;
           }
         } else {
           this.deploys = null;
@@ -116,7 +118,8 @@ export class LogsViewComponent {
 
     const logs = this.logs.filter((log) => log.deployId === deployId);
     const logJson = logs.reduce((a: string[], b) => { return a.concat([...b.logs])}, []);
-    const logJsonUpdated = logJson.map((log) => {
+    
+    let logJsonUpdated = logJson.map((log) => {
       const json = JSON.parse(log);
       const dateObj = new Date(json.date);
       const date = dateObj.toLocaleDateString();
@@ -126,6 +129,8 @@ export class LogsViewComponent {
       return `${datetime}: ${logString}`;
     });
 
+    logJsonUpdated.reverse();
+
     return logJsonUpdated;
   }
 
@@ -134,8 +139,13 @@ export class LogsViewComponent {
   }
 
   selectDeploy(deploy: Deploy) {
+    if (!this.project) return;
+
     this.logsViewService.setDeployment(deploy);
     this.toggleDeployDropdown();
+
+    this.store.dispatch(getDeployStatus({ projectId: this.project._id, deployId: deploy._id }));
+    this.store.dispatch(getLogs({ projectId: this.project._id }));
   }
 
   connectToSocket() {
@@ -144,6 +154,13 @@ export class LogsViewComponent {
     if (!this.project) return;
 
     this.socketService.init(this.instance.name, this.user._id);
+  }
+
+  refresh() {
+    if (!this.project) return;
+    if (!this.deploy) return;
+
+    this.store.dispatch(getDeployStatus({ projectId: this.project._id, deployId: this.deploy._id }));
     this.store.dispatch(getLogs({ projectId: this.project._id }));
   }
 }

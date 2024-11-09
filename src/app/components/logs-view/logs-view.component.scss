@@ -162,6 +162,8 @@
     display: flex;
     flex-direction: row;
 
+    align-items: center;
+
     margin-right: 15px;
 }
 
@@ -187,6 +189,15 @@
 
 .logs-view-table-load p.color {
     color: $get;
+}
+
+.logs-view-table-load img {
+    width: 11px;
+    height: 11px;
+
+    margin-right: 10px;
+
+    cursor: pointer;
 }
 
 .spacer {

@@ -509,22 +509,13 @@ export const replaceDeployFn: (state: AppState, deploy: Deploy) => AppState = (s
 export const addLogsFn: (state: AppState, logs: Log[]) => AppState = (state: AppState, logs: Log[]) => {
     if (!logs) return { ...state };
 
-    let joinedLogs: Log[] = [];
-
-    state.logs.forEach((existingLog) => {
-        let foundLog = logs.find((log) => log._id === existingLog._id);
-
-        if (!foundLog) joinedLogs.push(existingLog);
-        else {
-            foundLog.logs = foundLog.logs.concat(existingLog.logs);
-            joinedLogs.push(foundLog);
-        }
-    });
+    let joinedLogs: Log[] = cloneDeep(logs);
 
     joinedLogs = joinedLogs.map((log) => {
         log.logs = Object.values(log.logs.reduce((acc, str) => {
             const obj = JSON.parse(str);
-            acc[obj[obj._id]] = obj
+            acc[obj._id] = str;
+            return acc;
         }, {} as any));
 
         log.logs = log.logs.sort((a, b) => {

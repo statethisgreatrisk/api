@@ -44,6 +44,7 @@ export class ActivityViewComponent {
   deployStatusErrorSub: Subscription | null = null;
 
   status: string = 'stopped';
+  statusInitialLoad = false;
 
   tab = 'api';
 
@@ -112,9 +113,10 @@ export class ActivityViewComponent {
         } else {
           const sorted = [...deploys].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
           this.deploys = sorted;
-          if (selectedDeployment) {
-            this.deploy = selectedDeployment;
+          if (selectedDeployment) this.deploy = selectedDeployment;
+          if (this.deploy && !this.statusInitialLoad) {
             this.store.dispatch(getDeployStatus({ projectId: this.project._id, deployId: this.deploy._id }));
+            this.statusInitialLoad = true;
           }
         }
 
@@ -207,8 +209,13 @@ export class ActivityViewComponent {
   }
 
   selectDeploy(deploy: Deploy) {
+    if (!this.project) return;
+
     this.activityViewService.setDeployment(deploy);
     this.toggleDeployDropdown();
+
+    this.store.dispatch(getDeployStatus({ projectId: this.project._id, deployId: deploy._id }));
+    this.store.dispatch(getJobs({ projectId: this.project._id }));
   }
 
   connectToSocket() {
@@ -217,6 +224,13 @@ export class ActivityViewComponent {
     if (!this.project) return;
 
     this.socketService.init(this.instance.name, this.user._id);
+  }
+
+  refresh() {
+    if (!this.project) return;
+    if (!this.deploy) return;
+
+    this.store.dispatch(getDeployStatus({ projectId: this.project._id, deployId: this.deploy._id }));
     this.store.dispatch(getJobs({ projectId: this.project._id }));
   }
 }

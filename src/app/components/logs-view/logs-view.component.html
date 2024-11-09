@@ -25,6 +25,8 @@
         </div>
         <div class="logs-view-table-actions">
             <div class="logs-view-table-load">
+                <img src="/refresh.png" *ngIf="instance && deploy" (click)="refresh()">
+
                 <p class="color" *ngIf="instance && deploy">{{ status | capitalize }}</p>
                 
                 <p class="active" *ngIf="status === 'running' && instance && deploy && !socketService.socket" (click)="connectToSocket()">Connect to Live Updates</p>

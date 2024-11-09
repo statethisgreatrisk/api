@@ -239,6 +239,8 @@ tbody {
     display: flex;
     flex-direction: row;
 
+    align-items: center;
+
     margin-right: 15px;
 }
 
@@ -264,6 +266,15 @@ tbody {
 
 .activity-view-table-load p.color {
     color: $get;
+}
+
+.activity-view-table-load img {
+    width: 11px;
+    height: 11px;
+
+    margin-right: 10px;
+
+    cursor: pointer;
 }
 
 .activity-view-table-paginator {
