@@ -14,6 +14,7 @@ import { CapitalizePipe } from '../../services/capitalize.pipe';
 
 interface JobRow {
   jobId: string;
+  startDate: string;
   start: string;
   stop: string;
   duration: string;
@@ -153,9 +154,14 @@ export class ActivityViewComponent {
       if (!startJob && !stopJob) return;
 
       if (startJob && !stopJob) {
+        const startDateObj = new Date(startJob.date);
+        const startDate = startDateObj.toLocaleDateString();
+        const startTime = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", hour12: true }).format(startDateObj);
+        
         this.jobs!.push({
           jobId: startJob._id.slice(-6),
-          start: startJob.date,
+          startDate: startJob.date,
+          start: `${startDate} ${startTime}`,
           stop: '',
           duration: '',
           success: 'Pending',
@@ -165,16 +171,34 @@ export class ActivityViewComponent {
       }
 
       if (startJob && stopJob) {
+        const startDateObj = new Date(startJob.date);
+        const startDate = startDateObj.toLocaleDateString();
+        const startTime = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", hour12: true }).format(startDateObj);
+
+        const stopDateObj = new Date(stopJob.date);
+        const stopDate = stopDateObj.toLocaleDateString();
+        const stopTime = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", hour12: true }).format(stopDateObj);
+
+        const diffInMs: number = stopDateObj.getTime() - startDateObj.getTime();
+        const hours: number = Math.floor(diffInMs / (1000 * 60 * 60));
+        const minutes: number = Math.floor((diffInMs % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds: number = Math.floor((diffInMs % (1000 * 60)) / 1000);
+
         this.jobs!.push({
           jobId: startJob._id.slice(-6),
-          start: startJob.date,
-          stop: stopJob.date,
-          duration: '',
+          startDate: startJob.date,
+          start: `${startDate} ${startTime}`,
+          stop: `${stopDate} ${stopTime}`,
+          duration: `${hours}h ${minutes}m ${seconds}s`,
           success: 'Pending',
           activity: startJob.activity,
           errorMessage: stopJob.errorMessage,
         });
       }
+    });
+
+    this.jobs = this.jobs.sort((a, b) => {
+      return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
     });
   }
 
