@@ -212,10 +212,11 @@ export class ActivityViewComponent {
   }
 
   connectToSocket() {
+    if (!this.user) return;
     if (!this.instance) return;
     if (!this.project) return;
 
-    this.socketService.init(this.instance.name);
+    this.socketService.init(this.instance.name, this.user._id);
     this.store.dispatch(getJobs({ projectId: this.project._id }));
   }
 }

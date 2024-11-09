@@ -1,4 +1,3 @@
-import ObjectId from 'bson-objectid';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppStateInit } from '../store/interfaces/app.interface';
@@ -13,7 +12,7 @@ export class SocketService {
 
     constructor(private store: Store<AppStateInit>) {}
 
-    async init(deploymentDomain: string) {
+    async init(deploymentDomain: string, userId: string) {
         if (this.socket) return;
 
         return new Promise((resolve, reject) => {
@@ -22,7 +21,7 @@ export class SocketService {
 
                 this.socket!.addEventListener('message', (event) => this.onMessage(event.data));
                 this.socket!.addEventListener('open', (event) => {
-                    this.sendMessage(new ObjectId().toHexString());
+                    this.sendMessage(userId);
                     resolve(true);
                 });
             } catch(error) {
