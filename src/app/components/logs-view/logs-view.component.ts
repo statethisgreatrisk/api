@@ -129,8 +129,6 @@ export class LogsViewComponent {
       return `${datetime}: ${logString}`;
     });
 
-    logJsonUpdated.reverse();
-
     return logJsonUpdated;
   }
 

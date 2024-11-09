@@ -123,7 +123,7 @@ export class ActivityViewComponent {
         if (!jobs.length) {
           this.jobs = null;
         } else {
-          this.parseJobs(jobs);
+          this.parseJobs(jobs, this.deploy?._id);
         }
       }
     });
@@ -141,27 +141,31 @@ export class ActivityViewComponent {
     });
   }
 
-  parseJobs(jobs: Job[]) {
+  parseJobs(allJobs: Job[], deployId?: string) {
     this.jobs = [];
+
+    if (!allJobs.length || !deployId) return;
+
+    const jobs = allJobs.filter((job) => job.deployId === deployId);
     const jobIds: string[] = [];
 
     each(jobs, (job) => {
-      if (!jobIds.includes(job._id)) jobIds.push(job._id);
+      if (!jobIds.includes(job.jobId)) jobIds.push(job.jobId);
     });
 
     each(jobIds, (jobId) => {
-      const startJob = jobs.find((job) => job._id === jobId && job.type === 'start');
-      const stopJob = jobs.find((job) => job._id === jobId && job.type === 'stop');
+      const startJob = jobs.find((job) => job.jobId === jobId && job.type === 'start');
+      const stopJob = jobs.find((job) => job.jobId === jobId && job.type === 'stop');
 
       if (!startJob && !stopJob) return;
 
       if (startJob && !stopJob) {
         const startDateObj = new Date(startJob.date);
         const startDate = startDateObj.toLocaleDateString();
-        const startTime = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", hour12: true }).format(startDateObj);
+        const startTime = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", second: "numeric", fractionalSecondDigits: 3, hour12: true }).format(startDateObj);
         
         this.jobs!.push({
-          jobId: startJob._id.slice(-6),
+          jobId: startJob.jobId.slice(-6),
           startDate: startJob.date,
           start: `${startDate} ${startTime}`,
           stop: '',
@@ -175,23 +179,24 @@ export class ActivityViewComponent {
       if (startJob && stopJob) {
         const startDateObj = new Date(startJob.date);
         const startDate = startDateObj.toLocaleDateString();
-        const startTime = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", hour12: true }).format(startDateObj);
+        const startTime = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", second: "numeric", fractionalSecondDigits: 3, hour12: true }).format(startDateObj);
 
         const stopDateObj = new Date(stopJob.date);
         const stopDate = stopDateObj.toLocaleDateString();
-        const stopTime = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", hour12: true }).format(stopDateObj);
+        const stopTime = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", second: "numeric", fractionalSecondDigits: 3, hour12: true }).format(stopDateObj);
 
         const diffInMs: number = stopDateObj.getTime() - startDateObj.getTime();
         const hours: number = Math.floor(diffInMs / (1000 * 60 * 60));
         const minutes: number = Math.floor((diffInMs % (1000 * 60 * 60)) / (1000 * 60));
         const seconds: number = Math.floor((diffInMs % (1000 * 60)) / 1000);
+        const milliseconds: number = diffInMs % 1000;
 
         this.jobs!.push({
-          jobId: startJob._id.slice(-6),
+          jobId: startJob.jobId.slice(-6),
           startDate: startJob.date,
           start: `${startDate} ${startTime}`,
           stop: `${stopDate} ${stopTime}`,
-          duration: `${hours}h ${minutes}m ${seconds}s`,
+          duration: `${hours}h ${minutes}m ${seconds}s ${milliseconds}ms`,
           success: 'Pending',
           activity: startJob.activity,
           errorMessage: stopJob.errorMessage,
