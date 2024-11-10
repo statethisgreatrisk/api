@@ -25,18 +25,6 @@
                         <div class="api-view-editor-row-prefix" [style.marginRight]="(row.indents * 25) + 'px'">
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                         </div>
-                        <div class="api-view-editor-row-return">
-                            <ng-content *ngFor="let rtrn of row.returns">
-                                <input #rowInputs [id]="rtrn._id" type="text" [placeholder]="rtrn.placeholder" [(ngModel)]="rtrn.value" (input)="adjustInputWidth(rtrn._id, rtrn.placeholderWidth, rtrn.argtypes, rtrn.value)">
-                                <span #rowSpans class="api-view-hidden-row-span">{{ rtrn.value }}</span>
-                            </ng-content>
-                        </div>
-                        <div class="api-view-editor-row-schema">
-                            <ng-content *ngFor="let schema of row.schemas">
-                                <input #rowInputs [id]="schema._id" type="text" [placeholder]="schema.placeholder" [(ngModel)]="schema.value" (input)="adjustInputWidth(schema._id, schema.placeholderWidth, schema.argtypes, schema.value)">
-                                <span #rowSpans class="api-view-hidden-row-span">{{ schema.value }}</span>
-                            </ng-content>
-                        </div>
                         <div class="api-view-editor-row-variable">
                             <ng-content *ngFor="let variable of row.variables">
                                 <input #rowInputs [id]="variable._id" type="text" [placeholder]="variable.placeholder" [(ngModel)]="variable.value" (input)="adjustInputWidth(variable._id, variable.placeholderWidth, variable.argtypes, variable.value)">
@@ -59,14 +47,19 @@
                                 </div>
                             </ng-content>
                         </div>
-                        <div class="api-view-editor-row-command-close">
+                        <div class="api-view-editor-row-return">
                             <p>)</p>
                             <p>&nbsp;=>&nbsp;</p>
                             <ng-content *ngFor="let rtrn of row.returns">
-                                <ng-content *ngFor="let arg of rtrn.argtypes; index as returnArgIndex">
-                                    <p>{{ arg.replace('-type', '') }}</p>
-                                    <p *ngIf="rtrn.argtypes.length > 1 && returnArgIndex < rtrn.argtypes.length - 1">&nbsp;|&nbsp;</p>
-                                </ng-content>
+                                <input #rowInputs [id]="rtrn._id" type="text" [placeholder]="rtrn.placeholder" [(ngModel)]="rtrn.value" (input)="adjustInputWidth(rtrn._id, rtrn.placeholderWidth, rtrn.argtypes, rtrn.value)">
+                                <span #rowSpans class="api-view-hidden-row-span">{{ rtrn.value }}</span>
+                            </ng-content>
+                        </div>
+                        <div class="api-view-editor-row-schema">
+                            <p>:&nbsp;</p>
+                            <ng-content *ngFor="let schema of row.schemas">
+                                <input #rowInputs [id]="schema._id" type="text" [placeholder]="schema.placeholder" [(ngModel)]="schema.value" (input)="adjustInputWidth(schema._id, schema.placeholderWidth, schema.argtypes, schema.value)">
+                                <span #rowSpans class="api-view-hidden-row-span">{{ schema.value }}</span>
                             </ng-content>
                         </div>
                         <div class="api-view-editor-row-spacer"></div>
