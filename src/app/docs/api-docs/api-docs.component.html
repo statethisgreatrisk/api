@@ -5,14 +5,14 @@
             <p>.{{ doc.method }}(</p>
             <p>
                 <ng-content *ngFor="let param of doc.params; index as paramIndex">
-                    <ng-content>param{{ paramIndex + 1 }}</ng-content>
+                    <ng-content>arg{{ paramIndex + 1 }}</ng-content>
                     <ng-content *ngIf="paramIndex < doc.params.length - 1">,&nbsp;</ng-content>
                 </ng-content>
             </p>
             <p>)</p>
         </div>
         <div class="app-view-docs-args" *ngFor="let param of doc.params; index as paramIndex">
-            <p>param{{ paramIndex + 1 }}:</p>
+            <p>arg{{ paramIndex + 1 }}:</p>
             <p>{{ param }}</p>
         </div>
         <div class="app-view-docs-returns" *ngFor="let rtrn of doc.returns">
