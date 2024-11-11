@@ -29,6 +29,7 @@ export class ApiDocsComponent {
     { name: 'String', method: 'endsWith', params: ['string', 'string'], returns: ['boolean: if arg1 ends with arg2.'], info: [] },
     { name: 'String', method: 'concat', params: ['string', 'string'], returns: ['string: the string after concatenating arg1 and arg2.'], info: [] },
     { name: 'String', method: 'indexOf', params: ['string', 'string'], returns: ['number: the index of the first occurrence of arg2 in arg1.'], info: [] },
+    { name: 'String', method: 'replace', params: ['string', 'string', 'string'], returns: ['string: the string after replacing the first occurrence of arg2 in arg1 with arg3.'], info: [] },
     
     { name: 'Number', method: 'greaterThan', params: ['number', 'number'], returns: ['boolean: if arg1 is greater than arg2.'], info: [] },
     { name: 'Number', method: 'greaterThanEqualTo', params: ['number', 'number'], returns: ['boolean: if arg1 is greater than or equal to arg2.'], info: [] },
