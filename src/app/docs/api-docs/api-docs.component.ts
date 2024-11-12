@@ -38,16 +38,21 @@ export class ApiDocsComponent {
     { name: 'Number', method: 'isEqual', params: ['number', 'number'], returns: ['boolean: if arg1 is equal to arg2.'], info: [] },
     { name: 'Number', method: 'isNotEqual', params: ['number', 'number'], returns: ['boolean: if arg1 is not equal to arg2.'], info: [] },
 
-    { name: 'API', method: 'params', params: ['null | string: the name of a property on the Express request.params object.'], returns: ['string: the value of the request.params property.', 'object: the entire request.params object if null.'], info: [] },
-    { name: 'API', method: 'body', params: ['null | string: the name of a property on the Express request.body object.'], returns: ['any: the value of the request.body property.', 'object: the entire request.body object if null.'], info: [] },
-    { name: 'API', method: 'status', params: ['number: the status code as a number.'], returns: ['number: the status code.', 'null: if the number is not a valid status code.'], info: ['This app sets the Express request.statusCode property. The request.statusCode property will not be set if the parameter is not a valid status code.'] },
-    { name: 'API', method: 'send', params: ['string | boolean | object'], returns: ['object: the Express response body as message:arg1 (if a string or boolean), or the entire object if arg1 is an object.', 'null: if there is no value, or if the value is not a string, boolean, or JSON parsable object.'], info: ['This app ends the request workflow. Any rows after API.send() are not processed.'] },
     { name: 'Object', method: 'get', params: ['object: an object or the name of an object function.'], returns: ['object: the result of running the object function.', 'null: if no object, or if there is an error calling the object function.'], info: [] },
     { name: 'Object', method: 'getProperty', params: ['object: an object or the name of an object function.', 'string: the name of a property on the object.'], returns: ['object | any: the value of the property.', 'null: if no object, if no value or if there is an error calling the object function.'], info: [] },
-    { name: 'Request', method: 'get', params: ['request: a request or the name of a request configuration.'], returns: ['request: the request configuration.', 'null: if no request.'], info: [] },
-    { name: 'Request', method: 'send', params: ['request: a request or the name of a request configuration.'], returns: ['object: the response body or response error.', 'null: if no request.'], info: ['This app sends (awaits) a request. The workflow will resume once the request has completed.'] },
+
+    { name: 'API', method: 'params', params: ['null | string: the name of a property on the Express request.params object.'], returns: ['string: the value of the request.params property.', 'object: the request.params object if null.'], info: [] },
+    { name: 'API', method: 'query', params: ['null | string: the name of a property on the Express request.query object.'], returns: ['string: the value of the request.query property.', 'object: the request.query object if null.'], info: [] },
+    { name: 'API', method: 'body', params: ['null | string: the name of a property on the Express request.body object.'], returns: ['any: the value of the request.body property.', 'object: the request.body object if null.', 'null: a null value if there is no request.body object.'], info: [] },
+    { name: 'API', method: 'status', params: ['number: the status code as a number.'], returns: ['number: the status code.', 'null: if the number is not a valid status code.'], info: ['This app sets the Express response.statusCode property. The response.statusCode property will not be set if the parameter is not a valid status code.'] },
+    { name: 'API', method: 'send', params: ['string | boolean | object'], returns: ['object: the Express response body as message:arg1 (if a string or boolean), or the entire object if arg1 is an object.'], info: ['This app ends the request workflow. Any rows after API.send() are not processed.'] },
+
     { name: 'Storage', method: 'get', params: ['storage: a storage object or the name of a storage object.'], returns: ['storage: the storage object.', 'null: if no storage object.'], info: [] },
     { name: 'Storage', method: 'createDocument', params: ['storage: a storage object or the name of a storage object.', 'object: an object or the name of an object function.'], returns: ['document: the inserted document.', 'null: if the document does not pass the storage schema.'], info: ['Use this app to add an object (document) into storage.'] },
+
+    { name: 'Request', method: 'get', params: ['request: a request or the name of a request configuration.'], returns: ['request: the request configuration.', 'null: if no request.'], info: [] },
+    { name: 'Request', method: 'send', params: ['request: a request or the name of a request configuration.'], returns: ['object: the response body or response error.', 'null: if no request.'], info: ['This app sends (awaits) a request. The workflow will resume once the request has completed.'] },
+
     { name: 'Workflow', method: 'comment', params: [], returns: [], info: ['Inserts a comment row.'] },
     { name: 'Workflow', method: 'if', params: ['condition: a value or values to be determined as true or false.'], returns: [], info: [] },
     { name: 'Workflow', method: 'ifElse', params: ['condition: a value or values to be determined as true or false.'], returns: [], info: [] },
