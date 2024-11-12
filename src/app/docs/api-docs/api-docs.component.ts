@@ -48,7 +48,7 @@ export class ApiDocsComponent {
     { name: 'API', method: 'send', params: ['string | boolean | object'], returns: ['object: the Express response body as message:arg1 (if a string or boolean), or the entire object if arg1 is an object.'], info: ['This app ends the request workflow. Any rows after API.send() are not processed.'] },
 
     { name: 'Storage', method: 'get', params: ['storage: a storage object or the name of a storage object.'], returns: ['storage: the storage object.', 'null: if no storage object.'], info: [] },
-    { name: 'Storage', method: 'createDocument', params: ['storage: a storage object or the name of a storage object.', 'object: an object or the name of an object function.'], returns: ['document: the inserted document.', 'null: if the document does not pass the storage schema.'], info: ['Use this app to add an object (document) into storage.'] },
+    { name: 'Storage', method: 'addOne', params: ['storage: a storage object or the name of a storage object.', 'object: an object or the name of an object function.'], returns: ['document: the inserted document.', 'null: if the document does not pass the storage schema.'], info: ['Use this app to add an object (document) into storage.'] },
 
     { name: 'Request', method: 'get', params: ['request: a request or the name of a request configuration.'], returns: ['request: the request configuration.', 'null: if no request.'], info: [] },
     { name: 'Request', method: 'send', params: ['request: a request or the name of a request configuration.'], returns: ['object: the response body or response error.', 'null: if no request.'], info: ['This app sends (awaits) a request. The workflow will resume once the request has completed.'] },
