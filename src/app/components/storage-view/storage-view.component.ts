@@ -96,10 +96,7 @@ export class StorageViewComponent {
 
           this.documents = storageDocuments || [];
           this.documentsParsed = this.documents.map((document) => {
-            let subDoc = {};
-            try { subDoc = JSON.parse(document.document); } catch(error) {}
-
-            return { _id: document._id, date: document.date, ...subDoc };
+            return { _id: document._id, date: document.date, ...document.document };
           });
 
           if (this.documentsParsed.length) {
@@ -166,9 +163,13 @@ export class StorageViewComponent {
     const date = new Date().toISOString();
     const active = true;
     const version = this.schemaVersion;
-    const document = this.editorView.state.doc.toString().trim();
 
-    this.store.dispatch(createDocument({ projectId: projectId, document: { _id, userId, projectId, storageId, date, active, version, document } }));
+    try {
+      const documentString = this.editorView.state.doc.toString().trim();
+      const document = JSON.parse(documentString);
+
+      this.store.dispatch(createDocument({ projectId: projectId, document: { _id, userId, projectId, storageId, date, active, version, document } }));
+    } catch(error) {}
   }
 
   close() {

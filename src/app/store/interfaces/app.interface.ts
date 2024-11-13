@@ -250,7 +250,7 @@ export interface Document {
     storageId: string;
     date: string;
     active: boolean;
-    document: string;
+    document: object;
     version: number;
 }
 

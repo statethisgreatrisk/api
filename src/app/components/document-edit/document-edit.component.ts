@@ -80,8 +80,10 @@ export class DocumentEditComponent {
       this.documentParsed = { ...document };
 
       const documentString = { ...document };
+
       delete documentString._id;
       delete documentString.date;
+      
       this.documentString = JSON.stringify(documentString, null, 2);
 
       let currentText = this.editorView.state.doc.toString();
@@ -115,8 +117,13 @@ export class DocumentEditComponent {
     this.documentParsed = null;
     this.documentString = '{}';
 
-    let currentText = this.editorView.state.doc.toString();
-    this.editorView.dispatch({ changes: { from: 0, to: currentText.length, insert: this.documentString } });
+    let jsonParsable = true;
+    let currentText = null;
+
+    try { currentText = this.editorView.state.doc.toString(); JSON.parse(currentText); } catch (error) { jsonParsable = false; }
+    if (!jsonParsable) return;
+
+    this.editorView.dispatch({ changes: { from: 0, to: currentText!.length, insert: this.documentString } });
     this.documentService.deselectDocument();
   }
   
@@ -127,16 +134,18 @@ export class DocumentEditComponent {
     if (!this.editorView) return;
 
     let jsonParsable = true;
-    let update = this.editorView.state.doc.toString();
+    let updateString = null;
+    let update = null;
 
-    try { JSON.parse(update); } catch (error) { jsonParsable = false; }
+    try { updateString = this.editorView.state.doc.toString().trim(); update = JSON.parse(updateString); } catch (error) { jsonParsable = false; }
+
     if (!jsonParsable) return;
 
     const originalDocument = this.documents.find((document) => document._id === this.documentParsed._id);
     if (!originalDocument) return;
 
     const updatedDocument = {...originalDocument };
-    updatedDocument.document = update;
+    updatedDocument.document = update!;
 
     this.store.dispatch(updateDocument({ projectId: this.project._id, document: updatedDocument }));
   }
