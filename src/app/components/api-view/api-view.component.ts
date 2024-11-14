@@ -57,6 +57,25 @@ export class ApiViewComponent {
   commentApp: App | null = null;
   printApp: App | null = null;
 
+  setActionApp: App | null = null;
+  setUrlApp: App | null = null;
+  clearHeadersApp: App | null = null;
+  clearParametersApp: App | null = null;
+  clearBodyFormApp: App | null = null;
+  addHeaderApp: App | null = null;
+  addParameterApp: App | null = null;
+  addBodyFormApp: App | null = null;
+  setContentTypeApp: App | null = null;
+  setBodyTextApp: App | null = null;
+  setBodyJsonApp: App | null = null;
+  setAuthorizationTypeApp: App | null = null;
+  setBearerTokenApp: App | null = null;
+  setBasicAuthUsernameApp: App | null = null;
+  setBasicAuthPasswordApp: App | null = null;
+  setApiKeyApp: App | null = null;
+  setApiKeyValueApp: App | null = null;
+  setApiKeyPassByApp: App | null = null;
+
   argtype: any = {};
 
   schemaNames: string[] = [];
@@ -160,6 +179,25 @@ export class ApiViewComponent {
 
     this.commentApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'comment')!;
     this.printApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'print')!;
+
+    this.setActionApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setAction')!;
+    this.setUrlApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setUrl')!;
+    this.clearHeadersApp = this.apps.find((app) => app.name === 'Request' && app.method === 'clearHeaders')!;
+    this.clearParametersApp = this.apps.find((app) => app.name === 'Request' && app.method === 'clearParameters')!;
+    this.clearBodyFormApp = this.apps.find((app) => app.name === 'Request' && app.method === 'clearBodyForm')!;
+    this.addHeaderApp = this.apps.find((app) => app.name === 'Request' && app.method === 'addHeader')!;
+    this.addParameterApp = this.apps.find((app) => app.name === 'Request' && app.method === 'addParameter')!;
+    this.addBodyFormApp = this.apps.find((app) => app.name === 'Request' && app.method === 'addBodyForm')!;
+    this.setContentTypeApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setContentType')!;
+    this.setBodyTextApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setBodyText')!;
+    this.setBodyJsonApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setBodyJson')!;
+    this.setAuthorizationTypeApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setAuthorizationType')!;
+    this.setBearerTokenApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setBearerToken')!;
+    this.setBasicAuthUsernameApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setBasicAuthUsername')!;
+    this.setBasicAuthPasswordApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setBasicAuthPassword')!;
+    this.setApiKeyApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setApiKey')!;
+    this.setApiKeyValueApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setApiKeyValue')!;
+    this.setApiKeyPassByApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setApiKeyPassBy')!;
   }
 
   setArgtypes() {
@@ -172,6 +210,7 @@ export class ApiViewComponent {
     this.argtype['request'] = this.argtypes!.find((argtype) => argtype.name === 'request')!.regex;
     this.argtype['object'] = this.argtypes!.find((argtype) => argtype.name === 'object')!.regex;
     this.argtype['array'] = this.argtypes!.find((argtype) => argtype.name === 'array')!.regex;
+    this.argtype['url'] = this.argtypes!.find((argtype) => argtype.name === 'url')!.regex;
     this.argtype['any'] = this.argtypes!.find((argtype) => argtype.name === 'any')!.regex;
     this.argtype['condition'] = this.argtypes!.find((argtype) => argtype.name === 'condition')!.regex;
     this.argtype['variable'] = this.argtypes!.find((argtype) => argtype.name === 'variable')!.regex;
@@ -563,6 +602,24 @@ export class ApiViewComponent {
     else if (row.appId === this.forObjectCloseApp!._id) return 'forObjectClose';
     else if (row.appId === this.commentApp!._id) return 'comment';
     else if (row.appId === this.printApp!._id) return 'print';
+    else if (row.appId === this.setActionApp!._id) return 'request';
+    else if (row.appId === this.setUrlApp!._id) return 'request';
+    else if (row.appId === this.clearHeadersApp!._id) return 'request';
+    else if (row.appId === this.clearParametersApp!._id) return 'request';
+    else if (row.appId === this.clearBodyFormApp!._id) return 'request';
+    else if (row.appId === this.addHeaderApp!._id) return 'request';
+    else if (row.appId === this.addParameterApp!._id) return 'request';
+    else if (row.appId === this.addBodyFormApp!._id) return 'request';
+    else if (row.appId === this.setContentTypeApp!._id) return 'request';
+    else if (row.appId === this.setBodyTextApp!._id) return 'request';
+    else if (row.appId === this.setBodyJsonApp!._id) return 'request';
+    else if (row.appId === this.setAuthorizationTypeApp!._id) return 'request';
+    else if (row.appId === this.setBearerTokenApp!._id) return 'request';
+    else if (row.appId === this.setBasicAuthUsernameApp!._id) return 'request';
+    else if (row.appId === this.setBasicAuthPasswordApp!._id) return 'request';
+    else if (row.appId === this.setApiKeyApp!._id) return 'request';
+    else if (row.appId === this.setApiKeyValueApp!._id) return 'request';
+    else if (row.appId === this.setApiKeyPassByApp!._id) return 'request';
     else return 'app';
   }
 
