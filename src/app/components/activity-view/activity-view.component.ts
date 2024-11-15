@@ -20,7 +20,6 @@ interface JobRow {
   duration: string;
   success: string;
   activity: string;
-  errorMessage: string;
 }
 
 @Component({
@@ -77,13 +76,9 @@ export class ActivityViewComponent {
   }
 
   showData(activity: JobRow['activity']) {
+    if (!activity) return;
     const data = JSON.parse(activity);
     this.infoService.initInfo({ data: data });
-  }
-
-  showError(errorMessage: JobRow['errorMessage']) {
-    const error = JSON.parse(errorMessage);
-    this.infoService.initInfo({ data: error });
   }
 
   initLatest() {
@@ -172,7 +167,6 @@ export class ActivityViewComponent {
           duration: '',
           success: 'Pending',
           activity: startJob.activity,
-          errorMessage: '',
         });
       }
 
@@ -197,9 +191,8 @@ export class ActivityViewComponent {
           start: `${startDate} ${startTime}`,
           stop: `${stopDate} ${stopTime}`,
           duration: `${hours}h ${minutes}m ${seconds}s ${milliseconds}ms`,
-          success: 'Pending',
+          success: stopJob.error ? 'Error' : 'Success',
           activity: startJob.activity,
-          errorMessage: stopJob.errorMessage,
         });
       }
     });

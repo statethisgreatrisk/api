@@ -47,13 +47,10 @@
                             Duration
                         </th>
                         <th class="activity-view-table-header" style="width: 40px;">
-                            Success
+                            Status
                         </th>
                         <th class="activity-view-table-header" style="width: 40px;">
                             Data
-                        </th>
-                        <th class="activity-view-table-header" style="width: 40px;">
-                            Error
                         </th>
                     </tr>
                 </thead>
@@ -77,14 +74,9 @@
                         <td class="activity-view-table-data" style="min-width: 40px;">
                             {{ job.success }}
                         </td>
-                        <td class="activity-view-table-data click" style="min-width: 40px;">
-                            <ng-content *ngIf="job.activity" (click)="showData(job.activity)">
+                        <td class="activity-view-table-data click" style="min-width: 40px;" (click)="showData(job.activity)">
+                            <ng-content *ngIf="job.activity">
                                 Data
-                            </ng-content>
-                        </td>
-                        <td class="activity-view-table-data click" style="min-width: 40px;">
-                            <ng-content *ngIf="job.errorMessage" (click)="showError(job.errorMessage)">
-                                Error
                             </ng-content>
                         </td>
                     </tr>

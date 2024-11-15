@@ -307,7 +307,6 @@ export interface Job {
     type: 'start' | 'stop';
     activity: string;
     error: boolean;
-    errorMessage: string;
 }
 
 export interface Key {
