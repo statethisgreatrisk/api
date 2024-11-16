@@ -90,6 +90,18 @@
     outline: none;
 }
 
+.activity-view-search-container p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-400;
+
+    border-bottom: 1px solid $surface-dark;
+
+    cursor: default;
+
+    margin-left: 10px;
+}
+
 .activity-view-tab-container {
     display: flex;
     flex-direction: row;

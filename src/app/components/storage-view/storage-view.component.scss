@@ -270,6 +270,18 @@
     outline: none;
 }
 
+.storage-view-search-container p {
+    font-size: 11px;
+    font-weight: 600;
+    color: $surface-mixed-400;
+
+    border-bottom: 1px solid $surface-dark;
+
+    cursor: default;
+
+    margin-left: 10px;
+}
+
 .storage-view-table-container {
     display: flex;
     flex-direction: column;
@@ -389,8 +401,8 @@ tbody {
     align-items: center;
 }
 
-.storage-view-table-paginator .left.active, 
-.storage-view-table-paginator .right.active {
+.storage-view-table-paginator .left, 
+.storage-view-table-paginator .right {
     cursor: pointer;
 }
 

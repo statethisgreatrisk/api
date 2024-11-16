@@ -26,6 +26,7 @@
             <div class="activity-view-search">
                 <input type="text" placeholder="Search" [(ngModel)]="searchQuery" (input)="resetPage()">
             </div>
+            <p>{{ filteredJobs.length }} jobs</p>
         </div>
         <div class="activity-view-table-container">
             <table>

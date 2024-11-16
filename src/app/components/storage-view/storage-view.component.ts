@@ -11,6 +11,8 @@ import { json } from '@codemirror/lang-json';
 import { EditorState, Extension } from '@codemirror/state';
 import { EditorView, basicSetup } from 'codemirror';
 import { oneDarkSmall } from '../../styles/one-dark-small';
+import { chunk } from 'lodash';
+import { FormsModule } from '@angular/forms';
 
 interface Header {
   key: string;
@@ -20,7 +22,7 @@ interface Header {
 @Component({
   selector: 'app-storage-view',
   standalone: true,
-  imports: [NgIf, NgFor, NgClass],
+  imports: [NgIf, NgFor, NgClass, FormsModule],
   templateUrl: './storage-view.component.html',
   styleUrl: './storage-view.component.scss'
 })
@@ -45,6 +47,11 @@ export class StorageViewComponent {
   selectedRowId: string = '';
 
   addDocumentDropdown = false;
+
+  pageNumber = 1;
+  perPage = 15;
+
+  searchQuery = '';
 
   @ViewChild('jsonEditor') jsonEditor: any;
   editorState!: EditorState;
@@ -96,7 +103,7 @@ export class StorageViewComponent {
 
           this.documents = storageDocuments || [];
           this.documentsParsed = this.documents.map((document) => {
-            return { _id: document._id, date: document.date, ...document.document };
+            return { _id: document._id, date: this.parseDocumentDate(document.date), ...document.document };
           });
 
           if (this.documentsParsed.length) {
@@ -118,6 +125,14 @@ export class StorageViewComponent {
     this.selectedDocumentSub = this.documentService.document$.subscribe((document) => {
       if (!document) this.selectedRowId = '';
     });
+  }
+
+  parseDocumentDate(dateString: string) {
+    const dateObj = new Date(dateString);
+    const date = dateObj.toLocaleDateString();
+    const time = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", second: "numeric", fractionalSecondDigits: 3, hour12: true }).format(dateObj);
+
+    return `${date} ${time}`;
   }
 
   createEditor() {
@@ -185,4 +200,46 @@ export class StorageViewComponent {
       this.createEditor();
     }
   }
+
+  get filteredDocuments(): any[] {
+    if (!this.documentsParsed) return [];
+    if (!this.searchQuery) return this.documentsParsed;
+
+    return this.documentsParsed.filter((document) => {
+      return JSON.stringify(document).toLowerCase().includes(this.searchQuery.toLowerCase());
+    });
+  }
+
+  get paginatedDocuments() {
+    const paginatedItems = chunk(this.filteredDocuments, this.perPage);
+    const pageData = paginatedItems[this.pageNumber - 1] || [];
+
+    return pageData;
+  }
+
+  hasNextPage() {
+    const paginatedItems = chunk(this.filteredDocuments, this.perPage);
+    const totalPages = paginatedItems.length;
+
+    return this.pageNumber < totalPages;
+  }
+
+  hasPreviousPage() {
+    return this.pageNumber > 1;
+  }
+
+  nextPage() {
+    if (!this.hasNextPage()) return;
+    this.pageNumber++;
+  }
+
+  previousPage() {
+    if (!this.hasPreviousPage()) return;
+    this.pageNumber--;
+  }
+
+  resetPage() {
+    this.pageNumber = 1;
+  }
+
 }

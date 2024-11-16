@@ -23,8 +23,9 @@
         </div>
         <div class="storage-view-search-container">
             <div class="storage-view-search">
-                <input type="text" placeholder="Search Documents">
+                <input type="text" placeholder="Search Documents" [(ngModel)]="searchQuery" (input)="resetPage()">
             </div>
+            <p>{{ filteredDocuments.length }} documents</p>
         </div>
         <div class="storage-view-table-container">
             <table>
@@ -44,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="storage-view-table-row" *ngFor="let document of documentsParsed" (click)="editDocument(document)" [ngClass]="{ 'active': selectedRowId === document._id }">
+                    <tr class="storage-view-table-row" *ngFor="let document of paginatedDocuments" (click)="editDocument(document)" [ngClass]="{ 'active': selectedRowId === document._id }">
                         <ng-content *ngFor="let header of headers">
                             <td class="storage-view-table-data" style="min-width: 152px;" *ngIf="header.value === '_id'">
                                 {{ cellValue(document, header.key) }}
@@ -63,17 +64,19 @@
              <div class="storage-view-table-actions">
                 <div class="storage-view-table-load">
                     <!-- <p class="active">Load more rows</p> -->
-                    <p>Load more rows</p>
+                    <p>15 rows per page</p>
                 </div>
                 <div class="storage-view-table-paginator">
-                    <div class="left">
-                        <img src="/left-arrow.png">
+                    <div class="left" (click)="previousPage()">
+                        <img src="/left-arrow-active.png" *ngIf="hasPreviousPage()">
+                        <img src="/left-arrow.png" *ngIf="!hasPreviousPage()">
                     </div>
                     <div class="number">
-                        <p>1</p>
+                        <p>{{ pageNumber }}</p>
                     </div>
-                    <div class="right active">
-                        <img src="/right-arrow-active.png">
+                    <div class="right" (click)="nextPage()">
+                        <img src="/right-arrow-active.png" *ngIf="hasNextPage()">
+                        <img src="/right-arrow.png" *ngIf="!hasNextPage()">
                     </div>
                 </div>
              </div>
