@@ -123,7 +123,7 @@ export class LogsViewComponent {
       const json = JSON.parse(log);
       const dateObj = new Date(json.date);
       const date = dateObj.toLocaleDateString();
-      const time = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", hour12: true }).format(dateObj);
+      const time = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", second: "numeric", hour12: true }).format(dateObj);
       const datetime = `${date} ${time}`;
       const logString = typeof json.log === 'object' ? JSON.stringify(json.log) : json.log;
       return `${datetime}: ${logString}`;
