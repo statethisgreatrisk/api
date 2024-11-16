@@ -76,7 +76,8 @@
                 </div>
             </div>
         </div>
-        <div class="small-spacer tall">
+        <!-- WebSocket -->
+        <!-- <div class="small-spacer tall">
             <p>Messages</p>
         </div>
         <div class="services">
@@ -85,7 +86,7 @@
                     <p *ngIf="service.name === 'WebSockets'">WebSockets</p>
                     <p (click)="create(service.name)">New +</p>
                 </div>
-                <!-- WebSocket -->
+                
                 <div class="service-data-list" *ngIf="service.name === 'WebSockets'">
                     <div class="service-data" [ngClass]="{ 'active': view.serviceId === w._id }" *ngFor="let w of websockets" (click)="selectService(service.name, w._id)">
                         <img [src]="service.icon">
@@ -93,7 +94,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="small-spacer tall">
             <p>Functions</p>
         </div>

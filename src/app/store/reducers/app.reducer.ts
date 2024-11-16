@@ -33,7 +33,7 @@ export const addProjectDataFn: (state: AppState, data: ProjectData) => AppState 
         objs: data.objs,
         requests: data.requests,
         variables: data.variables,
-        websockets: data.websockets,
+        // websockets: data.websockets,
         // queues: data.queues,
         // schedulers: data.schedulers,
         documents: data.documents,
