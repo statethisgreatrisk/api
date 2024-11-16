@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash";
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr } from "../interfaces/app.interface";
 
 // User
 
@@ -31,6 +31,7 @@ export const addProjectDataFn: (state: AppState, data: ProjectData) => AppState 
         validators: data.validators,
         fns: data.fns,
         objs: data.objs,
+        arrs: data.arrs,
         requests: data.requests,
         variables: data.variables,
         // websockets: data.websockets,
@@ -276,6 +277,34 @@ export const replaceObjFn: (state: AppState, obj: Obj) => AppState = (state: App
 export const removeObjFn: (state: AppState, objId: string) => AppState = (state: AppState, objId: string) => {
     if (!objId) return { ...state };
     return { ...state, objs: state.objs.filter((obj) => obj._id !== objId) };
+}
+
+// Arr
+
+export const addArrsFn: (state: AppState, arrs: Arr[]) => AppState = (state: AppState, arrs: Arr[]) => {
+    if (!arrs) return { ...state };
+    return { ...state, arrs: arrs };
+}
+
+export const addArrFn: (state: AppState, arr: Arr) => AppState = (state: AppState, arr: Arr) => {
+    if (!arr) return { ...state };
+    return { ...state, arrs: state.arrs.concat([arr]) };
+}
+
+export const replaceArrFn: (state: AppState, arr: Arr) => AppState = (state: AppState, arr: Arr) => {
+    if (!arr) return { ...state };
+
+    const arrs = state.arrs.map((existingArr) => {
+        if (existingArr._id !== arr._id) return existingArr;
+        return arr;
+    });
+
+    return { ...state, arrs: arrs };
+}
+
+export const removeArrFn: (state: AppState, arrId: string) => AppState = (state: AppState, arrId: string) => {
+    if (!arrId) return { ...state };
+    return { ...state, arrs: state.arrs.filter((arr) => arr._id !== arrId) };
 }
 
 // Request
@@ -750,6 +779,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         workflows: [],
         fns: [],
         objs: [],
+        arrs: [],
         requests: [],
         variables: [],
         websockets: [],
@@ -788,6 +818,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         workflows: [],
         fns: [],
         objs: [],
+        arrs: [],
         requests: [],
         variables: [],
         websockets: [],

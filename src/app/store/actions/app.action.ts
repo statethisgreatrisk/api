@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -110,6 +110,16 @@ export const updateObj = createAction('[UPDATE] Obj', props<{projectId: string, 
 export const replaceObj = createAction('[REPLACE] Obj', props<{obj: Obj}>());
 export const deleteObj = createAction('[DELETE] Obj', props<{projectId: string, objId: string}>());
 export const removeObj = createAction('[REMOVE] Obj', props<{objId: string}>());
+
+// Arr
+export const getArrs = createAction('[GET] Arrs', props<{projectId: string}>());
+export const addArrs = createAction('[ADD] Arrs', props<{arrs: Arr[]}>());
+export const createArr = createAction('[CREATE] Arr', props<{projectId: string, arr: Arr}>());
+export const addArr = createAction('[ADD] Arr', props<{arr: Arr}>());
+export const updateArr = createAction('[UPDATE] Arr', props<{projectId: string, arr: Arr}>());
+export const replaceArr = createAction('[REPLACE] Arr', props<{arr: Arr}>());
+export const deleteArr = createAction('[DELETE] Arr', props<{projectId: string, arrId: string}>());
+export const removeArr = createAction('[REMOVE] Arr', props<{arrId: string}>());
 
 // Request
 export const getRequests = createAction('[GET] Requests', props<{projectId: string}>());

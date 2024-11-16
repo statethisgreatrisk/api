@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm, Variable, Queue, Scheduler } from '../../store/interfaces/app.interface';
-import { changeProject, clearData, createAPI, createFn, createObj, createProject, createQueue, createRequest, createScheduler, createSchema, createStorage, createValidator, createVariable, createWorkflow, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
-import { selectAPIs, selectFns, selectMainProject, selectObjs, selectProjects, selectQueues, selectRequests, selectSchedulers, selectSchemas, selectStorages, selectUser, selectValidators, selectVariables, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm, Variable, Queue, Scheduler, Arr } from '../../store/interfaces/app.interface';
+import { changeProject, clearData, createAPI, createArr, createFn, createObj, createProject, createQueue, createRequest, createScheduler, createSchema, createStorage, createValidator, createVariable, createWorkflow, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
+import { selectAPIs, selectArrs, selectFns, selectMainProject, selectObjs, selectProjects, selectQueues, selectRequests, selectSchedulers, selectSchemas, selectStorages, selectUser, selectValidators, selectVariables, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth.service';
 import { combineLatest, Subscription } from 'rxjs';
@@ -30,6 +30,7 @@ export class ServicesComponent {
   workflows: Workflow[] = [];
   fns: Fn[] = [];
   objs: Obj[] = [];
+  arrs: Arr[] = [];
   requests: Request[] = [];
   variables: Variable[] = [];
   // websockets: Websocket[] = [];
@@ -44,6 +45,7 @@ export class ServicesComponent {
     { name: 'Schemas', icon: '/tool.png' },
     { name: 'Functions', icon: '/tool.png' },
     { name: 'Objects', icon: '/tool.png' },
+    { name: 'Arrays', icon: '/tool.png' },
     { name: 'Requests', icon: '/tool.png' },
     { name: 'Variables', icon: '/tool.png' },
     // { name: 'WebSockets', icon: '/tool.png' },
@@ -114,12 +116,13 @@ export class ServicesComponent {
       this.store.select(selectWorkflows),
       this.store.select(selectFns),
       this.store.select(selectObjs),
+      this.store.select(selectArrs),
       this.store.select(selectRequests),
       this.store.select(selectVariables),
       // this.store.select(selectWebsockets),
       this.store.select(selectQueues),
       this.store.select(selectSchedulers)
-    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, fns, objs, requests, variables, queues, schedulers]) => {
+    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, fns, objs, arrs, requests, variables, queues, schedulers]) => {
       this.user = user;
       this.view = view;
       this.allProjects = allProjects;
@@ -131,6 +134,7 @@ export class ServicesComponent {
       this.workflows = workflows;
       this.fns = fns;
       this.objs = objs;
+      this.arrs = arrs;
       this.requests = requests;
       this.variables = variables;
       // this.websockets = websockets;
@@ -147,6 +151,7 @@ export class ServicesComponent {
     if (service === 'Workflows') return this.createWorkflow();
     if (service === 'Functions') return this.createFn();
     if (service === 'Objects') return this.createObj();
+    if (service === 'Arrays') return this.createArr();
     if (service === 'Requests') return this.createRequest();
     if (service === 'Variables') return this.createVariable();
     // if (service === 'WebSockets') return this.createWebsocket();
@@ -278,6 +283,21 @@ export class ServicesComponent {
     const obj = '';
 
     this.store.dispatch(createObj({ projectId, obj: { _id, projectId, userId, name, date, active, obj } }));
+  }
+
+  createArr() {
+    if (!this.project) return;
+    if (!this.user) return;
+
+    const userId = this.user._id;
+    const projectId = this.project._id;
+    const _id = '';
+    const name = 'Array';
+    const date = new Date().toISOString();
+    const active = true;
+    const arr = '';
+
+    this.store.dispatch(createArr({ projectId, arr: { _id, projectId, userId, name, date, active, arr } }));
   }
 
   createRequest() {

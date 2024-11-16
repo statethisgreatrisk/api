@@ -16,6 +16,7 @@ import { EditVariableComponent } from '../edit-variable/edit-variable.component'
 import { EditWebsocketComponent } from '../edit-websocket/edit-websocket.component';
 import { EditQueueComponent } from '../edit-queue/edit-queue.component';
 import { EditSchedulerComponent } from '../edit-scheduler/edit-scheduler.component';
+import { EditArrComponent } from '../edit-arr/edit-arr.component';
 
 @Component({
   selector: 'app-service-edit',
@@ -28,7 +29,7 @@ export class ServiceEditComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   
   @ViewChild('componentHost', { read: ViewContainerRef, static: true }) componentHost!: ViewContainerRef;
-  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditFnComponent | EditObjComponent | EditRequestComponent | EditVariableComponent | EditWebsocketComponent | EditQueueComponent | EditSchedulerComponent | EditWorkflowComponent> | null = null;
+  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditFnComponent | EditObjComponent | EditArrComponent | EditRequestComponent | EditVariableComponent | EditWebsocketComponent | EditQueueComponent | EditSchedulerComponent | EditWorkflowComponent> | null = null;
   
   constructor(
     private store: Store<AppStateInit>,
@@ -82,6 +83,9 @@ export class ServiceEditComponent {
     } else if (this.view.service === 'Objects') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditObjComponent, { injector: componentInjector });
+    } else if (this.view.service === 'Arrays') {
+      const componentInjector = this.componentInjector.createServiceEditInjector();
+      this.componentHostRef = this.componentHost.createComponent(EditArrComponent, { injector: componentInjector });
     } else if (this.view.service === 'Requests') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditRequestComponent, { injector: componentInjector });

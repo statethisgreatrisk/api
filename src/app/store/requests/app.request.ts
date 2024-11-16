@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Argtype } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Argtype, Arr } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -262,6 +262,28 @@ export class AppRequest {
   
   deleteObj(projectId: string, objId: string): Observable<ResponseMessage> {
     const endpoint = `${this.url}/obj/:projectId/:objId`.replace(':objId', objId).replace(':projectId', projectId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
+  }
+
+  // Arr
+
+  getArrs(projectId: string): Observable<Arr[]> {
+    const endpoint = `${this.url}/arr/:projectId`.replace(':projectId', projectId);
+    return this.http.get<Arr[]>(endpoint, { withCredentials: true });
+  }
+  
+  createArr(projectId: string, arr: Arr): Observable<Arr> {
+    const endpoint = `${this.url}/arr/:projectId`.replace(':projectId', projectId);
+    return this.http.post<Arr>(endpoint, { arr }, { withCredentials: true });
+  }
+  
+  updateArr(projectId: string, arr: Arr): Observable<Arr> {
+    const endpoint = `${this.url}/arr/:projectId`.replace(':projectId', projectId);
+    return this.http.put<Arr>(endpoint, { arr }, { withCredentials: true });
+  }
+  
+  deleteArr(projectId: string, arrId: string): Observable<ResponseMessage> {
+    const endpoint = `${this.url}/arr/:projectId/:arrId`.replace(':arrId', arrId).replace(':projectId', projectId);
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 

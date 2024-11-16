@@ -164,6 +164,16 @@ export interface Obj {
     obj: string;
 }
 
+export interface Arr {
+    _id: string;
+    userId: string;
+    projectId: string;
+    date: string;
+    active: boolean;
+    name: string;
+    arr: string;
+}
+
 export interface Request {
     _id: string;
     userId: string;
@@ -406,6 +416,7 @@ export interface ProjectData {
     validators: Validator[];
     fns: Fn[];
     objs: Obj[];
+    arrs: Arr[];
     requests: Request[];
     variables: Variable[];
     websockets: Websocket[];
@@ -437,6 +448,7 @@ export interface AppState {
     workflows: Workflow[];
     fns: Fn[];
     objs: Obj[];
+    arrs: Arr[];
     requests: Request[];
     variables: Variable[];
     websockets: Websocket[];

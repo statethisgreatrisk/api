@@ -100,7 +100,7 @@
         </div>
         <div class="services">
             <div *ngFor="let service of services;">
-                <div class="service" *ngIf="service.name === 'Schemas' || service.name === 'Validators' || service.name === 'Functions' || service.name === 'Objects'">
+                <div class="service" *ngIf="service.name === 'Schemas' || service.name === 'Validators' || service.name === 'Functions' || service.name === 'Objects' || service.name === 'Arrays'">
                     <p>{{ service.name }}</p>
                     <p (click)="create(service.name)">New +</p>
                 </div>
@@ -130,6 +130,13 @@
                     <div class="service-data" [ngClass]="{ 'active': view.serviceId === o._id }" *ngFor="let o of objs" (click)="selectService(service.name, o._id)">
                         <img [src]="service.icon">
                         <p>{{ o.name }}</p>
+                    </div>
+                </div>
+                <!-- Arr -->
+                <div class="service-data-list" *ngIf="service.name === 'Arrays'">
+                    <div class="service-data" [ngClass]="{ 'active': view.serviceId === a._id }" *ngFor="let a of arrs" (click)="selectService(service.name, a._id)">
+                        <img [src]="service.icon">
+                        <p>{{ a.name }}</p>
                     </div>
                 </div>
             </div>

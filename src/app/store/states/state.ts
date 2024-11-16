@@ -11,6 +11,7 @@ export const appState: AppState = {
     workflows: [],
     fns: [],
     objs: [],
+    arrs: [],
     requests: [],
     variables: [],
     websockets: [],
