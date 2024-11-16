@@ -201,7 +201,7 @@ thead {
 tbody {
     display: block;
     width: 100%;
-    max-height: 120px;
+    max-height: 125px;
     overflow-y: scroll;
 }
 
@@ -284,8 +284,8 @@ tbody {
     align-items: center;
 }
 
-.activity-view-table-paginator .left.active, 
-.activity-view-table-paginator .right.active {
+.activity-view-table-paginator .left, 
+.activity-view-table-paginator .right {
     cursor: pointer;
 }
 

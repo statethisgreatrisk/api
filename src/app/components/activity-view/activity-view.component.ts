@@ -8,9 +8,10 @@ import { User, View, AppStateInit, Instance, Project, Deploy, Job } from '../../
 import { selectDeploys, selectInstances, selectJobs, selectMainProject, selectUser, selectView } from '../../store/selectors/app.selector';
 import { getDeployStatus, getDeployStatusError, getDeployStatusSuccess, getJobs } from '../../store/actions/app.action';
 import { Actions, ofType } from '@ngrx/effects';
-import { each } from 'lodash';
+import { chunk, each } from 'lodash';
 import { ActivityViewService } from '../../services/activity-view.service';
 import { CapitalizePipe } from '../../services/capitalize.pipe';
+import { FormsModule } from '@angular/forms';
 
 interface JobRow {
   jobId: string;
@@ -25,7 +26,7 @@ interface JobRow {
 @Component({
   selector: 'app-activity-view',
   standalone: true,
-  imports: [NgClass, NgIf, NgFor, CapitalizePipe],
+  imports: [NgClass, NgIf, NgFor, CapitalizePipe, FormsModule],
   templateUrl: './activity-view.component.html',
   styleUrl: './activity-view.component.scss'
 })
@@ -50,6 +51,11 @@ export class ActivityViewComponent {
   selectedRowId = '';
 
   deployDropdown = false;
+
+  pageNumber = 1;
+  perPage = 10;
+
+  searchQuery = '';
 
   constructor(
     private store: Store<AppStateInit>,
@@ -200,6 +206,47 @@ export class ActivityViewComponent {
     this.jobs = this.jobs.sort((a, b) => {
       return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
     });
+  }
+
+  get filteredJobs(): JobRow[] {
+    if (!this.jobs) return [];
+    if (!this.searchQuery) return this.jobs;
+
+    return this.jobs.filter((job) => {
+      return job.jobId.toLowerCase().includes(this.searchQuery.toLowerCase());
+    });
+  }
+
+  get paginatedJobs() {
+    const paginatedItems = chunk(this.filteredJobs, this.perPage);
+    const pageData = paginatedItems[this.pageNumber - 1] || [];
+
+    return pageData;
+  }
+
+  hasNextPage() {
+    const paginatedItems = chunk(this.filteredJobs, this.perPage);
+    const totalPages = paginatedItems.length;
+
+    return this.pageNumber < totalPages;
+  }
+
+  hasPreviousPage() {
+    return this.pageNumber > 1;
+  }
+
+  nextPage() {
+    if (!this.hasNextPage()) return;
+    this.pageNumber++;
+  }
+
+  previousPage() {
+    if (!this.hasPreviousPage()) return;
+    this.pageNumber--;
+  }
+
+  resetPage() {
+    this.pageNumber = 1;
   }
 
   toggleDeployDropdown() {

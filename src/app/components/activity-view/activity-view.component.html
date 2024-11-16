@@ -24,7 +24,7 @@
         </div>
         <div class="activity-view-search-container">
             <div class="activity-view-search">
-                <input type="text" placeholder="Search">
+                <input type="text" placeholder="Search" [(ngModel)]="searchQuery" (input)="resetPage()">
             </div>
         </div>
         <div class="activity-view-table-container">
@@ -55,7 +55,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="activity-view-table-row" *ngFor="let job of jobs">
+                    <tr class="activity-view-table-row" *ngFor="let job of paginatedJobs">
                         <td class="activity-view-table-data" style="min-width: 45px;">
                             {{ job.jobId }}
                         </td>
@@ -95,17 +95,19 @@
                 <div class="spacer"></div>
                 <div class="activity-view-table-load">
                     <!-- <p class="active">Load more rows</p> -->
-                    <p>Load more rows</p>
+                    <p>10 rows per page</p>
                 </div>
                 <div class="activity-view-table-paginator">
-                    <div class="left">
-                        <img src="/left-arrow.png">
+                    <div class="left" (click)="previousPage()">
+                        <img src="/left-arrow-active.png" *ngIf="hasPreviousPage()">
+                        <img src="/left-arrow.png" *ngIf="!hasPreviousPage()">
                     </div>
                     <div class="number">
-                        <p>1</p>
+                        <p>{{ pageNumber }}</p>
                     </div>
-                    <div class="right active">
-                        <img src="/right-arrow-active.png">
+                    <div class="right" (click)="nextPage()">
+                        <img src="/right-arrow-active.png" *ngIf="hasNextPage()">
+                        <img src="/right-arrow.png" *ngIf="!hasNextPage()">
                     </div>
                 </div>
              </div>
