@@ -40,6 +40,7 @@ export class ApiDocsComponent {
 
     { name: 'Object', method: 'get', params: ['object: an object or the name of an object function.'], returns: ['object: the result of running the object function.', 'null: if no object, or if there is an error calling the object function.'], info: [] },
     { name: 'Object', method: 'getProperty', params: ['object: an object or the name of an object function.', 'string: the path of a property on the object.'], returns: ['object | any: the value of the property.', 'null: if no object, if no value or if there is an error calling the object function.'], info: [] },
+    { name: 'Object', method: 'setProperty', params: ['object: an object or the name of an object function.', 'string: the path of a property on the object.', 'any: the value to set.'], returns: ['object: the updated object.', 'null: if no object or if there is an error calling the object function.'], info: [] },
 
     { name: 'API', method: 'params', params: ['null | string: the name of a property on the Express request.params object.'], returns: ['string: the value of the request.params property.', 'object: the request.params object if null.'], info: [] },
     { name: 'API', method: 'query', params: ['null | string: the name of a property on the Express request.query object.'], returns: ['string: the value of the request.query property.', 'object: the request.query object if null.'], info: [] },
