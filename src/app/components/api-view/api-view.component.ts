@@ -207,6 +207,7 @@ export class ApiViewComponent {
     this.argtype['string'] = this.argtypes!.find((argtype) => argtype.name === 'string')!.regex;
     this.argtype['storage'] = this.argtypes!.find((argtype) => argtype.name === 'storage')!.regex;
     this.argtype['function'] = this.argtypes!.find((argtype) => argtype.name === 'function')!.regex;
+    this.argtype['fn'] = this.argtypes!.find((argtype) => argtype.name === 'fn')!.regex;
     this.argtype['request'] = this.argtypes!.find((argtype) => argtype.name === 'request')!.regex;
     this.argtype['object'] = this.argtypes!.find((argtype) => argtype.name === 'object')!.regex;
     this.argtype['array'] = this.argtypes!.find((argtype) => argtype.name === 'array')!.regex;
@@ -221,6 +222,7 @@ export class ApiViewComponent {
     this.argtype['string-type'] = this.argtypes!.find((argtype) => argtype.name === 'string-type')!.regex;
     this.argtype['storage-type'] = this.argtypes!.find((argtype) => argtype.name === 'storage-type')!.regex;
     this.argtype['function-type'] = this.argtypes!.find((argtype) => argtype.name === 'function-type')!.regex;
+    this.argtype['fn-type'] = this.argtypes!.find((argtype) => argtype.name === 'fn-type')!.regex;
     this.argtype['request-type'] = this.argtypes!.find((argtype) => argtype.name === 'request-type')!.regex;
     this.argtype['object-type'] = this.argtypes!.find((argtype) => argtype.name === 'object-type')!.regex;
     this.argtype['array-type'] = this.argtypes!.find((argtype) => argtype.name === 'array-type')!.regex;
