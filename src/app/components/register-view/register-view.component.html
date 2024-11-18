@@ -13,7 +13,7 @@
     </div>
     <div class="register-list-item-container" *ngIf="registers">
         <div class="register-list-item" *ngFor="let register of registers">
-            <p>{{ register.name }} - {{ register.version }}</p>
+            <a [href]="'https://www.npmjs.com/package/' + register.name" target="_blank"><p>{{ register.name }} - {{ register.version }}</p></a>
             <img src="/x.png" (click)="delete(register)">
         </div>
     </div>
