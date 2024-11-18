@@ -8,6 +8,7 @@ import { selectAPIs, selectMainProject, selectUser, selectValidators, selectView
 import { deleteAPI, deselectService, updateAPI } from '../../store/actions/app.action';
 import { UpperCasePipe } from '../../services/uppercase.pipe';
 import { DeleteService } from '../../services/delete.service';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-edit-api',
@@ -60,7 +61,7 @@ export class EditApiComponent {
 
       if (this.user && this.view && this.view.serviceId) {
         const api = apis.find((existingAPI) => existingAPI._id === this.view.serviceId);
-        this.api = api ? { ...api } : null;
+        this.api = api ? cloneDeep(api) : null;
       }
     });
   }
@@ -130,7 +131,7 @@ export class EditApiComponent {
   save() {
     if (!this.project) return;
     if (!this.api) return;
-    this.store.dispatch(updateAPI({ projectId: this.project._id, api: this.api }));
+    this.store.dispatch(updateAPI({ projectId: this.project._id, api: cloneDeep(this.api) }));
   }
 
   delete() {
