@@ -28,6 +28,8 @@ export class RegisterViewComponent {
   sub: Subscription | null = null;
   requestSub: Subscription | null = null;
 
+  activated = false;
+
   constructor(
     private store: Store<AppStateInit>,
     private deleteService: DeleteService,
@@ -124,5 +126,9 @@ export class RegisterViewComponent {
     } catch(err) {
 
     }
+  }
+
+  activate() {
+    this.activated = true;
   }
 }

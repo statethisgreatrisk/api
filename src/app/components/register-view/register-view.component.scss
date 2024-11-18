@@ -5,6 +5,44 @@
     flex-direction: column;
 }
 
+.register-upgrade {
+    display: flex;
+    flex-direction: row;
+
+    height: 40px;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.register-upgrade p {
+    font-size: 12px;
+    font-weight: 800;
+
+    color: white;
+}
+
+.register-upgrade-info p:nth-child(2) {
+    font-size: 11px;
+}
+
+.register-upgrade-button {
+    font-size: 12px;
+    font-weight: 600;
+
+    padding: 3px 15px;
+
+    color: white;
+
+    border-radius: 5px;
+    border: 1px solid $primary-800;
+    background: $primary-800;
+
+    cursor: pointer;
+}
+
 .register-create {
     display: flex;
     flex-direction: row;

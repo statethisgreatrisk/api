@@ -5,7 +5,7 @@
     flex-direction: column;
 }
 
-.sub-create {
+.sub-upgrade {
     display: flex;
     flex-direction: row;
 
@@ -17,14 +17,18 @@
     border-bottom: 1px solid $surface-mixed-200;
 }
 
-.sub-create p {
+.sub-upgrade p {
     font-size: 12px;
     font-weight: 800;
 
     color: white;
 }
 
-.sub-create p:nth-child(2) {
+.sub-upgrade-info p:nth-child(2) {
+    font-size: 11px;
+}
+
+.sub-upgrade-button {
     font-size: 12px;
     font-weight: 600;
 

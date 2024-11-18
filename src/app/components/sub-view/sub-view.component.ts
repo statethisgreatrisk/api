@@ -21,6 +21,8 @@ export class SubViewComponent {
 
   sub: Subscription | null = null;
 
+  activated = false;
+
   constructor(
     private store: Store<AppStateInit>,
   ) {}
@@ -45,5 +47,9 @@ export class SubViewComponent {
       this.project = project;
       this.subs = subs;
     });
+  }
+
+  activate() {
+    this.activated = true;
   }
 }

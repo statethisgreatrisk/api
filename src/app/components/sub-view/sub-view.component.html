@@ -1,7 +1,10 @@
 <div class="sub-view">
-    <div class="sub-create">
-        <p>Activate</p>
-        <p>Activate User Pool</p>
+    <div class="sub-upgrade">
+        <div class="sub-upgrade-info">
+            <p>Activate</p>
+            <p>$0.00 per month</p>
+        </div>
+        <p class="sub-upgrade-button" (click)="activate()">Activate Users</p>
     </div>
     <div class="sub-list-item-container" *ngIf="subs">
         <div class="sub-list-item" *ngFor="let sub of subs">
