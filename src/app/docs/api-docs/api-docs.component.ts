@@ -38,6 +38,8 @@ export class ApiDocsComponent {
     { name: 'Number', method: 'isEqual', params: ['number', 'number'], returns: ['boolean: if arg1 is equal to arg2.'], info: [] },
     { name: 'Number', method: 'isNotEqual', params: ['number', 'number'], returns: ['boolean: if arg1 is not equal to arg2.'], info: [] },
 
+    { name: 'Function', method: 'get', params: ['function: the name of a function.'], returns: ['any: the result of running the function.', 'null: if there is an error calling the function.'], info: [] },
+
     { name: 'Object', method: 'get', params: ['object: an object or the name of an object function.'], returns: ['object: the result of running the object function.', 'null: if no object, or if there is an error calling the object function.'], info: [] },
     { name: 'Object', method: 'getProperty', params: ['object: an object or the name of an object function.', 'string: the path of a property on the object.'], returns: ['any: the value of the property.', 'null: if no object, if no value or if there is an error calling the object function.'], info: [] },
     { name: 'Object', method: 'setProperty', params: ['object: an object or the name of an object function.', 'string: the path of a property on the object.', 'any: the value to set.'], returns: ['object: the updated object.', 'null: if no object or if there is an error calling the object function.'], info: [] },
@@ -51,6 +53,9 @@ export class ApiDocsComponent {
     { name: 'Array', method: 'shift', params: ['array: an array or the name of an array function.'], returns: ['any: the first element', 'null: if no array, no element, or if there is an error calling the array function.'], info: [] },
     { name: 'Array', method: 'concat', params: ['array: an array or the name of an array function.', 'array: an array or the name of an array function.'], returns: ['array: the new array', 'null: if no array, or if there is an error calling the array function.'], info: [] },
     { name: 'Array', method: 'reverse', params: ['array: an array or the name of an array function.'], returns: ['array: the reversed array', 'null: if no array, or if there is an error calling the array function.'], info: [] },
+    { name: 'Array', method: 'forEach', params: ['array: an array or the name of an array function.', 'fn: a callback function.'], returns: ['array: the original array', 'null: if no array, or if there is an error calling the callback function.'], info: [] },
+    { name: 'Array', method: 'map', params: ['array: an array or the name of an array function.', 'fn: a callback function.'], returns: ['array: the updated array', 'null: if no array, or if there is an error calling the callback function.'], info: [] },
+    { name: 'Array', method: 'reduce', params: ['array: an array or the name of an array function.', 'fn: a callback function.', 'any: the initial value.'], returns: ['any: the result of running the reduce function.', 'null: if no array, or if there is an error calling the callback function.'], info: [] },
 
     { name: 'API', method: 'params', params: ['null | string: the name of a property on the Express request.params object.'], returns: ['string: the value of the request.params property.', 'object: the request.params object if null.'], info: [] },
     { name: 'API', method: 'query', params: ['null | string: the name of a property on the Express request.query object.'], returns: ['string: the value of the request.query property.', 'object: the request.query object if null.'], info: [] },
