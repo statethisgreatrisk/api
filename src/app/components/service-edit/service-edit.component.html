@@ -1,3 +1,5 @@
-<div class="service-edit-container">
+<div #serviceEditContainer class="service-edit-container" [ngStyle]="{ width: serviceEditWidth + 'px' }">
     <ng-container #componentHost></ng-container>
 </div>
+
+<div class="service-edit-resize-bar" appResizableWidth [resizingElement]="serviceEditContainer" [localStorageKey]="'serviceEditWidth'"></div>

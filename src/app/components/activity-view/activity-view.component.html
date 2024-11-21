@@ -1,4 +1,5 @@
-<div class="activity-view-container">
+<div #activityViewContainer class="activity-view-container" [ngStyle]="{ height: workflowBarHeight + 'px', maxHeight: workflowBarHeight + 'px' }">
+    <div class="activity-view-resize-bar" appResizableHeight [resizingElement]="activityViewContainer" [localStorageKey]="'workflowBarHeight'" [minHeight]="250" [maxHeight]="500" [reverse]="true"></div>
     <div class="activity-view">
         <div class="activity-view-header-container">
             <div class="activity-view-header">

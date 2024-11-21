@@ -1,5 +1,5 @@
-import { Component, ViewChild, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, ViewChild, Inject, ElementRef } from '@angular/core';
+import { DOCUMENT, NgStyle } from '@angular/common';
 import { selectFns, selectMainProject, selectUser, selectView } from '../../store/selectors/app.selector';
 import { deleteFn, deselectService, updateFn } from '../../store/actions/app.action';
 import { Store } from '@ngrx/store';
@@ -13,11 +13,12 @@ import { javascript } from '@codemirror/lang-javascript';
 import { EditorState, Extension } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import { oneDarkSmall } from '../../styles/one-dark-small';
+import { ResizableHeightDirective } from '../../directives/resizable-height.directive';
 
 @Component({
   selector: 'app-edit-fn',
   standalone: true,
-  imports: [NgIf, FormsModule],
+  imports: [NgIf, NgStyle, FormsModule, ResizableHeightDirective],
   templateUrl: './edit-fn.component.html',
   styleUrl: './edit-fn.component.scss'
 })
@@ -32,6 +33,10 @@ export class EditFnComponent {
   @ViewChild('codeEditor') codeEditor: any;
   editorState!: EditorState;
   editorView!: EditorView;
+
+  @ViewChild('editFnCodeContainer') editFnCodeContainer!: ElementRef;
+
+  editFnHeight: string = localStorage.getItem('editFnHeight') || '100';
 
   constructor(
     private store: Store<AppStateInit>,

@@ -1,5 +1,5 @@
-import { Component, ViewChild, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, ViewChild, Inject, ElementRef } from '@angular/core';
+import { DOCUMENT, NgStyle } from '@angular/common';
 import { selectObjs, selectMainProject, selectUser, selectView } from '../../store/selectors/app.selector';
 import { deleteObj, deselectService, updateObj } from '../../store/actions/app.action';
 import { Store } from '@ngrx/store';
@@ -13,11 +13,12 @@ import { javascript } from '@codemirror/lang-javascript';
 import { EditorState, Extension } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import { oneDarkSmall } from '../../styles/one-dark-small';
+import { ResizableHeightDirective } from '../../directives/resizable-height.directive';
 
 @Component({
   selector: 'app-edit-obj',
   standalone: true,
-  imports: [NgIf, FormsModule],
+  imports: [NgIf, NgStyle, FormsModule, ResizableHeightDirective],
   templateUrl: './edit-obj.component.html',
   styleUrl: './edit-obj.component.scss'
 })
@@ -32,6 +33,10 @@ export class EditObjComponent {
   @ViewChild('codeEditor') codeEditor: any;
   editorState!: EditorState;
   editorView!: EditorView;
+
+  @ViewChild('editObjCodeContainer') editObjCodeContainer!: ElementRef;
+
+  editObjHeight: string = localStorage.getItem('editObjHeight') || '100';
 
   constructor(
     private store: Store<AppStateInit>,

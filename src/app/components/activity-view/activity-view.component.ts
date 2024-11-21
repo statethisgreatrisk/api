@@ -1,5 +1,5 @@
-import { NgClass, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { InfoService } from '../../services/info.service';
 import { SocketService } from '../../services/socket.service';
 import { Store } from '@ngrx/store';
@@ -12,6 +12,7 @@ import { chunk, each } from 'lodash';
 import { ActivityViewService } from '../../services/activity-view.service';
 import { CapitalizePipe } from '../../services/capitalize.pipe';
 import { FormsModule } from '@angular/forms';
+import { ResizableHeightDirective } from '../../directives/resizable-height.directive';
 
 interface JobRow {
   jobId: string;
@@ -26,7 +27,7 @@ interface JobRow {
 @Component({
   selector: 'app-activity-view',
   standalone: true,
-  imports: [NgClass, NgIf, NgFor, CapitalizePipe, FormsModule],
+  imports: [NgClass, NgIf, NgFor, NgStyle, CapitalizePipe, FormsModule, ResizableHeightDirective],
   templateUrl: './activity-view.component.html',
   styleUrl: './activity-view.component.scss'
 })
@@ -56,6 +57,10 @@ export class ActivityViewComponent {
   perPage = 10;
 
   searchQuery = '';
+
+  @ViewChild('activityViewContainer') activityViewContainer!: ElementRef;
+
+  workflowBarHeight: string = localStorage.getItem('workflowBarHeight') || '250';
 
   constructor(
     private store: Store<AppStateInit>,

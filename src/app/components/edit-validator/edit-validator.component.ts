@@ -1,5 +1,5 @@
-import { NgIf, NgClass, DOCUMENT } from '@angular/common';
-import { Component, Inject, ViewChild } from '@angular/core';
+import { NgIf, NgClass, DOCUMENT, NgStyle } from '@angular/common';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppStateInit, Project, User, Validator, View } from '../../store/interfaces/app.interface';
 import { combineLatest, Subscription } from 'rxjs';
@@ -12,11 +12,12 @@ import { javascript } from '@codemirror/lang-javascript';
 import { EditorState, Extension } from '@codemirror/state';
 import { EditorView, basicSetup } from 'codemirror';
 import { oneDarkSmall } from '../../styles/one-dark-small';
+import { ResizableHeightDirective } from '../../directives/resizable-height.directive';
 
 @Component({
   selector: 'app-edit-validator',
   standalone: true,
-  imports: [NgIf, NgClass, FormsModule, CapitalizePipe],
+  imports: [NgIf, NgStyle, NgClass, FormsModule, CapitalizePipe, ResizableHeightDirective],
   templateUrl: './edit-validator.component.html',
   styleUrl: './edit-validator.component.scss'
 })
@@ -31,6 +32,10 @@ export class EditValidatorComponent {
   @ViewChild('codeEditor') codeEditor: any;
   editorState!: EditorState;
   editorView!: EditorView;
+
+  @ViewChild('editValidatorCodeContainer') editValidatorCodeContainer!: ElementRef;
+
+  editValidatorHeight: string = localStorage.getItem('editValidatorHeight') || '100';
 
   constructor(
     private store: Store<AppStateInit>,

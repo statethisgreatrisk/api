@@ -10,3 +10,10 @@
     background-color: $surface-dark;
     border-right: 1px solid $surface-mixed-300;
 }
+
+.service-edit-resize-bar {
+    width: 2px;
+    height: 100%;
+    border: 1px solid black;
+    cursor: ew-resize;
+}

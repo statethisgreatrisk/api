@@ -1,11 +1,11 @@
-import { Component, ComponentRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { ComponentInjectorService } from '../../services/component-injector.service';
 import { AppStateInit, View } from '../../store/interfaces/app.interface';
 import { EditApiComponent } from '../edit-api/edit-api.component';
 import { EditStorageComponent } from '../edit-storage/edit-storage.component';
 import { EditValidatorComponent } from '../edit-validator/edit-validator.component';
 import { Store } from '@ngrx/store';
-import { NgIf } from '@angular/common';
+import { NgIf, NgStyle } from '@angular/common';
 import { EditSchemaComponent } from '../edit-schema/edit-schema.component';
 import { selectView } from '../../store/selectors/app.selector';
 import { EditFnComponent } from '../edit-fn/edit-fn.component';
@@ -17,19 +17,24 @@ import { EditWebsocketComponent } from '../edit-websocket/edit-websocket.compone
 import { EditQueueComponent } from '../edit-queue/edit-queue.component';
 import { EditSchedulerComponent } from '../edit-scheduler/edit-scheduler.component';
 import { EditArrComponent } from '../edit-arr/edit-arr.component';
+import { ResizableWidthDirective } from '../../directives/resizable-width.directive';
 
 @Component({
   selector: 'app-service-edit',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, NgStyle, ResizableWidthDirective],
   templateUrl: './service-edit.component.html',
   styleUrl: './service-edit.component.scss'
 })
 export class ServiceEditComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
+
+  @ViewChild('serviceEditContainer') serviceEditContainer!: ElementRef;
   
   @ViewChild('componentHost', { read: ViewContainerRef, static: true }) componentHost!: ViewContainerRef;
   componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditFnComponent | EditObjComponent | EditArrComponent | EditRequestComponent | EditVariableComponent | EditWebsocketComponent | EditQueueComponent | EditSchedulerComponent | EditWorkflowComponent> | null = null;
+
+  serviceEditWidth: string = localStorage.getItem('serviceEditWidth') || '400';
   
   constructor(
     private store: Store<AppStateInit>,

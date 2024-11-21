@@ -1,4 +1,5 @@
-<div class="logs-view-container">
+<div #logsViewContainer class="logs-view-container" [ngStyle]="{ height: workflowBarHeight + 'px', maxHeight: workflowBarHeight + 'px' }">
+    <div class="logs-view-resize-bar" appResizableHeight [resizingElement]="logsViewContainer" [localStorageKey]="'workflowBarHeight'" [minHeight]="250" [maxHeight]="500" [reverse]="true"></div>
     <div class="logs-view">
         <div class="logs-view-header-container">
             <div class="logs-view-header">

@@ -1,4 +1,5 @@
-<div class="debug-view-container">
+<div #debugViewContainer class="debug-view-container" [ngStyle]="{ height: workflowBarHeight + 'px', maxHeight: workflowBarHeight + 'px' }">
+    <div class="debug-view-resize-bar" appResizableHeight [resizingElement]="debugViewContainer" [localStorageKey]="'workflowBarHeight'" [minHeight]="250" [maxHeight]="500" [reverse]="true"></div>
     <div class="debug-view">
         <div class="debug-view-header-container">
             <div class="debug-view-header">

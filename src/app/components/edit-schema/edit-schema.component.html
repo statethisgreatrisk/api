@@ -19,9 +19,10 @@
         <div class="edit-schema-label">
             <p>Schema name can have up to 80 characters, may only contain alphanumeric characters and underscores (_), is case sensitive and must be unique.</p>
         </div>
-        <div class="edit-schema-code-container">
+        <div #editSchemaCodeContainer class="edit-schema-code-container"  [ngStyle]="{ height: editSchemaHeight + 'px' }">
             <div #codeEditor></div>
         </div>
+        <div class="edit-schema-code-resize-bar" appResizableHeight [resizingElement]="editSchemaCodeContainer" [localStorageKey]="'editSchemaHeight'"></div>
         <div class="edit-schema-buttons">
             <div class="edit-schema-cancel" (click)="cancel()">
                 <p>Cancel</p>

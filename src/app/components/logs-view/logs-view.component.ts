@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LogsViewService } from '../../services/logs-view.service';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgStyle } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { User, View, Project, Deploy, Log, AppStateInit, Instance } from '../../store/interfaces/app.interface';
@@ -9,11 +9,12 @@ import { Actions, ofType } from '@ngrx/effects';
 import { getDeployStatusSuccess, getDeployStatusError, getDeployStatus, getLogs } from '../../store/actions/app.action';
 import { CapitalizePipe } from '../../services/capitalize.pipe';
 import { SocketService } from '../../services/socket.service';
+import { ResizableHeightDirective } from '../../directives/resizable-height.directive';
 
 @Component({
   selector: 'app-logs-view',
   standalone: true,
-  imports: [NgFor, NgIf, CapitalizePipe],
+  imports: [NgFor, NgIf, NgStyle, ResizableHeightDirective, CapitalizePipe],
   templateUrl: './logs-view.component.html',
   styleUrl: './logs-view.component.scss'
 })
@@ -35,6 +36,10 @@ export class LogsViewComponent {
   statusInitialLoad = false;
 
   deployDropdown = false;
+
+  @ViewChild('logsViewContainer') logsViewContainer!: ElementRef;
+
+  workflowBarHeight: string = localStorage.getItem('workflowBarHeight') || '250';
   
   constructor(
     private actions$: Actions,

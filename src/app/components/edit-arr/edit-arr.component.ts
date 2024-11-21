@@ -1,5 +1,5 @@
-import { DOCUMENT, NgIf } from '@angular/common';
-import { Component, Inject, ViewChild } from '@angular/core';
+import { DOCUMENT, NgIf, NgStyle } from '@angular/common';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { selectArrs, selectMainProject, selectUser, selectView } from '../../store/selectors/app.selector';
 import { javascript } from '@codemirror/lang-javascript';
@@ -11,11 +11,12 @@ import { DeleteService } from '../../services/delete.service';
 import { deselectService, updateArr, deleteArr } from '../../store/actions/app.action';
 import { User, View, Project, Arr, AppStateInit } from '../../store/interfaces/app.interface';
 import { oneDarkSmall } from '../../styles/one-dark-small';
+import { ResizableHeightDirective } from '../../directives/resizable-height.directive';
 
 @Component({
   selector: 'app-edit-arr',
   standalone: true,
-  imports: [NgIf, FormsModule],
+  imports: [NgIf, NgStyle, FormsModule, ResizableHeightDirective],
   templateUrl: './edit-arr.component.html',
   styleUrl: './edit-arr.component.scss'
 })
@@ -30,6 +31,10 @@ export class EditArrComponent {
   @ViewChild('codeEditor') codeEditor: any;
   editorState!: EditorState;
   editorView!: EditorView;
+
+  @ViewChild('editArrCodeContainer') editArrCodeContainer!: ElementRef;
+
+  editArrHeight: string = localStorage.getItem('editArrHeight') || '100';
 
   constructor(
     private store: Store<AppStateInit>,

@@ -1,5 +1,5 @@
-import { DOCUMENT, NgFor, NgIf } from '@angular/common';
-import { Component, Inject, ViewChild } from '@angular/core';
+import { DOCUMENT, NgFor, NgIf, NgStyle } from '@angular/common';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppStateInit, Project, Schema, User, View } from '../../store/interfaces/app.interface';
 import { selectMainProject, selectSchemas, selectUser, selectView } from '../../store/selectors/app.selector';
@@ -11,11 +11,12 @@ import { javascript } from '@codemirror/lang-javascript';
 import { EditorState, Extension } from '@codemirror/state';
 import { EditorView, basicSetup } from 'codemirror';
 import { oneDarkSmall } from '../../styles/one-dark-small';
+import { ResizableHeightDirective } from '../../directives/resizable-height.directive';
 
 @Component({
   selector: 'app-edit-schema',
   standalone: true,
-  imports: [NgIf, NgFor, FormsModule],
+  imports: [NgIf, NgStyle, NgFor, FormsModule, ResizableHeightDirective],
   templateUrl: './edit-schema.component.html',
   styleUrl: './edit-schema.component.scss'
 })
@@ -30,6 +31,10 @@ export class EditSchemaComponent {
   @ViewChild('codeEditor') codeEditor: any;
   editorState!: EditorState;
   editorView!: EditorView;
+
+  @ViewChild('editSchemaCodeContainer') editSchemaCodeContainer!: ElementRef;
+
+  editSchemaHeight: string = localStorage.getItem('editSchemaHeight') || '100';
 
   constructor(
     private store: Store<AppStateInit>,
