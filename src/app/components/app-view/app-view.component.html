@@ -1,19 +1,23 @@
 <div class="app-view-container">
     <div class="app-view-breadcrumb-container">
-        <div class="app-view-breadcrumb">
+        <div class="app-view-breadcrumb" *ngIf="sidebar">
             <p class="initial">Apps</p>
             <img src="/right.png">
         </div>
-        <div class="app-view-breadcrumb">
+        <div class="app-view-breadcrumb" *ngIf="sidebar">
             <p class="active">System</p>
         </div>
+        <div class="spacer"></div>
+        <div class="app-view-sidebar-icon">
+            <img class="active" src="/sidebar-right-active.png" (click)="toggleSidebar()">
+        </div>
     </div>
-    <div class="app-view-search-container">
+    <div class="app-view-search-container" *ngIf="sidebar">
         <div class="app-view-search">
             <input type="text" placeholder="Search Apps" [(ngModel)]="search">
         </div>
     </div>
-    <div class="app-view-button-list">
+    <div class="app-view-button-list" *ngIf="sidebar">
         <div class="app-view-button" *ngFor="let app of filteredApps" (click)="scrollToApp(app.name, app.method)">
             <div class="app-view-button-info">
                 <img src="/app.png">
@@ -21,10 +25,10 @@
             </div>
         </div>
     </div>
-    <div class="app-view-divider">
+    <div class="app-view-divider" *ngIf="sidebar">
         <div class="divider"></div>
     </div>
-    <div class="app-view-info-container">
+    <div class="app-view-info-container" *ngIf="sidebar">
         <app-api-docs></app-api-docs>
     </div>
 </div>

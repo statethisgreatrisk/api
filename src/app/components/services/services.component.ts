@@ -81,6 +81,13 @@ export class ServicesComponent {
     if (serviceName === 'Workflows') this.store.dispatch(selectWindow({ windowName: 'Workflows', windowId: serviceId }));
   }
 
+  hideSidebar() {
+    if (!this.view.service) return;
+    if (!this.view.serviceId) return;
+    
+    this.store.dispatch(deselectService({ serviceName: this.view.service, serviceId: this.view.serviceId }));
+  }
+
   toggleDropdown() {
     this.dropdown = !this.dropdown;
   }

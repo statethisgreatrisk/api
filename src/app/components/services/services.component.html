@@ -1,6 +1,12 @@
 <div class="services-container">
     <div class="services-header">
         <p>Dispatch Workbox</p>
+        <ng-content *ngIf="!view.serviceId">
+            <img src="/sidebar.png">
+        </ng-content>
+        <ng-content *ngIf="view.serviceId">
+            <img class="active" src="/sidebar-active.png" (click)="hideSidebar()">
+        </ng-content>
     </div>
     <div class="project-container">
         <div class="project-button" (click)="toggleDropdown()" *ngIf="project">

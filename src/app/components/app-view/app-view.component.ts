@@ -25,6 +25,8 @@ export class AppViewComponent {
 
   search = '';
 
+  sidebar = true;
+
   constructor(
     private store: Store<AppStateInit>,
   ) {}
@@ -57,5 +59,9 @@ export class AppViewComponent {
 
   scrollToApp(appName: string, appMethod: string) {
     this.apiDocComponent.scrollToApp(`${appName}${appMethod}`);
+  }
+
+  toggleSidebar() {
+    this.sidebar = !this.sidebar;
   }
 }
