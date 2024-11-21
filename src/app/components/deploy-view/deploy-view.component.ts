@@ -7,6 +7,7 @@ import { deployStartError, deployStartSuccess, deployStopError, deployStopSucces
 import { User, View, Project, Deploy, AppStateInit, Instance, Usage } from '../../store/interfaces/app.interface';
 import { selectUser, selectView, selectMainProject, selectDeploys, selectInstances, selectUsages } from '../../store/selectors/app.selector';
 import { SocketService } from '../../services/socket.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-deploy-view',
@@ -46,6 +47,7 @@ export class DeployViewComponent {
     private store: Store<AppStateInit>,
     private actions$: Actions,
     public socketService: SocketService,
+    private toastService: ToastService,
   ) {}
 
   ngOnInit() {
@@ -251,5 +253,23 @@ export class DeployViewComponent {
     const seconds: number = Math.floor((diffInMs % (1000 * 60)) / 1000);
 
     return `${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  async updateEndpoints() {
+    try {
+      if (!this.user) return;
+      if (!this.instance) return;
+
+      await this.socketService.init(this.instance.name, this.user._id);
+
+      this.socketService.sendMessage(JSON.stringify({
+        id: this.user._id,
+        update: true,
+      }));
+
+      this.toastService.addToast({ type: 'success', text: 'Updated endpoints successfully' });
+    } catch(error) {
+      console.log('Error updating endpoints', error);
+    }
   }
 }

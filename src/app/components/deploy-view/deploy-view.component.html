@@ -54,7 +54,7 @@
     </div>
     <div class="deploy-update" *ngIf="deploy && instance && status === 'running'">
         <p>Update</p>
-        <p>Update Endpoints</p>
+        <p (click)="updateEndpoints()">Update Endpoints</p>
     </div>
     <div class="deploy-stop" *ngIf="deploy && instance && status === 'running'">
         <p>Stop</p>
