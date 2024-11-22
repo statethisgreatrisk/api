@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { App, AppStateInit } from '../../store/interfaces/app.interface';
@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     NgFor,
     NgIf,
+    NgStyle,
     FormsModule,
     ApiDocsComponent,
   ],
@@ -26,6 +27,8 @@ export class AppViewComponent {
   search = '';
 
   sidebar = true;
+
+  sidebarWidth: string = '400px';
 
   constructor(
     private store: Store<AppStateInit>,
@@ -63,5 +66,8 @@ export class AppViewComponent {
 
   toggleSidebar() {
     this.sidebar = !this.sidebar;
+
+    if (!this.sidebar) this.sidebarWidth = 'auto';
+    else this.sidebarWidth = '400px';
   }
 }

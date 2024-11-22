@@ -1,4 +1,4 @@
-<ng-content *ngFor="let doc of docsSorted; index as index">
+<ng-content *ngFor="let doc of filteredApps; index as index">
     <div class="app-view-docs" [id]="doc.name + doc.method" (click)="selectApp(doc.name, doc.method)">
         <div class="app-view-docs-method">
             <p>{{ doc.name }}</p>

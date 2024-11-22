@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SelectAppService } from '../../services/select-app.service';
 import { NgFor, NgIf } from '@angular/common';
 
@@ -18,6 +18,8 @@ interface Doc {
   styleUrl: './api-docs.component.scss'
 })
 export class ApiDocsComponent {
+  @Input() search!: string;
+
   docs: Doc[] = [
     { name: 'String', method: 'isEqual', params: ['string', 'string'], returns: ['boolean: if arg1 is equal to arg2.'], info: [] },
     { name: 'String', method: 'isNotEqual', params: ['string', 'string'], returns: ['boolean: if arg1 is not equal to arg2.'], info: [] },
@@ -121,6 +123,15 @@ export class ApiDocsComponent {
       if (a.method < b.method) return -1;
       if (a.method > b.method) return 1;
       return 0;
+    });
+  }
+
+  get filteredApps() {
+    return this.docsSorted.filter((app) => {
+      if (!this.search) return true;
+
+      const appName = `${app.name.toLowerCase()}.${app.method.toLowerCase()}`;
+      return appName.includes(this.search.toLowerCase());
     });
   }
 

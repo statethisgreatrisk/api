@@ -1,4 +1,4 @@
-<div class="app-view-container">
+<div class="app-view-container" [ngStyle]="{ width: sidebarWidth }">
     <div class="app-view-breadcrumb-container">
         <div class="app-view-breadcrumb" *ngIf="sidebar">
             <p class="initial">Apps</p>
@@ -29,6 +29,6 @@
         <div class="divider"></div>
     </div>
     <div class="app-view-info-container" *ngIf="sidebar">
-        <app-api-docs></app-api-docs>
+        <app-api-docs [search]="search"></app-api-docs>
     </div>
 </div>
