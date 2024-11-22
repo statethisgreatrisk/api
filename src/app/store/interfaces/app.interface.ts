@@ -80,6 +80,11 @@ export interface App {
     schemas: Arg[];
 }
 
+export interface AppSelect {
+    app: App;
+    below: boolean;
+}
+
 export interface Project {
     _id: string;
     userId: string;

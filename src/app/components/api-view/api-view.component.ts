@@ -105,10 +105,11 @@ export class ApiViewComponent {
   }
 
   initSelectApp() {
-    this.selectAppSub = this.selectAppService.app$.subscribe((app) => {
-      if (!app) return;
+    this.selectAppSub = this.selectAppService.app$.subscribe((appSelect) => {
+      if (!appSelect) return;
+      if (!appSelect.app) return;
       
-      this.addRow(app);
+      this.addRow(appSelect.below, appSelect.app);
     });
   }
 
@@ -300,22 +301,49 @@ export class ApiViewComponent {
     return valid;
   }
 
-  addRow(app?: App) {
+  addRow(below: boolean, app?: App) {
     if (!this.workflow) return;
 
     const selectedRow = this.workflow.rows.findIndex((row) => row._id === this.selectedRowId);
-    const index = selectedRow >= 0 ? selectedRow + 1 : this.workflow.rows.length;
+
+    let index = this.workflow.rows.length;
+
+    if (below && selectedRow === -1) {
+      // If below and no index add to last position
+      index = this.workflow.rows.length;
+    } else if (!below && selectedRow === -1) {
+      // If above and no index add to first
+      index = 0;
+    } else if (below && selectedRow === 0) {
+      // If below and 0, add to next position
+      index = selectedRow + 1;
+    } else if (!below && selectedRow === 0) {
+      // If above and 0, add to 0
+      index = 0;
+    } else if (below && selectedRow > 0) {
+      // If below and > 0, add to next position
+      index = selectedRow + 1;
+    } else if (!below && selectedRow > 0) {
+      // If above and > 0, add to current position
+      index = selectedRow;
+    }
 
     let indents = 0;
     
     each(this.indentIds, (indentArray, indentIndex) => {
       each(indentArray, (indentPairs) => {
-        times(indentPairs.length - 1, (index) => {
-          const openIndex = this.workflow!.rows.findIndex((existingRow) => existingRow._id === indentPairs[index])!;
-          const closeIndex = this.workflow!.rows.findIndex((existingRow) => existingRow._id === indentPairs[index + 1])!;
-  
-          if (selectedRow >= openIndex && selectedRow < closeIndex) {
-            indents = indentIndex + 1;
+        times(indentPairs.length - 1, (innerIndentIndex) => {
+          const openIndex = this.workflow!.rows.findIndex((existingRow) => existingRow._id === indentPairs[innerIndentIndex])!;
+          const closeIndex = this.workflow!.rows.findIndex((existingRow) => existingRow._id === indentPairs[innerIndentIndex + 1])!;
+
+          if (below && selectedRow >= 0) {
+            if (selectedRow >= openIndex && selectedRow < closeIndex) {
+              indents = indentIndex + 1;
+            }
+          } else if (!below && selectedRow > 0) {
+            if (selectedRow > openIndex && selectedRow <= closeIndex) {
+              indents = indentIndex + 1;
+            }
           }
         });
       });

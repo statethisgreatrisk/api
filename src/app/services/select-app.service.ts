@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { App, AppStateInit } from '../store/interfaces/app.interface';
+import { App, AppSelect, AppStateInit } from '../store/interfaces/app.interface';
 import { Subject, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectApps } from '../store/selectors/app.selector';
@@ -8,8 +8,8 @@ import { selectApps } from '../store/selectors/app.selector';
   providedIn: 'root'
 })
 export class SelectAppService {
-  private app: Subject<App> = new Subject<App>();
-  public app$: Observable<App | null> = this.app.asObservable();
+  private app: Subject<AppSelect> = new Subject<AppSelect>();
+  public app$: Observable<AppSelect | null> = this.app.asObservable();
 
   apps: App[] = [];
 
@@ -28,14 +28,14 @@ export class SelectAppService {
     });
   }
 
-  selectApp(app: App) {
-    this.app.next(app);
+  selectApp(appSelect: AppSelect) {
+    this.app.next(appSelect);
   }
 
-  selectAppByName(appName: string, appMethod: string) {
+  selectAppByName(appName: string, appMethod: string, below: boolean = true) {
     const app = this.apps.find((app) => app.name === appName && app.method === appMethod);
     if (!app) return;
 
-    this.selectApp(app);
+    this.selectApp({ app, below });
   }
 }

@@ -4,11 +4,17 @@
             <div class="api-view-breadcrumb" *ngIf="workflow">
                 <p class="active">{{ workflow.name }}</p>
             </div>
-            <div class="api-view-slim-button inline" (click)="addRow()">
+            <div class="api-view-slim-button text">
                 <p>Add blank row</p>
             </div>
+            <div class="api-view-slim-button inline" (click)="addRow(true)">
+                <p>below</p>
+            </div>
             <div class="api-view-slim-button text">
-                <p>or select an App</p>
+                <p>or</p>
+            </div>
+            <div class="api-view-slim-button inline" (click)="addRow(false)">
+                <p>above</p>
             </div>
             <div class="spacer"></div>
             <div class="api-view-slim-button inline" (click)="close()">

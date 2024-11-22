@@ -1,5 +1,5 @@
 <ng-content *ngFor="let doc of filteredApps; index as index">
-    <div class="app-view-docs" [id]="doc.name + doc.method" (click)="selectApp(doc.name, doc.method)">
+    <div class="app-view-docs" [id]="doc.name + doc.method" (click)="selectApp(doc.name, doc.method)" (mouseleave)="removeAllDropdowns()">
         <div class="app-view-docs-method">
             <p>{{ doc.name }}</p>
             <p>.{{ doc.method }}(</p>
@@ -22,6 +22,15 @@
         <div class="app-view-docs-info" *ngFor="let i of doc.info">
             <p>info:</p>
             <p>{{ i }}</p>
+        </div>
+        <div class="app-view-docs-menu-container" (click)="toggleDropdown($event, doc)">
+            <div class="app-view-docs-menu-icon">
+                <img src="/menu.png">
+            </div>
+        </div>
+        <div class="app-view-docs-menu-dropdown-container" *ngIf="doc.dropdown">
+            <p (click)="selectAppFromDropdown($event, doc.name, doc.method)">Insert below row</p>
+            <p (click)="selectAppFromDropdown($event, doc.name, doc.method, false)">Insert above row</p>
         </div>
     </div>    
 </ng-content>

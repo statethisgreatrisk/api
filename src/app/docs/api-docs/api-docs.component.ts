@@ -8,6 +8,7 @@ interface Doc {
   params: string[];
   returns: string[];
   info: string[];
+  dropdown?: boolean;
 }
 
 @Component({
@@ -135,12 +136,34 @@ export class ApiDocsComponent {
     });
   }
 
-  selectApp(appName: string, appMethod: string) {
-    this.selectAppService.selectAppByName(appName, appMethod);
+  selectApp(appName: string, appMethod: string, below: boolean = true) {
+    this.selectAppService.selectAppByName(appName, appMethod, below);
+    this.removeAllDropdowns();
+  }
+
+  selectAppFromDropdown(event: Event, appName: string, appMethod: string, below: boolean = true) {
+    event.stopPropagation();
+
+    this.selectAppService.selectAppByName(appName, appMethod, below);
+    this.removeAllDropdowns();
   }
 
   scrollToApp(id: string) {
     const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  toggleDropdown(event: Event, doc: Doc) {
+    event.stopPropagation();
+
+    if (!doc.dropdown) doc.dropdown = true;
+    else doc.dropdown = false;
+  }
+
+  removeAllDropdowns() {
+    this.docs = this.docs.map((doc) => {
+      doc.dropdown = false;
+      return doc;
+    });
   }
 }

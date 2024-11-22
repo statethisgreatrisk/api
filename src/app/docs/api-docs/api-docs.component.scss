@@ -4,6 +4,8 @@
     display: flex;
     flex-direction: column;
 
+    position: relative;
+
     align-items: start;
 
     margin-top: 10px;
@@ -132,4 +134,55 @@
 .app-view-docs-info p:nth-child(2) {
     margin-left: 5px;
     color: $surface-mixed-800
+}
+
+.app-view-docs-menu-container {
+    display: none;
+
+    position: absolute;
+
+    top: 9px;
+    right: 13px;
+}
+
+.app-view-docs:hover .app-view-docs-menu-container {
+    display: flex;
+}
+
+.app-view-docs-menu-container .app-view-docs-menu-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+.app-view-docs-menu-dropdown-container {
+    display: none;
+    flex-direction: column;
+
+    position:absolute;
+
+    top: 28px;
+    right: 13px;
+
+    width: 125px;
+
+    background-color: $primary-1400;
+    border-radius: 3px;
+}
+
+.app-view-docs-menu-dropdown-container p {
+    font-size: 11px;
+    font-weight: 600;
+
+    padding: 5px 5px 5px 7px;
+
+    color: $get;
+    
+    cursor: pointer;
+}
+.app-view-docs-menu-dropdown-container p:hover {
+    background-color: $primary-800;
+}
+
+.app-view-docs:hover .app-view-docs-menu-dropdown-container {
+    display: flex;
 }
