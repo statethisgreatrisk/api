@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { SelectAppService } from '../../services/select-app.service';
 import { cloneDeep, each, isEqual, times } from 'lodash';
 import { DebugViewService } from '../../services/debug-view.service';
+import { DeleteService } from '../../services/delete.service';
 
 type indentPairIds = string[];
 type indentIds = indentPairIds[];
@@ -84,6 +85,7 @@ export class ApiViewComponent {
     private store: Store<AppStateInit>,
     private selectAppService: SelectAppService,
     private debugViewService: DebugViewService,
+    private deleteService: DeleteService,
     private cdr: ChangeDetectorRef,
     private renderer: Renderer2,
   ) {}
@@ -515,6 +517,23 @@ export class ApiViewComponent {
     this.adjustAllInputs();
   }
 
+  removeRowConfirm(row: WorkflowRow) {
+    if (!this.workflow) return;
+
+    const rowInfo = {
+      name: this.findAppName(row.appId),
+      row: this.findRowIndex(row),
+    };
+
+    this.deleteService.initDelete({
+      service: 'row',
+      serviceData: rowInfo,
+      deleteFn: () => {
+        this.removeRow(row);
+      },
+    });
+  }
+
   removeRow(row: WorkflowRow) {
     if (!this.workflow) return;
 
@@ -632,5 +651,14 @@ export class ApiViewComponent {
 
     if (!app) return '';
     return app.name + '.' + app.method;
+  }
+
+  findRowIndex(row: WorkflowRow) {
+    if (!this.workflow) return;
+
+    const index = this.workflow.rows.findIndex((existingRow) => existingRow._id === row._id);
+    
+    if (index) return index + 1;
+    else return 0;
   }
 }
