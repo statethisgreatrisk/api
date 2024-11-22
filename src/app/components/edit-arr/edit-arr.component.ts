@@ -75,7 +75,7 @@ export class EditArrComponent {
   createEditor() {
     let codeEditorElement = this.codeEditor.nativeElement;
     let myExt: Extension = [basicSetup, javascript(), oneDarkSmall];
-    const arr = this.arr?.arr ? this.arr.arr : 'function fn(context) {\n  \n}';
+    const arr = this.arr?.arr ? this.arr.arr : 'function fn(context, variables, packages) {\n  \n}';
 
     try {
       this.editorState = EditorState.create({

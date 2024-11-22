@@ -77,7 +77,7 @@ export class EditObjComponent {
   createEditor() {
     let codeEditorElement = this.codeEditor.nativeElement;
     let myExt: Extension = [basicSetup, javascript(), oneDarkSmall];
-    const obj = this.obj?.obj ? this.obj.obj : 'function fn(context) {\n  \n}';
+    const obj = this.obj?.obj ? this.obj.obj : 'function fn(context, variables, packages) {\n  \n}';
 
     try {
       this.editorState = EditorState.create({

@@ -36,13 +36,13 @@
         </div>
         <div class="edit-fn-path-docs">
             <div class="edit-fn-path-doc">
-                <p>Functions must begin with <span>function fn(context) &#123;</span> and end with <span>&#125;</span>.</p>
+                <p>Functions must begin with <span>function fn(context, variables, packages) &#123;</span> and end with <span>&#125;</span>.</p>
                 <br>
                 <p>The function can return any value and may be rejected for using certain restricted words within the function body. Callback functions can also be created for forEach, map, filter and reduce functions.</p>
                 <br>
-                <p>ForEach, Map and Filter functions must begin with <span>function fn(element, index, array, context) &#123;</span> and end with <span>&#125;</span>.</p>
+                <p>ForEach, Map and Filter functions must begin with <span>function fn(element, index, array, context, variables, packages) &#123;</span> and end with <span>&#125;</span>.</p>
                 <br>
-                <p>Reduce functions must begin with <span>function fn(accumulator, value, index, array, context) &#123;</span> and end with <span>&#125;</span>.</p>
+                <p>Reduce functions must begin with <span>function fn(accumulator, value, index, array, context, variables, packages) &#123;</span> and end with <span>&#125;</span>.</p>
             </div>
         </div>
     </div>
