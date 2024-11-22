@@ -9,6 +9,8 @@ export class ResizableHeightDirective {
   @Input() maxHeight: number = 255;
   @Input() localStorageKey!: string;
   @Input() resizingElement!: any;
+  @Input() secondaryElement!: any;
+  @Input() secondaryElementOffset!: number;
   @Input() reverse: boolean = false;
 
   private resizing: boolean = false;
@@ -46,6 +48,11 @@ export class ResizableHeightDirective {
       this.renderer.setStyle(this.resizingElement, 'height', `${newHeight}px`);
       this.renderer.setStyle(this.resizingElement, 'max-height', `${newHeight}px`);
       localStorage.setItem(this.localStorageKey, String(newHeight));
+
+      if (this.secondaryElement) {
+        const secondaryHeight = newHeight - this.secondaryElementOffset;
+        this.renderer.setStyle(this.secondaryElement, 'height', `${secondaryHeight}px`);
+      }
     }
   }
 }

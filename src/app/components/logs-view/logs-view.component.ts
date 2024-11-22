@@ -38,6 +38,7 @@ export class LogsViewComponent {
   deployDropdown = false;
 
   @ViewChild('logsViewContainer') logsViewContainer!: ElementRef;
+  @ViewChild('logsDetailContainer') logsDetailContainer!: ElementRef;
 
   workflowBarHeight: string = localStorage.getItem('workflowBarHeight') || '250';
   
@@ -58,6 +59,10 @@ export class LogsViewComponent {
     this.sub?.unsubscribe();
     this.deployStatusSuccessSub?.unsubscribe();
     this.deployStatusErrorSub?.unsubscribe();
+  }
+  
+  get logsViewHeight() {
+    return Number(this.workflowBarHeight) - 88;
   }
 
   initLatest() {

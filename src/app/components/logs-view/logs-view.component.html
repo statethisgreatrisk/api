@@ -1,5 +1,5 @@
 <div #logsViewContainer class="logs-view-container" [ngStyle]="{ height: workflowBarHeight + 'px', maxHeight: workflowBarHeight + 'px' }">
-    <div class="logs-view-resize-bar" appResizableHeight [resizingElement]="logsViewContainer" [localStorageKey]="'workflowBarHeight'" [minHeight]="250" [maxHeight]="500" [reverse]="true"></div>
+    <div class="logs-view-resize-bar" appResizableHeight [resizingElement]="logsViewContainer" [secondaryElement]="logsDetailContainer" [secondaryElementOffset]="88" [localStorageKey]="'workflowBarHeight'" [minHeight]="250" [maxHeight]="500" [reverse]="true"></div>
     <div class="logs-view">
         <div class="logs-view-header-container">
             <div class="logs-view-header">
@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="logs-view-logs-container">
-            <div class="logs-detail">
+            <div #logsDetailContainer class="logs-detail" [ngStyle]="{ height: logsViewHeight + 'px' }">
                 <ng-content *ngIf="logs && deploy">
                     <pre *ngFor="let log of logStrings">{{ log }}</pre>
                 </ng-content>
