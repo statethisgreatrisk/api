@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { API, AppStateInit, Project, User, View, Workflow } from '../../store/interfaces/app.interface';
+import { API, AppStateInit, Project, User, View, Workflow, WorkflowVersion } from '../../store/interfaces/app.interface';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { DeleteService } from '../../services/delete.service';
@@ -7,6 +7,7 @@ import { selectUser, selectView, selectMainProject, selectAPIs, selectWorkflows 
 import { deleteWorkflow, deselectService, updateWorkflow } from '../../store/actions/app.action';
 import { NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-edit-workflow',
@@ -20,6 +21,8 @@ export class EditWorkflowComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   workflow: Workflow | null = null;
   project: Project | null = null;
+
+  versions: WorkflowVersion[] = [];
 
   sub: Subscription | null = null;
 
@@ -54,7 +57,10 @@ export class EditWorkflowComponent {
 
       if (this.user && this.view && this.view.serviceId) {
         const workflow = workflows.find((existingWorkflow) => existingWorkflow._id === this.view.serviceId);
-        this.workflow = workflow ? { ...workflow } : null;
+        this.workflow = workflow ? cloneDeep(workflow) : null;
+
+        if (!this.workflow) return;
+        this.versions = cloneDeep(this.workflow.versions).reverse();
       }
     });
   }
@@ -93,5 +99,18 @@ export class EditWorkflowComponent {
 
   toggleDropdown() {
     this.dropdown = !this.dropdown;
+  }
+
+  selectVersion(version: WorkflowVersion) {
+    if (!this.workflow) return;
+
+    this.toggleDropdown();
+    this.workflow.versionId = version._id;
+  }
+
+  findVersion(versionId: string) {
+    if (!this.workflow) return;
+
+    return this.workflow.versions.find((version) => version._id === versionId);
   }
 }

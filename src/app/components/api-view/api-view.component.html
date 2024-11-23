@@ -4,6 +4,20 @@
             <div class="api-view-breadcrumb" *ngIf="workflow">
                 <p class="active">{{ workflow.name }}</p>
             </div>
+            <div class="api-view-breadcrumb">
+                <img src="/down.png" (click)="previousVersion()">
+            </div>
+            <div class="api-view-breadcrumb">
+                <img src="/up.png" (click)="nextVersion()">
+            </div>
+            <div class="api-view-breadcrumb">
+                <p class="active">Version {{ findVersion(editingVersionId) }}</p>
+            </div>
+            
+            <div class="api-view-breadcrumb">
+                <p class="detail">{{ getVersionStatus(editingVersionId) }}</p>
+            </div>
+            <div class="spacer"></div>
             <div class="api-view-slim-button text">
                 <p>Add blank row</p>
             </div>
@@ -16,7 +30,7 @@
             <div class="api-view-slim-button inline" (click)="addRow(false)">
                 <p>above</p>
             </div>
-            <div class="spacer"></div>
+            <div class="mini-spacer"></div>
             <div class="api-view-slim-button inline" (click)="close()">
                 <p>Close View</p>
             </div>

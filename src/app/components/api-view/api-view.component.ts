@@ -1,6 +1,6 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, QueryList, Renderer2, ViewChildren } from '@angular/core';
-import { App, AppStateInit, Argtype, Project, User, View, Workflow, WorkflowRow } from '../../store/interfaces/app.interface';
+import { App, AppStateInit, Argtype, Project, User, View, Workflow, WorkflowExport, WorkflowRow } from '../../store/interfaces/app.interface';
 import { selectApps, selectArgtypes, selectMainProject, selectSchemas, selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
@@ -8,7 +8,7 @@ import ObjectId from 'bson-objectid';
 import { deselectService, deselectWindow, updateWorkflow } from '../../store/actions/app.action';
 import { FormsModule } from '@angular/forms';
 import { SelectAppService } from '../../services/select-app.service';
-import { cloneDeep, each, isEqual, times } from 'lodash';
+import { cloneDeep, each, filter, isEqual, omit, orderBy, some, take, times } from 'lodash';
 import { DebugViewService } from '../../services/debug-view.service';
 import { DeleteService } from '../../services/delete.service';
 
@@ -38,6 +38,9 @@ export class ApiViewComponent {
   selectAppSub: Subscription | null = null;
 
   selectedRowId: string = '';
+
+  editingVersionId: string = '';
+  editingWorkflowId: string = '';
 
   @ViewChildren('rowInputs') rowInputs!: QueryList<ElementRef>;
   @ViewChildren('rowSpans') rowSpans!: QueryList<ElementRef>;
@@ -136,35 +139,74 @@ export class ApiViewComponent {
         const workflow = workflows.find((existingWorkflow) => existingWorkflow._id === this.view.windowId);
         this.workflow = workflow ? cloneDeep(workflow) : null;
 
-        if (this.workflow && this.workflow.rows) this.workflow.rows = cloneDeep(this.workflow.rows);
+        if (!this.workflow) return;
 
-        this.indentIds = [];
-        const pairs: any = {};
+        // If different workflow
+        if (this.editingWorkflowId !== this.view.windowId) {
+          this.editingWorkflowId = this.view.windowId;
 
-        if (this.workflow && this.workflow.rows) {
-          this.workflow.rows.forEach((row) => {
-            if (row.pairId) {
-              if (!pairs[row.pairId]) pairs[row.pairId] = [row._id];
-              else pairs[row.pairId].push(row._id);
-            }
-          });
+          const latestVersion = this.workflow.versions[this.workflow.versions.length - 1];
 
-          each(pairs, (pair) => {
-            const row = this.workflow!.rows.find((row) => row._id === pair[0]);
-            const indent = row!.indents;
+          this.workflow.rows = cloneDeep(latestVersion.rows);
+          this.editingVersionId = latestVersion._id;
 
-            if (this.indentIds[indent] !== undefined) {
-              this.indentIds[indent].push(pair);
-            } else {
-              this.indentIds[indent] = [pair];
-            }
-          });
+          this.configurePairs();
+
+          return;
         }
-        
-        this.adjustAllInputs();
+
+        // If already editing
+        if (this.editingVersionId) {
+          const editingVersion = this.workflow.versions.find((version) => version._id === this.editingVersionId)!;
+
+          this.workflow.rows = cloneDeep(editingVersion.rows);
+
+          this.configurePairs();
+
+          return;
+        }
+
+        // If not editing yet
+        const latestVersion = this.workflow.versions[this.workflow.versions.length - 1];
+
+        this.workflow.rows = cloneDeep(latestVersion.rows);
+        this.editingVersionId = latestVersion._id;
+
+        this.configurePairs();
       }
     });
   }
+
+  configurePairs() {
+    if (!this.workflow) return;
+
+    this.indentIds = [];
+    const pairs: any = {};
+
+    if (this.workflow && this.workflow.rows) {
+      this.workflow.rows.forEach((row) => {
+        if (row.pairId) {
+          if (!pairs[row.pairId]) pairs[row.pairId] = [row._id];
+          else pairs[row.pairId].push(row._id);
+        }
+      });
+
+      each(pairs, (pair) => {
+        const row = this.workflow!.rows.find((row) => row._id === pair[0]);
+        const indent = row!.indents;
+
+        if (this.indentIds[indent] !== undefined) {
+          this.indentIds[indent].push(pair);
+        } else {
+          this.indentIds[indent] = [pair];
+        }
+      });
+    }
+    
+    this.adjustAllInputs();
+  }
+
+
 
   setApps() {
     this.ifApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'if')!;
@@ -612,7 +654,13 @@ export class ApiViewComponent {
   }
 
   cancel() {
-    this.store.dispatch(deselectWindow({ windowName: this.view.window, windowId: this.view.windowId }));
+    if (!this.workflow) return;
+
+    const originalVersion = this.workflow.versions.find((version) => version._id === this.editingVersionId)!;
+
+    this.workflow.rows = cloneDeep(originalVersion.rows);
+
+    this.configurePairs();
   }
 
   close() {
@@ -626,12 +674,69 @@ export class ApiViewComponent {
 
     let workflow = { ...this.workflow };
 
-    this.store.dispatch(updateWorkflow({ projectId: this.project._id, workflow: workflow }));
+    let highestVersion = 0;
+
+    workflow.versions.forEach((version) => {
+      if (version.version >= highestVersion) highestVersion = version.version;
+    });
+
+    const newVersionId = new ObjectId().toHexString();
+
+    workflow.versions.push({
+      _id: newVersionId,
+      version: highestVersion + 1,
+      rows: cloneDeep(this.workflow.rows),
+    });
+
+    this.editingVersionId = newVersionId;
+
+    // Remove extra versions
+    const sortedObjects = orderBy(workflow.versions, ['version'], ['desc']);
+    const latestVersions = take(sortedObjects, 5);
+
+    workflow.versions = filter(workflow.versions, (version) => {
+      return some(latestVersions, { version: version.version }) || workflow.versionId === version._id;
+    });
+
+    // Delete rows
+    const updatedWorkflow: WorkflowExport = omit(workflow, 'rows');
+
+    this.store.dispatch(updateWorkflow({ projectId: this.project._id, workflow: updatedWorkflow }));
   }
 
   selectRow(_id: string) {
     if (!this.workflow) return;
     this.selectedRowId = _id;
+  }
+
+  nextVersion() {
+    if (!this.workflow) return;
+
+    const currentIndex = this.workflow.versions.findIndex((version) => version._id === this.editingVersionId)!;
+
+    if (currentIndex < 0 || currentIndex === this.workflow.versions.length - 1) return;
+
+    const version = this.workflow.versions[currentIndex + 1];
+
+    this.workflow.rows = cloneDeep(version.rows);
+    this.editingVersionId = version._id;
+
+    this.configurePairs();
+  }
+
+  previousVersion() {
+    if (!this.workflow) return;
+
+    const currentIndex = this.workflow.versions.findIndex((version) => version._id === this.editingVersionId)!;
+
+    if (currentIndex <= 0) return;
+
+    const version = this.workflow.versions[currentIndex - 1];
+
+    this.workflow.rows = cloneDeep(version.rows);
+    this.editingVersionId = version._id;
+
+    this.configurePairs();
   }
 
   isCommentRow(row: WorkflowRow) {
@@ -688,5 +793,34 @@ export class ApiViewComponent {
     
     if (index) return index + 1;
     else return 0;
+  }
+
+  findVersion(versionId: string) {
+    if (!versionId) return ''
+    if (!this.workflow) return '';
+
+    const version = this.workflow.versions.find((version) => version._id === versionId)!;
+    return version.version;
+  }
+
+  getVersionStatus(versionId: string) {
+    if (!versionId) return ''
+    if (!this.workflow) return '';
+
+    let highestVersion = 0;
+
+    let highestVersionId = '';
+    let deployedVersionId = this.workflow.versionId;
+    
+    this.workflow.versions.forEach((version) => {
+      if (version.version >= highestVersion) 
+        highestVersion = version.version;
+        highestVersionId = version._id;
+    });
+
+    let highestStatus = highestVersionId === versionId ? 'Latest' : 'Archive';
+    let deployedStatus = deployedVersionId === versionId ? '(Deployed)' : '';
+
+    return `${highestStatus} ${deployedStatus}`;
   }
 }

@@ -84,16 +84,29 @@
     color: $primary-600;
 }
 
+.api-view-breadcrumb p.detail {
+    width: 100px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    color:$light-green;
+}
+
 .api-view-breadcrumb img {
     width: 10px;
     height: 10px;
 
-    margin-left: 15px;
+    cursor: pointer;
 }
 
 .api-view-breadcrumb-container .spacer {
     display: flex;
     flex-grow: 1;
+}
+
+.api-view-breadcrumb-container .mini-spacer {
+    margin-left: 20px;
 }
 
 .api-view-breadcrumb-container .cancel {
@@ -103,7 +116,7 @@
     width: 45px;
     text-align: center;
     
-    margin-left: 15px;
+    margin-left: 20px;
     padding: 0 10px;
 
     color: #eae1ff;

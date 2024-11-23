@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, WorkflowExport } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -84,9 +84,9 @@ export const removeValidator = createAction('[REMOVE] Validator', props<{validat
 // Workflow
 export const getWorkflows = createAction('[GET] Workflows', props<{projectId: string}>());
 export const addWorkflows = createAction('[ADD] Workflows', props<{workflows: Workflow[]}>());
-export const createWorkflow = createAction('[CREATE] Workflow', props<{projectId: string, workflow: Workflow}>());
+export const createWorkflow = createAction('[CREATE] Workflow', props<{projectId: string, workflow: WorkflowExport}>());
 export const addWorkflow = createAction('[ADD] Workflow', props<{workflow: Workflow}>());
-export const updateWorkflow = createAction('[UPDATE] Workflow', props<{projectId: string, workflow: Workflow}>());
+export const updateWorkflow = createAction('[UPDATE] Workflow', props<{projectId: string, workflow: WorkflowExport}>());
 export const replaceWorkflow = createAction('[REPLACE] Workflow', props<{workflow: Workflow}>());
 export const deleteWorkflow = createAction('[DELETE] Workflow', props<{projectId: string, workflowId: string}>());
 export const removeWorkflow = createAction('[REMOVE] Workflow', props<{workflowId: string}>());

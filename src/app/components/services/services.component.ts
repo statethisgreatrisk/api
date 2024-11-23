@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm, Variable, Queue, Scheduler, Arr } from '../../store/interfaces/app.interface';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm, Variable, Queue, Scheduler, Arr, WorkflowVersion } from '../../store/interfaces/app.interface';
 import { changeProject, clearData, createAPI, createArr, createFn, createObj, createProject, createQueue, createRequest, createScheduler, createSchema, createStorage, createValidator, createVariable, createWorkflow, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
 import { selectAPIs, selectArrs, selectFns, selectMainProject, selectObjs, selectProjects, selectQueues, selectRequests, selectSchedulers, selectSchemas, selectStorages, selectUser, selectValidators, selectVariables, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth.service';
 import { combineLatest, Subscription } from 'rxjs';
+import ObjectId from 'bson-objectid';
 
 @Component({
   selector: 'app-services',
@@ -257,9 +258,14 @@ export class ServicesComponent {
     const name = 'Workflow';
     const date = new Date().toISOString();
     const active = true;
-    const rows: WorkflowRow[] = [];
+    const versionId = new ObjectId().toHexString();
+    const versions: WorkflowVersion[] = [{
+      _id: versionId,
+      version: 0,
+      rows: [],
+    }];
 
-    this.store.dispatch(createWorkflow({ projectId, workflow: { _id, projectId, userId, name, date, active, rows } }));
+    this.store.dispatch(createWorkflow({ projectId, workflow: { _id, projectId, userId, name, date, active, versionId, versions } }));
   }
 
   createFn() {

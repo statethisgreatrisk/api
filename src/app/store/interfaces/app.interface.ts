@@ -44,6 +44,12 @@ export interface WorkflowRow {
     schemas: Arg[];
 }
 
+export interface WorkflowVersion {
+    _id: string;
+    version: number;
+    rows: WorkflowRow[];
+}
+
 export interface RequestParameter {
     _id: string;
     active: boolean;
@@ -147,7 +153,11 @@ export interface Workflow {
     active: boolean;
     name: string;
     rows: WorkflowRow[];
+    versionId: string;
+    versions: WorkflowVersion[];
 }
+
+export type WorkflowExport = Omit<Workflow, 'rows'>;
 
 export interface Fn {
     _id: string;

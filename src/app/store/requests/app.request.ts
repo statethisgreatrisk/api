@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Argtype, Arr } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Argtype, Arr, WorkflowExport } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -206,12 +206,12 @@ export class AppRequest {
     return this.http.get<Workflow[]>(endpoint, { withCredentials: true });
   }
   
-  createWorkflow(projectId: string, workflow: Workflow): Observable<Workflow> {
+  createWorkflow(projectId: string, workflow: WorkflowExport): Observable<Workflow> {
     const endpoint = `${this.url}/workflow/:projectId`.replace(':projectId', projectId);
     return this.http.post<Workflow>(endpoint, { workflow }, { withCredentials: true });
   }
   
-  updateWorkflow(projectId: string, workflow: Workflow): Observable<Workflow> {
+  updateWorkflow(projectId: string, workflow: WorkflowExport): Observable<Workflow> {
     const endpoint = `${this.url}/workflow/:projectId`.replace(':projectId', projectId);
     return this.http.put<Workflow>(endpoint, { workflow }, { withCredentials: true });
   }
