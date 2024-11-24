@@ -9,6 +9,7 @@ import { createRegister, deleteRegister } from '../../store/actions/app.action';
 import { DeleteService } from '../../services/delete.service';
 import { HttpClient } from '@angular/common/http';
 import { cloneDeep } from 'lodash';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-register-view',
@@ -33,6 +34,7 @@ export class RegisterViewComponent {
   constructor(
     private store: Store<AppStateInit>,
     private deleteService: DeleteService,
+    private toastService: ToastService,
     private http: HttpClient,
   ) {}
 
@@ -60,19 +62,29 @@ export class RegisterViewComponent {
     });
   }
 
-  addRegister() {
+  async addRegister() {
     if (!this.project) return;
     if (!this.user) return;
     if (!this.register) return;
 
-    const userId = this.user._id;
-    const projectId = this.project._id;
-    const _id = '';
-    const name = this.register;
-    const date = new Date().toISOString();
-    const active = true;
+    this.requestSub = this.http.get(`https://registry.npmjs.org/${this.register}`)
+      .pipe(catchError((error) => {
+        this.toastService.addToast({ type: 'alert', text: 'Package not found' });
+        this.requestSub?.unsubscribe();
+        return EMPTY;
+      }))
+      .subscribe((data: any) => {
+        const userId = this.user!._id;
+        const projectId = this.project!._id;
+        const _id = '';
+        const name = this.register;
+        const date = new Date().toISOString();
+        const active = true;
 
-    this.store.dispatch(createRegister({ projectId: this.project._id, register: { _id, userId, projectId, active, date, name, version: '' } }));
+        this.store.dispatch(createRegister({ projectId: this.project!._id, register: { _id, userId, projectId, active, date, name, version: '' } }));
+        this.register = '';
+        this.requestSub?.unsubscribe();
+      });
   }
 
   delete(register: Register) {
