@@ -109,8 +109,8 @@
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">Delete</p>
                         </div>
                     </ng-content>
-                    <!-- Print Row -->
-                    <ng-content *ngIf="row.appId && rowType(row) === 'print'">
+                    <!-- Print/Error Row -->
+                    <ng-content *ngIf="row.appId && (rowType(row) === 'print' || rowType(row) === 'error')">
                         <div class="api-view-editor-row-prefix" [ngClass]="{ 'active': selectedRowId === row._id }" [style.marginRight]="(row.indents * 25) + 'px'">
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                         </div>
@@ -243,6 +243,54 @@
                             <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
                         </div>
                         <div class="api-view-editor-row-if-else-close">
+                            <p>&#125;</p>
+                        </div>
+                        <div class="api-view-editor-row-spacer"></div>
+                        <div class="api-view-editor-row-remove" (click)="removeRowConfirm(row)">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">Delete</p>
+                        </div>
+                    </ng-content>
+                    <!-- Try Catch Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'tryCatch'">
+                        <div class="api-view-editor-row-prefix" [ngClass]="{ 'active': selectedRowId === row._id }" [style.marginRight]="(row.indents * 25) + 'px'">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
+                        </div>
+                        <div class="api-view-editor-row-try-catch">
+                            <p>try &#123;</p>
+                        </div>
+                        <div class="api-view-editor-row-spacer"></div>
+                        <div class="api-view-editor-row-remove" (click)="removeRowConfirm(row)">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">Delete</p>
+                        </div>
+                    </ng-content>
+                    <!-- Try Catch Middle Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'tryCatchMiddle'">
+                        <div class="api-view-editor-row-prefix" [ngClass]="{ 'active': selectedRowId === row._id }" [style.marginRight]="(row.indents * 25) + 'px'">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
+                        </div>
+                        <div class="api-view-editor-row-try-catch">
+                            <p>&#125; catch (</p>
+                        </div>
+                        <div class="api-view-editor-row-try-catch-error">
+                            <ng-content *ngFor="let arg of row.args">
+                                <input #rowInputs [id]="arg._id" type="text" [placeholder]="arg.placeholder" [(ngModel)]="arg.value" (input)="adjustInputWidth(arg._id, arg.placeholderWidth, arg.argtypes, arg.value)">
+                                <span #rowSpans class="api-view-hidden-row-span">{{ arg.value }}</span>
+                            </ng-content>
+                        </div>
+                        <div class="api-view-editor-row-try-catch-end">
+                            <p>) &#123;</p>
+                        </div>
+                        <div class="api-view-editor-row-spacer"></div>
+                        <div class="api-view-editor-row-remove" (click)="removeRowConfirm(row)">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">Delete</p>
+                        </div>
+                    </ng-content>
+                    <!-- Try Catch Close Row -->
+                    <ng-content *ngIf="row.appId && rowType(row) === 'tryCatchClose'">
+                        <div class="api-view-editor-row-prefix" [ngClass]="{ 'active': selectedRowId === row._id }" [style.marginRight]="(row.indents * 25) + 'px'">
+                            <p [ngClass]="{ 'active': selectedRowId === row._id }">{{ index + 1 }}</p>
+                        </div>
+                        <div class="api-view-editor-row-try-catch-close">
                             <p>&#125;</p>
                         </div>
                         <div class="api-view-editor-row-spacer"></div>

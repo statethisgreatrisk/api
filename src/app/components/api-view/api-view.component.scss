@@ -576,6 +576,85 @@
     color: $primary-600;
 }
 
+.api-view-editor-row-try-catch {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    padding: 2px 0 2px 10px;
+}
+
+.api-view-editor-row-try-catch p {
+    font-size: 11px;
+    font-weight: 600;
+
+    // color: $peach;
+    color: $primary-600;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.api-view-editor-row-try-catch-end {
+    display: flex;
+    flex-direction: row;
+
+    padding: 2px 0;
+}
+
+.api-view-editor-row-try-catch-end p {
+    font-size: 11px;
+    font-weight: 600;
+
+    // color: $peach;
+    color: $primary-600;
+}
+
+.api-view-editor-row-try-catch-close {
+    display: flex;
+    flex-direction: row;
+
+    padding: 2px 0;
+    margin-left: 10px;
+}
+
+.api-view-editor-row-try-catch-close p {
+    font-size: 11px;
+    font-weight: 600;
+
+    // color: $peach;
+    color: $primary-600;
+}
+
+.api-view-editor-row-try-catch-error {
+    display: flex;
+    flex-direction: row;
+
+    padding: 2px 0;
+}
+
+.api-view-editor-row-try-catch-error input {
+    font-size: 11px;
+    font-weight: 600;
+    color: $peach;
+
+    width: 79px;
+    height: 15px;
+
+    padding: 0;
+    margin: 0;
+
+    background-color: $surface-mixed-100;
+    border: none;
+}
+
+.api-view-editor-row-try-catch-error input:focus-visible {
+    outline: none;
+}
+
 .api-view-editor-row-forarray {
     display: flex;
     flex-direction: column;
@@ -1128,6 +1207,7 @@
 .api-view-editor-row-args input.invalid,
 .api-view-editor-row-comment input.invalid,
 .api-view-editor-row-if-conditionals input.invalid,
+.api-view-editor-row-try-catch-error input.invalid,
 .api-view-editor-row-forarray-variable input.invalid,
 .api-view-editor-row-forarray-args input.invalid,
 .api-view-editor-row-forarray-key input.invalid,

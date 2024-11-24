@@ -52,6 +52,10 @@ export class ApiViewComponent {
   ifElseMiddleApp: App | null = null;
   ifElseCloseApp: App | null = null;
 
+  tryCatchApp: App | null = null;
+  tryCatchMiddleApp: App | null = null;
+  tryCatchCloseApp: App | null = null;
+
   forArrayApp: App | null = null;
   forArrayCloseApp: App | null = null;
 
@@ -60,6 +64,7 @@ export class ApiViewComponent {
 
   commentApp: App | null = null;
   printApp: App | null = null;
+  errorApp: App | null = null;
 
   setActionApp: App | null = null;
   setUrlApp: App | null = null;
@@ -216,6 +221,10 @@ export class ApiViewComponent {
     this.ifElseMiddleApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'ifElseMiddle')!;
     this.ifElseCloseApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'ifElseClose')!;
 
+    this.tryCatchApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'tryCatch')!;
+    this.tryCatchMiddleApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'tryCatchMiddle')!;
+    this.tryCatchCloseApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'tryCatchClose')!;
+
     this.forArrayApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'forArray')!;
     this.forArrayCloseApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'forArrayClose')!;
 
@@ -224,6 +233,7 @@ export class ApiViewComponent {
 
     this.commentApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'comment')!;
     this.printApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'print')!;
+    this.errorApp = this.apps.find((app) => app.name === 'Workflow' && app.method === 'error')!;
 
     this.setActionApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setAction')!;
     this.setUrlApp = this.apps.find((app) => app.name === 'Request' && app.method === 'setUrl')!;
@@ -474,6 +484,35 @@ export class ApiViewComponent {
       this.workflow.rows.splice(index + 2, 0, ifElseClose);
 
       this.selectRow(ifElse._id);
+    } else if (app?._id === this.tryCatchApp!._id) {
+      const tryCatchId = new ObjectId().toHexString();
+      const tryCatchMiddleId = new ObjectId().toHexString();
+      const tryCatchCloseId = new ObjectId().toHexString();
+      const pairId = new ObjectId().toHexString();
+
+      // Only tryCatchMiddle contains args
+      const args = cloneDeep(this.tryCatchMiddleApp!.args).map((arg) => {
+        arg._id = new ObjectId().toHexString();
+        return arg;
+      });
+
+      const tryCatch = { _id: tryCatchId, appId: this.tryCatchApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [], schemas: [] };
+      const tryCatchMiddle = { _id: tryCatchMiddleId, appId: this.tryCatchMiddleApp!._id, pairId: pairId, indents, variables: [], args, returns: [], schemas: [] };
+      const tryCatchClose = { _id: tryCatchCloseId, appId: this.tryCatchCloseApp!._id, pairId: pairId, indents, variables: [], args: [], returns: [], schemas: [] };
+
+      const pairIds = [tryCatchId, tryCatchMiddleId, tryCatchCloseId];
+
+      if (this.indentIds[indents] !== undefined) {
+        this.indentIds[indents].push(pairIds);
+      } else {
+        this.indentIds[indents] = [pairIds];
+      }
+
+      this.workflow.rows.splice(index, 0, tryCatch);
+      this.workflow.rows.splice(index + 1, 0, tryCatchMiddle);
+      this.workflow.rows.splice(index + 2, 0, tryCatchClose);
+
+      this.selectRow(tryCatch._id);
     } else if (app?._id === this.forArrayApp!._id) {
       const forArrayId = new ObjectId().toHexString();
       const forArrayCloseId = new ObjectId().toHexString();
@@ -750,12 +789,16 @@ export class ApiViewComponent {
     else if (row.appId === this.ifElseApp!._id) return 'ifElse';
     else if (row.appId === this.ifElseMiddleApp!._id) return 'ifElseMiddle';
     else if (row.appId === this.ifElseCloseApp!._id) return 'ifElseClose';
+    else if (row.appId === this.tryCatchApp!._id) return 'tryCatch';
+    else if (row.appId === this.tryCatchMiddleApp!._id) return 'tryCatchMiddle';
+    else if (row.appId === this.tryCatchCloseApp!._id) return 'tryCatchClose';
     else if (row.appId === this.forArrayApp!._id) return 'forArray';
     else if (row.appId === this.forArrayCloseApp!._id) return 'forArrayClose';
     else if (row.appId === this.forObjectApp!._id) return 'forObject';
     else if (row.appId === this.forObjectCloseApp!._id) return 'forObjectClose';
     else if (row.appId === this.commentApp!._id) return 'comment';
     else if (row.appId === this.printApp!._id) return 'print';
+    else if (row.appId === this.errorApp!._id) return 'error';
     else if (row.appId === this.setActionApp!._id) return 'request';
     else if (row.appId === this.setUrlApp!._id) return 'request';
     else if (row.appId === this.clearHeadersApp!._id) return 'request';

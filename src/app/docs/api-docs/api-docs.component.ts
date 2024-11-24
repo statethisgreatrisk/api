@@ -108,9 +108,11 @@ export class ApiDocsComponent {
     { name: 'Workflow', method: 'comment', params: [], returns: [], info: ['Inserts a comment row.'] },
     { name: 'Workflow', method: 'if', params: ['condition: a value or values to be determined as true or false.'], returns: [], info: [] },
     { name: 'Workflow', method: 'ifElse', params: ['condition: a value or values to be determined as true or false.'], returns: [], info: [] },
+    { name: 'Workflow', method: 'tryCatch', params: ['simpleVariable: the name of the error.'], returns: [], info: [] },
     { name: 'Workflow', method: 'forArray', params: ['simpleVariable: the name of the iterating element.', 'array: an array or the name of an array function.', 'simpleVariable: the index (returns a number).'], returns: [], info: [] },
     { name: 'Workflow', method: 'forObject', params: ['simpleVariable: the name of the iterating value.', 'object: an object or the name of an object function.', 'simpleVariable: the property (returns a string).'], returns: [], info: [] },
     { name: 'Workflow', method: 'print', params: ['any: the value to print.'], returns: [], info: ['This app creates a deploy log with the printed value as a string.'] },
+    { name: 'Workflow', method: 'error', params: ['string: the error message.'], returns: [], info: ['This app throws an error. Useful for simulating errors while testing.'] },
   ];
 
   constructor(

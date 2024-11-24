@@ -31,7 +31,7 @@
                 <div class="edit-workflow-select-dropdown" *ngIf="dropdown">
                     <div class="edit-workflow-select-dropdown-button" *ngFor="let version of versions" (click)="selectVersion(version)">
                         <p>Version {{ version.version }}</p>
-                        <span *ngIf="version._id === workflow.versionId">(selected version)</span>
+                        <span *ngIf="version._id === workflow.versionId">(deployed version)</span>
                     </div>
                 </div>
             </div>
