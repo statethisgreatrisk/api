@@ -20,6 +20,7 @@ interface Doc {
 })
 export class ApiDocsComponent {
   @Input() search!: string;
+  @Input() category!: string;
 
   docs: Doc[] = [
     { name: 'String', method: 'isEqual', params: ['string', 'string'], returns: ['boolean: if arg1 is equal to arg2.'], info: [] },
@@ -130,7 +131,11 @@ export class ApiDocsComponent {
   }
 
   get filteredApps() {
-    return this.docsSorted.filter((app) => {
+    const categoryDocs = this.docsSorted.filter((doc) => {
+      return doc.name === this.category;
+    });
+
+    return categoryDocs.filter((app) => {
       if (!this.search) return true;
 
       const appName = `${app.name.toLowerCase()}.${app.method.toLowerCase()}`;

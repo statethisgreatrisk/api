@@ -6,6 +6,11 @@ import { selectApps } from '../../store/selectors/app.selector';
 import { ApiDocsComponent } from '../../docs/api-docs/api-docs.component';
 import { FormsModule } from '@angular/forms';
 
+interface Category {
+  name: string;
+  icon: string;
+}
+
 @Component({
   selector: 'app-app-view',
   standalone: true,
@@ -25,8 +30,10 @@ export class AppViewComponent {
   apps: App[] = [];
 
   search = '';
+  category = '';
 
-  sidebar = true;
+  categoryView = true;
+  sidebarView = true;
 
   sidebarWidth: string = '400px';
 
@@ -51,8 +58,28 @@ export class AppViewComponent {
     });
   }
 
+  get categories() {
+    const categories: Category[] = [];
+
+    this.apps.forEach((app) => {
+      const foundCategory = categories.find((category) => category.name === app.name);
+      if (foundCategory) return;
+
+      categories.push({ name: app.name, icon: `app-${app.name.toLowerCase()}` });
+    });
+
+    return categories.filter((category) => {
+      if (!this.search) return true;
+      return category.name.toLowerCase().includes(this.search.toLowerCase());
+    });
+  }
+
   get filteredApps() {
-    return this.apps.filter((app) => {
+    const categoryApps = this.apps.filter((app) => {
+      return app.name === this.category;
+    });
+
+    return categoryApps.filter((app) => {
       if (!this.search) return true;
 
       const appName = `${app.name.toLowerCase()}.${app.method.toLowerCase()}`;
@@ -65,9 +92,20 @@ export class AppViewComponent {
   }
 
   toggleSidebar() {
-    this.sidebar = !this.sidebar;
+    this.sidebarView = !this.sidebarView;
 
-    if (!this.sidebar) this.sidebarWidth = 'auto';
+    if (!this.sidebarView) this.sidebarWidth = 'auto';
     else this.sidebarWidth = '400px';
+  }
+
+  selectCategory(category: string) {
+    this.category = category;
+    this.categoryView = false;
+  }
+
+  resetToCategoryView() {
+    this.search = '';
+    this.category = '';
+    this.categoryView = true;
   }
 }
