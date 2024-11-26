@@ -29,7 +29,7 @@ export class RegisterViewComponent {
   sub: Subscription | null = null;
   requestSub: Subscription | null = null;
 
-  activated = false;
+  activated = true;
 
   constructor(
     private store: Store<AppStateInit>,

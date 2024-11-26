@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash";
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, Pool } from "../interfaces/app.interface";
 
 // User
 
@@ -53,6 +53,7 @@ export const addProjectSettingsFn: (state: AppState, settings: ProjectSettings) 
         billings: settings.billings,
         usages: settings.usages,
         subs: settings.subs,
+        pools: settings.pools,
         registers: settings.registers,
     };
 }
@@ -734,6 +735,35 @@ export const removeSubFn: (state: AppState, subId: string) => AppState = (state:
     return { ...state, subs: state.subs.filter((sub) => sub._id !== subId) };
 }
 
+// Pool
+
+export const addPoolsFn: (state: AppState, pools: Pool[]) => AppState = (state: AppState, pools: Pool[]) => {
+    if (!pools) return { ...state };
+    return { ...state, pools: pools };
+}
+
+export const addPoolFn: (state: AppState, pool: Pool) => AppState = (state: AppState, pool: Pool) => {
+    if (!pool) return { ...state };
+    return { ...state, pools: state.pools.concat([pool]) };
+}
+
+export const replacePoolFn: (state: AppState, pool: Pool) => AppState = (state: AppState, pool: Pool) => {
+    if (!pool) return { ...state };
+
+    const pools = state.pools.map((existingPool) => {
+        if (existingPool._id !== pool._id) return existingPool;
+        return pool;
+    });
+
+    return { ...state, pools: pools };
+}
+
+export const removePoolFn: (state: AppState, poolId: string) => AppState = (state: AppState, poolId: string) => {
+    if (!poolId) return { ...state };
+    return { ...state, pools: state.pools.filter((pool) => pool._id !== poolId) };
+}
+
+
 // App
 
 export const addAppsFn: (state: AppState, apps: App[]) => AppState = (state: AppState, apps: App[]) => {
@@ -797,6 +827,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         billings: [],
         usages: [],
         subs: [],
+        pools: [],
 
         user: null,
         view: { service: '', serviceId: '', window: '', windowId: '' },
@@ -836,6 +867,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         billings: [],
         usages: [],
         subs: [],
+        pools: [],
 
         view: { service: '', serviceId: '', window: '', windowId: '' },
     };

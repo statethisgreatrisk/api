@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Argtype, Arr, WorkflowExport } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Argtype, Arr, WorkflowExport, Pool } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -581,6 +581,28 @@ export class AppRequest {
   
   deleteSub(projectId: string, subId: string): Observable<ResponseMessage> {
     const endpoint = `${this.serviceUrl}/sub/:projectId/:subId`.replace(':subId', subId).replace(':projectId', projectId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
+  }
+
+  // Pool
+
+  getPools(projectId: string): Observable<Pool[]> {
+    const endpoint = `${this.url}/pool/:projectId`.replace(':projectId', projectId);
+    return this.http.get<Pool[]>(endpoint, { withCredentials: true });
+  }
+  
+  createPool(projectId: string, pool: Pool): Observable<Pool> {
+    const endpoint = `${this.url}/pool/:projectId`.replace(':projectId', projectId);
+    return this.http.post<Pool>(endpoint, { pool }, { withCredentials: true });
+  }
+  
+  updatePool(projectId: string, pool: Pool): Observable<Pool> {
+    const endpoint = `${this.url}/pool/:projectId`.replace(':projectId', projectId);
+    return this.http.put<Pool>(endpoint, { pool }, { withCredentials: true });
+  }
+  
+  deletePool(projectId: string, poolId: string): Observable<ResponseMessage> {
+    const endpoint = `${this.url}/pool/:projectId/:poolId`.replace(':poolId', poolId).replace(':projectId', projectId);
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 }

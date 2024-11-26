@@ -386,6 +386,17 @@ export interface Sub {
     email: string;
 }
 
+export interface Pool {
+    _id: string;
+    userId: string;
+    projectId: string;
+    cognitoPoolId: string;
+    date: string;
+    active: boolean;
+    callbackUrl: string,
+    logoutUrl: string,
+}
+
 export interface View {
     service: string;
     serviceId: string;
@@ -449,6 +460,7 @@ export interface ProjectSettings {
     billings: Billing[];
     usages: Usage[];
     subs: Sub[];
+    pools: Pool[];
     registers: Register[];
 }
 
@@ -481,7 +493,8 @@ export interface AppState {
     billings: Billing[];
     usages: Usage[];
     subs: Sub[];
-    
+    pools: Pool[];
+
     user: User | null;
     view: View;
 }

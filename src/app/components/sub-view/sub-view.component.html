@@ -1,12 +1,27 @@
 <div class="sub-view">
-    <div class="sub-upgrade">
-        <div class="sub-upgrade-info">
-            <p>Activate</p>
-            <p>$0.00 per month</p>
+    <div class="sub-setup" *ngIf="activated">
+        <p>Callback URL</p>
+        <div class="sub-input-container">
+            <div class="sub-input">
+                <input type="text" placeholder="Enter Callback URL" [(ngModel)]="callbackUrl">
+            </div>
         </div>
-        <p class="sub-upgrade-button" (click)="activate()">Activate Users</p>
     </div>
-    <div class="sub-list-item-container" *ngIf="subs">
+    <div class="sub-setup" *ngIf="activated">
+        <p>Logout URL</p>
+        <div class="sub-input-container">
+            <div class="sub-input">
+                <input type="text" placeholder="Enter Logout URL" [(ngModel)]="logoutUrl">
+            </div>
+        </div>
+    </div>
+    <div class="sub-upgrade" *ngIf="!pool">
+        <div class="sub-upgrade-info">
+            <p>Create User Pool</p>
+        </div>
+        <p class="sub-upgrade-button" (click)="createUserPool()">Create</p>
+    </div>
+    <div class="sub-list-item-container" *ngIf="activated && subs">
         <div class="sub-list-item" *ngFor="let sub of subs">
             <p>{{ sub.name }} - {{ sub.sub }}</p>
             <img src="/x.png">

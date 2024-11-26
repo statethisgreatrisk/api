@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, WorkflowExport } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, WorkflowExport, Pool } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -272,6 +272,16 @@ export const updateSub = createAction('[UPDATE] Sub', props<{projectId: string, 
 export const replaceSub = createAction('[REPLACE] Sub', props<{sub: Sub}>());
 export const deleteSub = createAction('[DELETE] Sub', props<{projectId: string, subId: string}>());
 export const removeSub = createAction('[REMOVE] Sub', props<{subId: string}>());
+
+// Pool
+export const getPools = createAction('[GET] Pools', props<{projectId: string}>());
+export const addPools = createAction('[ADD] Pools', props<{pools: Pool[]}>());
+export const createPool = createAction('[CREATE] Pool', props<{projectId: string, pool: Pool}>());
+export const addPool = createAction('[ADD] Pool', props<{pool: Pool}>());
+export const updatePool = createAction('[UPDATE] Pool', props<{projectId: string, pool: Pool}>());
+export const replacePool = createAction('[REPLACE] Pool', props<{pool: Pool}>());
+export const deletePool = createAction('[DELETE] Pool', props<{projectId: string, poolId: string}>());
+export const removePool = createAction('[REMOVE] Pool', props<{poolId: string}>());
 
 export const selectService = createAction('[SELECT] Service', props<{ serviceName: string, serviceId: string }>());
 export const deselectService = createAction('[DESELECT] Service', props<{ serviceName: string, serviceId: string }>());

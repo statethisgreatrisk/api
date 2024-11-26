@@ -1,5 +1,5 @@
 import { createSelector } from "@ngrx/store";
-import { API, Storage, AppState, AppStateInit, Schema, Validator, Billing, Deploy, Key, Log, Usage, Workflow, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, Job, Argtype, Arr } from "../interfaces/app.interface";
+import { API, Storage, AppState, AppStateInit, Schema, Validator, Billing, Deploy, Key, Log, Usage, Workflow, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, Job, Argtype, Arr, Pool } from "../interfaces/app.interface";
 
 export const selectApp = (state: AppStateInit) => state.app;
 
@@ -49,6 +49,7 @@ export const selectKeys = createSelector(selectApp, (state: AppState) => state.k
 export const selectBillings = createSelector(selectApp, (state: AppState) => state.billings);
 export const selectUsages = createSelector(selectApp, (state: AppState) => state.usages);
 export const selectSubs = createSelector(selectApp, (state: AppState) => state.subs);
+export const selectPools = createSelector(selectApp, (state: AppState) => state.pools);
 
 export const selectProjectAPIs = (projectId: string) => createSelector(selectAPIs, (apis: API[]) => apis.filter((api) => projectId === api.projectId));
 export const selectProjectStorages = (projectId: string) => createSelector(selectStorages, (storages: Storage[]) => storages.filter((storage) => projectId === storage.projectId));
@@ -74,3 +75,4 @@ export const selectProjectKeys = (projectId: string) => createSelector(selectKey
 export const selectProjectBillings = (projectId: string) => createSelector(selectBillings, (billings: Billing[]) => billings.filter((billing) => projectId === billing.projectId));
 export const selectProjectUsages = (projectId: string) => createSelector(selectUsages, (usages: Usage[]) => usages.filter((usage) => projectId === usage.projectId));
 export const selectProjectSubs = (projectId: string) => createSelector(selectSubs, (subs: Sub[]) => subs.filter((sub) => projectId === sub.projectId));
+export const selectProjectPools = (projectId: string) => createSelector(selectPools, (pools: Pool[]) => pools.filter((pool) => projectId === pool.projectId));

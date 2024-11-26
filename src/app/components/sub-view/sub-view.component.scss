@@ -78,3 +78,55 @@
     width: 10px;
     height: 10px;
 }
+
+.sub-setup {
+    display: flex;
+    flex-direction: row;
+
+    height: 40px;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sub-setup > p {
+    font-size: 12px;
+    font-weight: 800;
+
+    color: white;
+}
+
+.sub-input-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: 20px;
+
+    padding-bottom: 3px;
+
+    background-color: #2f2b3a;
+    border: 1px solid #46424f;
+    border-radius: 2px;
+}
+
+.sub-input {
+    width: 250px;
+    margin-left: 5px;
+}
+
+.sub-input input {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+
+    width: 97%;
+
+    background-color: #2f2b3a;
+    border: none;
+}
+
+.sub-input input:focus-visible {
+    outline: none;
+}
