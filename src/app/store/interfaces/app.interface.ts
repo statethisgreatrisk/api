@@ -29,7 +29,6 @@ export interface Argtype {
     date: string;
     active: boolean;
     name: string;
-    schema: string;
     regex: string;
 }
 
@@ -49,6 +48,20 @@ export interface WorkflowVersion {
     version: number;
     rows: WorkflowRow[];
 }
+
+export interface Workflow {
+    _id: string;
+    userId: string;
+    projectId: string;
+    date: string;
+    active: boolean;
+    name: string;
+    rows: WorkflowRow[];
+    versionId: string;
+    versions: WorkflowVersion[];
+}
+
+export type WorkflowExport = Omit<Workflow, 'rows'>;
 
 export interface RequestParameter {
     _id: string;
@@ -144,20 +157,6 @@ export interface Validator {
     validator: string;
     valid: boolean;
 }
-
-export interface Workflow {
-    _id: string;
-    userId: string;
-    projectId: string;
-    date: string;
-    active: boolean;
-    name: string;
-    rows: WorkflowRow[];
-    versionId: string;
-    versions: WorkflowVersion[];
-}
-
-export type WorkflowExport = Omit<Workflow, 'rows'>;
 
 export interface Fn {
     _id: string;
