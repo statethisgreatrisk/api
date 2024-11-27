@@ -81,9 +81,6 @@ export class DocumentEditComponent {
 
       const documentString = { ...document };
 
-      delete documentString._id;
-      delete documentString.date;
-      
       this.documentString = JSON.stringify(documentString, null, 2);
 
       let currentText = this.editorView.state.doc.toString();
@@ -144,10 +141,15 @@ export class DocumentEditComponent {
     const originalDocument = this.documents.find((document) => document._id === this.documentParsed._id);
     if (!originalDocument) return;
 
-    const updatedDocument = {...originalDocument };
-    updatedDocument.document = update!;
+    update._id = originalDocument._id;
+    update.userId = originalDocument.userId;
+    update.projectId = originalDocument.projectId;
+    update.storageId = originalDocument.storageId;
+    update.date = originalDocument.date;
+    update.active = originalDocument.active;
+    update.version = originalDocument.version;
 
-    this.store.dispatch(updateDocument({ projectId: this.project._id, document: updatedDocument }));
+    this.store.dispatch(updateDocument({ projectId: this.project._id, document: update }));
   }
 
   delete() {

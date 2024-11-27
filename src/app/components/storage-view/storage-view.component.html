@@ -31,14 +31,14 @@
             <table>
                 <thead>
                     <tr class="storage-view-table-row">
+                        <th class="storage-view-table-header" style="width: 152px;">
+                            ID
+                        </th>
+                        <th class="storage-view-table-header" style="width: 152px;">
+                            Date
+                        </th>
                         <ng-content *ngFor="let header of headers">
-                            <th class="storage-view-table-header" style="width: 152px;" *ngIf="header.value === '_id'">
-                                {{ header.value }}
-                            </th>
-                            <th class="storage-view-table-header" style="width: 152px;" *ngIf="header.value === 'Date'">
-                                {{ header.value }}
-                            </th>
-                            <th class="storage-view-table-header" style="width: 100%;" *ngIf="header.value !== '_id' && header.value !== 'Date'">
+                            <th class="storage-view-table-header" [ngStyle]="{'width': getDynamicColumnWidth()}">
                                 {{ header.value }}
                             </th>
                         </ng-content>
@@ -46,14 +46,14 @@
                 </thead>
                 <tbody>
                     <tr class="storage-view-table-row" *ngFor="let document of paginatedDocuments" (click)="editDocument(document)" [ngClass]="{ 'active': selectedRowId === document._id }">
+                        <td class="storage-view-table-data" style="min-width: 152px;">
+                            {{ document._id }}
+                        </td>
+                        <td class="storage-view-table-data" style="min-width: 152px;">
+                            {{ document.date }}
+                        </td>
                         <ng-content *ngFor="let header of headers">
-                            <td class="storage-view-table-data" style="min-width: 152px;" *ngIf="header.value === '_id'">
-                                {{ cellValue(document, header.key) }}
-                            </td>
-                            <td class="storage-view-table-data" style="min-width: 152px;" *ngIf="header.value === 'Date'">
-                                {{ cellValue(document, header.key) }}
-                            </td>
-                            <td class="storage-view-table-data" style="min-width: 100%;" *ngIf="header.value !== '_id' && header.value !== 'Date'">
+                            <td class="storage-view-table-data" [ngStyle]="{'min-width': getDynamicColumnWidth()}">
                                 {{ cellValue(document, header.key) }}
                             </td>
                         </ng-content>

@@ -268,15 +268,18 @@ export interface Register {
     version: string;
 }
 
-export interface Document {
+export interface DocumentBase {
     _id: string;
     userId: string;
     projectId: string;
     storageId: string;
     date: string;
     active: boolean;
-    document: object;
     version: number;
+}
+
+export type Document = DocumentBase & {
+    [key: string]: any;
 }
 
 export interface Instance {

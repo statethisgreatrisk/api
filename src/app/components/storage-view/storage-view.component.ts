@@ -4,7 +4,7 @@ import { selectDocuments, selectMainProject, selectSchemas, selectStorages, sele
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { DeleteService } from '../../services/delete.service';
-import { DOCUMENT, NgClass, NgFor, NgIf } from '@angular/common';
+import { DOCUMENT, NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { createDocument, deselectService, deselectWindow } from '../../store/actions/app.action';
 import { DocumentService } from '../../services/document.service';
 import { json } from '@codemirror/lang-json';
@@ -22,7 +22,7 @@ interface Header {
 @Component({
   selector: 'app-storage-view',
   standalone: true,
-  imports: [NgIf, NgFor, NgClass, FormsModule],
+  imports: [NgIf, NgFor, NgClass, NgStyle, FormsModule],
   templateUrl: './storage-view.component.html',
   styleUrl: './storage-view.component.scss'
 })
@@ -35,7 +35,6 @@ export class StorageViewComponent {
   storages: Storage[] = [];
   schemas: Schema[] = [];
   documents: Document[] = [];
-  documentsParsed: any[] = [];
 
   schemaVersion = 0;
 
@@ -102,13 +101,13 @@ export class StorageViewComponent {
           const storageDocuments = documents.filter((document) => document.storageId === this.storage!._id && document.version === this.schemaVersion);
 
           this.documents = storageDocuments || [];
-          this.documentsParsed = this.documents.map((document) => {
-            return { _id: document._id, date: this.parseDocumentDate(document.date), ...document.document };
-          });
 
-          if (this.documentsParsed.length) {
-            const sampleDocument = this.documentsParsed[0];
-            const headers = Object.keys(sampleDocument).map((key) => {
+          if (this.documents.length) {
+            const sampleDocument = this.documents[0];
+            const headers = Object.keys(sampleDocument).filter((key) => {
+              if (['_id', 'date', 'userId', 'projectId', 'storageId', 'active', 'version'].includes(key)) return false;
+              return true;
+            }).map((key) => {
               const value = key.charAt(0).toUpperCase() + key.slice(1);
               return { key, value };
             });
@@ -161,9 +160,13 @@ export class StorageViewComponent {
     return String(document[headerKey]) || '';
   }
 
-  editDocument(documentParsed: any) {
-    this.selectedRowId = documentParsed._id;
-    this.documentService.selectDocument(documentParsed);
+  getDynamicColumnWidth(): string {
+    return `calc(100% / ${this.headers.length})`;
+  }
+
+  editDocument(document: any) {
+    this.selectedRowId = document._id;
+    this.documentService.selectDocument(document);
   }
 
   addDocument() {
@@ -182,8 +185,16 @@ export class StorageViewComponent {
     try {
       const documentString = this.editorView.state.doc.toString().trim();
       const document = JSON.parse(documentString);
+      
+      document._id = _id;
+      document.userId = userId;
+      document.projectId = projectId;
+      document.storageId = storageId;
+      document.date = date;
+      document.active = active;
+      document.version = version;
 
-      this.store.dispatch(createDocument({ projectId: projectId, document: { _id, userId, projectId, storageId, date, active, version, document } }));
+      this.store.dispatch(createDocument({ projectId: projectId, document: document }));
     } catch(error) {}
   }
 
@@ -202,10 +213,10 @@ export class StorageViewComponent {
   }
 
   get filteredDocuments(): any[] {
-    if (!this.documentsParsed) return [];
-    if (!this.searchQuery) return this.documentsParsed;
+    if (!this.documents) return [];
+    if (!this.searchQuery) return this.documents;
 
-    return this.documentsParsed.filter((document) => {
+    return this.documents.filter((document) => {
       return JSON.stringify(document).toLowerCase().includes(this.searchQuery.toLowerCase());
     });
   }
@@ -241,5 +252,4 @@ export class StorageViewComponent {
   resetPage() {
     this.pageNumber = 1;
   }
-
 }
