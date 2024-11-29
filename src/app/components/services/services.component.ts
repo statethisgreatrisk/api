@@ -202,8 +202,9 @@ export class ServicesComponent {
     const url = '/hello-world';
     const validators: string[] = [];
     const workflowId = '';
+    const codeId = '';
 
-    this.store.dispatch(createAPI({ projectId, api: { _id, projectId, userId, name, date, active, action, url, validators, workflowId } }));
+    this.store.dispatch(createAPI({ projectId, api: { _id, projectId, userId, name, date, active, action, url, validators, workflowId, codeId } }));
   }
 
   createStorage() {

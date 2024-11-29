@@ -140,6 +140,7 @@ export interface API {
     active: boolean;
     name: string;
     workflowId: string;
+    codeId: string;
     action: 'get' | 'post' | 'put' | 'delete';
     url: string;
     validators: string[];

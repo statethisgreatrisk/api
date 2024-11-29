@@ -1,10 +1,10 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { API, AppStateInit, Project, User, Validator, View, Workflow } from '../../store/interfaces/app.interface';
+import { API, AppStateInit, Code, Project, User, Validator, View, Workflow } from '../../store/interfaces/app.interface';
 import { combineLatest, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectAPIs, selectMainProject, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { selectAPIs, selectCodes, selectMainProject, selectUser, selectValidators, selectView, selectWorkflows } from '../../store/selectors/app.selector';
 import { deleteAPI, deselectService, updateAPI } from '../../store/actions/app.action';
 import { UpperCasePipe } from '../../services/uppercase.pipe';
 import { DeleteService } from '../../services/delete.service';
@@ -23,6 +23,7 @@ export class EditApiComponent {
   api: API | null = null;
   project: Project | null = null;
   workflows: Workflow[] | null = null;
+  codes: Code[] | null = null;
 
   sub: Subscription | null = null;
 
@@ -30,6 +31,7 @@ export class EditApiComponent {
 
   prefixDropdown = false;
   workflowDropdown = false;
+  codeDropdown = false;
   dropdown = false;
 
   constructor(
@@ -53,11 +55,13 @@ export class EditApiComponent {
       this.store.select(selectMainProject),
       this.store.select(selectAPIs),
       this.store.select(selectWorkflows),
-    ]).subscribe(([user, view, project, apis, workflows]) => {
+      this.store.select(selectCodes),
+    ]).subscribe(([user, view, project, apis, workflows, codes]) => {
       this.user = user;
       this.view = view;
       this.project = project;
       this.workflows = workflows;
+      this.codes = codes;
 
       if (this.user && this.view && this.view.serviceId) {
         const api = apis.find((existingAPI) => existingAPI._id === this.view.serviceId);
@@ -124,6 +128,27 @@ export class EditApiComponent {
     return workflow.name;
   }
 
+  selectCode(codeId: string) {
+    if (!codeId || !this.api) return;
+
+    this.api.codeId = codeId;
+  }
+
+  removeCode() {
+    if (!this.api) return;
+    this.api.codeId = '';
+  }
+
+  findCode(codeId: string) {
+    if (!codeId || !this.api) return;
+    if (!this.codes) return;
+
+    const code = this.codes.find((code) => code._id === codeId);
+
+    if (!code) return '';
+    return code.name;
+  }
+
   cancel() {
     this.store.dispatch(deselectService({ serviceName: this.view.service, serviceId: this.view.serviceId }));
   }
@@ -156,6 +181,10 @@ export class EditApiComponent {
 
   toggleWorkflowDropdown() {
     this.workflowDropdown = !this.workflowDropdown;
+  }
+
+  toggleCodeDropdown() {
+    this.codeDropdown = !this.codeDropdown;
   }
 
   toggleDropdown() {

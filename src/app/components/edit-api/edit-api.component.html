@@ -93,6 +93,29 @@
                 <p>{{ findWorkflow(api.workflowId) }}</p>
             </div>
         </div>
+        <div class="edit-api-label">
+            <p>Code</p>
+        </div>
+        <div class="edit-api-select-container" *ngIf="api && !api.codeId">
+            <div class="edit-api-select" (click)="toggleCodeDropdown()">
+                <div class="edit-api-select-button">
+                    <p>Select Code</p>
+                    <img src="/down.png">
+                </div>
+                <div class="edit-api-select-dropdown" *ngIf="codeDropdown && codes">
+                    <div class="edit-api-select-dropdown-button" *ngFor="let c of codes" (click)="selectCode(c._id)">
+                        <p>{{ c.name }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-api-list-item-container" *ngIf="api && api.codeId">
+            <div class="edit-api-list-item" (click)="removeCode()">
+                <img class="check" src="/check.png">
+                <img class="x" src="/x.png">
+                <p>{{ findCode(api.codeId) }}</p>
+            </div>
+        </div>
         <div class="edit-api-buttons">
             <div class="edit-api-cancel" (click)="cancel()">
                 <p>Cancel</p>
