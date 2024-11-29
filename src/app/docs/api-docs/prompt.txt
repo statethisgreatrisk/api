@@ -10,7 +10,7 @@ Workflow Description:
 - The App List is a JSON array that conforms to the App List type.
 - The App List contains Apps.
 - Apps are JSON objects that conform to the AppSchema type.
-- An App contains the acceptable values for an app's runtime signature, including the app name, a description of the app's functionality (helpful for determining if the app is appropriate for a given user requirement), a signature (written in plain english) which describes in general the options an app should conform to, such as whether it accepts a variable (like a filter app) or does not accept a variable (like a for loop or if/else function), how many and what kind of arguments the app accepts, and the number of execution blocks (for which certain apps like filter will not have, and for which apps like for loops and if/else will).
+- An App contains the acceptable values for an app's runtime signature, including the app name, a description of the app's functionality (helpful for determining if the app is appropriate for a given user requirement), a signature for the arguments (in code similar to typescript).
 - An App will typically require 0 or 1 variables.
 - An App will typically require 0 or more arguments.
 - An App will typically require 0 or more execution blocks.
@@ -59,7 +59,7 @@ Complex Argument Types Description:
 - Complex types distinction #13: functions as callback functions are passed as arguments using fn.name, rather than by passing the actual function callback function.
 - Complex types distinction #14: functions as callback functions must begin and end with an exact format.
 - Complex types distinction #15: functions as callback functions when used in forEach/map/filter Apps must begin with "function fn(element, index, array, context) {" and end with "}".
-- Complex types distinction #16: functions as callback functions when used in forEach/map/filter Apps must begin with "function fn(accumulator, value, index, array, context) {" and end with "}".
+- Complex types distinction #16: functions as callback functions when used in reduce Apps must begin with "function fn(accumulator, value, index, array, context) {" and end with "}".
 
 Custom Types Description:
 - The custom type url is just the word with a dot (url.) and then a url.
@@ -74,8 +74,8 @@ Argument Type (acceptableTypes) Schemas:
 - boolean
 - number
 - string
-- object: regex: ^object\.[a-zA-Z0-9_]+$|^\{.*\}$|^context\.[a-zA-Z0-9_]+$
-- array: regex: ^array\.[a-zA-Z0-9_]+$|^\[.*\]$|^context\.[a-zA-Z0-9_]+$
+- objectFunction: regex: ^object\.[a-zA-Z0-9_]+$|^\{.*\}$|^context\.[a-zA-Z0-9_]+$
+- arrayFunction: regex: ^array\.[a-zA-Z0-9_]+$|^\[.*\]$|^context\.[a-zA-Z0-9_]+$
 - function: regex: ^function\.[a-zA-Z0-9_]+$
 - fn: regex: ^fn\.[a-zA-Z0-9_]+$
 - url: regex: ^url\.https:\/\/([a-zA-Z0-9.-]+)(\.[a-zA-Z]{2,})(:\d+)?(\/[^\s]*)?$|^context\.[a-zA-Z0-9_]+$
@@ -188,7 +188,7 @@ This is the App List, from where you will find the available Apps that can be us
     {
         "appName":"Workflow.comment",
         "description": "This app is used to display a comment. This app is helpful for explaining functionality for the rows beneath itself.",
-        "signature": "This application accepts one argument of a string type. It does not include a variable argument and it does not return a value. It does not contain any execution blocks.",
+        "signature": "(comment: string) => void",
         "variables": null,
         "arguments": [
             { "index": 0, argumentName: "comment", "description": "The comment.", "acceptableTypes": ["string"] }
@@ -199,7 +199,7 @@ This is the App List, from where you will find the available Apps that can be us
     {
         "appName":"Workflow.print",
         "description": "This app is used to print a log output.",
-        "signature": "This app accepts one argument of a string type. It does not include a variable argument and it does not return a value. It does not contain any execution blocks.",
+        "signature": "(printMessage: string) => void",
         "variables": null,
         "arguments": [
             { "index": 0, argumentName: "printMessage", "description": "The print message.", "acceptableTypes": ["string"] }
@@ -210,7 +210,7 @@ This is the App List, from where you will find the available Apps that can be us
     {
         "appName":"Workflow.error",
         "description": "This app is used to throw an error. It will throw an error (which will also console.log() the error message).",
-        "signature": "This app accepts one argument of a string type. It does not include a variable argument and it does not return a value. It does not contain any execution blocks.",
+        "signature": "(errorMessage: string) => void",
         "variables": null,
         "arguments": [
             { "index": 0, "argumentName": "errorMessage", "description": "The error message.", "acceptableTypes": ["string"] }
@@ -221,7 +221,7 @@ This is the App List, from where you will find the available Apps that can be us
     {
         "appName":"Workflow.if",
         "description": "This app is used to create a single if statement.",
-        "signature": "This app accepts one argument of a condition type. It does not include a variable argument and it does not return a value. It contains one execution blocks.",
+        "signature": "(condition: condition) => void",
         "variables": null,
         "arguments": [
             { "index": 0, "argumentName": "condition", "description": "The condition to be determined to be true or not.", "acceptableTypes": ["condition"] }
@@ -234,18 +234,248 @@ This is the App List, from where you will find the available Apps that can be us
     {
         "appName":"Workflow.ifElse",
         "description": "This app is used to create a single if/else statement.",
-        "signature": "This app accepts one argument of a condition type. It does not include a variable argument and it does not return a value. It contains two execution blocks.",
+        "signature": "(condition: condition) => void",
         "variables": null,
         "arguments": [
             { "index": 0, "argumentName": "condition", "description": "The condition to be determined to be true or not.", "acceptableTypes": ["condition"] }
         ],
         "executionBlocks": [
             { "index": 0, "description": "This block will contain Workflow Apps to run if the condition is true." },
-            { "index": 0, "description": "This block will contain Workflow Apps to run if the condition is false." },
+            { "index": 1, "description": "This block will contain Workflow Apps to run if the condition is false." },
         ],
         "returns": null
-    }
+    },
+    {
+        "appName":"Workflow.tryCatch",
+        "description": "This app is used to create a try/catch block.",
+        "signature": "() => void",
+        "variables": null,
+        "arguments": null,
+        "executionBlocks": [
+            { "index": 0, "description": "This block will contain Workflow Apps to try. If an error occurs (or if an error is triggered with Workflow.error App), the remaining rows in this block are skipped and processing moves to the catch execution block." },
+            { "index": 1, "description": "This block will contain Workflow Apps to run if an error occurs in the try block." },
+        ],
+        "returns": null
+    },
+    {
+        "appName":"Workflow.forArray",
+        "description": "This app is used to loop through the elements of an array.",
+        "signature": "(element: variable, array: array, index: variable) => void",
+        "variables": null,
+        "arguments": [
+            { "index": 0, "argumentName": "element", "description": "The variable assigned to the element.", "acceptableTypes": ["variable"] },
+            { "index": 1, "argumentName": "array", "description": "The array to loop.", "acceptableTypes": ["array"] },
+            { "index": 2, "argumentName": "index", "description": "The variable assigned to the index.", "acceptableTypes": ["variable"] }
+        ],
+        "executionBlocks": [
+            { "index": 0, "description": "This block will contain Workflow Apps to run on every loop of the array. If there is no array or if the array contains no elements, this block will not run." },
+        ],
+        "returns": null
+    },
+    {
+        "appName":"Workflow.forObject",
+        "description": "This app is used to loop through the property/values of an object.",
+        "signature": "(value: variable, array: array, property: variable) => void",
+        "variables": null,
+        "arguments": [
+            { "index": 0, "argumentName": "value", "description": "The variable assigned to the value.", "acceptableTypes": ["variable"] },
+            { "index": 1, "argumentName": "object", "description": "The object to loop.", "acceptableTypes": ["object"] },
+            { "index": 2, "argumentName": "property", "description": "The variable assigned to the property.", "acceptableTypes": ["variable"] }
+        ],
+        "executionBlocks": [
+            { "index": 0, "description": "This block will contain Workflow Apps to run on every loop of the object. If there is no object or if the object contains no key/values, this block will not run." },
+        ],
+        "returns": null
+    },
+    {
+        "appName":"Array.get",
+        "description": "This app is used to set an array function return value (which should return an array) into the context object at the defined variable. If there is no array function found it will set the variable to null.",
+        "signature": "(array: arrayFunction) => array",
+        "variables": [
+            { "index": 0, "argumentName": "variable", "description": "The variable name for the context which will store the result of calling the array function (an array)."}
+        ],
+        "arguments": [
+            { "index": 0, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] }
+        ],
+        "executionBlocks": null,
+        "returns": ["null", "array"]
+    },
+    {
+        "appName":"Array.getElement",
+        "description": "This app is used to find an element within an array at a given index. It returns an element of any type if there is an element at that index, or returns null if no array or if there is an error calling the array function.",
+        "signature": "(array: arrayFunction, index: number) => any",
+        "variables": [
+            { "index": 0, "argumentName": "variable", "description": "The variable name for the context which will store the found element or null." }
+        ],
+        "arguments": [
+            { "index": 0, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] },
+        ],
+        "executionBlocks": null,
+        "returns": ["null", "any"]
+    },
+    {
+        "appName":"Array.setElement",
+        "description": "This app is used to set an element within an array at a given index. It returns the updated array or null if no array or if there is an error calling the array function.",
+        "signature": "(array: arrayFunction, index: number, element: any) => array",
+        "variables": [
+            { "index": 0, "argumentName": "variable", "description": "The variable name for the context which will store the updated array or null." }
+        ],
+        "arguments": [
+            { "index": 0, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] },
+            { "index": 1, "argumentName": "index", "description": "The index to set the new element at.", "acceptableTypes": ["number"] },
+            { "index": 2, "argumentName": "element", "description": "The element to set", "acceptableTypes": ["any"] }
+        ],
+        "executionBlocks": null,
+        "returns": ["null", "array"]
+    },
+    {
+        "appName":"Array.push",
+        "description": "This app is used to push an element into an array. It returns the updated array or null if no array or if there is an error calling the array function.",
+        "signature": "(array: arrayFunction, element: any) => array",
+        "variables": [
+            { "index": 0, "argumentName": "variable", "description": "The variable name for the context which will store the updated array." }
+        ],
+        "arguments": [
+            { "index": 0, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] },
+            { "index": 1, "argumentName": "element", "description": "The element to set", "acceptableTypes": ["any"] }
+        ],
+        "executionBlocks": null,
+        "returns": ["null", "array"]
+    },
+    {
+        "appName":"Array.unshift",
+        "description": "This app is used to unshift an element into an array. It returns the updated array or null if no array or if there is an error calling the array function.",
+        "signature": "(array: arrayFunction, element: any) => array",
+        "variables": [
+            { "index": 0, "argumentName": "variable", "description": "The variable name for the context which will store the updated array." }
+        ],
+        "arguments": [
+            { "index": 0, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] },
+            { "index": 1, "argumentName": "element", "description": "The element to set", "acceptableTypes": ["any"] }
+        ],
+        "executionBlocks": null,
+        "returns": ["null", "array"]
+    },
+    {
+        "appName":"Array.pop",
+        "description": "This app is used to pop an element from an array. It returns the last element or null if no array or if there is an error calling the array function.",
+        "signature": "(array: arrayFunction) => array",
+        "variables": [
+            { "index": 0, "argumentName": "variable", "description": "The variable name for the context which will store the last element." }
+        ],
+        "arguments": [
+            { "index": 0, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] }
+        ],
+        "executionBlocks": null,
+        "returns": ["null", "any"]
+    },
+    {
+        "appName":"Array.shift",
+        "description": "This app is used to shift an element from an array. It returns the first element or null if no array or if there is an error calling the array function.",
+        "signature": "(array: arrayFunction) => array",
+        "variables": [
+            { "index": 0, "argumentName": "variable", "description": "The variable name for the context which will store the first element." }
+        ],
+        "arguments": [
+            { "index": 0, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] }
+        ],
+        "executionBlocks": null,
+        "returns": ["null", "any"]
+    },
+    {
+        "appName":"Array.concat",
+        "description": "This app is used to join two arrays. It returns the new array or null if no array or if there is an error calling the array function.",
+        "signature": "(array: arrayFunction, array: arrayFunction) => array",
+        "variables": [
+            { "index": 0, "argumentName": "variable", "description": "The variable name for the context which will store the new array." }
+        ],
+        "arguments": [
+            { "index": 0, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] },
+            { "index": 1, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] },
+        ],
+        "executionBlocks": null,
+        "returns": ["null", "array"]
+    },
+    {
+        "appName":"Array.reverse",
+        "description": "This app is used to reverse an array. It returns the updated array or null if no array or if there is an error calling the array function.",
+        "signature": "(array: arrayFunction) => array",
+        "variables": [
+            { "index": 0, "argumentName": "variable", "description": "The variable name for the context which will store the reversed array." }
+        ],
+        "arguments": [
+            { "index": 0, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] }
+        ],
+        "executionBlocks": null,
+        "returns": ["null", "array"]
+    },
+    {
+        "appName":"Array.forEach",
+        "description": "This app is used to loop through an array. It returns the original array or null if no array or if there is an error calling the array callback function. Choose this function instead of Workfow.forArray if you need to perform operations on an array that are not available as an App.",
+        "signature": "(array: arrayFunction, callbackFunction: fn) => array",
+        "variables": [
+            { "index": 0, "argumentName": "variable", "description": "The variable name for the context which will store the original array." }
+        ],
+        "arguments": [
+            { "index": 0, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] },
+            { "index": 1, "argumentName": "callbackFunction", "description": "The callback function.", "acceptableTypes": ["fn"] }
+        ],
+        "executionBlocks": null,
+        "returns": ["null", "array"]
+    },
+    {
+        "appName":"Array.map",
+        "description": "This app is used to map an array. It returns the updated array or null if no array or if there is an error calling the array callback function.",
+        "signature": "(array: arrayFunction, callbackFunction: fn) => array",
+        "variables": [
+            { "index": 0, "argumentName": "variable", "description": "The variable name for the context which will store the updated array." }
+        ],
+        "arguments": [
+            { "index": 0, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] },
+            { "index": 1, "argumentName": "callbackFunction", "description": "The callback function.", "acceptableTypes": ["fn"] }
+        ],
+        "executionBlocks": null,
+        "returns": ["null", "array"]
+    },
+    {
+        "appName":"Array.filter",
+        "description": "This app is used to filter an array. It returns the updated array or null if no array or if there is an error calling the array callback function.",
+        "signature": "(array: arrayFunction, callbackFunction: fn) => array",
+        "variables": [
+            { "index": 0, "argumentName": "variable", "description": "The variable name for the context which will store the updated array." }
+        ],
+        "arguments": [
+            { "index": 0, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] },
+            { "index": 1, "argumentName": "callbackFunction", "description": "The callback function.", "acceptableTypes": ["fn"] }
+        ],
+        "executionBlocks": null,
+        "returns": ["null", "array"]
+    },
+    {
+        "appName":"Array.reduce",
+        "description": "This app is used to reduce an array. It returns the final accumulated value or null if no array or if there is an error calling the array callback function.",
+        "signature": "(array: arrayFunction, callbackFunction: fn, initialValue: any) => any",
+        "variables": [
+            { "index": 0, "argumentName": "variable", "description": "The variable name for the context which will store the accumulated value." }
+        ],
+        "arguments": [
+            { "index": 0, "argumentName": "array", "description": "The array function that will return an array when called.", "acceptableTypes": ["arrayFunction"] },
+            { "index": 1, "argumentName": "callbackFunction", "description": "The callback function.", "acceptableTypes": ["fn"] },
+            { "index": 2, "argumentName": "initialValue", "description": "The initial accumulated value.", "acceptableTypes": ["any"] },
+        ],
+        "executionBlocks": null,
+        "returns": ["null", "any"]
+    },
 ]
+
+This is the Array Function List. Here you will store any functions you create:
+[]
+
+This is the Object Function List. Here you will store any functions you create:
+[]
+
+This is the Function List. Here you will store any functions you create:
+[]
 
 For instance, this is what the final workflow will look like if the user asks for a Workflow that prints a generic log message and then throws/prints a generic error:
 [
@@ -259,7 +489,11 @@ Now you have all the information you need to create Workflows! I just know you'r
 When a user asks for a workflow:
 	- Describe the requirements back to the user as a series of Apps.
 	- If the workflow is not possible, let the user know why and end the prompt response.
-    - If the workflow is possible, return the final workflow JSON and then end the prompt response.
+    - If the workflow is possible:
+    - Determine if any object functions, array functions, or functions are needed, and add them to the Array Function List, Object Function List or Function List, respectively.
+    - Return the final workflow JSON
+    - Return the final Array Function List, Object Function List and Function List.
+    - Then end the prompt response.
 
 
 This is the 
