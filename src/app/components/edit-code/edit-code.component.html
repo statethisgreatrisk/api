@@ -1,0 +1,56 @@
+<div class="edit-code-container">
+    <div class="edit-code">
+        <div class="edit-code-header-container">
+            <div class="edit-code-header">
+                <p>Code</p>
+            </div>
+            <div class="edit-code-slim-button inline" (click)="delete()">
+                <p>Delete</p>
+            </div>
+        </div>
+        <div class="edit-code-label">
+            <p>Name</p>
+        </div>
+        <div class="edit-code-input-container">
+            <div class="edit-code-input" *ngIf="code">
+                <input type="text" placeholder="Enter collection name" [(ngModel)]="code.name">
+            </div>
+        </div>
+        <div class="edit-code-label">
+            <p>Code name can have up to 80 characters, may only contain alphanumeric characters and underscores (_), is case sensitive and must be unique.</p>
+        </div>
+        <div class="edit-code-label">
+            <p>Deploy Version</p>
+        </div>
+        <div class="edit-code-select-container" *ngIf="code">
+            <div class="edit-code-select">
+                <div class="edit-code-select-button" (click)="toggleDropdown()">
+                    <p>Version {{ findVersion(code.versionId)?.version }}</p>
+                    <img src="/down.png">
+                </div>
+                <div class="edit-code-select-dropdown" *ngIf="dropdown">
+                    <div class="edit-code-select-dropdown-button" *ngFor="let version of versions" (click)="selectVersion(version)">
+                        <p>Version {{ version.version }}</p>
+                        <span *ngIf="version._id === code.versionId">(deployed version)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-code-buttons">
+            <div class="edit-code-cancel" (click)="cancel()">
+                <p>Cancel</p>
+            </div>
+            <div class="edit-code-save" (click)="save()">
+                <p>Save</p>
+            </div>
+        </div>
+        <div class="edit-code-divider">
+            <div class="divider"></div>
+        </div>
+        <div class="edit-code-path-docs">
+            <div class="edit-code-path-doc">
+                <p>Codes can only accept requests from a single API. If multiple APIs are set to the same code, the newest API will be selected.</p>
+            </div>
+        </div>
+    </div>
+</div>

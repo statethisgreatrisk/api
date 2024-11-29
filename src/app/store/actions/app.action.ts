@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, WorkflowExport, Pool } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, WorkflowExport, Pool, Code, CodeExport } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -90,6 +90,16 @@ export const updateWorkflow = createAction('[UPDATE] Workflow', props<{projectId
 export const replaceWorkflow = createAction('[REPLACE] Workflow', props<{workflow: Workflow}>());
 export const deleteWorkflow = createAction('[DELETE] Workflow', props<{projectId: string, workflowId: string}>());
 export const removeWorkflow = createAction('[REMOVE] Workflow', props<{workflowId: string}>());
+
+// Code
+export const getCodes = createAction('[GET] Codes', props<{projectId: string}>());
+export const addCodes = createAction('[ADD] Codes', props<{codes: Code[]}>());
+export const createCode = createAction('[CREATE] Code', props<{projectId: string, code: CodeExport}>());
+export const addCode = createAction('[ADD] Code', props<{code: Code}>());
+export const updateCode = createAction('[UPDATE] Code', props<{projectId: string, code: CodeExport}>());
+export const replaceCode = createAction('[REPLACE] Code', props<{code: Code}>());
+export const deleteCode = createAction('[DELETE] Code', props<{projectId: string, codeId: string}>());
+export const removeCode = createAction('[REMOVE] Code', props<{codeId: string}>());
 
 // Fn
 export const getFns = createAction('[GET] Fns', props<{projectId: string}>());

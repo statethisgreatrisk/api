@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Argtype, Arr, WorkflowExport, Pool } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Argtype, Arr, WorkflowExport, Pool, Code, CodeExport } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -220,6 +220,29 @@ export class AppRequest {
     const endpoint = `${this.url}/workflow/:projectId/:workflowId`.replace(':workflowId', workflowId).replace(':projectId', projectId);
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
+
+  // Code
+
+  getCodes(projectId: string): Observable<Code[]> {
+    const endpoint = `${this.url}/code/:projectId`.replace(':projectId', projectId);
+    return this.http.get<Code[]>(endpoint, { withCredentials: true });
+  }
+  
+  createCode(projectId: string, code: CodeExport): Observable<Code> {
+    const endpoint = `${this.url}/code/:projectId`.replace(':projectId', projectId);
+    return this.http.post<Code>(endpoint, { code }, { withCredentials: true });
+  }
+  
+  updateCode(projectId: string, code: CodeExport): Observable<Code> {
+    const endpoint = `${this.url}/code/:projectId`.replace(':projectId', projectId);
+    return this.http.put<Code>(endpoint, { code }, { withCredentials: true });
+  }
+  
+  deleteCode(projectId: string, codeId: string): Observable<ResponseMessage> {
+    const endpoint = `${this.url}/code/:projectId/:codeId`.replace(':codeId', codeId).replace(':projectId', projectId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
+  }
+
 
   // Fn
 

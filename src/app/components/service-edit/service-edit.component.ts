@@ -18,6 +18,7 @@ import { EditQueueComponent } from '../edit-queue/edit-queue.component';
 import { EditSchedulerComponent } from '../edit-scheduler/edit-scheduler.component';
 import { EditArrComponent } from '../edit-arr/edit-arr.component';
 import { ResizableWidthDirective } from '../../directives/resizable-width.directive';
+import { EditCodeComponent } from '../edit-code/edit-code.component';
 
 @Component({
   selector: 'app-service-edit',
@@ -32,7 +33,7 @@ export class ServiceEditComponent {
   @ViewChild('serviceEditContainer') serviceEditContainer!: ElementRef;
   
   @ViewChild('componentHost', { read: ViewContainerRef, static: true }) componentHost!: ViewContainerRef;
-  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditFnComponent | EditObjComponent | EditArrComponent | EditRequestComponent | EditVariableComponent | EditWebsocketComponent | EditQueueComponent | EditSchedulerComponent | EditWorkflowComponent> | null = null;
+  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditFnComponent | EditObjComponent | EditArrComponent | EditRequestComponent | EditVariableComponent | EditWebsocketComponent | EditQueueComponent | EditSchedulerComponent | EditWorkflowComponent | EditCodeComponent> | null = null;
 
   serviceEditWidth: string = localStorage.getItem('serviceEditWidth') || '400';
   
@@ -109,6 +110,9 @@ export class ServiceEditComponent {
     } else if (this.view.service === 'Workflows') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditWorkflowComponent, { injector: componentInjector });
+    } else if (this.view.service === 'Codes') {
+      const componentInjector = this.componentInjector.createServiceEditInjector();
+      this.componentHostRef = this.componentHost.createComponent(EditCodeComponent, { injector: componentInjector });
     }
   }
 

@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash";
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, Pool } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, Pool, Code } from "../interfaces/app.interface";
 
 // User
 
@@ -25,6 +25,7 @@ export const addProjectDataFn: (state: AppState, data: ProjectData) => AppState 
     return {
         ...state,
         workflows: data.workflows,
+        codes: data.codes,
         apis: data.apis,
         storages: data.storages,
         schemas: data.schemas,
@@ -222,6 +223,34 @@ export const replaceWorkflowFn: (state: AppState, workflow: Workflow) => AppStat
 export const removeWorkflowFn: (state: AppState, workflowId: string) => AppState = (state: AppState, workflowId: string) => {
     if (!workflowId) return { ...state };
     return { ...state, workflows: state.workflows.filter((workflow) => workflow._id !== workflowId) };
+}
+
+// Code
+
+export const addCodesFn: (state: AppState, codes: Code[]) => AppState = (state: AppState, codes: Code[]) => {
+    if (!codes) return { ...state };
+    return { ...state, codes: codes };
+}
+
+export const addCodeFn: (state: AppState, code: Code) => AppState = (state: AppState, code: Code) => {
+    if (!code) return { ...state };
+    return { ...state, codes: state.codes.concat([code]) };
+}
+
+export const replaceCodeFn: (state: AppState, code: Code) => AppState = (state: AppState, code: Code) => {
+    if (!code) return { ...state };
+
+    const codes = state.codes.map((existingCode) => {
+        if (existingCode._id !== code._id) return existingCode;
+        return code;
+    });
+
+    return { ...state, codes: codes };
+}
+
+export const removeCodeFn: (state: AppState, codeId: string) => AppState = (state: AppState, codeId: string) => {
+    if (!codeId) return { ...state };
+    return { ...state, codes: state.codes.filter((code) => code._id !== codeId) };
 }
 
 // Fn
@@ -807,6 +836,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         schemas: [],
         validators: [],
         workflows: [],
+        codes: [],
         fns: [],
         objs: [],
         arrs: [],
@@ -847,6 +877,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         schemas: [],
         validators: [],
         workflows: [],
+        codes: [],
         fns: [],
         objs: [],
         arrs: [],

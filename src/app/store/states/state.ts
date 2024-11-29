@@ -9,6 +9,7 @@ export const appState: AppState = {
     schemas: [],
     validators: [],
     workflows: [],
+    codes: [],
     fns: [],
     objs: [],
     arrs: [],

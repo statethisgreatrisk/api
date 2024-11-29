@@ -2,7 +2,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, mergeMap, of } from "rxjs";
 import { Injectable } from "@angular/core";
 import { AppRequest } from "../requests/app.request";
-import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateKey, updateLog, updateUsage, signupUser, authError, authSuccess, resendUser, confirmUser, forgotUser, resetUser, loginUser, logoutUser, refreshUser, checkUser, addProject, addProjects, createProject, deleteProject, getProjects, removeProject, replaceProject, updateProject, deleteKey, removeKey, billingError, billingSuccess, deployStartSuccess, deployStartError, addFn, addFns, addObj, addObjs, createFn, createObj, deleteFn, deleteObj, getFns, getObjs, removeFn, removeObj, replaceFn, replaceObj, updateFn, updateObj, addDocument, addDocuments, createDocument, deleteDocument, getDocuments, removeDocument, replaceDocument, updateDocument, addSub, addSubs, createSub, deleteSub, getSubs, removeSub, replaceSub, updateSub, startDeploy, stopDeploy, deployStopSuccess, deployStopError, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, getInstances, addInstances, addRequest, addRequests, createRequest, deleteRequest, getRequests, removeRequest, replaceRequest, updateRequest, createRequestSuccess, addVariable, addVariables, createVariable, deleteVariable, getVariables, removeVariable, replaceVariable, updateVariable, addWebsocket, addWebsockets, createWebsocket, deleteWebsocket, getWebsockets, removeWebsocket, replaceWebsocket, updateWebsocket, addQueue, addQueues, createQueue, deleteQueue, getQueues, removeQueue, replaceQueue, updateQueue, addScheduler, addSchedulers, createScheduler, deleteScheduler, getSchedulers, removeScheduler, replaceScheduler, updateScheduler, addRegister, addRegisters, createRegister, deleteRegister, getRegisters, removeRegister, replaceRegister, updateRegister, getProjectSetup, addProjectSettings, addProjectSetup, getProjectData, addProjectData, getProjectSettings, getVariableValue, getVariableValueSuccess, addJobs, getJobs, getArgtypes, addArgtypes, addArr, addArrs, createArr, deleteArr, getArrs, removeArr, replaceArr, updateArr, addPool, addPools, createPool, deletePool, getPools, removePool, replacePool, updatePool } from "../actions/app.action";
+import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateKey, updateLog, updateUsage, signupUser, authError, authSuccess, resendUser, confirmUser, forgotUser, resetUser, loginUser, logoutUser, refreshUser, checkUser, addProject, addProjects, createProject, deleteProject, getProjects, removeProject, replaceProject, updateProject, deleteKey, removeKey, billingError, billingSuccess, deployStartSuccess, deployStartError, addFn, addFns, addObj, addObjs, createFn, createObj, deleteFn, deleteObj, getFns, getObjs, removeFn, removeObj, replaceFn, replaceObj, updateFn, updateObj, addDocument, addDocuments, createDocument, deleteDocument, getDocuments, removeDocument, replaceDocument, updateDocument, addSub, addSubs, createSub, deleteSub, getSubs, removeSub, replaceSub, updateSub, startDeploy, stopDeploy, deployStopSuccess, deployStopError, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, getInstances, addInstances, addRequest, addRequests, createRequest, deleteRequest, getRequests, removeRequest, replaceRequest, updateRequest, createRequestSuccess, addVariable, addVariables, createVariable, deleteVariable, getVariables, removeVariable, replaceVariable, updateVariable, addWebsocket, addWebsockets, createWebsocket, deleteWebsocket, getWebsockets, removeWebsocket, replaceWebsocket, updateWebsocket, addQueue, addQueues, createQueue, deleteQueue, getQueues, removeQueue, replaceQueue, updateQueue, addScheduler, addSchedulers, createScheduler, deleteScheduler, getSchedulers, removeScheduler, replaceScheduler, updateScheduler, addRegister, addRegisters, createRegister, deleteRegister, getRegisters, removeRegister, replaceRegister, updateRegister, getProjectSetup, addProjectSettings, addProjectSetup, getProjectData, addProjectData, getProjectSettings, getVariableValue, getVariableValueSuccess, addJobs, getJobs, getArgtypes, addArgtypes, addArr, addArrs, createArr, deleteArr, getArrs, removeArr, replaceArr, updateArr, addPool, addPools, createPool, deletePool, getPools, removePool, replacePool, updatePool, addCode, addCodes, createCode, deleteCode, getCodes, removeCode, replaceCode, updateCode } from "../actions/app.action";
 
 @Injectable()
 export class AppEffect {
@@ -401,6 +401,48 @@ export class AppEffect {
             ofType(deleteWorkflow),
             exhaustMap((action) => this.appRequest.deleteWorkflow(action.projectId, action.workflowId).pipe(
                 map(data => removeWorkflow({ workflowId: data.message })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    // Code
+
+    getCodes$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(getCodes),
+            exhaustMap((action) => this.appRequest.getCodes(action.projectId).pipe(
+                map(data => addCodes({ codes: data })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    createCode$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(createCode),
+            exhaustMap((action) => this.appRequest.createCode(action.projectId, action.code).pipe(
+                map(data => addCode({ code: data })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    updateCode$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updateCode),
+            exhaustMap((action) => this.appRequest.updateCode(action.projectId, action.code).pipe(
+                map(data => replaceCode({ code: data })),
+                catchError(err => of(requestError({ message: err.error, error: err })))
+            )),
+        );
+    });
+
+    deleteCode$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(deleteCode),
+            exhaustMap((action) => this.appRequest.deleteCode(action.projectId, action.codeId).pipe(
+                map(data => removeCode({ codeId: data.message })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
         );

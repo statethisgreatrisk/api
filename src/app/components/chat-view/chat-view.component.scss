@@ -1,0 +1,89 @@
+@import '../../styles/palette.component.scss';
+
+.chat-view-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 400px;
+    height: 100%;
+
+    background-color: $surface-mixed-100;
+    border-left: 1px solid $surface-mixed-300;
+    border-right: 1px solid $surface-mixed-300;
+}
+
+.chat-view-breadcrumb-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    max-height: 30px;
+    min-height: 30px;
+
+    margin-left: 15px;
+    margin-right: 15px;
+
+    border-bottom: 1px solid $surface-mixed-200;
+}
+
+.chat-view-breadcrumb {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.chat-view-breadcrumb p {
+    font-size: 11px;
+    font-weight: 600;
+
+    margin-left: 5px;
+
+    color:white;
+
+    cursor: pointer;
+}
+
+.chat-view-breadcrumb p.initial {
+    margin-left: 0px;
+}
+
+.chat-view-breadcrumb p.active,
+.chat-view-breadcrumb p:hover {
+    color: $primary-600;
+
+    cursor: pointer;
+}
+
+.chat-view-breadcrumb img {
+    width: 10px;
+    height: 10px;
+
+    margin-left: 5px;
+}
+
+.chat-view-breadcrumb img.arrow {
+    width: 10px;
+    height: 10px;
+
+    margin-left: 5px;
+}
+
+.chat-view-breadcrumb-container .chat-view-sidebar-icon {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.chat-view-breadcrumb-container .chat-view-sidebar-icon img {
+    width: 17px;
+    height: 17px;
+}
+
+.chat-view-breadcrumb-container .chat-view-sidebar-icon img.active {
+    cursor: pointer;
+}
+
+.spacer {
+    flex-grow: 1;
+}

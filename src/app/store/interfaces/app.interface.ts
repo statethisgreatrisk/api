@@ -63,6 +63,26 @@ export interface Workflow {
 
 export type WorkflowExport = Omit<Workflow, 'rows'>;
 
+export interface CodeVersion {
+    _id: string;
+    version: number;
+    code: string;
+}
+
+export interface Code {
+    _id: string;
+    userId: string;
+    projectId: string;
+    date: string;
+    active: boolean;
+    name: string;
+    code: string;
+    versionId: string;
+    versions: CodeVersion[];
+}
+
+export type CodeExport = Omit<Code, 'code'>;
+
 export interface RequestParameter {
     _id: string;
     active: boolean;
@@ -438,6 +458,7 @@ export interface ProjectSetup {
 
 export interface ProjectData {
     workflows: Workflow[];
+    codes: Code[];
     apis: API[];
     storages: Storage[];
     schemas: Schema[];
@@ -475,6 +496,7 @@ export interface AppState {
     storages: Storage[];
     schemas: Schema[];
     workflows: Workflow[];
+    codes: Code[];
     fns: Fn[];
     objs: Obj[];
     arrs: Arr[];

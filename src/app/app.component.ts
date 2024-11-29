@@ -31,6 +31,8 @@ import { DebugViewService } from './services/debug-view.service';
 import { DebugViewComponent } from './components/debug-view/debug-view.component';
 import { LogsViewComponent } from './components/logs-view/logs-view.component';
 import { LogsViewService } from './services/logs-view.service';
+import { ChatViewComponent } from './components/chat-view/chat-view.component';
+import { CodeViewComponent } from './components/code-view/code-view.component';
 
 @Component({
   selector: 'app-root',
@@ -42,6 +44,8 @@ import { LogsViewService } from './services/logs-view.service';
     ServiceEditComponent,
     StorageViewComponent,
     ApiViewComponent,
+    CodeViewComponent,
+    ChatViewComponent,
     LandingViewComponent,
     ToastViewComponent,
     DeleteViewComponent,
