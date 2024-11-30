@@ -255,8 +255,8 @@ export class AppRequest {
     return this.http.post<Chat>(endpoint, { chat }, { withCredentials: true });
   }
   
-  updateChat(projectId: string, chat: Chat): Observable<Chat> {
-    const endpoint = `${this.url}/chat/:projectId`.replace(':projectId', projectId);
+  updateChat(projectId: string, variableId: string, chat: Chat): Observable<Chat> {
+    const endpoint = `${this.url}/chat/:projectId/:variableId`.replace(':projectId', projectId).replace(':variableId', variableId);
     return this.http.put<Chat>(endpoint, { chat }, { withCredentials: true });
   }
   

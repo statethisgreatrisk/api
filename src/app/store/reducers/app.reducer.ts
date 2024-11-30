@@ -26,6 +26,7 @@ export const addProjectDataFn: (state: AppState, data: ProjectData) => AppState 
         ...state,
         workflows: data.workflows,
         codes: data.codes,
+        chats: data.chats,
         apis: data.apis,
         storages: data.storages,
         schemas: data.schemas,

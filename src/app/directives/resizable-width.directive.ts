@@ -9,6 +9,7 @@ export class ResizableWidthDirective {
   @Input() maxWidth: number = 600;
   @Input() localStorageKey!: string;
   @Input() resizingElement!: any;
+  @Input() reverse: boolean = false;
 
   private resizing: boolean = false;
   private startX: number = 0;
@@ -36,7 +37,11 @@ export class ResizableWidthDirective {
     if (!this.resizingElement) return;
     if (!this.resizing) return;
 
-    const newWidth = this.startWidth + (event.clientX - this.startX);
+    let newWidth = 0;
+
+    if (this.reverse) newWidth = this.startWidth + (this.startX - event.clientX);
+    else newWidth = this.startWidth + (event.clientX - this.startX);
+
     if (newWidth >= this.minWidth && newWidth <= this.maxWidth) {
       this.renderer.setStyle(this.resizingElement, 'width', `${newWidth}px`);
       localStorage.setItem(this.localStorageKey, String(newWidth));

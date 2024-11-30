@@ -83,10 +83,18 @@ export interface Code {
 
 export type CodeExport = Omit<Code, 'code'>;
 
+export interface CodeData {
+    code: string;
+    name: string;
+    version: string | number;
+    versionId: string;
+    versionStatus: string;
+}
+
 export interface ChatMessage {
     _id: string;
-    input: boolean;
-    message: string;
+    role: 'system' | 'user' | 'assistant' | 'alert';
+    content: string;
 }
 
 export interface Chat {

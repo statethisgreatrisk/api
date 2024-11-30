@@ -1,15 +1,109 @@
-<div class="chat-view-container" [ngStyle]="{ width: sidebarWidth }">
+<div class="chat-view-resize-bar" *ngIf="sidebarView" appResizableWidth [localStorageKey]="'chatViewWidth'" [resizingElement]="chatViewContainer" [reverse]="true"></div>
+
+<div #chatViewContainer class="chat-view-container" [ngStyle]="{ width: sidebarView ? chatViewWidth + 'px' : 'auto' }">
     <div class="chat-view-breadcrumb-container">
         <div class="chat-view-breadcrumb" *ngIf="sidebarView">
             <p class="initial">Chat</p>
-            <!-- <img src="/right.png" class="arrow" *ngIf="!categoryView"> -->
         </div>
-        <!-- <div class="chat-view-breadcrumb" *ngIf="sidebarView">
-            <p class="active">{{ category }}</p>
-        </div> -->
+        <div class="chat-view-breadcrumb" *ngIf="sidebarView">
+            <p class="active">{{ name }}</p>
+            <img src="/right.png" class="arrow">
+        </div>
+        <div class="chat-view-breadcrumb" *ngIf="sidebarView">
+            <p class="active">Version {{ version }}</p>
+        </div>
+        <div class="chat-view-breadcrumb" *ngIf="sidebarView">
+            <p class="detail">{{ versionStatus }}</p>
+        </div>
         <div class="spacer"></div>
+        <div class="chat-view-slim-button inline" *ngIf="sidebarView" (click)="createChat()">
+            <p>New Chat</p>
+        </div>
         <div class="chat-view-sidebar-icon">
             <img class="active" src="/sidebar-right-active.png" (click)="toggleSidebar()">
+        </div>
+    </div>
+    <div class="chat-view-actions" *ngIf="sidebarView">
+        <div class="chat-view-actions-dropdown-container" (click)="toggleAPIKeyDropdown()">
+            <p class="action-value" *ngIf="!apiKeyId">API Key</p>
+            <p class="action-value" *ngIf="apiKeyId">{{ findVariable(apiKeyId) }}</p>
+            <img src="/down.png" class="arrow">
+            <div class="chat-view-actions-dropdown" *ngIf="apiKeyDropdown">
+                <ng-content *ngFor="let variable of variables">
+                    <p (click)="selectAPIKey(variable._id)">{{ variable.name }}<span *ngIf="variable._id === apiKeyId"><img src="/check-dark.png" alt=""></span></p>
+                </ng-content>
+            </div>
+        </div>
+        <div class="chat-view-actions-dropdown-container" (click)="toggleModelDropdown()">
+            <p class="action-value" *ngIf="!modelId">Model</p>
+            <p class="action-value" *ngIf="modelId">{{ modelId }}</p>
+            <img src="/down.png" class="arrow">
+            <div class="chat-view-actions-dropdown" *ngIf="modelDropdown">
+                <ng-content *ngFor="let model of models">
+                    <p (click)="selectModel(model)">{{ model }}<span *ngIf="model === modelId"><img src="/check-dark.png" alt=""></span></p>
+                </ng-content>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="chat-view-actions-dropdown-container" (click)="toggleHistoryDropdown()">
+            <p class="action-value" *ngIf="!historyId">History</p>
+            <p class="action-value" *ngIf="historyId">{{ findChat(historyId) }}</p>
+            <img src="/down.png" class="arrow reverse">
+            <div class="chat-view-actions-dropdown reverse" *ngIf="historyDropdown">
+                <ng-content *ngFor="let chat of chats">
+                    <p (click)="selectHistory(chat._id)">{{ chat._id.slice(-6) }}<span *ngIf="chat._id === historyId"><img src="/check-dark.png" alt=""></span></p>
+                </ng-content>
+            </div>
+        </div>
+    </div>
+    <div class="chat-view-chats" *ngIf="sidebarView && historyId">
+        <ng-content>
+            <div class="chat-view-message-container">
+                <div class="chat-view-message">
+                    <div class="chat-view-message-content">
+                        <p>Test message</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-view-response-container">
+                <div class="chat-view-response">
+                    <div class="chat-view-response-content">
+                        <p>Response message</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-view-response-code-container">
+                <div class="chat-view-response-code">
+                    <div class="chat-view-response-code-content">
+                        <pre>Response code message</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-view-response-alert-container">
+                <div class="chat-view-response-alert">
+                    <div class="chat-view-response-alert-content">
+                        <p>Response alert message</p>
+                    </div>
+                </div>
+            </div>
+        </ng-content>
+    </div>
+    <div class="chat-view-landing-container" *ngIf="sidebarView && !historyId">
+        <div class="chat-view-landing">
+            <img src="/cursor-window.png">
+            <p>Select <span>New Chat</span> and enter a <span>Prompt</span> to get started.</p>
+        </div>
+    </div>
+    <div class="chat-view-footer" *ngIf="sidebarView && historyId">
+        <div class="chat-view-footer-toolbar">
+            <div class="chat-view-footer-input">
+                <textarea #textinput placeholder="Type here" (input)="autoResize()" [(ngModel)]="text" (keydown.enter)="$event.preventDefault();"></textarea>
+            </div>
+            <div class="chat-view-footer-send">
+                <img src="/send.png" style="cursor: default;" *ngIf="!text && !running">
+                <img src="/send-active.png" *ngIf="text && !running">
+                <img src="/stop.png" *ngIf="running">
+            </div>
         </div>
     </div>
 </div>

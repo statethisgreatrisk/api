@@ -473,7 +473,7 @@ export class AppEffect {
     updateChat$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(updateChat),
-            exhaustMap((action) => this.appRequest.updateChat(action.projectId, action.chat).pipe(
+            exhaustMap((action) => this.appRequest.updateChat(action.projectId, action.variableId, action.chat).pipe(
                 map(data => replaceChat({ chat: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),

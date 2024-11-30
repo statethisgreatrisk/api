@@ -16,6 +16,7 @@ import { basicSetup, EditorView } from 'codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { oneDarkSmallLight } from '../../styles/one-dark-small-light';
 import ObjectId from 'bson-objectid';
+import { CodeViewService } from '../../services/code-view.service';
 
 @Component({
   selector: 'app-code-view',
@@ -41,6 +42,7 @@ export class CodeViewComponent {
 
   constructor(
     private store: Store<AppStateInit>,
+    private codeViewService: CodeViewService,
     private debugViewService: DebugViewService,
     private deleteService: DeleteService,
     private cdr: ChangeDetectorRef,
@@ -57,6 +59,7 @@ export class CodeViewComponent {
 
   ngAfterViewInit() {
     this.createEditor();
+    this.updateCodeView();
   }
 
   initLatest() {
@@ -74,7 +77,11 @@ export class CodeViewComponent {
         const code = codes.find((existingCode) => existingCode._id === this.view.windowId);
         this.code = code ? cloneDeep(code) : null;
 
-        if (!this.code) return;
+        if (!this.code) {
+          this.codeViewService.clearCodeData();
+          return;
+        }
+        
         
         // If different code
         if (this.editingCodeId !== this.view.windowId) {
@@ -84,7 +91,7 @@ export class CodeViewComponent {
 
           this.editingVersionId = latestVersion._id;
           this.code.code = cloneDeep(latestVersion.code);
-          this.updateCodeView(this.code.code);
+          this.updateCodeView();
 
           return;
         }
@@ -94,7 +101,7 @@ export class CodeViewComponent {
           const editingVersion = this.code.versions.find((version) => version._id === this.editingVersionId)!;
 
           this.code.code = cloneDeep(editingVersion.code);
-          this.updateCodeView(this.code.code);
+          this.updateCodeView();
 
           return;
         }
@@ -104,7 +111,7 @@ export class CodeViewComponent {
 
         this.editingVersionId = latestVersion._id;
         this.code.code = cloneDeep(latestVersion.code);
-        this.updateCodeView(this.code.code);
+        this.updateCodeView();
       }
     });
   }
@@ -144,7 +151,7 @@ export class CodeViewComponent {
     const originalVersion = this.code.versions.find((version) => version._id === this.editingVersionId)!;
 
     this.code.code = cloneDeep(originalVersion.code);
-    this.updateCodeView(this.code.code);
+    this.updateCodeView();
   }
 
   close() {
@@ -200,7 +207,7 @@ export class CodeViewComponent {
 
     this.editingVersionId = version._id;
     this.code.code = cloneDeep(version.code);
-    this.updateCodeView(this.code.code);
+    this.updateCodeView();
   }
 
   previousVersion() {
@@ -214,7 +221,7 @@ export class CodeViewComponent {
 
     this.editingVersionId = version._id;
     this.code.code = cloneDeep(version.code);
-    this.updateCodeView(this.code.code);
+    this.updateCodeView();
   }
 
   findVersion(versionId: string) {
@@ -246,10 +253,17 @@ export class CodeViewComponent {
     return `${highestStatus} ${deployedStatus}`;
   }
 
-  updateCodeView(code: string) {
+  updateCodeView() {
+    if (!this.code) return;
     if (!this.editorView) return;
 
     let currentText = this.editorView.state.doc.toString();
-    this.editorView.dispatch({ changes: { from: 0, to: currentText.length, insert: code } });
+    this.editorView.dispatch({ changes: { from: 0, to: currentText.length, insert: this.code.code } });
+
+    const versionStatus = this.getVersionStatus(this.editingVersionId);
+    const version = this.findVersion(this.editingVersionId);
+    const name = this.code?.name || '';
+
+    this.codeViewService.setCodeData({ code: this.code.code, name, versionId: this.editingVersionId, versionStatus, version });
   }
 }
