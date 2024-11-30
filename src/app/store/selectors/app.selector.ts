@@ -1,5 +1,5 @@
 import { createSelector } from "@ngrx/store";
-import { API, Storage, AppState, AppStateInit, Schema, Validator, Billing, Deploy, Key, Log, Usage, Workflow, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, Job, Argtype, Arr, Pool, Code } from "../interfaces/app.interface";
+import { API, Storage, AppState, AppStateInit, Schema, Validator, Billing, Deploy, Key, Log, Usage, Workflow, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, Job, Argtype, Arr, Pool, Code, Chat } from "../interfaces/app.interface";
 
 export const selectApp = (state: AppStateInit) => state.app;
 
@@ -31,6 +31,7 @@ export const selectSchemas = createSelector(selectApp, (state: AppState) => stat
 export const selectValidators = createSelector(selectApp, (state: AppState) => state.validators);
 export const selectWorkflows = createSelector(selectApp, (state: AppState) => state.workflows);
 export const selectCodes = createSelector(selectApp, (state: AppState) => state.codes);
+export const selectChats = createSelector(selectApp, (state: AppState) => state.chats);
 export const selectFns = createSelector(selectApp, (state: AppState) => state.fns);
 export const selectObjs = createSelector(selectApp, (state: AppState) => state.objs);
 export const selectArrs = createSelector(selectApp, (state: AppState) => state.arrs);
@@ -58,6 +59,7 @@ export const selectProjectSchemas = (projectId: string) => createSelector(select
 export const selectProjectValidators = (projectId: string) => createSelector(selectValidators, (validators: Validator[]) => validators.filter((validator) => projectId === validator.projectId));
 export const selectProjectWorkflows = (projectId: string) => createSelector(selectWorkflows, (workflows: Workflow[]) => workflows.filter((workflow) => projectId === workflow.projectId));
 export const selectProjectCodes = (projectId: string) => createSelector(selectCodes, (codes: Code[]) => codes.filter((code) => projectId === code.projectId));
+export const selectProjectChats = (projectId: string) => createSelector(selectChats, (chats: Chat[]) => chats.filter((chat) => projectId === chat.projectId));
 export const selectProjectFns = (projectId: string) => createSelector(selectFns, (fns: Fn[]) => fns.filter((fn) => projectId === fn.projectId));
 export const selectProjectObjs = (projectId: string) => createSelector(selectObjs, (objs: Obj[]) => objs.filter((obj) => projectId === obj.projectId));
 export const selectProjectArrs = (projectId: string) => createSelector(selectArrs, (arrs: Arr[]) => arrs.filter((arr) => projectId === arr.projectId));

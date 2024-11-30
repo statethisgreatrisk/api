@@ -83,6 +83,23 @@ export interface Code {
 
 export type CodeExport = Omit<Code, 'code'>;
 
+export interface ChatMessage {
+    _id: string;
+    input: boolean;
+    message: string;
+}
+
+export interface Chat {
+    _id: string;
+    userId: string;
+    projectId: string;
+    date: string;
+    active: boolean;
+    name: string;
+    type: 'chat';
+    messages: ChatMessage[];
+}
+
 export interface RequestParameter {
     _id: string;
     active: boolean;
@@ -460,6 +477,7 @@ export interface ProjectSetup {
 export interface ProjectData {
     workflows: Workflow[];
     codes: Code[];
+    chats: Chat[];
     apis: API[];
     storages: Storage[];
     schemas: Schema[];
@@ -498,6 +516,7 @@ export interface AppState {
     schemas: Schema[];
     workflows: Workflow[];
     codes: Code[];
+    chats: Chat[];
     fns: Fn[];
     objs: Obj[];
     arrs: Arr[];

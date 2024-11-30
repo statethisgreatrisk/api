@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Argtype, Arr, WorkflowExport, Pool, Code, CodeExport } from "../interfaces/app.interface";
+import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Argtype, Arr, WorkflowExport, Pool, Code, CodeExport, Chat } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -243,6 +243,27 @@ export class AppRequest {
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 
+  // Chat
+
+  getChats(projectId: string): Observable<Chat[]> {
+    const endpoint = `${this.url}/chat/:projectId`.replace(':projectId', projectId);
+    return this.http.get<Chat[]>(endpoint, { withCredentials: true });
+  }
+  
+  createChat(projectId: string, chat: Chat): Observable<Chat> {
+    const endpoint = `${this.url}/chat/:projectId`.replace(':projectId', projectId);
+    return this.http.post<Chat>(endpoint, { chat }, { withCredentials: true });
+  }
+  
+  updateChat(projectId: string, chat: Chat): Observable<Chat> {
+    const endpoint = `${this.url}/chat/:projectId`.replace(':projectId', projectId);
+    return this.http.put<Chat>(endpoint, { chat }, { withCredentials: true });
+  }
+  
+  deleteChat(projectId: string, chatId: string): Observable<ResponseMessage> {
+    const endpoint = `${this.url}/chat/:projectId/:chatId`.replace(':chatId', chatId).replace(':projectId', projectId);
+    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
+  }
 
   // Fn
 

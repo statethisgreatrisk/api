@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash";
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, Pool, Code } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, Pool, Code, Chat } from "../interfaces/app.interface";
 
 // User
 
@@ -251,6 +251,34 @@ export const replaceCodeFn: (state: AppState, code: Code) => AppState = (state: 
 export const removeCodeFn: (state: AppState, codeId: string) => AppState = (state: AppState, codeId: string) => {
     if (!codeId) return { ...state };
     return { ...state, codes: state.codes.filter((code) => code._id !== codeId) };
+}
+
+// Chat
+
+export const addChatsFn: (state: AppState, chats: Chat[]) => AppState = (state: AppState, chats: Chat[]) => {
+    if (!chats) return { ...state };
+    return { ...state, chats: chats };
+}
+
+export const addChatFn: (state: AppState, chat: Chat) => AppState = (state: AppState, chat: Chat) => {
+    if (!chat) return { ...state };
+    return { ...state, chats: state.chats.concat([chat]) };
+}
+
+export const replaceChatFn: (state: AppState, chat: Chat) => AppState = (state: AppState, chat: Chat) => {
+    if (!chat) return { ...state };
+
+    const chats = state.chats.map((existingChat) => {
+        if (existingChat._id !== chat._id) return existingChat;
+        return chat;
+    });
+
+    return { ...state, chats: chats };
+}
+
+export const removeChatFn: (state: AppState, chatId: string) => AppState = (state: AppState, chatId: string) => {
+    if (!chatId) return { ...state };
+    return { ...state, chats: state.chats.filter((chat) => chat._id !== chatId) };
 }
 
 // Fn
@@ -837,6 +865,7 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         validators: [],
         workflows: [],
         codes: [],
+        chats: [],
         fns: [],
         objs: [],
         arrs: [],
@@ -878,6 +907,7 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         validators: [],
         workflows: [],
         codes: [],
+        chats: [],
         fns: [],
         objs: [],
         arrs: [],

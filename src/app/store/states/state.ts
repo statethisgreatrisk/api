@@ -10,6 +10,7 @@ export const appState: AppState = {
     validators: [],
     workflows: [],
     codes: [],
+    chats: [],
     fns: [],
     objs: [],
     arrs: [],
