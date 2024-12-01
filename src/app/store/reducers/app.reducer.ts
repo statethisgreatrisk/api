@@ -277,6 +277,14 @@ export const replaceChatFn: (state: AppState, chat: Chat) => AppState = (state: 
     return { ...state, chats: chats };
 }
 
+export const chunkChatFn: (state: AppState, chatId: string, chunk: string) => AppState = (state: AppState, chatId: string, chunk: string) => {
+    if (!chatId) return { ...state };
+
+    console.log('Reducer chunk', chunk);
+
+    return { ...state };
+}
+
 export const removeChatFn: (state: AppState, chatId: string) => AppState = (state: AppState, chatId: string) => {
     if (!chatId) return { ...state };
     return { ...state, chats: state.chats.filter((chat) => chat._id !== chatId) };

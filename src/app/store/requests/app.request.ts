@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
 import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Argtype, Arr, WorkflowExport, Pool, Code, CodeExport, Chat } from "../interfaces/app.interface";
@@ -255,9 +255,40 @@ export class AppRequest {
     return this.http.post<Chat>(endpoint, { chat }, { withCredentials: true });
   }
   
-  updateChat(projectId: string, variableId: string, chat: Chat): Observable<Chat> {
-    const endpoint = `${this.url}/chat/:projectId/:variableId`.replace(':projectId', projectId).replace(':variableId', variableId);
+  updateChat(projectId: string, chat: Chat): Observable<Chat> {
+    const endpoint = `${this.url}/chat/:projectId`.replace(':projectId', projectId);
     return this.http.put<Chat>(endpoint, { chat }, { withCredentials: true });
+  }
+
+  streamChat(projectId: string, chatId: string): Observable<string> {
+    const chatSubject = new Subject<string>();
+    const endpoint = `${this.url}/chat/stream/:projectId/:chatId`.replace(':projectId', projectId).replace(':chatId', chatId);
+    const chatStream = new EventSource(endpoint, { withCredentials: true });
+
+    chatStream.onmessage = (event) => {
+      console.log('Chat chunk', event);
+      // if (event.data === '[DONE]') {
+      //   subject.complete();
+      //   eventSource.close();
+      //   return;
+      // }
+
+      // try {
+      //   const parsed = JSON.parse(event.data);
+      //   subject.next(parsed.choices[0].delta.content || '');
+      // } catch (err) {
+      //   subject.error(err);
+      //   eventSource.close();
+      // }
+    };
+
+    chatStream.onerror = (error) => {
+      console.log('Chat chunk error', error);
+      chatSubject.error(error);
+      chatStream.close();
+    };
+    
+    return chatSubject.asObservable();
   }
   
   deleteChat(projectId: string, chatId: string): Observable<ResponseMessage> {

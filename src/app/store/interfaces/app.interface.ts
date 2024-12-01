@@ -93,7 +93,7 @@ export interface CodeData {
 
 export interface ChatMessage {
     _id: string;
-    role: 'system' | 'user' | 'assistant' | 'alert';
+    role: 'system' | 'user' | 'assistant' | 'error';
     content: string;
 }
 
@@ -106,6 +106,10 @@ export interface Chat {
     name: string;
     type: 'chat';
     messages: ChatMessage[];
+    modelId: string;
+    variableId: string;
+    inputTokens: number;
+    outputTokens: number;
 }
 
 export interface RequestParameter {

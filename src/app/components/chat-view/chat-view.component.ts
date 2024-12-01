@@ -100,6 +100,8 @@ export class ChatViewComponent {
   createChat() {
     if (!this.project) return;
     if (!this.user) return;
+    if (!this.modelId) return;
+    if (!this.apiKeyId) return;
 
     const userId = this.user._id;
     const projectId = this.project._id;
@@ -109,8 +111,12 @@ export class ChatViewComponent {
     const active = true;
     const type = 'chat';
     const messages: ChatMessage[] = [];
+    const modelId = '';
+    const variableId = '';
+    const inputTokens = 0;
+    const outputTokens = 0;
 
-    this.store.dispatch(createChat({ projectId, chat: { _id, projectId, userId, date, active, name, type, messages } }));
+    this.store.dispatch(createChat({ projectId, chat: { _id, projectId, userId, date, active, name, type, messages, modelId, variableId, inputTokens, outputTokens } }));
   }
 
   selectAPIKey(variableId: string) {
