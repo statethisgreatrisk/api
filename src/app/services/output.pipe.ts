@@ -21,14 +21,9 @@ export class OutputPipe implements PipeTransform {
     const suffix = `","updatedCode":`;
     const suffixStartIndex = content.indexOf(suffix);
     
-    if (suffixStartIndex === -1) {
-      const replaced = content.replace(/\\n/g, '<br>').replace('<code>', '<pre><code>').replace('</code>', '</code></pre>')
-      console.log('replaced', replaced)
-      return replaced;
-    }
+    if (suffixStartIndex === -1) return content.replace(/\\n/g, '<br>').replace(/\\"/g, '"');
 
-    const html = content.slice(0, suffixStartIndex).replace(/\\n/g, '<br>').replace('<code>', '<pre><code>').replace('</code>', '</code></pre>')
-    console.log('replaced html', html)
+    const html = content.slice(0, suffixStartIndex).replace(/\\n/g, '<br>').replace(/\\"/g, '"');
     
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }

@@ -319,6 +319,63 @@
     color: white;
 }
 
+::ng-deep .chat-view-response-content h1,
+::ng-deep .chat-view-response-content h2,
+::ng-deep .chat-view-response-content h3,
+::ng-deep .chat-view-response-content h4,
+::ng-deep .chat-view-response-content h5,
+::ng-deep .chat-view-response-content h6 {
+    font-size: 17px;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+
+    color: white;
+}
+
+::ng-deep .chat-view-response-content ol,
+::ng-deep .chat-view-response-content ul {
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+}
+
+::ng-deep .chat-view-response-content code {
+    font-size: 13px;
+    font-weight: 700;
+    background-color: $surface-dark;
+
+    color: white;
+    
+    font-family: "Roboto Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+::ng-deep .chat-view-response-content pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-width: 100%;
+    overflow-x: auto;
+    
+    width: 100%;
+
+    background-color: $surface-dark;
+}
+
+::ng-deep .chat-view-response-content pre code {
+    font-size: 12px;
+    font-family: "Roboto Mono", monospace;
+    font-weight: 700;
+    font-style: normal;
+    font-optical-sizing: auto;
+
+    color: white;
+}
+
 .chat-view-response-code-container {
     display: flex;
     flex-direction: row;
@@ -593,3 +650,59 @@
     border: 1px solid black;
     cursor: ew-resize;
 }
+
+::ng-deep .hljs-keyword {
+    font-size: 13px;
+    font-weight: 700;
+
+    color: $primary-600;
+}
+
+::ng-deep .hljs-string {
+    font-size: 13px;
+    font-weight: 700;
+
+    color: $peach;
+}
+
+::ng-deep .hljs-title.function_ {
+    font-size: 13px;
+    font-weight: 700;
+
+    color: $light-green;
+}
+
+::ng-deep .hljs-comment {
+    font-size: 13px;
+    font-weight: 500;
+
+    color: $surface-mixed-900;
+}
+
+::ng-deep .hljs-comment {
+    font-size: 13px;
+    font-weight: 500;
+
+    color: $surface-mixed-900;
+}
+
+::ng-deep .hljs-variable.language_ {
+    font-size: 13px;
+    font-weight: 700;
+
+    color: $mustard;
+}
+
+::ng-deep .hljs-number {
+    font-size: 13px;
+    font-weight: 700;
+
+    color: $light-purple;
+}
+
+
+
+
+
+
+

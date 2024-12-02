@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, SecurityContext, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppStateInit, Chat, ChatMessage, Code, Project, User, Variable, View } from '../../store/interfaces/app.interface';
 import { Store } from '@ngrx/store';
@@ -7,11 +7,16 @@ import { selectChats, selectCodes, selectMainProject, selectUser, selectVariable
 import { Subscription, combineLatest } from 'rxjs';
 import { CodeViewService } from '../../services/code-view.service';
 import { ResizableWidthDirective } from '../../directives/resizable-width.directive';
-import { createChat, createChatError, createChatSuccess, streamChat, updateChat, updateChatError, updateChatSuccess } from '../../store/actions/app.action';
+import { chunkChat, createChat, createChatError, createChatSuccess, streamChat, updateChat, updateChatError, updateChatSuccess } from '../../store/actions/app.action';
 import { Actions, ofType } from '@ngrx/effects';
 import ObjectId from 'bson-objectid';
 import { cloneDeep } from 'lodash';
 import { OutputPipe } from '../../services/output.pipe';
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import { DomSanitizer } from '@angular/platform-browser';
+
+hljs.registerLanguage('javascript', javascript);
 
 @Component({
   selector: 'app-chat-view',
@@ -55,6 +60,7 @@ export class ChatViewComponent {
   createErrorSub: Subscription | null = null;
   updateSuccessSub: Subscription | null = null;
   updateErrorSub: Subscription | null = null;
+  streamSub: Subscription | null = null;
 
   sidebarView = true;
 
@@ -67,6 +73,8 @@ export class ChatViewComponent {
     private store: Store<AppStateInit>,
     private codeViewService: CodeViewService,
     private actions$: Actions,
+    private cdr: ChangeDetectorRef,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -74,6 +82,7 @@ export class ChatViewComponent {
     this.initCodeData();
     this.initCreates();
     this.initUpdates();
+    this.initStreams();
   }
 
   ngOnDestroy() {
@@ -84,6 +93,32 @@ export class ChatViewComponent {
     this.createErrorSub?.unsubscribe();
     this.updateSuccessSub?.unsubscribe();
     this.updateErrorSub?.unsubscribe();
+    this.streamSub?.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.highlightCode();
+    }, 5000);
+
+    this.highlightCode();
+  }
+
+  highlightCode() {
+    this.cdr.detectChanges();
+
+    const blocks = document.querySelectorAll('.code-block');
+
+    blocks.forEach((block, index) => {
+      if (block.hasAttribute('data-highlighted')) return;
+
+      const formattedCode = block.innerHTML.replace(/<br\s*\/?>/g, '\n');
+      block.innerHTML = this.sanitizer.sanitize(SecurityContext.HTML, formattedCode)!;
+
+      this.cdr.detectChanges();
+
+      hljs.highlightElement(block as HTMLElement);
+    });
   }
 
   initLatest() {
@@ -140,6 +175,14 @@ export class ChatViewComponent {
     });
     this.updateErrorSub = this.actions$.pipe((ofType(updateChatError))).subscribe(({ err, chat }) => {
       // this.running = false;
+    });
+  }
+
+  initStreams() {
+    this.streamSub = this.actions$.pipe((ofType(chunkChat))).subscribe(({ chatId, chunk }) => {
+      if (chunk.done) {
+        this.highlightCode();
+      }
     });
   }
 
@@ -220,6 +263,8 @@ export class ChatViewComponent {
 
     this.modelId = lastMessage.modelId;
     this.apiKeyId = lastMessage.variableId;
+
+    this.highlightCode();
   }
 
   findVariable(variableId: string) {
