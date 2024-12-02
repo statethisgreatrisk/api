@@ -67,8 +67,9 @@
             </div>
             <div class="chat-view-response-container" *ngIf="message.role === 'assistant'">
                 <div class="chat-view-response">
-                    <div class="chat-view-response-content">
-                        <p>{{ message.content }}</p>
+                    <div class="chat-view-response-content" [innerHtml]="message.content | output">
+                        <!-- <p>{{ message.content | output }}</p> -->
+                        <!-- <div [innerHtml]="message.content | output"></div> -->
                     </div>
                 </div>
             </div>
@@ -88,12 +89,12 @@
             </div>
         </ng-content>
     </div>
-    <div class="chat-view-status-container" *ngIf="sidebarView && historyId && chat && chat.messages && chat.messages.length" (click)="toggleTokens()">
-        <div class="chat-view-status" *ngIf="!showTotalTokens && findRecentTokens">
+    <div class="chat-view-token-container" *ngIf="sidebarView && historyId && chat && chat.messages && chat.messages.length" (click)="toggleTokens()">
+        <div class="chat-view-token" *ngIf="!showTotalTokens && findRecentTokens">
             <p>Input: {{ findRecentTokens.inputTokens }}</p>
             <p>Output: {{ findRecentTokens.outputTokens }}</p>
         </div>
-        <div class="chat-view-status" *ngIf="showTotalTokens && findTotalTokens">
+        <div class="chat-view-token" *ngIf="showTotalTokens && findTotalTokens">
             <p>Total Input: {{ findTotalTokens.inputTokens }}</p>
             <p>Total Output: {{ findTotalTokens.outputTokens }}</p>
         </div>

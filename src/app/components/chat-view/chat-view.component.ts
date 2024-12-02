@@ -11,11 +11,12 @@ import { createChat, createChatError, createChatSuccess, streamChat, updateChat,
 import { Actions, ofType } from '@ngrx/effects';
 import ObjectId from 'bson-objectid';
 import { cloneDeep } from 'lodash';
+import { OutputPipe } from '../../services/output.pipe';
 
 @Component({
   selector: 'app-chat-view',
   standalone: true,
-  imports: [NgFor, NgIf, NgStyle, NgClass, FormsModule, ResizableWidthDirective],
+  imports: [NgFor, NgIf, NgStyle, NgClass, FormsModule, ResizableWidthDirective, OutputPipe],
   templateUrl: './chat-view.component.html',
   styleUrl: './chat-view.component.scss'
 })

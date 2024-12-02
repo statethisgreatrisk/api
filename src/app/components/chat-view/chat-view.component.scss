@@ -274,7 +274,7 @@
     color: white;
 }
 
-.chat-view-response-container {
+::ng-deep .chat-view-response-container {
     display: flex;
     flex-direction: column;
 
@@ -284,7 +284,7 @@
     height: auto;
 }
 
-.chat-view-response {
+::ng-deep .chat-view-response {
     display: flex;
     flex-direction: column;
 
@@ -296,7 +296,7 @@
     max-width: 98%;
 }
 
-.chat-view-response-content {
+::ng-deep .chat-view-response-content {
     display: flex;
     flex-direction: column;
 
@@ -312,7 +312,7 @@
     padding: 10px;
 }
 
-.chat-view-response-content p {
+::ng-deep .chat-view-response-content p {
     font-size: 13px;
     font-weight: 500;
 
@@ -479,14 +479,16 @@
     margin-bottom: 25px;
 }
 
-.chat-view-status-container {
+.chat-view-token-container {
     display: flex;
     flex-direction: row;
 
     justify-content: center;
+
+    cursor: pointer;
 }
 
-.chat-view-status-container .chat-view-status {
+.chat-view-token-container .chat-view-token {
     display: flex;
     flex-direction: row;
 
@@ -495,7 +497,7 @@
     padding: 3px 0;
 }
 
-.chat-view-status-container .chat-view-status p {
+.chat-view-token-container .chat-view-token p {
     font-size: 11px;
     font-weight: 600;
 
