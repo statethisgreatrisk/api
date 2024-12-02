@@ -7,7 +7,10 @@ import { selectChats, selectCodes, selectMainProject, selectUser, selectVariable
 import { Subscription, combineLatest } from 'rxjs';
 import { CodeViewService } from '../../services/code-view.service';
 import { ResizableWidthDirective } from '../../directives/resizable-width.directive';
-import { createChat } from '../../store/actions/app.action';
+import { createChat, createChatError, createChatSuccess, streamChat, updateChat, updateChatError, updateChatSuccess } from '../../store/actions/app.action';
+import { Actions, ofType } from '@ngrx/effects';
+import ObjectId from 'bson-objectid';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-chat-view',
@@ -23,6 +26,7 @@ export class ChatViewComponent {
   variables: Variable[] | null = null;
   codes: Code[] | null = null;
   chats: Chat[] | null = null;
+  chat: Chat | null = null;
 
   code: string = '';
   name: string = '';
@@ -32,6 +36,7 @@ export class ChatViewComponent {
 
   text: string = '';
   running: boolean = false;
+  showTotalTokens: boolean = false;
 
   models: string[] = ['gpt-4o', 'gpt-4o-mini'];
 
@@ -45,6 +50,10 @@ export class ChatViewComponent {
 
   sub: Subscription | null = null;
   codeDataSub: Subscription | null = null;
+  createSuccessSub: Subscription | null = null;
+  createErrorSub: Subscription | null = null;
+  updateSuccessSub: Subscription | null = null;
+  updateErrorSub: Subscription | null = null;
 
   sidebarView = true;
 
@@ -56,17 +65,24 @@ export class ChatViewComponent {
   constructor(
     private store: Store<AppStateInit>,
     private codeViewService: CodeViewService,
+    private actions$: Actions,
   ) {}
 
   ngOnInit() {
     this.initLatest();
     this.initCodeData();
+    this.initCreates();
+    this.initUpdates();
   }
 
   ngOnDestroy() {
     this.sub?.unsubscribe();
     this.codeDataSub?.unsubscribe();
     this.codeViewService.clearCodeData();
+    this.createSuccessSub?.unsubscribe();
+    this.createErrorSub?.unsubscribe();
+    this.updateSuccessSub?.unsubscribe();
+    this.updateErrorSub?.unsubscribe();
   }
 
   initLatest() {
@@ -84,6 +100,11 @@ export class ChatViewComponent {
       this.variables = variables;
       this.codes = codes;
       this.chats = [...chats].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
+      
+      if (this.chats && this.chats.length) {
+        this.chat = this.chats[0];
+        this.selectHistory(this.chat._id);
+      }
     });
   }
 
@@ -97,11 +118,37 @@ export class ChatViewComponent {
     });
   }
 
+  initCreates() {
+    this.createSuccessSub = this.actions$.pipe((ofType(createChatSuccess))).subscribe(({ chat }) => {
+      if (!this.chats) return;
+
+      const foundChat = this.chats.find((existingChat) => existingChat._id === chat._id)!;
+
+      this.chat = cloneDeep(foundChat);
+      this.selectHistory(this.chat._id);
+      // this.running = false;
+    });
+    this.createErrorSub = this.actions$.pipe((ofType(createChatError))).subscribe(({ err, chat }) => {
+      // this.running = false;
+    });
+  }
+
+  initUpdates() {
+    this.updateSuccessSub = this.actions$.pipe((ofType(updateChatSuccess))).subscribe(({ chat }) => {
+      this.store.dispatch(streamChat({ projectId: this.project!._id, chatId: chat._id }));
+    });
+    this.updateErrorSub = this.actions$.pipe((ofType(updateChatError))).subscribe(({ err, chat }) => {
+      // this.running = false;
+    });
+  }
+
   createChat() {
+    if (this.apiKeyDropdown) this.apiKeyDropdown = !this.apiKeyDropdown;
+    if (this.modelDropdown) this.modelDropdown = !this.modelDropdown;
+    if (this.historyDropdown) this.historyDropdown = !this.historyDropdown;
+
     if (!this.project) return;
     if (!this.user) return;
-    if (!this.modelId) return;
-    if (!this.apiKeyId) return;
 
     const userId = this.user._id;
     const projectId = this.project._id;
@@ -111,12 +158,39 @@ export class ChatViewComponent {
     const active = true;
     const type = 'chat';
     const messages: ChatMessage[] = [];
-    const modelId = '';
-    const variableId = '';
+
+    this.store.dispatch(createChat({ projectId, chat: { _id, projectId, userId, date, active, name, type, messages } }));
+    // this.running = true;
+
+    if (this.variables) this.apiKeyId = this.variables[0]._id;
+    if (this.models) this.modelId = 'gpt-4o-mini';
+  }
+
+  updateChat() {
+    if (!this.project) return;
+    if (!this.user) return;
+    if (!this.modelId) return;
+    if (!this.apiKeyId) return;
+    if (!this.historyId) return;
+    if (!this.text) return;
+    if (!this.chats) return;
+
+    let chat = this.chats.find((chat) => chat._id === this.historyId);
+    chat = cloneDeep(chat);
+
+    if (!chat) return;
+
+    const _id = new ObjectId().toHexString();
+    const modelId = this.modelId;
+    const variableId = this.apiKeyId;
     const inputTokens = 0;
     const outputTokens = 0;
 
-    this.store.dispatch(createChat({ projectId, chat: { _id, projectId, userId, date, active, name, type, messages, modelId, variableId, inputTokens, outputTokens } }));
+    chat.messages = [{ _id, modelId, variableId, inputTokens, outputTokens, role: 'user', content: this.text }];
+
+    this.store.dispatch(updateChat({ projectId: this.project._id, chat }));
+    this.text = '';
+    // this.running = true;
   }
 
   selectAPIKey(variableId: string) {
@@ -128,8 +202,23 @@ export class ChatViewComponent {
   }
 
   selectHistory(historyId: string) {
+    if (!this.chats) return;
+    if (this.historyId === historyId) return;
+
+    const chat = this.chats.find((chat) => chat._id === historyId);
+
+    if (!chat) return;
+
+    this.chat = chat;
     this.historyId = historyId;
     this.text = '';
+
+    if (!chat.messages.length) return;
+
+    const lastMessage = chat.messages[chat.messages.length - 1];
+
+    this.modelId = lastMessage.modelId;
+    this.apiKeyId = lastMessage.variableId;
   }
 
   findVariable(variableId: string) {
@@ -141,7 +230,34 @@ export class ChatViewComponent {
   findChat(chatId: string) {
     if (!this.chats) return;
 
-    return this.chats.find((chat) => chat._id === chatId)!.name;
+    return this.chats.find((chat) => chat._id === chatId)!._id.slice(-6);
+  }
+
+  get findRecentTokens() {
+    if (!this.chat) return null;
+    if (!this.chat.messages.length) return null;
+    
+    const lastMessage = this.chat.messages[this.chat.messages.length - 1];
+
+    if (lastMessage.role !== 'assistant') return null;
+
+    return { inputTokens: lastMessage.inputTokens, outputTokens: lastMessage.outputTokens };
+  }
+
+  get findTotalTokens() {
+    if (!this.chat) return null;
+    if (!this.chat.messages.length) return null;
+    
+    const outputMessages = this.chat.messages.filter((message) => message.role === 'assistant');
+
+    if (!outputMessages.length) return null;
+
+    return outputMessages.reduce((acc, curr) => {
+      acc.inputTokens+=curr.inputTokens;
+      acc.outputTokens+=curr.outputTokens;
+
+      return acc;
+    }, { inputTokens: 0, outputTokens: 0 });
   }
 
   autoResize() {
@@ -179,5 +295,9 @@ export class ChatViewComponent {
     if (this.modelDropdown) this.modelDropdown = !this.modelDropdown;
     
     this.historyDropdown = !this.historyDropdown;
+  }
+
+  toggleTokens() {
+    this.showTotalTokens = !this.showTotalTokens;
   }
 }

@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, WorkflowExport, Pool, Code, CodeExport, Chat } from "../interfaces/app.interface";
+import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, WorkflowExport, Pool, Code, CodeExport, Chat, ChatChunk } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
@@ -105,11 +105,15 @@ export const removeCode = createAction('[REMOVE] Code', props<{codeId: string}>(
 export const getChats = createAction('[GET] Chats', props<{projectId: string}>());
 export const addChats = createAction('[ADD] Chats', props<{chats: Chat[]}>());
 export const createChat = createAction('[CREATE] Chat', props<{projectId: string, chat: Chat}>());
+export const createChatSuccess = createAction('[CREATE] Chat Success', props<{chat: Chat}>());
+export const createChatError = createAction('[CREATE] Chat Error', props<{err: any, chat: Chat}>());
 export const addChat = createAction('[ADD] Chat', props<{chat: Chat}>());
 export const updateChat = createAction('[UPDATE] Chat', props<{projectId: string, chat: Chat}>());
+export const updateChatSuccess = createAction('[UPDATE] Chat Success', props<{chat: Chat}>());
+export const updateChatError = createAction('[UPDATE] Chat Error', props<{err: any, chat: Chat}>());
 export const replaceChat = createAction('[REPLACE] Chat', props<{chat: Chat}>());
 export const streamChat = createAction('[STREAM] Chat', props<{projectId: string, chatId: string}>());
-export const chunkChat = createAction('[CHUNK] Chat', props<{chatId: string, chunk: string}>());
+export const chunkChat = createAction('[CHUNK] Chat', props<{chatId: string, chunk: ChatChunk}>());
 export const deleteChat = createAction('[DELETE] Chat', props<{projectId: string, chatId: string}>());
 export const removeChat = createAction('[REMOVE] Chat', props<{chatId: string}>());
 

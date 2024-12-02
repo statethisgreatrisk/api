@@ -91,8 +91,23 @@ export interface CodeData {
     versionStatus: string;
 }
 
+export interface ChatChunk {
+    _id: string;
+    modelId: string;
+    variableId: string;
+    inputTokens: number;
+    outputTokens: number;
+    role: 'system' | 'user' | 'assistant' | 'error';
+    content: string;
+    done: boolean;
+}
+
 export interface ChatMessage {
     _id: string;
+    modelId: string;
+    variableId: string;
+    inputTokens: number;
+    outputTokens: number;
     role: 'system' | 'user' | 'assistant' | 'error';
     content: string;
 }
@@ -106,10 +121,6 @@ export interface Chat {
     name: string;
     type: 'chat';
     messages: ChatMessage[];
-    modelId: string;
-    variableId: string;
-    inputTokens: number;
-    outputTokens: number;
 }
 
 export interface RequestParameter {

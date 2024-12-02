@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash";
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, Pool, Code, Chat } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, Pool, Code, Chat, ChatChunk } from "../interfaces/app.interface";
 
 // User
 
@@ -271,18 +271,49 @@ export const replaceChatFn: (state: AppState, chat: Chat) => AppState = (state: 
 
     const chats = state.chats.map((existingChat) => {
         if (existingChat._id !== chat._id) return existingChat;
-        return chat;
+
+        const updatedChat = cloneDeep(chat);
+        updatedChat.messages = [...existingChat.messages, ...updatedChat.messages];
+
+        return updatedChat;
     });
 
     return { ...state, chats: chats };
 }
 
-export const chunkChatFn: (state: AppState, chatId: string, chunk: string) => AppState = (state: AppState, chatId: string, chunk: string) => {
+export const chunkChatFn: (state: AppState, chatId: string, chunk: ChatChunk) => AppState = (state: AppState, chatId: string, chunk: ChatChunk) => {
     if (!chatId) return { ...state };
 
-    console.log('Reducer chunk', chunk);
+    const messageId = chunk._id;
+    const content = chunk.content;
 
-    return { ...state };
+    const chats = state.chats.map((chat) => {
+        if (chat._id !== chatId) return chat;
+
+        const newChat = cloneDeep(chat);
+        const foundMessage = newChat.messages.find((message) => message._id === messageId);
+
+        if (!foundMessage) {
+            newChat.messages.push(chunk);
+        } else {
+            newChat.messages = newChat.messages.map((message) => {
+                if (message._id !== messageId) return message;
+
+                if (chunk.done) {
+                    message.inputTokens = chunk.inputTokens;
+                    message.outputTokens = chunk.outputTokens;
+                } else {
+                    message.content+= content;
+                }
+
+                return message;
+            });
+        }
+
+        return newChat;
+    });
+
+    return { ...state, chats: chats };
 }
 
 export const removeChatFn: (state: AppState, chatId: string) => AppState = (state: AppState, chatId: string) => {

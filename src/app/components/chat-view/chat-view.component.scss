@@ -479,6 +479,31 @@
     margin-bottom: 25px;
 }
 
+.chat-view-status-container {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: center;
+}
+
+.chat-view-status-container .chat-view-status {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    padding: 3px 0;
+}
+
+.chat-view-status-container .chat-view-status p {
+    font-size: 11px;
+    font-weight: 600;
+
+    margin-right: 10px;
+
+    color:white;
+}
+
 .chat-view-footer {
     display: flex;
     flex-direction: row;

@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="chat-view-actions" *ngIf="sidebarView">
-        <div class="chat-view-actions-dropdown-container" (click)="toggleAPIKeyDropdown()">
+        <div class="chat-view-actions-dropdown-container" (click)="toggleAPIKeyDropdown()" *ngIf="chat">
             <p class="action-value" *ngIf="!apiKeyId">API Key</p>
             <p class="action-value" *ngIf="apiKeyId">{{ findVariable(apiKeyId) }}</p>
             <img src="/down.png" class="arrow">
@@ -34,7 +34,7 @@
                 </ng-content>
             </div>
         </div>
-        <div class="chat-view-actions-dropdown-container" (click)="toggleModelDropdown()">
+        <div class="chat-view-actions-dropdown-container" (click)="toggleModelDropdown()" *ngIf="chat">
             <p class="action-value" *ngIf="!modelId">Model</p>
             <p class="action-value" *ngIf="modelId">{{ modelId }}</p>
             <img src="/down.png" class="arrow">
@@ -56,30 +56,30 @@
             </div>
         </div>
     </div>
-    <div class="chat-view-chats" *ngIf="sidebarView && historyId">
-        <ng-content>
-            <div class="chat-view-message-container">
+    <div class="chat-view-chats" *ngIf="sidebarView && historyId && chat">
+        <ng-content *ngFor="let message of chat.messages">
+            <div class="chat-view-message-container" *ngIf="message.role === 'user'">
                 <div class="chat-view-message">
                     <div class="chat-view-message-content">
-                        <p>Test message</p>
+                        <p>{{ message.content }}</p>
                     </div>
                 </div>
             </div>
-            <div class="chat-view-response-container">
+            <div class="chat-view-response-container" *ngIf="message.role === 'assistant'">
                 <div class="chat-view-response">
                     <div class="chat-view-response-content">
-                        <p>Response message</p>
+                        <p>{{ message.content }}</p>
                     </div>
                 </div>
             </div>
-            <div class="chat-view-response-code-container">
+            <!-- <div class="chat-view-response-code-container" *ngIf="message.role === 'user'">
                 <div class="chat-view-response-code">
                     <div class="chat-view-response-code-content">
                         <pre>Response code message</pre>
                     </div>
                 </div>
-            </div>
-            <div class="chat-view-response-alert-container">
+            </div> -->
+            <div class="chat-view-response-alert-container" *ngIf="message.role === 'error'">
                 <div class="chat-view-response-alert">
                     <div class="chat-view-response-alert-content">
                         <p>Response alert message</p>
@@ -87,6 +87,16 @@
                 </div>
             </div>
         </ng-content>
+    </div>
+    <div class="chat-view-status-container" *ngIf="sidebarView && historyId && chat && chat.messages && chat.messages.length" (click)="toggleTokens()">
+        <div class="chat-view-status" *ngIf="!showTotalTokens && findRecentTokens">
+            <p>Input: {{ findRecentTokens.inputTokens }}</p>
+            <p>Output: {{ findRecentTokens.outputTokens }}</p>
+        </div>
+        <div class="chat-view-status" *ngIf="showTotalTokens && findTotalTokens">
+            <p>Total Input: {{ findTotalTokens.inputTokens }}</p>
+            <p>Total Output: {{ findTotalTokens.outputTokens }}</p>
+        </div>
     </div>
     <div class="chat-view-landing-container" *ngIf="sidebarView && !historyId">
         <div class="chat-view-landing">
@@ -97,11 +107,11 @@
     <div class="chat-view-footer" *ngIf="sidebarView && historyId">
         <div class="chat-view-footer-toolbar">
             <div class="chat-view-footer-input">
-                <textarea #textinput placeholder="Type here" (input)="autoResize()" [(ngModel)]="text" (keydown.enter)="$event.preventDefault();"></textarea>
+                <textarea #textinput placeholder="Type here" (input)="autoResize()" [(ngModel)]="text" (keydown.enter)="$event.preventDefault();updateChat();"></textarea>
             </div>
             <div class="chat-view-footer-send">
-                <img src="/send.png" style="cursor: default;" *ngIf="!text && !running">
-                <img src="/send-active.png" *ngIf="text && !running">
+                <img src="/send.png" style="cursor: default;" *ngIf="!text">
+                <img src="/send-active.png" *ngIf="text" (click)="updateChat()">
                 <img src="/stop.png" *ngIf="running">
             </div>
         </div>
