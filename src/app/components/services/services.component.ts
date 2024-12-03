@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { AppStateInit, Service, View, API, Validator, Storage, Schema, Workflow, User, WorkflowRow, Project, Obj, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm, Variable, Queue, Scheduler, Arr, WorkflowVersion, Code, CodeVersion } from '../../store/interfaces/app.interface';
-import { changeProject, clearData, createAPI, createArr, createCode, createFn, createObj, createProject, createQueue, createRequest, createScheduler, createSchema, createStorage, createValidator, createVariable, createWorkflow, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
-import { selectAPIs, selectArrs, selectCodes, selectFns, selectMainProject, selectObjs, selectProjects, selectQueues, selectRequests, selectSchedulers, selectSchemas, selectStorages, selectUser, selectValidators, selectVariables, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { AppStateInit, Service, View, API, Validator, Storage, Schema, User, Project, Fn, Request, RequestParameter, RequestHeader, RequestBodyForm, Variable, Queue, Scheduler, Code, CodeVersion } from '../../store/interfaces/app.interface';
+import { changeProject, clearData, createAPI, createCode, createFn, createProject, createQueue, createRequest, createScheduler, createSchema, createStorage, createValidator, createVariable, deselectService, selectService, selectWindow } from '../../store/actions/app.action';
+import { selectAPIs, selectCodes, selectFns, selectMainProject, selectProjects, selectQueues, selectRequests, selectSchedulers, selectSchemas, selectStorages, selectUser, selectValidators, selectVariables, selectView } from '../../store/selectors/app.selector';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth.service';
 import { combineLatest, Subscription } from 'rxjs';
@@ -28,11 +28,8 @@ export class ServicesComponent {
   validators: Validator[] = [];
   storages: Storage[] = [];
   schemas: Schema[] = [];
-  workflows: Workflow[] = [];
   codes: Code[] = [];
   fns: Fn[] = [];
-  objs: Obj[] = [];
-  arrs: Arr[] = [];
   requests: Request[] = [];
   variables: Variable[] = [];
   // websockets: Websocket[] = [];
@@ -40,14 +37,11 @@ export class ServicesComponent {
   schedulers: Scheduler[] = [];
 
   services: Service[] =  [
-    { name: 'Workflows', icon: '/workflow.png' },
     { name: 'Codes', icon: '/workflow.png' },
     { name: 'APIs', icon: '/news.png' },
     { name: 'Storages', icon: '/folder.png' },
     { name: 'Validators', icon: '/binoculars.png' },
     { name: 'Schemas', icon: '/tool.png' },
-    { name: 'Objects', icon: '/tool.png' },
-    { name: 'Arrays', icon: '/tool.png' },
     { name: 'Functions', icon: '/tool.png' },
     { name: 'Requests', icon: '/tool.png' },
     { name: 'Variables', icon: '/tool.png' },
@@ -81,7 +75,6 @@ export class ServicesComponent {
     this.store.dispatch(selectService({ serviceName, serviceId }));
 
     if (serviceName === 'Storages') this.store.dispatch(selectWindow({ windowName: 'Storage', windowId: serviceId }));
-    if (serviceName === 'Workflows') this.store.dispatch(selectWindow({ windowName: 'Workflows', windowId: serviceId }));
     if (serviceName === 'Codes') this.store.dispatch(selectWindow({ windowName: 'Codes', windowId: serviceId }));
   }
 
@@ -124,17 +117,14 @@ export class ServicesComponent {
       this.store.select(selectStorages),
       this.store.select(selectValidators),
       this.store.select(selectSchemas),
-      this.store.select(selectWorkflows),
       this.store.select(selectCodes),
       this.store.select(selectFns),
-      this.store.select(selectObjs),
-      this.store.select(selectArrs),
       this.store.select(selectRequests),
       this.store.select(selectVariables),
       // this.store.select(selectWebsockets),
       this.store.select(selectQueues),
       this.store.select(selectSchedulers)
-    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, workflows, codes, fns, objs, arrs, requests, variables, queues, schedulers]) => {
+    ]).subscribe(([user, view, allProjects, project, apis, storages, validators, schemas, codes, fns, requests, variables, queues, schedulers]) => {
       this.user = user;
       this.view = view;
       this.allProjects = allProjects;
@@ -143,11 +133,8 @@ export class ServicesComponent {
       this.storages = storages;
       this.validators = validators;
       this.schemas = schemas;
-      this.workflows = workflows;
       this.codes = codes;
       this.fns = fns;
-      this.objs = objs;
-      this.arrs = arrs;
       this.requests = requests;
       this.variables = variables;
       // this.websockets = websockets;
@@ -161,11 +148,8 @@ export class ServicesComponent {
     if (service === 'Storages') return this.createStorage();
     if (service === 'Schemas') return this.createSchema();
     if (service === 'Validators') return this.createValidator();
-    if (service === 'Workflows') return this.createWorkflow();
     if (service === 'Codes') return this.createCode();
     if (service === 'Functions') return this.createFn();
-    if (service === 'Objects') return this.createObj();
-    if (service === 'Arrays') return this.createArr();
     if (service === 'Requests') return this.createRequest();
     if (service === 'Variables') return this.createVariable();
     // if (service === 'WebSockets') return this.createWebsocket();
@@ -201,10 +185,9 @@ export class ServicesComponent {
     const action = 'get';
     const url = '/hello-world';
     const validators: string[] = [];
-    const workflowId = '';
     const codeId = '';
 
-    this.store.dispatch(createAPI({ projectId, api: { _id, projectId, userId, name, date, active, action, url, validators, workflowId, codeId } }));
+    this.store.dispatch(createAPI({ projectId, api: { _id, projectId, userId, name, date, active, action, url, validators, codeId } }));
   }
 
   createStorage() {
@@ -255,26 +238,6 @@ export class ServicesComponent {
     this.store.dispatch(createValidator({ projectId, validator: { _id, projectId, userId, name, date, active, validator, valid } }));
   }
 
-  createWorkflow() {
-    if (!this.project) return;
-    if (!this.user) return;
-
-    const userId = this.user._id;
-    const projectId = this.project._id;
-    const _id = '';
-    const name = 'Workflow';
-    const date = new Date().toISOString();
-    const active = true;
-    const versionId = new ObjectId().toHexString();
-    const versions: WorkflowVersion[] = [{
-      _id: versionId,
-      version: 0,
-      rows: [],
-    }];
-
-    this.store.dispatch(createWorkflow({ projectId, workflow: { _id, projectId, userId, name, date, active, versionId, versions } }));
-  }
-
   createCode() {
     if (!this.project) return;
     if (!this.user) return;
@@ -308,36 +271,6 @@ export class ServicesComponent {
     const fn = '';
 
     this.store.dispatch(createFn({ projectId, fn: { _id, projectId, userId, name, date, active, fn } }));
-  }
-
-  createObj() {
-    if (!this.project) return;
-    if (!this.user) return;
-
-    const userId = this.user._id;
-    const projectId = this.project._id;
-    const _id = '';
-    const name = 'Object';
-    const date = new Date().toISOString();
-    const active = true;
-    const obj = '';
-
-    this.store.dispatch(createObj({ projectId, obj: { _id, projectId, userId, name, date, active, obj } }));
-  }
-
-  createArr() {
-    if (!this.project) return;
-    if (!this.user) return;
-
-    const userId = this.user._id;
-    const projectId = this.project._id;
-    const _id = '';
-    const name = 'Array';
-    const date = new Date().toISOString();
-    const active = true;
-    const arr = '';
-
-    this.store.dispatch(createArr({ projectId, arr: { _id, projectId, userId, name, date, active, arr } }));
   }
 
   createRequest() {

@@ -120,29 +120,6 @@
                 </div>
             </div>
         </div>
-        <div class="edit-queue-label">
-            <p>Workflow</p>
-        </div>
-        <div class="edit-queue-select-container" *ngIf="queue && !queue.workflowId">
-            <div class="edit-queue-select" (click)="toggleWorkflowDropdown()">
-                <div class="edit-queue-select-button">
-                    <p>Select Workflow</p>
-                    <img src="/down.png">
-                </div>
-                <div class="edit-queue-select-dropdown" *ngIf="workflowDropdown && workflows">
-                    <div class="edit-queue-select-dropdown-button" *ngFor="let w of workflows" (click)="selectWorkflow(w._id)">
-                        <p>{{ w.name }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="edit-queue-list-item-container" *ngIf="queue && queue.workflowId">
-            <div class="edit-queue-list-item" (click)="removeWorkflow()">
-                <img class="check" src="/check.png">
-                <img class="x" src="/x.png">
-                <p>{{ findWorkflow(queue.workflowId) }}</p>
-            </div>
-        </div>
         <div class="edit-queue-buttons">
             <div class="edit-queue-cancel" (click)="cancel()">
                 <p>Cancel</p>

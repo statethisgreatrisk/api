@@ -2,18 +2,14 @@ import { AppState } from "../interfaces/app.interface";
 
 export const appState: AppState = {
     projects: [],
-    apps: [],
     
     apis: [],
     storages: [],
     schemas: [],
     validators: [],
-    workflows: [],
     codes: [],
     chats: [],
     fns: [],
-    objs: [],
-    arrs: [],
     requests: [],
     variables: [],
     websockets: [],
@@ -21,7 +17,6 @@ export const appState: AppState = {
     schedulers: [],
     registers: [],
     documents: [],
-    argtypes: [],
 
     instances: [],
     deploys: [],

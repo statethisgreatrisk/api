@@ -6,14 +6,12 @@ import { NgIf } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { View, AppStateInit, DeleteData, InfoData } from './store/interfaces/app.interface';
 import { StorageViewComponent } from './components/storage-view/storage-view.component';
-import { ApiViewComponent } from './components/api-view/api-view.component';
 import { LandingViewComponent } from './components/landing-view/landing-view.component';
 import { ToastViewComponent } from './components/toast-view/toast-view.component';
 import { addProject, authError, authSuccess, changeProject, checkUser, clearData, clearStore, getProjectData, getProjectSettings, getProjectSetup, requestError } from './store/actions/app.action';
 import { selectMainProject, selectView } from './store/selectors/app.selector';
 import { DeleteViewComponent } from './components/delete-view/delete-view.component';
 import { DeleteService } from './services/delete.service';
-import { AppViewComponent } from './components/app-view/app-view.component';
 import { SettingsViewComponent } from './components/settings-view/settings-view.component';
 import { SettingsService } from './services/settings.service';
 import { LoginViewComponent } from './components/login-view/login-view.component';
@@ -43,13 +41,11 @@ import { CodeViewComponent } from './components/code-view/code-view.component';
     ServicesComponent,
     ServiceEditComponent,
     StorageViewComponent,
-    ApiViewComponent,
     CodeViewComponent,
     ChatViewComponent,
     LandingViewComponent,
     ToastViewComponent,
     DeleteViewComponent,
-    AppViewComponent,
     SettingsViewComponent,
     LoginViewComponent,
     DocumentEditComponent,

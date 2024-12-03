@@ -15,54 +15,6 @@ export interface User {
     email: string;
 }
 
-export interface Arg {
-    _id: string;
-    argtypes: string[];
-    placeholder: string;
-    placeholderWidth: number;
-    value: string;
-}
-
-export interface Argtype {
-    _id: string;
-    userId: string;
-    date: string;
-    active: boolean;
-    name: string;
-    regex: string;
-}
-
-export interface WorkflowRow {
-    _id: string;
-    appId: string;
-    pairId: string;
-    indents: number;
-    variables: Arg[];
-    args: Arg[];
-    returns: Arg[];
-    schemas: Arg[];
-}
-
-export interface WorkflowVersion {
-    _id: string;
-    version: number;
-    rows: WorkflowRow[];
-}
-
-export interface Workflow {
-    _id: string;
-    userId: string;
-    projectId: string;
-    date: string;
-    active: boolean;
-    name: string;
-    rows: WorkflowRow[];
-    versionId: string;
-    versions: WorkflowVersion[];
-}
-
-export type WorkflowExport = Omit<Workflow, 'rows'>;
-
 export interface CodeVersion {
     _id: string;
     version: number;
@@ -146,25 +98,6 @@ export interface RequestBodyForm {
     file: string;
 }
 
-export interface App {
-    _id: string;
-    userId: string;
-    date: string;
-    active: boolean;
-    hidden: boolean;
-    name: string;
-    method: string;
-    variables: Arg[];
-    args: Arg[];
-    returns: Arg[];
-    schemas: Arg[];
-}
-
-export interface AppSelect {
-    app: App;
-    below: boolean;
-}
-
 export interface Project {
     _id: string;
     userId: string;
@@ -180,7 +113,6 @@ export interface API {
     date: string;
     active: boolean;
     name: string;
-    workflowId: string;
     codeId: string;
     action: 'get' | 'post' | 'put' | 'delete';
     url: string;
@@ -228,26 +160,6 @@ export interface Fn {
     active: boolean;
     name: string;
     fn: string;
-}
-
-export interface Obj {
-    _id: string;
-    userId: string;
-    projectId: string;
-    date: string;
-    active: boolean;
-    name: string;
-    obj: string;
-}
-
-export interface Arr {
-    _id: string;
-    userId: string;
-    projectId: string;
-    date: string;
-    active: boolean;
-    name: string;
-    arr: string;
 }
 
 export interface Request {
@@ -386,7 +298,7 @@ export interface Job {
     userId: string;
     projectId: string;
     deployId: string;
-    workflowId: string;
+    codeId: string;
     jobId: string;
     apiId: string;
     // queueId: string;
@@ -484,7 +396,7 @@ export interface InfoData {
 }
 
 export interface DebugData {
-    workflow: Workflow;
+    code: Code;
     argtype: any;
 }
 
@@ -494,12 +406,10 @@ export interface ResponseMessage {
 
 export interface ProjectSetup {
     user: User;
-    apps: App[];
     projects: Project[];
 }
 
 export interface ProjectData {
-    workflows: Workflow[];
     codes: Code[];
     chats: Chat[];
     apis: API[];
@@ -507,15 +417,12 @@ export interface ProjectData {
     schemas: Schema[];
     validators: Validator[];
     fns: Fn[];
-    objs: Obj[];
-    arrs: Arr[];
     requests: Request[];
     variables: Variable[];
     websockets: Websocket[];
     queues: Queue[];
     schedulers: Scheduler[];
     documents: Document[];
-    argtypes: Argtype[];
 }
 
 export interface ProjectSettings {
@@ -532,18 +439,14 @@ export interface ProjectSettings {
 
 export interface AppState {
     projects: Project[];
-    apps: App[];
-    
+
     apis: API[];
     validators: Validator[];
     storages: Storage[];
     schemas: Schema[];
-    workflows: Workflow[];
     codes: Code[];
     chats: Chat[];
     fns: Fn[];
-    objs: Obj[];
-    arrs: Arr[];
     requests: Request[];
     variables: Variable[];
     websockets: Websocket[];
@@ -551,7 +454,6 @@ export interface AppState {
     schedulers: Scheduler[];
     registers: Register[];
     documents: Document[];
-    argtypes: Argtype[];
 
     instances: Instance[];
     deploys: Deploy[];

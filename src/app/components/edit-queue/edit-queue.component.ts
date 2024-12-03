@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AppStateInit, Project, Queue, User, View, Workflow } from '../../store/interfaces/app.interface';
-import { selectMainProject, selectQueues, selectUser, selectView, selectWorkflows } from '../../store/selectors/app.selector';
+import { AppStateInit, Project, Queue, User, View } from '../../store/interfaces/app.interface';
+import { selectMainProject, selectQueues, selectUser, selectView } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { DeleteService } from '../../services/delete.service';
@@ -20,11 +20,8 @@ export class EditQueueComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   project: Project | null = null;
   queue: Queue | null = null;
-  workflows: Workflow[] | null = null;
 
   sub: Subscription | null = null;
-
-  workflowDropdown = false;
 
   constructor(
     private store: Store<AppStateInit>,
@@ -45,43 +42,16 @@ export class EditQueueComponent {
       this.store.select(selectView),
       this.store.select(selectMainProject),
       this.store.select(selectQueues),
-      this.store.select(selectWorkflows),
-    ]).subscribe(([user, view, project, queues, workflows]) => {
+    ]).subscribe(([user, view, project, queues]) => {
       this.user = user;
       this.view = view;
       this.project = project;
-      this.workflows = workflows;
 
       if (this.user && this.view && this.view.serviceId) {
         const queue = queues.find((existingQueue) => existingQueue._id === this.view.serviceId);
         this.queue = queue ? { ...queue } : null;
       }
     });
-  }
-
-  toggleWorkflowDropdown() {
-    this.workflowDropdown = !this.workflowDropdown;
-  }
-
-  selectWorkflow(workflowId: string) {
-    if (!workflowId || !this.queue) return;
-
-    this.queue.workflowId = workflowId;
-  }
-
-  removeWorkflow() {
-    if (!this.queue) return;
-    this.queue.workflowId = '';
-  }
-
-  findWorkflow(workflowId: string) {
-    if (!workflowId || !this.queue) return;
-    if (!this.workflows) return;
-
-    const workflow = this.workflows.find((workflow) => workflow._id === workflowId);
-
-    if (!workflow) return '';
-    return workflow.name;
   }
 
   cancel() {

@@ -1,13 +1,9 @@
 import { createAction, props } from "@ngrx/store";
-import { API, App, Auth, Billing, Deploy, Fn, Key, Log, Obj, Project, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, WorkflowExport, Pool, Code, CodeExport, Chat, ChatChunk } from "../interfaces/app.interface";
+import { API, Auth, Billing, Deploy, Fn, Key, Log, Project, Schema, Storage, Usage, User, Validator, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Pool, Code, CodeExport, Chat, ChatChunk } from "../interfaces/app.interface";
 
 // User
 export const getUser = createAction('[GET] User');
 export const addUser = createAction('[ADD] User', props<{user: User}>());
-
-// App
-export const getApps = createAction('[GET] Apps');
-export const addApps = createAction('[ADD] Apps', props<{apps: App[]}>());
 
 // Auth
 export const signupUser = createAction('[SIGNUP] User', props<{email: string, password: string}>());
@@ -81,16 +77,6 @@ export const replaceValidator = createAction('[REPLACE] Validator', props<{valid
 export const deleteValidator = createAction('[DELETE] Validator', props<{projectId: string, validatorId: string}>());
 export const removeValidator = createAction('[REMOVE] Validator', props<{validatorId: string}>());
 
-// Workflow
-export const getWorkflows = createAction('[GET] Workflows', props<{projectId: string}>());
-export const addWorkflows = createAction('[ADD] Workflows', props<{workflows: Workflow[]}>());
-export const createWorkflow = createAction('[CREATE] Workflow', props<{projectId: string, workflow: WorkflowExport}>());
-export const addWorkflow = createAction('[ADD] Workflow', props<{workflow: Workflow}>());
-export const updateWorkflow = createAction('[UPDATE] Workflow', props<{projectId: string, workflow: WorkflowExport}>());
-export const replaceWorkflow = createAction('[REPLACE] Workflow', props<{workflow: Workflow}>());
-export const deleteWorkflow = createAction('[DELETE] Workflow', props<{projectId: string, workflowId: string}>());
-export const removeWorkflow = createAction('[REMOVE] Workflow', props<{workflowId: string}>());
-
 // Code
 export const getCodes = createAction('[GET] Codes', props<{projectId: string}>());
 export const addCodes = createAction('[ADD] Codes', props<{codes: Code[]}>());
@@ -128,26 +114,6 @@ export const updateFn = createAction('[UPDATE] Fn', props<{projectId: string, fn
 export const replaceFn = createAction('[REPLACE] Fn', props<{fn: Fn}>());
 export const deleteFn = createAction('[DELETE] Fn', props<{projectId: string, fnId: string}>());
 export const removeFn = createAction('[REMOVE] Fn', props<{fnId: string}>());
-
-// Obj
-export const getObjs = createAction('[GET] Objs', props<{projectId: string}>());
-export const addObjs = createAction('[ADD] Objs', props<{objs: Obj[]}>());
-export const createObj = createAction('[CREATE] Obj', props<{projectId: string, obj: Obj}>());
-export const addObj = createAction('[ADD] Obj', props<{obj: Obj}>());
-export const updateObj = createAction('[UPDATE] Obj', props<{projectId: string, obj: Obj}>());
-export const replaceObj = createAction('[REPLACE] Obj', props<{obj: Obj}>());
-export const deleteObj = createAction('[DELETE] Obj', props<{projectId: string, objId: string}>());
-export const removeObj = createAction('[REMOVE] Obj', props<{objId: string}>());
-
-// Arr
-export const getArrs = createAction('[GET] Arrs', props<{projectId: string}>());
-export const addArrs = createAction('[ADD] Arrs', props<{arrs: Arr[]}>());
-export const createArr = createAction('[CREATE] Arr', props<{projectId: string, arr: Arr}>());
-export const addArr = createAction('[ADD] Arr', props<{arr: Arr}>());
-export const updateArr = createAction('[UPDATE] Arr', props<{projectId: string, arr: Arr}>());
-export const replaceArr = createAction('[REPLACE] Arr', props<{arr: Arr}>());
-export const deleteArr = createAction('[DELETE] Arr', props<{projectId: string, arrId: string}>());
-export const removeArr = createAction('[REMOVE] Arr', props<{arrId: string}>());
 
 // Request
 export const getRequests = createAction('[GET] Requests', props<{projectId: string}>());
@@ -258,10 +224,6 @@ export const addLogLine = createAction('[ADD] Log line', props<{logId: string, l
 export const getJobs = createAction('[GET] Jobs', props<{projectId: string}>());
 export const addJobs = createAction('[ADD] Jobs', props<{jobs: Job[]}>());
 export const addJob = createAction('[ADD] Job', props<{job: Job}>());
-
-// Argtype
-export const getArgtypes = createAction('[GET] Argtypes');
-export const addArgtypes = createAction('[ADD] Argtypes', props<{argtypes: Argtype[]}>());
 
 // Key
 export const getKeys = createAction('[GET] Keys', props<{projectId: string}>());

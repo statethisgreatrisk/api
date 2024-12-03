@@ -25,22 +25,12 @@
         </div>
     </div>
     <div class="services-scroll-container">
-        <div class="small-spacer short">
-            <p>Services</p>
-        </div>
         <div class="services">
             <div *ngFor="let service of services;">
-                <div class="service" *ngIf="service.name === 'Workflows' || service.name === 'Codes' || service.name === 'APIs' || service.name === 'Queues'  || service.name === 'Schedulers'">
-                    <p *ngIf="service.name === 'Workflows' || service.name === 'APIs' || service.name === 'Queues' || service.name === 'Schedulers'">{{ service.name }}</p>
+                <div class="service" *ngIf="service.name === 'Codes' || service.name === 'APIs' || service.name === 'Queues'  || service.name === 'Schedulers'">
+                    <p *ngIf="service.name === 'APIs' || service.name === 'Queues' || service.name === 'Schedulers'">{{ service.name }}</p>
                     <p *ngIf="service.name === 'Codes'">Code</p>
                     <p (click)="create(service.name)">New +</p>
-                </div>
-                <!-- Workflow -->
-                <div class="service-data-list" *ngIf="service.name === 'Workflows'">
-                    <div class="service-data" [ngClass]="{ 'active': view.windowId === w._id }" *ngFor="let w of workflows" (click)="selectService(service.name, w._id)">
-                        <img [src]="service.icon">
-                        <p>{{ w.name }}</p>
-                    </div>
                 </div>
                 <!-- Code -->
                 <div class="service-data-list" *ngIf="service.name === 'Codes'">
@@ -114,7 +104,7 @@
         </div>
         <div class="services">
             <div *ngFor="let service of services;">
-                <div class="service" *ngIf="service.name === 'Schemas' || service.name === 'Validators' || service.name === 'Functions' || service.name === 'Objects' || service.name === 'Arrays'">
+                <div class="service" *ngIf="service.name === 'Schemas' || service.name === 'Validators' || service.name === 'Functions'">
                     <p>{{ service.name }}</p>
                     <p (click)="create(service.name)">New +</p>
                 </div>
@@ -130,20 +120,6 @@
                     <div class="service-data" [ngClass]="{ 'active': view.serviceId === v._id }" *ngFor="let v of validators" (click)="selectService(service.name, v._id)">
                         <img [src]="service.icon">
                         <p>{{ v.name }}</p>
-                    </div>
-                </div>
-                <!-- Obj -->
-                <div class="service-data-list" *ngIf="service.name === 'Objects'">
-                    <div class="service-data" [ngClass]="{ 'active': view.serviceId === o._id }" *ngFor="let o of objs" (click)="selectService(service.name, o._id)">
-                        <img [src]="service.icon">
-                        <p>{{ o.name }}</p>
-                    </div>
-                </div>
-                <!-- Arr -->
-                <div class="service-data-list" *ngIf="service.name === 'Arrays'">
-                    <div class="service-data" [ngClass]="{ 'active': view.serviceId === a._id }" *ngFor="let a of arrs" (click)="selectService(service.name, a._id)">
-                        <img [src]="service.icon">
-                        <p>{{ a.name }}</p>
                     </div>
                 </div>
                 <!-- Fn -->

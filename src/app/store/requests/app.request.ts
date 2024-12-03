@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, Subject } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment";
-import { API, App, Billing, Deploy, Fn, Key, Log, Obj, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Workflow, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Argtype, Arr, WorkflowExport, Pool, Code, CodeExport, Chat, ChatChunk } from "../interfaces/app.interface";
+import { API, Billing, Deploy, Fn, Key, Log, Project, ResponseMessage, Schema, Storage, Usage, User, Validator, Document, Sub, DeployStatus, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectSettings, ProjectData, Job, Pool, Code, CodeExport, Chat, ChatChunk } from "../interfaces/app.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +18,6 @@ export class AppRequest {
   getUser(): Observable<User> {
     const endpoint = `${this.url}/user`;
     return this.http.get<User>(endpoint, { withCredentials: true });
-  }
-
-  // App
-
-  getApps(): Observable<App[]> {
-    const endpoint = `${this.url}/app`;
-    return this.http.get<App[]>(endpoint, { withCredentials: true });
   }
 
   // Auth
@@ -199,28 +192,6 @@ export class AppRequest {
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 
-  // Workflow
-
-  getWorkflows(projectId: string): Observable<Workflow[]> {
-    const endpoint = `${this.url}/workflow/:projectId`.replace(':projectId', projectId);
-    return this.http.get<Workflow[]>(endpoint, { withCredentials: true });
-  }
-  
-  createWorkflow(projectId: string, workflow: WorkflowExport): Observable<Workflow> {
-    const endpoint = `${this.url}/workflow/:projectId`.replace(':projectId', projectId);
-    return this.http.post<Workflow>(endpoint, { workflow }, { withCredentials: true });
-  }
-  
-  updateWorkflow(projectId: string, workflow: WorkflowExport): Observable<Workflow> {
-    const endpoint = `${this.url}/workflow/:projectId`.replace(':projectId', projectId);
-    return this.http.put<Workflow>(endpoint, { workflow }, { withCredentials: true });
-  }
-  
-  deleteWorkflow(projectId: string, workflowId: string): Observable<ResponseMessage> {
-    const endpoint = `${this.url}/workflow/:projectId/:workflowId`.replace(':workflowId', workflowId).replace(':projectId', projectId);
-    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
-  }
-
   // Code
 
   getCodes(projectId: string): Observable<Code[]> {
@@ -314,50 +285,6 @@ export class AppRequest {
   
   deleteFn(projectId: string, fnId: string): Observable<ResponseMessage> {
     const endpoint = `${this.url}/fn/:projectId/:fnId`.replace(':fnId', fnId).replace(':projectId', projectId);
-    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
-  }
-
-  // Obj
-
-  getObjs(projectId: string): Observable<Obj[]> {
-    const endpoint = `${this.url}/obj/:projectId`.replace(':projectId', projectId);
-    return this.http.get<Obj[]>(endpoint, { withCredentials: true });
-  }
-  
-  createObj(projectId: string, obj: Obj): Observable<Obj> {
-    const endpoint = `${this.url}/obj/:projectId`.replace(':projectId', projectId);
-    return this.http.post<Obj>(endpoint, { obj }, { withCredentials: true });
-  }
-  
-  updateObj(projectId: string, obj: Obj): Observable<Obj> {
-    const endpoint = `${this.url}/obj/:projectId`.replace(':projectId', projectId);
-    return this.http.put<Obj>(endpoint, { obj }, { withCredentials: true });
-  }
-  
-  deleteObj(projectId: string, objId: string): Observable<ResponseMessage> {
-    const endpoint = `${this.url}/obj/:projectId/:objId`.replace(':objId', objId).replace(':projectId', projectId);
-    return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
-  }
-
-  // Arr
-
-  getArrs(projectId: string): Observable<Arr[]> {
-    const endpoint = `${this.url}/arr/:projectId`.replace(':projectId', projectId);
-    return this.http.get<Arr[]>(endpoint, { withCredentials: true });
-  }
-  
-  createArr(projectId: string, arr: Arr): Observable<Arr> {
-    const endpoint = `${this.url}/arr/:projectId`.replace(':projectId', projectId);
-    return this.http.post<Arr>(endpoint, { arr }, { withCredentials: true });
-  }
-  
-  updateArr(projectId: string, arr: Arr): Observable<Arr> {
-    const endpoint = `${this.url}/arr/:projectId`.replace(':projectId', projectId);
-    return this.http.put<Arr>(endpoint, { arr }, { withCredentials: true });
-  }
-  
-  deleteArr(projectId: string, arrId: string): Observable<ResponseMessage> {
-    const endpoint = `${this.url}/arr/:projectId/:arrId`.replace(':arrId', arrId).replace(':projectId', projectId);
     return this.http.delete<ResponseMessage>(endpoint, { withCredentials: true });
   }
 
@@ -571,13 +498,6 @@ export class AppRequest {
   getJobs(projectId: string): Observable<Job[]> {
     const endpoint = `${this.url}/job/:projectId`.replace(':projectId', projectId);
     return this.http.get<Job[]>(endpoint, { withCredentials: true });
-  }
-
-  // Argtype
-
-  getArgtypes(): Observable<Argtype[]> {
-    const endpoint = `${this.url}/argtype`;
-    return this.http.get<Argtype[]>(endpoint, { withCredentials: true });
   }
 
   // Key

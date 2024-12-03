@@ -148,29 +148,6 @@
                 </div>
             </div>
         </div>
-        <div class="edit-scheduler-label">
-            <p>Workflow</p>
-        </div>
-        <div class="edit-scheduler-select-container" *ngIf="scheduler && !scheduler.workflowId">
-            <div class="edit-scheduler-select" (click)="toggleWorkflowDropdown()">
-                <div class="edit-scheduler-select-button">
-                    <p>Select Workflow</p>
-                    <img src="/down.png">
-                </div>
-                <div class="edit-scheduler-select-dropdown" *ngIf="workflowDropdown && workflows">
-                    <div class="edit-scheduler-select-dropdown-button" *ngFor="let w of workflows" (click)="selectWorkflow(w._id)">
-                        <p>{{ w.name }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="edit-scheduler-list-item-container" *ngIf="scheduler && scheduler.workflowId">
-            <div class="edit-scheduler-list-item" (click)="removeWorkflow()">
-                <img class="check" src="/check.png">
-                <img class="x" src="/x.png">
-                <p>{{ findWorkflow(scheduler.workflowId) }}</p>
-            </div>
-        </div>
         <div class="edit-scheduler-buttons">
             <div class="edit-scheduler-cancel" (click)="cancel()">
                 <p>Cancel</p>

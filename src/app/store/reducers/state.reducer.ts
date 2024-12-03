@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { appState } from "../states/state";
-import { addAPI, addAPIs, addApps, addBilling, addBillings, addDeploy, addDeploys, addDocument, addDocuments, addFn, addFns, addInstances, addKey, addKeys, addLog, addLogs, addObj, addObjs, addRegister, addRegisters, addProject, addProjects, addQueue, addQueues, addRequest, addRequests, addScheduler, addSchedulers, addSchema, addSchemas, addStorage, addStorages, addSub, addSubs, addUsage, addUsages, addUser, addValidator, addValidators, addVariable, addVariables, addWebsocket, addWebsockets, addWorkflow, addWorkflows, clearData, clearStore, deselectService, deselectWindow, log, removeAPI, removeDocument, removeFn, removeKey, removeObj, removeRegister, removeProject, removeQueue, removeRequest, removeScheduler, removeSchema, removeStorage, removeSub, removeValidator, removeVariable, removeWebsocket, removeWorkflow, replaceAPI, replaceBilling, replaceDeploy, replaceDocument, replaceFn, replaceKey, replaceLog, replaceObj, replaceRegister, replaceProject, replaceQueue, replaceRequest, replaceScheduler, replaceSchema, replaceStorage, replaceSub, replaceUsage, replaceValidator, replaceVariable, replaceWebsocket, replaceWorkflow, selectService, selectWindow, addProjectSetup, addProjectData, addProjectSettings, addJob, addJobs, addArgtypes, addLogLine, addArr, addArrs, removeArr, replaceArr, addPool, addPools, removePool, replacePool, addCode, addCodes, removeCode, replaceCode, addChat, addChats, removeChat, replaceChat, chunkChat } from "../actions/app.action";
-import { addAPIFn, addAPIsFn, addAppsFn, addBillingFn, addBillingsFn, addDeployFn, addDeploysFn, addDocumentFn, addDocumentsFn, addFnFn, addFnsFn, addInstanceFn, addKeyFn, addKeysFn, addLogFn, addLogsFn, addObjFn, addObjsFn, addRegisterFn, addRegistersFn, addProjectFn, addProjectsFn, addQueueFn, addQueuesFn, addRequestFn, addRequestsFn, addSchedulerFn, addSchedulersFn, addSchemaFn, addSchemasFn, addStorageFn, addStoragesFn, addSubFn, addSubsFn, addUsageFn, addUsagesFn, addUserFn, addValidatorFn, addValidatorsFn, addVariableFn, addVariablesFn, addWebsocketFn, addWebsocketsFn, addWorkflowFn, addWorkflowsFn, clearDataFn, clearStoreFn, deselectServiceFn, deselectWindowFn, logFn, removeAPIFn, removeDocumentFn, removeFnFn, removeKeyFn, removeObjFn, removeRegisterFn, removeProjectFn, removeQueueFn, removeRequestFn, removeSchedulerFn, removeSchemaFn, removeStorageFn, removeSubFn, removeValidatorFn, removeVariableFn, removeWebsocketFn, removeWorkflowFn, replaceAPIFn, replaceBillingFn, replaceDeployFn, replaceDocumentFn, replaceFnFn, replaceKeyFn, replaceLogFn, replaceObjFn, replaceRegisterFn, replaceProjectFn, replaceQueueFn, replaceRequestFn, replaceSchedulerFn, replaceSchemaFn, replaceStorageFn, replaceSubFn, replaceUsageFn, replaceValidatorFn, replaceVariableFn, replaceWebsocketFn, replaceWorkflowFn, selectServiceFn, selectWindowFn, addProjectSetupFn, addProjectDataFn, addProjectSettingsFn, addJobFn, addJobsFn, addArgtypesFn, addLogLineFn, addArrFn, addArrsFn, removeArrFn, replaceArrFn, addPoolFn, addPoolsFn, removePoolFn, replacePoolFn, addCodeFn, addCodesFn, removeCodeFn, replaceCodeFn, addChatFn, addChatsFn, removeChatFn, replaceChatFn, chunkChatFn } from "./app.reducer";
+import { addAPI, addAPIs, addBilling, addBillings, addDeploy, addDeploys, addDocument, addDocuments, addFn, addFns, addInstances, addKey, addKeys, addLog, addLogs, addRegister, addRegisters, addProject, addProjects, addQueue, addQueues, addRequest, addRequests, addScheduler, addSchedulers, addSchema, addSchemas, addStorage, addStorages, addSub, addSubs, addUsage, addUsages, addUser, addValidator, addValidators, addVariable, addVariables, addWebsocket, addWebsockets, clearData, clearStore, deselectService, deselectWindow, log, removeAPI, removeDocument, removeFn, removeKey, removeRegister, removeProject, removeQueue, removeRequest, removeScheduler, removeSchema, removeStorage, removeSub, removeValidator, removeVariable, removeWebsocket, replaceAPI, replaceBilling, replaceDeploy, replaceDocument, replaceFn, replaceKey, replaceLog, replaceRegister, replaceProject, replaceQueue, replaceRequest, replaceScheduler, replaceSchema, replaceStorage, replaceSub, replaceUsage, replaceValidator, replaceVariable, replaceWebsocket, selectService, selectWindow, addProjectSetup, addProjectData, addProjectSettings, addJob, addJobs, addLogLine, addPool, addPools, removePool, replacePool, addCode, addCodes, removeCode, replaceCode, addChat, addChats, removeChat, replaceChat, chunkChat } from "../actions/app.action";
+import { addAPIFn, addAPIsFn, addBillingFn, addBillingsFn, addDeployFn, addDeploysFn, addDocumentFn, addDocumentsFn, addFnFn, addFnsFn, addInstanceFn, addKeyFn, addKeysFn, addLogFn, addLogsFn, addRegisterFn, addRegistersFn, addProjectFn, addProjectsFn, addQueueFn, addQueuesFn, addRequestFn, addRequestsFn, addSchedulerFn, addSchedulersFn, addSchemaFn, addSchemasFn, addStorageFn, addStoragesFn, addSubFn, addSubsFn, addUsageFn, addUsagesFn, addUserFn, addValidatorFn, addValidatorsFn, addVariableFn, addVariablesFn, addWebsocketFn, addWebsocketsFn, clearDataFn, clearStoreFn, deselectServiceFn, deselectWindowFn, logFn, removeAPIFn, removeDocumentFn, removeFnFn, removeKeyFn, removeRegisterFn, removeProjectFn, removeQueueFn, removeRequestFn, removeSchedulerFn, removeSchemaFn, removeStorageFn, removeSubFn, removeValidatorFn, removeVariableFn, removeWebsocketFn, replaceAPIFn, replaceBillingFn, replaceDeployFn, replaceDocumentFn, replaceFnFn, replaceKeyFn, replaceLogFn, replaceRegisterFn, replaceProjectFn, replaceQueueFn, replaceRequestFn, replaceSchedulerFn, replaceSchemaFn, replaceStorageFn, replaceSubFn, replaceUsageFn, replaceValidatorFn, replaceVariableFn, replaceWebsocketFn, selectServiceFn, selectWindowFn, addProjectSetupFn, addProjectDataFn, addProjectSettingsFn, addJobFn, addJobsFn, addLogLineFn, addPoolFn, addPoolsFn, removePoolFn, replacePoolFn, addCodeFn, addCodesFn, removeCodeFn, replaceCodeFn, addChatFn, addChatsFn, removeChatFn, replaceChatFn, chunkChatFn } from "./app.reducer";
 
 export const appStateReducer = createReducer(
     appState,
@@ -35,11 +35,6 @@ export const appStateReducer = createReducer(
     on(addValidator, (state, { validator }) => addValidatorFn(state, validator)),
     on(replaceValidator, (state, { validator }) => replaceValidatorFn(state, validator)),
     on(removeValidator, (state, { validatorId }) => removeValidatorFn(state, validatorId)),
-    // Workflow
-    on(addWorkflows, (state, { workflows }) => addWorkflowsFn(state, workflows)),
-    on(addWorkflow, (state, { workflow }) => addWorkflowFn(state, workflow)),
-    on(replaceWorkflow, (state, { workflow }) => replaceWorkflowFn(state, workflow)),
-    on(removeWorkflow, (state, { workflowId }) => removeWorkflowFn(state, workflowId)),
     // Code
     on(addCodes, (state, { codes }) => addCodesFn(state, codes)),
     on(addCode, (state, { code }) => addCodeFn(state, code)),
@@ -56,16 +51,6 @@ export const appStateReducer = createReducer(
     on(addFn, (state, { fn }) => addFnFn(state, fn)),
     on(replaceFn, (state, { fn }) => replaceFnFn(state, fn)),
     on(removeFn, (state, { fnId }) => removeFnFn(state, fnId)),
-    // Obj
-    on(addObjs, (state, { objs }) => addObjsFn(state, objs)),
-    on(addObj, (state, { obj }) => addObjFn(state, obj)),
-    on(replaceObj, (state, { obj }) => replaceObjFn(state, obj)),
-    on(removeObj, (state, { objId }) => removeObjFn(state, objId)),
-    // Arr
-    on(addArrs, (state, { arrs }) => addArrsFn(state, arrs)),
-    on(addArr, (state, { arr }) => addArrFn(state, arr)),
-    on(replaceArr, (state, { arr }) => replaceArrFn(state, arr)),
-    on(removeArr, (state, { arrId }) => removeArrFn(state, arrId)),
     // Request
     on(addRequests, (state, { requests }) => addRequestsFn(state, requests)),
     on(addRequest, (state, { request }) => addRequestFn(state, request)),
@@ -101,8 +86,6 @@ export const appStateReducer = createReducer(
     on(addDocument, (state, { document }) => addDocumentFn(state, document)),
     on(replaceDocument, (state, { document }) => replaceDocumentFn(state, document)),
     on(removeDocument, (state, { documentId }) => removeDocumentFn(state, documentId)),
-    // App
-    on(addApps, (state, { apps }) => addAppsFn(state, apps)),
     // Instance
     on(addInstances, (state, { instance }) => addInstanceFn(state, instance)),
     // Deploy
@@ -117,8 +100,6 @@ export const appStateReducer = createReducer(
     // Job
     on(addJobs, (state, { jobs }) => addJobsFn(state, jobs)),
     on(addJob, (state, { job }) => addJobFn(state, job)),
-    // Argtype
-    on(addArgtypes, (state, { argtypes }) => addArgtypesFn(state, argtypes)),
     // Key
     on(addKeys, (state, { keys }) => addKeysFn(state, keys)),
     on(addKey, (state, { key }) => addKeyFn(state, key)),

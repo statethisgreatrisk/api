@@ -1,4 +1,0 @@
-[
-    { "appName": "Workflow.print", "arguments": ["This app will output this message."] },
-    { "appName": "Workflow.error", "arguments": ["This app will throw an error containing this message."] }
-]

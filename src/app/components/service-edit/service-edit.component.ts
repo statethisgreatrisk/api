@@ -9,14 +9,11 @@ import { NgIf, NgStyle } from '@angular/common';
 import { EditSchemaComponent } from '../edit-schema/edit-schema.component';
 import { selectView } from '../../store/selectors/app.selector';
 import { EditFnComponent } from '../edit-fn/edit-fn.component';
-import { EditObjComponent } from '../edit-obj/edit-obj.component';
-import { EditWorkflowComponent } from '../edit-workflow/edit-workflow.component';
 import { EditRequestComponent } from '../edit-request/edit-request.component';
 import { EditVariableComponent } from '../edit-variable/edit-variable.component';
 import { EditWebsocketComponent } from '../edit-websocket/edit-websocket.component';
 import { EditQueueComponent } from '../edit-queue/edit-queue.component';
 import { EditSchedulerComponent } from '../edit-scheduler/edit-scheduler.component';
-import { EditArrComponent } from '../edit-arr/edit-arr.component';
 import { ResizableWidthDirective } from '../../directives/resizable-width.directive';
 import { EditCodeComponent } from '../edit-code/edit-code.component';
 
@@ -33,7 +30,7 @@ export class ServiceEditComponent {
   @ViewChild('serviceEditContainer') serviceEditContainer!: ElementRef;
   
   @ViewChild('componentHost', { read: ViewContainerRef, static: true }) componentHost!: ViewContainerRef;
-  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditFnComponent | EditObjComponent | EditArrComponent | EditRequestComponent | EditVariableComponent | EditWebsocketComponent | EditQueueComponent | EditSchedulerComponent | EditWorkflowComponent | EditCodeComponent> | null = null;
+  componentHostRef: ComponentRef<EditApiComponent | EditStorageComponent | EditValidatorComponent | EditSchemaComponent | EditFnComponent | EditRequestComponent | EditVariableComponent | EditWebsocketComponent | EditQueueComponent | EditSchedulerComponent | EditCodeComponent> | null = null;
 
   serviceEditWidth: string = localStorage.getItem('serviceEditWidth') || '400';
   
@@ -86,12 +83,6 @@ export class ServiceEditComponent {
     } else if (this.view.service === 'Functions') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditFnComponent, { injector: componentInjector });
-    } else if (this.view.service === 'Objects') {
-      const componentInjector = this.componentInjector.createServiceEditInjector();
-      this.componentHostRef = this.componentHost.createComponent(EditObjComponent, { injector: componentInjector });
-    } else if (this.view.service === 'Arrays') {
-      const componentInjector = this.componentInjector.createServiceEditInjector();
-      this.componentHostRef = this.componentHost.createComponent(EditArrComponent, { injector: componentInjector });
     } else if (this.view.service === 'Requests') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditRequestComponent, { injector: componentInjector });
@@ -107,9 +98,6 @@ export class ServiceEditComponent {
     } else if (this.view.service === 'Schedulers') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditSchedulerComponent, { injector: componentInjector });
-    } else if (this.view.service === 'Workflows') {
-      const componentInjector = this.componentInjector.createServiceEditInjector();
-      this.componentHostRef = this.componentHost.createComponent(EditWorkflowComponent, { injector: componentInjector });
     } else if (this.view.service === 'Codes') {
       const componentInjector = this.componentInjector.createServiceEditInjector();
       this.componentHostRef = this.componentHost.createComponent(EditCodeComponent, { injector: componentInjector });

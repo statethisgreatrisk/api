@@ -2,7 +2,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, mergeMap, of } from "rxjs";
 import { Injectable } from "@angular/core";
 import { AppRequest } from "../requests/app.request";
-import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addWorkflow, addWorkflows, createWorkflow, deleteWorkflow, getWorkflows, removeWorkflow, replaceWorkflow, updateWorkflow, getApps, addApps, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateKey, updateLog, updateUsage, signupUser, authError, authSuccess, resendUser, confirmUser, forgotUser, resetUser, loginUser, logoutUser, refreshUser, checkUser, addProject, addProjects, createProject, deleteProject, getProjects, removeProject, replaceProject, updateProject, deleteKey, removeKey, billingError, billingSuccess, deployStartSuccess, deployStartError, addFn, addFns, addObj, addObjs, createFn, createObj, deleteFn, deleteObj, getFns, getObjs, removeFn, removeObj, replaceFn, replaceObj, updateFn, updateObj, addDocument, addDocuments, createDocument, deleteDocument, getDocuments, removeDocument, replaceDocument, updateDocument, addSub, addSubs, createSub, deleteSub, getSubs, removeSub, replaceSub, updateSub, startDeploy, stopDeploy, deployStopSuccess, deployStopError, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, getInstances, addInstances, addRequest, addRequests, createRequest, deleteRequest, getRequests, removeRequest, replaceRequest, updateRequest, createRequestSuccess, addVariable, addVariables, createVariable, deleteVariable, getVariables, removeVariable, replaceVariable, updateVariable, addWebsocket, addWebsockets, createWebsocket, deleteWebsocket, getWebsockets, removeWebsocket, replaceWebsocket, updateWebsocket, addQueue, addQueues, createQueue, deleteQueue, getQueues, removeQueue, replaceQueue, updateQueue, addScheduler, addSchedulers, createScheduler, deleteScheduler, getSchedulers, removeScheduler, replaceScheduler, updateScheduler, addRegister, addRegisters, createRegister, deleteRegister, getRegisters, removeRegister, replaceRegister, updateRegister, getProjectSetup, addProjectSettings, addProjectSetup, getProjectData, addProjectData, getProjectSettings, getVariableValue, getVariableValueSuccess, addJobs, getJobs, getArgtypes, addArgtypes, addArr, addArrs, createArr, deleteArr, getArrs, removeArr, replaceArr, updateArr, addPool, addPools, createPool, deletePool, getPools, removePool, replacePool, updatePool, addCode, addCodes, createCode, deleteCode, getCodes, removeCode, replaceCode, updateCode, addChat, addChats, createChat, deleteChat, getChats, removeChat, replaceChat, updateChat, streamChat, chunkChat, updateChatSuccess, updateChatError, createChatSuccess, createChatError, updateCodeSuccess, updateCodeError } from "../actions/app.action";
+import { getUser, addUser, requestError, addAPI, addAPIs, createAPI, deleteAPI, getAPIs, removeAPI, replaceAPI, updateAPI, addStorage, addStorages, createStorage, deleteStorage, getStorages, removeStorage, replaceStorage, updateStorage, addSchema, addSchemas, createSchema, deleteSchema, getSchemas, removeSchema, replaceSchema, updateSchema, addValidator, addValidators, createValidator, deleteValidator, getValidators, removeValidator, replaceValidator, updateValidator, addBilling, addBillings, addDeploy, addDeploys, addKey, addKeys, addLog, addLogs, addUsage, addUsages, createBilling, createKey, createLog, createUsage, getBillings, getDeploys, getKeys, getLogs, getUsages, replaceBilling, replaceDeploy, replaceKey, replaceLog, replaceUsage, updateBilling, updateKey, updateLog, updateUsage, signupUser, authError, authSuccess, resendUser, confirmUser, forgotUser, resetUser, loginUser, logoutUser, refreshUser, checkUser, addProject, addProjects, createProject, deleteProject, getProjects, removeProject, replaceProject, updateProject, deleteKey, removeKey, billingError, billingSuccess, deployStartSuccess, deployStartError, addFn, addFns, createFn, deleteFn, getFns, removeFn, replaceFn, updateFn, addDocument, addDocuments, createDocument, deleteDocument, getDocuments, removeDocument, replaceDocument, updateDocument, addSub, addSubs, createSub, deleteSub, getSubs, removeSub, replaceSub, updateSub, startDeploy, stopDeploy, deployStopSuccess, deployStopError, getDeployStatus, getDeployStatusError, getDeployStatusSuccess, getInstances, addInstances, addRequest, addRequests, createRequest, deleteRequest, getRequests, removeRequest, replaceRequest, updateRequest, createRequestSuccess, addVariable, addVariables, createVariable, deleteVariable, getVariables, removeVariable, replaceVariable, updateVariable, addWebsocket, addWebsockets, createWebsocket, deleteWebsocket, getWebsockets, removeWebsocket, replaceWebsocket, updateWebsocket, addQueue, addQueues, createQueue, deleteQueue, getQueues, removeQueue, replaceQueue, updateQueue, addScheduler, addSchedulers, createScheduler, deleteScheduler, getSchedulers, removeScheduler, replaceScheduler, updateScheduler, addRegister, addRegisters, createRegister, deleteRegister, getRegisters, removeRegister, replaceRegister, updateRegister, getProjectSetup, addProjectSettings, addProjectSetup, getProjectData, addProjectData, getProjectSettings, getVariableValue, getVariableValueSuccess, addJobs, getJobs, addPool, addPools, createPool, deletePool, getPools, removePool, replacePool, updatePool, addCode, addCodes, createCode, deleteCode, getCodes, removeCode, replaceCode, updateCode, addChat, addChats, createChat, deleteChat, getChats, removeChat, replaceChat, updateChat, streamChat, chunkChat, updateChatSuccess, updateChatError, createChatSuccess, createChatError, updateCodeSuccess, updateCodeError } from "../actions/app.action";
 
 @Injectable()
 export class AppEffect {
@@ -15,18 +15,6 @@ export class AppEffect {
             ofType(getUser),
             exhaustMap((action) => this.appRequest.getUser().pipe(
                 map(data => addUser({ user: data })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
-    // App
-
-    getApps$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(getApps),
-            exhaustMap((action) => this.appRequest.getApps().pipe(
-                map(data => addApps({ apps: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
         );
@@ -364,48 +352,6 @@ export class AppEffect {
         );
     });
 
-    // Workflow
-
-    getWorkflows$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(getWorkflows),
-            exhaustMap((action) => this.appRequest.getWorkflows(action.projectId).pipe(
-                map(data => addWorkflows({ workflows: data })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
-    createWorkflow$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(createWorkflow),
-            exhaustMap((action) => this.appRequest.createWorkflow(action.projectId, action.workflow).pipe(
-                map(data => addWorkflow({ workflow: data })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
-    updateWorkflow$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(updateWorkflow),
-            exhaustMap((action) => this.appRequest.updateWorkflow(action.projectId, action.workflow).pipe(
-                map(data => replaceWorkflow({ workflow: data })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
-    deleteWorkflow$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(deleteWorkflow),
-            exhaustMap((action) => this.appRequest.deleteWorkflow(action.projectId, action.workflowId).pipe(
-                map(data => removeWorkflow({ workflowId: data.message })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
     // Code
 
     getCodes$ = createEffect(() => {
@@ -538,90 +484,6 @@ export class AppEffect {
             ofType(deleteFn),
             exhaustMap((action) => this.appRequest.deleteFn(action.projectId, action.fnId).pipe(
                 map(data => removeFn({ fnId: data.message })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
-    // Obj
-
-    getObjs$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(getObjs),
-            exhaustMap((action) => this.appRequest.getObjs(action.projectId).pipe(
-                map(data => addObjs({ objs: data })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
-    createObj$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(createObj),
-            exhaustMap((action) => this.appRequest.createObj(action.projectId, action.obj).pipe(
-                map(data => addObj({ obj: data })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
-    updateObj$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(updateObj),
-            exhaustMap((action) => this.appRequest.updateObj(action.projectId, action.obj).pipe(
-                map(data => replaceObj({ obj: data })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
-    deleteObj$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(deleteObj),
-            exhaustMap((action) => this.appRequest.deleteObj(action.projectId, action.objId).pipe(
-                map(data => removeObj({ objId: data.message })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
-    // Arr
-
-    getArrs$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(getArrs),
-            exhaustMap((action) => this.appRequest.getArrs(action.projectId).pipe(
-                map(data => addArrs({ arrs: data })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
-    createArr$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(createArr),
-            exhaustMap((action) => this.appRequest.createArr(action.projectId, action.arr).pipe(
-                map(data => addArr({ arr: data })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
-    updateArr$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(updateArr),
-            exhaustMap((action) => this.appRequest.updateArr(action.projectId, action.arr).pipe(
-                map(data => replaceArr({ arr: data })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
-    deleteArr$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(deleteArr),
-            exhaustMap((action) => this.appRequest.deleteArr(action.projectId, action.arrId).pipe(
-                map(data => removeArr({ arrId: data.message })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
         );
@@ -1024,18 +886,6 @@ export class AppEffect {
             ofType(getJobs),
             exhaustMap((action) => this.appRequest.getJobs(action.projectId).pipe(
                 map(data => addJobs({ jobs: data })),
-                catchError(err => of(requestError({ message: err.error, error: err })))
-            )),
-        );
-    });
-
-    // Argtype
-
-    getArgtypes$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(getArgtypes),
-            exhaustMap(() => this.appRequest.getArgtypes().pipe(
-                map(data => addArgtypes({ argtypes: data })),
                 catchError(err => of(requestError({ message: err.error, error: err })))
             )),
         );

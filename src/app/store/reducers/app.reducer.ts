@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash";
-import { API, AppState, User, Storage, Schema, Validator, Workflow, App, Billing, Deploy, Key, Log, Usage, Project, Fn, Obj, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Argtype, Arr, Pool, Code, Chat, ChatChunk } from "../interfaces/app.interface";
+import { API, AppState, User, Storage, Schema, Validator,  Billing, Deploy, Key, Log, Usage, Project, Fn, Document, Sub, Instance, Request, Variable, Websocket, Queue, Scheduler, Register, ProjectSetup, ProjectData, ProjectSettings, Job, Pool, Code, Chat, ChatChunk } from "../interfaces/app.interface";
 
 // User
 
@@ -15,7 +15,6 @@ export const addProjectSetupFn: (state: AppState, setup: ProjectSetup) => AppSta
     return {
         ...state,
         user: setup.user,
-        apps: setup.apps,
         projects: setup.projects,
     };
 }
@@ -24,7 +23,6 @@ export const addProjectDataFn: (state: AppState, data: ProjectData) => AppState 
     if (!data) return { ...state };
     return {
         ...state,
-        workflows: data.workflows,
         codes: data.codes,
         chats: data.chats,
         apis: data.apis,
@@ -32,15 +30,12 @@ export const addProjectDataFn: (state: AppState, data: ProjectData) => AppState 
         schemas: data.schemas,
         validators: data.validators,
         fns: data.fns,
-        objs: data.objs,
-        arrs: data.arrs,
         requests: data.requests,
         variables: data.variables,
         // websockets: data.websockets,
         // queues: data.queues,
         // schedulers: data.schedulers,
         documents: data.documents,
-        argtypes: data.argtypes,
      };
 }
 
@@ -198,34 +193,6 @@ export const removeValidatorFn: (state: AppState, validatorId: string) => AppSta
     return { ...state, validators: state.validators.filter((validator) => validator._id !== validatorId) };
 }
 
-// Workflow
-
-export const addWorkflowsFn: (state: AppState, workflows: Workflow[]) => AppState = (state: AppState, workflows: Workflow[]) => {
-    if (!workflows) return { ...state };
-    return { ...state, workflows: workflows };
-}
-
-export const addWorkflowFn: (state: AppState, workflow: Workflow) => AppState = (state: AppState, workflow: Workflow) => {
-    if (!workflow) return { ...state };
-    return { ...state, workflows: state.workflows.concat([workflow]) };
-}
-
-export const replaceWorkflowFn: (state: AppState, workflow: Workflow) => AppState = (state: AppState, workflow: Workflow) => {
-    if (!workflow) return { ...state };
-
-    const workflows = state.workflows.map((existingWorkflow) => {
-        if (existingWorkflow._id !== workflow._id) return existingWorkflow;
-        return workflow;
-    });
-
-    return { ...state, workflows: workflows };
-}
-
-export const removeWorkflowFn: (state: AppState, workflowId: string) => AppState = (state: AppState, workflowId: string) => {
-    if (!workflowId) return { ...state };
-    return { ...state, workflows: state.workflows.filter((workflow) => workflow._id !== workflowId) };
-}
-
 // Code
 
 export const addCodesFn: (state: AppState, codes: Code[]) => AppState = (state: AppState, codes: Code[]) => {
@@ -349,62 +316,6 @@ export const replaceFnFn: (state: AppState, fn: Fn) => AppState = (state: AppSta
 export const removeFnFn: (state: AppState, fnId: string) => AppState = (state: AppState, fnId: string) => {
     if (!fnId) return { ...state };
     return { ...state, fns: state.fns.filter((fn) => fn._id !== fnId) };
-}
-
-// Obj
-
-export const addObjsFn: (state: AppState, objs: Obj[]) => AppState = (state: AppState, objs: Obj[]) => {
-    if (!objs) return { ...state };
-    return { ...state, objs: objs };
-}
-
-export const addObjFn: (state: AppState, obj: Obj) => AppState = (state: AppState, obj: Obj) => {
-    if (!obj) return { ...state };
-    return { ...state, objs: state.objs.concat([obj]) };
-}
-
-export const replaceObjFn: (state: AppState, obj: Obj) => AppState = (state: AppState, obj: Obj) => {
-    if (!obj) return { ...state };
-
-    const objs = state.objs.map((existingObj) => {
-        if (existingObj._id !== obj._id) return existingObj;
-        return obj;
-    });
-
-    return { ...state, objs: objs };
-}
-
-export const removeObjFn: (state: AppState, objId: string) => AppState = (state: AppState, objId: string) => {
-    if (!objId) return { ...state };
-    return { ...state, objs: state.objs.filter((obj) => obj._id !== objId) };
-}
-
-// Arr
-
-export const addArrsFn: (state: AppState, arrs: Arr[]) => AppState = (state: AppState, arrs: Arr[]) => {
-    if (!arrs) return { ...state };
-    return { ...state, arrs: arrs };
-}
-
-export const addArrFn: (state: AppState, arr: Arr) => AppState = (state: AppState, arr: Arr) => {
-    if (!arr) return { ...state };
-    return { ...state, arrs: state.arrs.concat([arr]) };
-}
-
-export const replaceArrFn: (state: AppState, arr: Arr) => AppState = (state: AppState, arr: Arr) => {
-    if (!arr) return { ...state };
-
-    const arrs = state.arrs.map((existingArr) => {
-        if (existingArr._id !== arr._id) return existingArr;
-        return arr;
-    });
-
-    return { ...state, arrs: arrs };
-}
-
-export const removeArrFn: (state: AppState, arrId: string) => AppState = (state: AppState, arrId: string) => {
-    if (!arrId) return { ...state };
-    return { ...state, arrs: state.arrs.filter((arr) => arr._id !== arrId) };
 }
 
 // Request
@@ -725,13 +636,6 @@ export const addJobFn: (state: AppState, job: Job) => AppState = (state: AppStat
     return { ...state, jobs: state.jobs.concat([job]) };
 }
 
-// Argtype
-
-export const addArgtypesFn: (state: AppState, argtypes: Argtype[]) => AppState = (state: AppState, argtypes: Argtype[]) => {
-    if (!argtypes) return { ...state };
-    return { ...state, argtypes: argtypes };
-}
-
 // Key
 
 export const addKeysFn: (state: AppState, keys: Key[]) => AppState = (state: AppState, keys: Key[]) => {
@@ -862,14 +766,6 @@ export const removePoolFn: (state: AppState, poolId: string) => AppState = (stat
     return { ...state, pools: state.pools.filter((pool) => pool._id !== poolId) };
 }
 
-
-// App
-
-export const addAppsFn: (state: AppState, apps: App[]) => AppState = (state: AppState, apps: App[]) => {
-    if (!apps) return { ...state };
-    return { ...state, apps: apps };
-}
-
 // Services/View
 
 export const selectServiceFn: (state: AppState, serviceName: string, serviceId: string) => AppState = (state: AppState, serviceName: string, serviceId: string) => {
@@ -899,18 +795,14 @@ export const logFn: (state: AppState, any: any) => AppState = (state: AppState, 
 export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => {
     return {
         projects: [],
-        apps: [],
         
         apis: [],
         storages: [],
         schemas: [],
         validators: [],
-        workflows: [],
         codes: [],
         chats: [],
         fns: [],
-        objs: [],
-        arrs: [],
         requests: [],
         variables: [],
         websockets: [],
@@ -918,7 +810,6 @@ export const clearStoreFn: (state: AppState) => AppState = (state: AppState) => 
         schedulers: [],
         registers: [],
         documents: [],
-        argtypes: [],
 
         instances: [],
         deploys: [],
@@ -941,18 +832,14 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
 
         // user not deleted
         // projects not deleted
-        // apps: apps not deleted
         
         apis: [],
         storages: [],
         schemas: [],
         validators: [],
-        workflows: [],
         codes: [],
         chats: [],
         fns: [],
-        objs: [],
-        arrs: [],
         requests: [],
         variables: [],
         websockets: [],
@@ -960,7 +847,6 @@ export const clearDataFn: (state: AppState) => AppState = (state: AppState) => {
         schedulers: [],
         registers: [],
         documents: [],
-        argtypes: [],
 
         instances: [],
         deploys: [],
