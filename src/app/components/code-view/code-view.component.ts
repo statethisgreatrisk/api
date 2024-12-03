@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { selectCodes, selectMainProject, selectUser, selectView } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
-import { cloneDeep, filter, omit, orderBy, some, take} from 'lodash';
+import { chunk, cloneDeep, filter, omit, orderBy, some, take} from 'lodash';
 import { Subscription, combineLatest } from 'rxjs';
 import { DebugViewService } from '../../services/debug-view.service';
 import { DeleteService } from '../../services/delete.service';
-import { deselectService, deselectWindow, updateCode } from '../../store/actions/app.action';
+import { deselectService, deselectWindow, updateCode, updateCodeError, updateCodeSuccess } from '../../store/actions/app.action';
 import { User, View, Code, Project, AppStateInit, CodeExport } from '../../store/interfaces/app.interface';
 import { NgIf, NgClass, NgFor, DOCUMENT } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +17,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { oneDarkSmallLight } from '../../styles/one-dark-small-light';
 import ObjectId from 'bson-objectid';
 import { CodeViewService } from '../../services/code-view.service';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-code-view',
@@ -32,9 +33,13 @@ export class CodeViewComponent {
   project: Project | null = null;
 
   sub: Subscription | null = null;
+  updateSuccess: Subscription | null = null;
+  updateError: Subscription | null = null;
 
   editingVersionId: string = '';
   editingCodeId: string = '';
+
+  pendingCodeUpdate: string = '';
 
   @ViewChild('codeEditor') codeEditor: any;
   editorState!: EditorState;
@@ -42,6 +47,7 @@ export class CodeViewComponent {
 
   constructor(
     private store: Store<AppStateInit>,
+    private actions$: Actions,
     private codeViewService: CodeViewService,
     private debugViewService: DebugViewService,
     private deleteService: DeleteService,
@@ -51,10 +57,15 @@ export class CodeViewComponent {
 
   ngOnInit() {
     this.initLatest();
+    this.initCallbacks();
+    this.initUpdates();
   }
 
   ngOnDestroy() {
     this.sub?.unsubscribe();
+    this.updateSuccess?.unsubscribe();
+    this.updateError?.unsubscribe();
+    this.codeViewService.clearCallbacks();
   }
 
   ngAfterViewInit() {
@@ -114,6 +125,20 @@ export class CodeViewComponent {
         this.updateCodeView();
       }
     });
+  }
+
+  initUpdates() {
+    this.updateSuccess = this.actions$.pipe((ofType(updateCodeSuccess))).subscribe(({ code }) => {
+      this.streamAndSaveUpdatedCode();
+    });
+    this.updateError = this.actions$.pipe((ofType(updateCodeError))).subscribe(({ code }) => {
+      this.pendingCodeUpdate = '';
+    });
+  }
+
+  initCallbacks() {
+    this.codeViewService.setGetCodeCallback(this.getCodeCallback);
+    this.codeViewService.setUpdateCodeCallback(this.updateCodeCallback);
   }
 
   createEditor() {
@@ -184,7 +209,7 @@ export class CodeViewComponent {
 
     // Remove extra versions
     const sortedObjects = orderBy(code.versions, ['version'], ['desc']);
-    const latestVersions = take(sortedObjects, 5);
+    const latestVersions = take(sortedObjects, 10);
 
     code.versions = filter(code.versions, (version) => {
       return some(latestVersions, { version: version.version }) || code.versionId === version._id;
@@ -266,4 +291,44 @@ export class CodeViewComponent {
 
     this.codeViewService.setCodeData({ code: this.code.code, name, versionId: this.editingVersionId, versionStatus, version });
   }
+
+  getCodeCallback = () => {
+    if (!this.code) return '';
+
+    return this.code.code;
+  }
+
+  updateCodeCallback = async (updatedCode: string) => {
+    if (!this.code) return;
+    if (!this.editingVersionId) return;
+
+    const version = this.code.versions.find((version) => version._id === this.editingVersionId)!;
+
+    if (version.code === this.code.code) {
+      this.pendingCodeUpdate = updatedCode;
+      this.streamAndSaveUpdatedCode();
+    } else {
+      this.pendingCodeUpdate = updatedCode;
+      this.save();
+    }
+  }
+
+  streamAndSaveUpdatedCode = async () => {
+    if (!this.code) return;
+    if (!this.pendingCodeUpdate) return;
+
+    this.code.code = '';
+
+    const streams = chunk(Array.from(this.pendingCodeUpdate), 5).map((chunk) => chunk.join(''));
+
+    for (const stream of streams) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+        this.code.code += stream;
+        this.updateCodeView();
+    }
+
+    this.pendingCodeUpdate = '';
+    this.save();
+  }
+
 }

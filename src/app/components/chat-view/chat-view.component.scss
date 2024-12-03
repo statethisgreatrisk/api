@@ -195,6 +195,8 @@
     top: 22px;
     left: auto;
     right: 0;
+
+    width: 250px;
 }
 
 .chat-view-actions .chat-view-actions-dropdown-container .chat-view-actions-dropdown p {
@@ -223,6 +225,14 @@
     flex-grow: 1;
 
     overflow-y: scroll;
+
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .chat-view-message-container {
@@ -264,7 +274,7 @@
     padding: 10px;
     border-radius: 10px;
 
-    background: $primary-1600;
+    background: $primary-1800;
 }
 
 .chat-view-message-content p {
@@ -288,12 +298,12 @@
     display: flex;
     flex-direction: column;
 
-    align-items: start;
+    align-items: center;
 
-    width: auto;
+    width: 100%;
     height: auto;
 
-    max-width: 98%;
+    // max-width: 98%;
 }
 
 ::ng-deep .chat-view-response-content {
@@ -485,6 +495,96 @@
 
     margin: 5px 0;
 
+    color: white;
+}
+
+.chat-view-response-dialog-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: start;
+
+    width: 100%;
+    height: auto;
+}
+
+.chat-view-response-dialog {
+    display: flex;
+    flex-direction: row;
+
+    align-items: start;
+
+    // width: 100%;
+    height: auto;
+
+    margin: 5px auto;
+
+    max-width: 98%;
+}
+
+.chat-view-response-dialog-content {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    height: auto;
+    max-width: 80%;
+
+    overflow-wrap: anywhere;
+
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    padding: 5px 10px;
+
+    flex-grow: 1;
+
+    border-radius: 5px;
+    background-color: $primary-300;
+}
+
+.chat-view-response-dialog-content > p {
+    text-align: center;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    margin: 5px 0;
+
+    color: white;
+}
+
+.chat-view-response-dialog-content-button {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 45px;
+    min-width: 45px;
+    height: 22px;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 15px;
+
+    border: 1px solid $surface-mixed-300;
+    border-radius: 3px;
+    background-color: $surface-dark;
+
+    cursor: pointer;
+}
+
+.chat-view-response-dialog-content-button:hover {
+    background-color: $primary-400;
+}
+
+.chat-view-response-dialog-content-button > p {
+    font-size: 12px;
+    font-weight: 600;
     color: white;
 }
 

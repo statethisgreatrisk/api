@@ -97,10 +97,6 @@ export class ChatViewComponent {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.highlightCode();
-    }, 5000);
-
     this.highlightCode();
   }
 
@@ -137,9 +133,11 @@ export class ChatViewComponent {
       this.codes = codes;
       this.chats = [...chats].sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
       
-      if (this.chats && this.chats.length) {
+      if (!this.chat && this.chats && this.chats.length) {
         this.chat = this.chats[0];
         this.selectHistory(this.chat._id);
+      } else if (this.chat && this.chats && this.chats.length) {
+        this.chat = this.chats.find((chat) => chat._id === this.chat!._id)!;
       }
     });
   }
@@ -172,6 +170,7 @@ export class ChatViewComponent {
   initUpdates() {
     this.updateSuccessSub = this.actions$.pipe((ofType(updateChatSuccess))).subscribe(({ chat }) => {
       this.store.dispatch(streamChat({ projectId: this.project!._id, chatId: chat._id }));
+      this.scrollToMessageFooter();
     });
     this.updateErrorSub = this.actions$.pipe((ofType(updateChatError))).subscribe(({ err, chat }) => {
       // this.running = false;
@@ -183,6 +182,8 @@ export class ChatViewComponent {
       if (chunk.done) {
         this.highlightCode();
       }
+
+      this.scrollToMessageFooter();
     });
   }
 
@@ -197,7 +198,7 @@ export class ChatViewComponent {
     const userId = this.user._id;
     const projectId = this.project._id;
     const _id = '';
-    const name = 'New Chat';
+    const name = '';
     const date = new Date().toISOString();
     const active = true;
     const type = 'chat';
@@ -234,6 +235,7 @@ export class ChatViewComponent {
 
     this.store.dispatch(updateChat({ projectId: this.project._id, chat }));
     this.text = '';
+    this.scrollToMessageFooter();
     // this.running = true;
   }
 
@@ -265,6 +267,7 @@ export class ChatViewComponent {
     this.apiKeyId = lastMessage.variableId;
 
     this.highlightCode();
+    this.scrollToMessageFooter();
   }
 
   findVariable(variableId: string) {
@@ -276,7 +279,11 @@ export class ChatViewComponent {
   findChat(chatId: string) {
     if (!this.chats) return;
 
-    return this.chats.find((chat) => chat._id === chatId)!._id.slice(-6);
+    const chat = this.chats.find((chat) => chat._id === chatId)!;
+
+    if (chat.name) return chat.name;
+
+    return chat._id.slice(-6);
   }
 
   get findRecentTokens() {
@@ -306,6 +313,68 @@ export class ChatViewComponent {
     }, { inputTokens: 0, outputTokens: 0 });
   }
 
+  hasOutputCode(messageId: string): boolean {
+    if (!messageId) return false;
+    if (!this.chat) return false;
+    if (!this.chat.messages.length) return false;
+
+    const message = this.chat.messages.find((message) => message._id === messageId);
+
+    if (!message) return false;
+
+    const prefix = `"updatedCode":"`;
+    const suffix = `"}}`;
+
+    const prefixStartIndex = message.content.indexOf(prefix);
+    
+    if (prefixStartIndex === -1) return false;
+
+    const content = message.content.slice(prefixStartIndex + prefix.length);
+
+    const suffixStartIndex = content.indexOf(suffix);
+
+    if (suffixStartIndex === -1) return false;
+
+    const codeToUpdate = content.slice(0, suffixStartIndex);
+
+    if (!codeToUpdate.length) return false;
+
+    return true;
+  }
+
+  updateCode(messageId: string) {
+    if (!messageId) return;
+    if (!this.chat) return;
+    if (!this.chat.messages.length) return;
+    if (!this.codeViewService.updateCodeCallback) return;
+
+    const message = this.chat.messages.find((message) => message._id === messageId);
+
+    if (!message) return;
+
+    const prefix = `"updatedCode":"`;
+    const suffix = `"}}`;
+
+    const prefixStartIndex = message.content.indexOf(prefix);
+    
+    if (prefixStartIndex === -1) return;
+
+    const content = message.content.slice(prefixStartIndex + prefix.length);
+
+    const suffixStartIndex = content.indexOf(suffix);
+
+    if (suffixStartIndex === -1) return;
+
+    const codeToUpdate = content.slice(0, suffixStartIndex).replace(/\\n/g, '\n').replace(/\\"/g, '"');
+
+    this.codeViewService.updateCodeCallback(codeToUpdate);
+  }
+
+  scrollToMessageFooter() {
+    const element = document.getElementById('messages-footer');
+    if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   autoResize() {
     this.textInput.nativeElement.style.height = '18px';
     this.textInput.nativeElement.style.height = (this.textInput.nativeElement.scrollHeight) + 'px';
@@ -320,6 +389,9 @@ export class ChatViewComponent {
 
     if (!this.sidebarView) this.chatViewWidth = 'auto';
     else this.chatViewWidth = localStorage.getItem('chatViewWidth') || '400';
+
+    this.highlightCode();
+    this.scrollToMessageFooter();
   }
 
   toggleAPIKeyDropdown() {

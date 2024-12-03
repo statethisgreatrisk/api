@@ -93,6 +93,7 @@ export interface CodeData {
 
 export interface ChatChunk {
     _id: string;
+    name: string; // For updating chat name with summary
     modelId: string;
     variableId: string;
     inputTokens: number;

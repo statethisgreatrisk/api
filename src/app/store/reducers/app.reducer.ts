@@ -310,6 +310,8 @@ export const chunkChatFn: (state: AppState, chatId: string, chunk: ChatChunk) =>
             });
         }
 
+        if (chunk.done) newChat.name = chunk.name;
+
         return newChat;
     });
 
