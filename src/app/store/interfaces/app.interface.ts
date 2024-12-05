@@ -301,11 +301,11 @@ export interface Job {
     codeId: string;
     jobId: string;
     apiId: string;
-    // queueId: string;
+    queueId: string;
     schedulerId: string;
     active: boolean;
     date: string;
-    type: 'start' | 'stop';
+    type: 'start' | 'stop' | 'send' | 'receive-start' | 'receive-stop' | 'delete';
     activity: string;
     error: boolean;
 }

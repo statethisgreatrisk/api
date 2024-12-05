@@ -120,6 +120,29 @@
                 </div>
             </div>
         </div>
+        <div class="edit-queue-label">
+            <p>Code</p>
+        </div>
+        <div class="edit-queue-select-container" *ngIf="queue && !queue.codeId">
+            <div class="edit-queue-select" (click)="toggleCodeDropdown()">
+                <div class="edit-queue-select-button">
+                    <p>Select Code</p>
+                    <img src="/down.png">
+                </div>
+                <div class="edit-queue-select-dropdown" *ngIf="codeDropdown && codes">
+                    <div class="edit-queue-select-dropdown-button" *ngFor="let c of codes" (click)="selectCode(c._id)">
+                        <p>{{ c.name }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-queue-list-item-container" *ngIf="queue && queue.codeId">
+            <div class="edit-queue-list-item" (click)="removeCode()">
+                <img class="check" src="/check.png">
+                <img class="x" src="/x.png">
+                <p>{{ findCode(queue.codeId) }}</p>
+            </div>
+        </div>
         <div class="edit-queue-buttons">
             <div class="edit-queue-cancel" (click)="cancel()">
                 <p>Cancel</p>

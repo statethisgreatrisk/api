@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AppStateInit, Project, Queue, User, View } from '../../store/interfaces/app.interface';
-import { selectMainProject, selectQueues, selectUser, selectView } from '../../store/selectors/app.selector';
+import { AppStateInit, Code, Project, Queue, User, View } from '../../store/interfaces/app.interface';
+import { selectCodes, selectMainProject, selectQueues, selectUser, selectView } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { DeleteService } from '../../services/delete.service';
@@ -20,8 +20,11 @@ export class EditQueueComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   project: Project | null = null;
   queue: Queue | null = null;
+  codes: Code[] | null = null;
 
   sub: Subscription | null = null;
+
+  codeDropdown = false;
 
   constructor(
     private store: Store<AppStateInit>,
@@ -42,16 +45,43 @@ export class EditQueueComponent {
       this.store.select(selectView),
       this.store.select(selectMainProject),
       this.store.select(selectQueues),
-    ]).subscribe(([user, view, project, queues]) => {
+      this.store.select(selectCodes),
+    ]).subscribe(([user, view, project, queues, codes]) => {
       this.user = user;
       this.view = view;
       this.project = project;
+      this.codes = codes;
 
       if (this.user && this.view && this.view.serviceId) {
         const queue = queues.find((existingQueue) => existingQueue._id === this.view.serviceId);
         this.queue = queue ? { ...queue } : null;
       }
     });
+  }
+
+  toggleCodeDropdown() {
+    this.codeDropdown = !this.codeDropdown;
+  }
+
+  selectCode(codeId: string) {
+    if (!codeId || !this.queue) return;
+
+    this.queue.codeId = codeId;
+  }
+
+  removeCode() {
+    if (!this.queue) return;
+    this.queue.codeId = '';
+  }
+
+  findCode(codeId: string) {
+    if (!codeId || !this.queue) return;
+    if (!this.codes) return;
+
+    const code = this.codes.find((code) => code._id === codeId);
+
+    if (!code) return '';
+    return code.name;
   }
 
   cancel() {
