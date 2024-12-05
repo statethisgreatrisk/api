@@ -148,6 +148,29 @@
                 </div>
             </div>
         </div>
+        <div class="edit-scheduler-label">
+            <p>Code</p>
+        </div>
+        <div class="edit-scheduler-select-container" *ngIf="scheduler && !scheduler.codeId">
+            <div class="edit-scheduler-select" (click)="toggleCodeDropdown()">
+                <div class="edit-scheduler-select-button">
+                    <p>Select Code</p>
+                    <img src="/down.png">
+                </div>
+                <div class="edit-scheduler-select-dropdown" *ngIf="codeDropdown && codes">
+                    <div class="edit-scheduler-select-dropdown-button" *ngFor="let c of codes" (click)="selectCode(c._id)">
+                        <p>{{ c.name }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-scheduler-list-item-container" *ngIf="scheduler && scheduler.codeId">
+            <div class="edit-scheduler-list-item" (click)="removeCode()">
+                <img class="check" src="/check.png">
+                <img class="x" src="/x.png">
+                <p>{{ findCode(scheduler.codeId) }}</p>
+            </div>
+        </div>
         <div class="edit-scheduler-buttons">
             <div class="edit-scheduler-cancel" (click)="cancel()">
                 <p>Cancel</p>

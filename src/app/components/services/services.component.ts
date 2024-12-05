@@ -39,6 +39,8 @@ export class ServicesComponent {
   services: Service[] =  [
     { name: 'Codes', icon: '/workflow.png' },
     { name: 'APIs', icon: '/news.png' },
+    { name: 'Queues', icon: '/tool.png' },
+    { name: 'Schedulers', icon: '/tool.png' },
     { name: 'Storages', icon: '/folder.png' },
     { name: 'Validators', icon: '/binoculars.png' },
     { name: 'Schemas', icon: '/tool.png' },
@@ -46,8 +48,6 @@ export class ServicesComponent {
     { name: 'Requests', icon: '/tool.png' },
     { name: 'Variables', icon: '/tool.png' },
     // { name: 'WebSockets', icon: '/tool.png' },
-    // { name: 'Queues', icon: '/tool.png' },
-    // { name: 'Schedulers', icon: '/tool.png' },
   ];
 
   dropdown: boolean = false;
@@ -343,9 +343,9 @@ export class ServicesComponent {
     const name = 'Queue';
     const date = new Date().toISOString();
     const active = true;
-    const workflowId = '';
+    const codeId = '';
 
-    this.store.dispatch(createQueue({ projectId, queue: { _id, projectId, userId, name, date, active, workflowId } }));
+    this.store.dispatch(createQueue({ projectId, queue: { _id, projectId, userId, name, date, active, codeId } }));
   }
 
   createScheduler() {
@@ -363,8 +363,8 @@ export class ServicesComponent {
     const cronHour = 0;
     const cronMinute = 0;
     const cronTimezone = 'America/New_York';
-    const workflowId = '';
+    const codeId = '';
 
-    this.store.dispatch(createScheduler({ projectId, scheduler: { _id, projectId, userId, name, date, active, cron, cronType, cronHour, cronMinute, cronTimezone, workflowId } }));
+    this.store.dispatch(createScheduler({ projectId, scheduler: { _id, projectId, userId, name, date, active, cron, cronType, cronHour, cronMinute, cronTimezone, codeId } }));
   }
 }

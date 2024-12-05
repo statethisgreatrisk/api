@@ -213,7 +213,7 @@ export interface Queue {
     date: string;
     active: boolean;
     name: string;
-    workflowId: string;
+    codeId: string;
 }
 
 export interface Scheduler {
@@ -223,7 +223,7 @@ export interface Scheduler {
     date: string;
     active: boolean;
     name: string;
-    workflowId: string;
+    codeId: string;
     cron: string;
     cronType: string;
     cronHour: number;
@@ -302,7 +302,7 @@ export interface Job {
     jobId: string;
     apiId: string;
     // queueId: string;
-    // schedulerId: string;
+    schedulerId: string;
     active: boolean;
     date: string;
     type: 'start' | 'stop';

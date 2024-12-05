@@ -33,8 +33,8 @@ export const addProjectDataFn: (state: AppState, data: ProjectData) => AppState 
         requests: data.requests,
         variables: data.variables,
         // websockets: data.websockets,
-        // queues: data.queues,
-        // schedulers: data.schedulers,
+        queues: data.queues,
+        schedulers: data.schedulers,
         documents: data.documents,
      };
 }

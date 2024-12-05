@@ -1,8 +1,8 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AppStateInit, Project, Scheduler, User, View } from '../../store/interfaces/app.interface';
-import { selectMainProject, selectSchedulers, selectUser, selectView } from '../../store/selectors/app.selector';
+import { AppStateInit, Code, Project, Scheduler, User, View } from '../../store/interfaces/app.interface';
+import { selectCodes, selectMainProject, selectSchedulers, selectUser, selectView } from '../../store/selectors/app.selector';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest } from 'rxjs';
 import { DeleteService } from '../../services/delete.service';
@@ -24,6 +24,7 @@ export class EditSchedulerComponent {
   view: View = { service: '', serviceId: '', window: '', windowId: '' };
   project: Project | null = null;
   scheduler: Scheduler | null = null;
+  codes: Code[] | null = null;
 
   sub: Subscription | null = null;
 
@@ -33,6 +34,7 @@ export class EditSchedulerComponent {
   cronHourDropdown = false;
   cronMinuteDropdown = false;
   cronTimezoneDropdown = false;
+  codeDropdown = false;
 
   constructor(
     private store: Store<AppStateInit>,
@@ -53,10 +55,12 @@ export class EditSchedulerComponent {
       this.store.select(selectView),
       this.store.select(selectMainProject),
       this.store.select(selectSchedulers),
-    ]).subscribe(([user, view, project, schedulers]) => {
+      this.store.select(selectCodes),
+    ]).subscribe(([user, view, project, schedulers, codes]) => {
       this.user = user;
       this.view = view;
       this.project = project;
+      this.codes = codes;
 
       if (this.user && this.view && this.view.serviceId) {
         const scheduler = schedulers.find((existingScheduler) => existingScheduler._id === this.view.serviceId);
@@ -174,6 +178,31 @@ export class EditSchedulerComponent {
 
   get alphaTimezones() {
     return timezones.filter(timezone => timezone.label.startsWith('America/')).map(timezone => timezone.label.split(' ')[0]).sort();
+  }
+
+  toggleCodeDropdown() {
+    this.codeDropdown = !this.codeDropdown;
+  }
+
+  selectCode(codeId: string) {
+    if (!codeId || !this.scheduler) return;
+
+    this.scheduler.codeId = codeId;
+  }
+
+  removeCode() {
+    if (!this.scheduler) return;
+    this.scheduler.codeId = '';
+  }
+
+  findCode(codeId: string) {
+    if (!codeId || !this.scheduler) return;
+    if (!this.codes) return;
+
+    const code = this.codes.find((code) => code._id === codeId);
+
+    if (!code) return '';
+    return code.name;
   }
 
   cancel() {

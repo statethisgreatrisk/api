@@ -27,8 +27,7 @@
     <div class="services-scroll-container">
         <div class="services">
             <div *ngFor="let service of services;">
-                <div class="service" *ngIf="service.name === 'Codes' || service.name === 'APIs' || service.name === 'Queues'  || service.name === 'Schedulers'">
-                    <p *ngIf="service.name === 'APIs' || service.name === 'Queues' || service.name === 'Schedulers'">{{ service.name }}</p>
+                <div class="service" *ngIf="service.name === 'Codes'">
                     <p *ngIf="service.name === 'Codes'">Code</p>
                     <p (click)="create(service.name)">New +</p>
                 </div>
@@ -39,6 +38,17 @@
                         <p>{{ c.name }}</p>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="small-spacer tall">
+            <p>Services</p>
+        </div>
+        <div class="services">
+            <div *ngFor="let service of services;">
+                <div class="service" *ngIf="service.name === 'APIs' || service.name === 'Queues' || service.name === 'Schedulers'">
+                    <p *ngIf="service.name === 'APIs' || service.name === 'Queues' || service.name === 'Schedulers'">{{ service.name }}</p>
+                    <p (click)="create(service.name)">New +</p>
+                </div>
                 <!-- API -->
                 <div class="service-data-list" *ngIf="service.name === 'APIs'">
                     <div class="service-data" [ngClass]="{ 'active': view.serviceId === a._id }" *ngFor="let a of apis" (click)="selectService(service.name, a._id)">
@@ -47,21 +57,22 @@
                     </div>
                 </div>
                 <!-- Queue -->
-                <!-- <div class="service-data-list" *ngIf="service.name === 'Queues'">
+                <div class="service-data-list" *ngIf="service.name === 'Queues'">
                     <div class="service-data" [ngClass]="{ 'active': view.serviceId === q._id }" *ngFor="let q of queues" (click)="selectService(service.name, q._id)">
                         <img [src]="service.icon">
                         <p>{{ q.name }}</p>
                     </div>
-                </div> -->
+                </div>
                 <!-- Scheduler -->
-                <!-- <div class="service-data-list" *ngIf="service.name === 'Schedulers'">
+                <div class="service-data-list" *ngIf="service.name === 'Schedulers'">
                     <div class="service-data" [ngClass]="{ 'active': view.serviceId === s._id }" *ngFor="let s of schedulers" (click)="selectService(service.name, s._id)">
                         <img [src]="service.icon">
                         <p>{{ s.name }}</p>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
+        <!-- Storage -->
         <div class="small-spacer tall">
             <p>Storage</p>
         </div>
@@ -132,7 +143,7 @@
             </div>
         </div>
         <div class="small-spacer tall">
-            <p>Configurations</p>
+            <p>Constants</p>
         </div>
         <div class="services">
             <div *ngFor="let service of services;">
