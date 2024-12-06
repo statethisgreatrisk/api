@@ -76,8 +76,11 @@
 
 .chat-view-breadcrumb-container .chat-view-sidebar-icon {
     display: flex;
+
     margin: 0;
     padding: 0;
+
+    cursor: pointer;
 }
 
 .chat-view-breadcrumb-container .chat-view-sidebar-icon img {

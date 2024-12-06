@@ -385,6 +385,10 @@ export class ChatViewComponent {
   }
 
   toggleSidebar() {
+    if (this.apiKeyDropdown) this.apiKeyDropdown = !this.apiKeyDropdown;
+    if (this.modelDropdown) this.modelDropdown = !this.modelDropdown;
+    if (this.historyDropdown) this.historyDropdown = !this.historyDropdown;
+
     this.sidebarView = !this.sidebarView;
 
     if (!this.sidebarView) this.chatViewWidth = 'auto';
