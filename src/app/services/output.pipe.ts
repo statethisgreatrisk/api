@@ -10,6 +10,7 @@ export class OutputPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
   transform(str: string): SafeHtml | string {
+    return str;
     const prefix = `{"Output":{"response":"`;
     const prefixLength = prefix.length;
     const prefixStartIndex = str.indexOf(prefix);

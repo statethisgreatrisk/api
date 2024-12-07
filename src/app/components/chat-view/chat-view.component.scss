@@ -666,6 +666,60 @@
     color:white;
 }
 
+.chat-view-context-container {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: start;
+
+    cursor: pointer;
+}
+
+.chat-view-context-container .chat-view-context {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    flex-grow: 1;
+}
+
+.chat-view-context-container .chat-view-context .checkbox-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    flex-grow: 1;
+    width: 100%;
+
+    padding: 2px 0;
+
+    cursor: pointer;
+}
+
+.chat-view-context-container .chat-view-context .checkbox-container:hover {
+    background-color: #eae1ff;
+}
+
+.chat-view-context-container .chat-view-context .checkbox {
+    width: 12px;
+    height: 12px;
+
+    accent-color: $surface-mixed-100;
+
+    cursor: pointer;
+}
+
+.chat-view-context-container .chat-view-context .checkbox-text {
+    font-size: 11px;
+    font-weight: 600;
+
+    margin-left: 5px;
+
+    color: $surface-mixed-100;
+}
+
 .chat-view-footer {
     display: flex;
     flex-direction: row;

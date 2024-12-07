@@ -34,12 +34,6 @@ export class ChatViewComponent {
   chats: Chat[] | null = null;
   chat: Chat | null = null;
 
-  code: string = '';
-  name: string = '';
-  version: string | number = '';
-  versionId: string = '';
-  versionStatus: string = '';
-
   text: string = '';
   running: boolean = false;
   showTotalTokens: boolean = false;
@@ -49,13 +43,18 @@ export class ChatViewComponent {
   apiKeyId: string = ''; // variable _id
   modelId: string = ''; // model name
   historyId: string = '';
+  contextCode: boolean = false;
+  contextServices: boolean = false;
+  contextStorage: boolean = false;
+  contextFunctions: boolean = false;
+  contextConstants: boolean = false;
 
   apiKeyDropdown: boolean = false;
   modelDropdown: boolean = false;
   historyDropdown: boolean = false;
+  contextDropdown: boolean = false;
 
   sub: Subscription | null = null;
-  codeDataSub: Subscription | null = null;
   createSuccessSub: Subscription | null = null;
   createErrorSub: Subscription | null = null;
   updateSuccessSub: Subscription | null = null;
@@ -79,7 +78,6 @@ export class ChatViewComponent {
 
   ngOnInit() {
     this.initLatest();
-    this.initCodeData();
     this.initCreates();
     this.initUpdates();
     this.initStreams();
@@ -87,7 +85,6 @@ export class ChatViewComponent {
 
   ngOnDestroy() {
     this.sub?.unsubscribe();
-    this.codeDataSub?.unsubscribe();
     this.codeViewService.clearCodeData();
     this.createSuccessSub?.unsubscribe();
     this.createErrorSub?.unsubscribe();
@@ -142,16 +139,6 @@ export class ChatViewComponent {
     });
   }
 
-  initCodeData() {
-    this.codeDataSub = this.codeViewService.codeData$.subscribe((codeData) => {
-      this.code = codeData?.code || '';
-      this.name = codeData?.name || '';
-      this.version = codeData?.version || '';
-      this.versionId = codeData?.versionId || '';
-      this.versionStatus = codeData?.versionStatus || '';
-    });
-  }
-
   initCreates() {
     this.createSuccessSub = this.actions$.pipe((ofType(createChatSuccess))).subscribe(({ chat }) => {
       if (!this.chats) return;
@@ -191,6 +178,7 @@ export class ChatViewComponent {
     if (this.apiKeyDropdown) this.apiKeyDropdown = !this.apiKeyDropdown;
     if (this.modelDropdown) this.modelDropdown = !this.modelDropdown;
     if (this.historyDropdown) this.historyDropdown = !this.historyDropdown;
+    if (this.contextDropdown) this.contextDropdown = !this.contextDropdown;
 
     if (!this.project) return;
     if (!this.user) return;
@@ -230,13 +218,24 @@ export class ChatViewComponent {
     const variableId = this.apiKeyId;
     const inputTokens = 0;
     const outputTokens = 0;
+    const contextCode = this.contextCode;
+    const contextServices = this.contextServices;
+    const contextStorage = this.contextStorage;
+    const contextFunctions = this.contextFunctions;
+    const contextConstants = this.contextConstants;
 
-    chat.messages = [{ _id, modelId, variableId, inputTokens, outputTokens, role: 'user', content: this.text }];
+    chat.messages = [{ _id, modelId, variableId, inputTokens, outputTokens, role: 'user', content: this.text, contextCode, contextServices, contextStorage, contextFunctions, contextConstants }];
 
     this.store.dispatch(updateChat({ projectId: this.project._id, chat }));
     this.text = '';
     this.scrollToMessageFooter();
     // this.running = true;
+
+    this.contextCode = false;
+    this.contextServices = false;
+    this.contextStorage = false;
+    this.contextFunctions = false;
+    this.contextConstants = false;
   }
 
   selectAPIKey(variableId: string) {
@@ -265,6 +264,11 @@ export class ChatViewComponent {
 
     this.modelId = lastMessage.modelId;
     this.apiKeyId = lastMessage.variableId;
+    this.contextCode = lastMessage.contextCode;
+    this.contextServices = lastMessage.contextServices;
+    this.contextStorage = lastMessage.contextStorage;
+    this.contextFunctions = lastMessage.contextFunctions;
+    this.contextConstants = lastMessage.contextConstants;
 
     this.highlightCode();
     this.scrollToMessageFooter();
@@ -388,6 +392,7 @@ export class ChatViewComponent {
     if (this.apiKeyDropdown) this.apiKeyDropdown = !this.apiKeyDropdown;
     if (this.modelDropdown) this.modelDropdown = !this.modelDropdown;
     if (this.historyDropdown) this.historyDropdown = !this.historyDropdown;
+    if (this.contextDropdown) this.contextDropdown = !this.contextDropdown;
 
     this.sidebarView = !this.sidebarView;
 
@@ -401,6 +406,7 @@ export class ChatViewComponent {
   toggleAPIKeyDropdown() {
     if (this.modelDropdown) this.modelDropdown = !this.modelDropdown;
     if (this.historyDropdown) this.historyDropdown = !this.historyDropdown;
+    if (this.contextDropdown) this.contextDropdown = !this.contextDropdown;
 
     this.apiKeyDropdown = !this.apiKeyDropdown;
   }
@@ -408,6 +414,7 @@ export class ChatViewComponent {
   toggleModelDropdown() {
     if (this.apiKeyDropdown) this.apiKeyDropdown = !this.apiKeyDropdown;
     if (this.historyDropdown) this.historyDropdown = !this.historyDropdown;
+    if (this.contextDropdown) this.contextDropdown = !this.contextDropdown;
 
     this.modelDropdown = !this.modelDropdown;
   }
@@ -415,8 +422,17 @@ export class ChatViewComponent {
   toggleHistoryDropdown() {
     if (this.apiKeyDropdown) this.apiKeyDropdown = !this.apiKeyDropdown;
     if (this.modelDropdown) this.modelDropdown = !this.modelDropdown;
+    if (this.contextDropdown) this.contextDropdown = !this.contextDropdown;
     
     this.historyDropdown = !this.historyDropdown;
+  }
+
+  toggleContextDropdown() {
+    if (this.apiKeyDropdown) this.apiKeyDropdown = !this.apiKeyDropdown;
+    if (this.modelDropdown) this.modelDropdown = !this.modelDropdown;
+    if (this.historyDropdown) this.historyDropdown = !this.historyDropdown;
+
+    this.contextDropdown = !this.contextDropdown;
   }
 
   toggleTokens() {

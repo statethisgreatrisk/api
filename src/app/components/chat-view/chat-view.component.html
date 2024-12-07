@@ -5,16 +5,6 @@
         <div class="chat-view-breadcrumb" *ngIf="sidebarView">
             <p class="initial">Chat</p>
         </div>
-        <div class="chat-view-breadcrumb" *ngIf="sidebarView">
-            <p class="active">{{ name }}</p>
-            <img src="/right.png" class="arrow">
-        </div>
-        <div class="chat-view-breadcrumb" *ngIf="sidebarView">
-            <p class="active">Version {{ version }}</p>
-        </div>
-        <div class="chat-view-breadcrumb" *ngIf="sidebarView">
-            <p class="detail">{{ versionStatus }}</p>
-        </div>
         <div class="spacer"></div>
         <div class="chat-view-slim-button inline" *ngIf="sidebarView" (click)="createChat()">
             <p>New Chat</p>
@@ -44,6 +34,36 @@
                 </ng-content>
             </div>
         </div>
+        <div class="chat-view-actions-dropdown-container" *ngIf="chat">
+            <p class="action-value" (click)="toggleContextDropdown()">Context</p>
+            <img src="/down.png" class="arrow" (click)="toggleContextDropdown()">
+            <div class="chat-view-actions-dropdown" *ngIf="contextDropdown">
+                <div class="chat-view-context-container">
+                    <div class="chat-view-context">
+                        <label class="checkbox-container">
+                            <input type="checkbox" class="checkbox" [(ngModel)]="contextCode">
+                            <span class="checkbox-text">Code</span>
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" class="checkbox" [(ngModel)]="contextServices">
+                            <span class="checkbox-text">Services</span>
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" class="checkbox" [(ngModel)]="contextStorage">
+                            <span class="checkbox-text">Storage</span>
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" class="checkbox" [(ngModel)]="contextFunctions">
+                            <span class="checkbox-text">Functions</span>
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" class="checkbox" [(ngModel)]="contextConstants">
+                            <span class="checkbox-text">Constants</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="spacer"></div>
         <div class="chat-view-actions-dropdown-container" (click)="toggleHistoryDropdown()">
             <p class="action-value" *ngIf="!historyId">History</p>
@@ -69,7 +89,7 @@
                 <div class="chat-view-response">
                     <div class="chat-view-response-content" [innerHtml]="message.content | output"></div>
                     <div class="chat-view-response-dialog-content" *ngIf="hasOutputCode(message._id)">
-                        <p>Would you like to update the {{ name }} workflow? Your previous changes will be saved.</p>
+                        <p>Would you like to update the relevant workflow code? Your previous changes will be saved.</p>
                         <div class="chat-view-response-dialog-content-button" (click)="updateCode(message._id)">
                             <p>Yes</p>
                         </div>
@@ -93,6 +113,12 @@
         </ng-content>
         <div id="messages-footer"></div>
     </div>
+    <div class="chat-view-landing-container" *ngIf="sidebarView && !historyId">
+        <div class="chat-view-landing">
+            <img src="/cursor-window.png">
+            <p>Select <span>New Chat</span> and enter a <span>Prompt</span> to get started.</p>
+        </div>
+    </div>
     <div class="chat-view-token-container" *ngIf="sidebarView && historyId && chat && chat.messages && chat.messages.length" (click)="toggleTokens()">
         <div class="chat-view-token" *ngIf="!showTotalTokens && findRecentTokens">
             <p>Input: {{ findRecentTokens.inputTokens }}</p>
@@ -101,12 +127,6 @@
         <div class="chat-view-token" *ngIf="showTotalTokens && findTotalTokens">
             <p>Total Input: {{ findTotalTokens.inputTokens }}</p>
             <p>Total Output: {{ findTotalTokens.outputTokens }}</p>
-        </div>
-    </div>
-    <div class="chat-view-landing-container" *ngIf="sidebarView && !historyId">
-        <div class="chat-view-landing">
-            <img src="/cursor-window.png">
-            <p>Select <span>New Chat</span> and enter a <span>Prompt</span> to get started.</p>
         </div>
     </div>
     <div class="chat-view-footer" *ngIf="sidebarView && historyId">

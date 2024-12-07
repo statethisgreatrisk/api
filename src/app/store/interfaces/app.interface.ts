@@ -52,6 +52,11 @@ export interface ChatChunk {
     outputTokens: number;
     role: 'system' | 'user' | 'assistant' | 'error';
     content: string;
+    contextCode: boolean;
+    contextServices: boolean;
+    contextStorage: boolean;
+    contextFunctions: boolean;
+    contextConstants: boolean;
     done: boolean;
 }
 
@@ -63,6 +68,11 @@ export interface ChatMessage {
     outputTokens: number;
     role: 'system' | 'user' | 'assistant' | 'error';
     content: string;
+    contextCode: boolean;
+    contextServices: boolean;
+    contextStorage: boolean;
+    contextFunctions: boolean;
+    contextConstants: boolean;
 }
 
 export interface Chat {
