@@ -317,7 +317,7 @@ export class ChatViewComponent {
     }, { inputTokens: 0, outputTokens: 0 });
   }
 
-  hasOutputCode(messageId: string): boolean {
+  hasOutputCode(messageId: string): boolean | Object {
     if (!messageId) return false;
     if (!this.chat) return false;
     if (!this.chat.messages.length) return false;
@@ -326,24 +326,30 @@ export class ChatViewComponent {
 
     if (!message) return false;
 
-    const prefix = `"updatedCode":"`;
-    const suffix = `"}}`;
+    let prefix = `","Codes":[`;
+    let suffix = `],"Requests":[`;
 
     const prefixStartIndex = message.content.indexOf(prefix);
     
     if (prefixStartIndex === -1) return false;
 
-    const content = message.content.slice(prefixStartIndex + prefix.length);
+    let content = message.content.slice(prefixStartIndex).replace('",', '{');
 
     const suffixStartIndex = content.indexOf(suffix);
 
     if (suffixStartIndex === -1) return false;
 
-    const codeToUpdate = content.slice(0, suffixStartIndex);
+    if (content.charAt(content.length - 1) !== '}') return false;
 
-    if (!codeToUpdate.length) return false;
+    content = content.slice(0, -1);
 
-    return true;
+    try {
+      content = JSON.parse(content);
+    } catch (err) {
+      return false;
+    }
+
+    return content;
   }
 
   updateCode(messageId: string) {
@@ -356,22 +362,34 @@ export class ChatViewComponent {
 
     if (!message) return;
 
-    const prefix = `"updatedCode":"`;
-    const suffix = `"}}`;
+    let prefix = `","Codes":[`;
+    let suffix = `],"Requests":[`;
 
     const prefixStartIndex = message.content.indexOf(prefix);
     
     if (prefixStartIndex === -1) return;
 
-    const content = message.content.slice(prefixStartIndex + prefix.length);
+    let content = message.content.slice(prefixStartIndex).replace('",', '{');
 
     const suffixStartIndex = content.indexOf(suffix);
 
     if (suffixStartIndex === -1) return;
 
-    const codeToUpdate = content.slice(0, suffixStartIndex).replace(/\\n/g, '\n').replace(/\\"/g, '"');
+    if (content.charAt(content.length - 1) !== '}') return;
 
-    this.codeViewService.updateCodeCallback(codeToUpdate);
+    content = content.slice(0, -1);
+
+    try {
+      content = JSON.parse(content);
+    } catch (err) {
+      return false;
+    }
+
+    return;
+
+    // const codeToUpdate = content.slice(0, suffixStartIndex).replace(/\\n/g, '\n').replace(/\\"/g, '"');
+
+    // this.codeViewService.updateCodeCallback(codeToUpdate);
   }
 
   scrollToMessageFooter() {

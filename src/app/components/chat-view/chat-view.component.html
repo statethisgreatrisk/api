@@ -78,31 +78,44 @@
     </div>
     <div class="chat-view-chats" *ngIf="sidebarView && historyId && chat">
         <ng-content *ngFor="let message of chat.messages">
-            <div class="chat-view-message-container" *ngIf="message.role === 'user'">
-                <div class="chat-view-message">
-                    <div class="chat-view-message-content">
-                        <p>{{ message.content }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="chat-view-response-container" *ngIf="message.role === 'assistant'">
-                <div class="chat-view-response">
-                    <div class="chat-view-response-content" [innerHtml]="message.content | output"></div>
-                    <div class="chat-view-response-dialog-content" *ngIf="hasOutputCode(message._id)">
-                        <p>Would you like to update the relevant workflow code? Your previous changes will be saved.</p>
-                        <div class="chat-view-response-dialog-content-button" (click)="updateCode(message._id)">
-                            <p>Yes</p>
+            <div class="chat-view-message-container-outer" *ngIf="message.role === 'user'">
+                <div class="chat-view-message-container">
+                    <div class="chat-view-message">
+                        <div class="chat-view-message-content">
+                            <p>{{ message.content }}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <div class="chat-view-response-code-container" *ngIf="message.role === 'user'">
-                <div class="chat-view-response-code">
-                    <div class="chat-view-response-code-content">
-                        <pre>Response code message</pre>
+            <div class="chat-view-response-container-outer" *ngIf="message.role === 'assistant'">
+                <div class="chat-view-response-container">
+                    <div class="chat-view-response">
+                        <div class="chat-view-response-content" [innerHtml]="message.content | output"></div>
+                        <div class="chat-view-response-dialog-updates-container" *ngIf="hasOutputCode(message._id)">
+                            <div class="chat-view-response-dialog-updates-header">
+                                <p>Confirm Changes</p>
+                            </div>
+                            <div class="chat-view-response-dialog-updates">
+                                <pre>
+                                    <code>Testing Code</code>
+                                </pre>
+                            </div>
+                            <div class="chat-view-response-dialog-updates-footer">
+                                <p class="accept">Save Changes</p>
+                                <div class="spacer"></div>
+                                <p class="button">Previous</p>
+                                <p class="button">Next</p>
+                            </div>
+                        </div>
+                        <!-- <div class="chat-view-response-dialog-content" *ngIf="hasOutputCode(message._id)">
+                            <p>Would you like to update the relevant workflow code? Your previous changes will be saved.</p>
+                            <div class="chat-view-response-dialog-content-button" (click)="updateCode(message._id)">
+                                <p>Yes</p>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
-            </div> -->
+            </div>
             <div class="chat-view-response-alert-container" *ngIf="message.role === 'error'">
                 <div class="chat-view-response-alert">
                     <div class="chat-view-response-alert-content">

@@ -10,7 +10,6 @@ export class OutputPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
   transform(str: string): SafeHtml | string {
-    return str;
     const prefix = `{"Output":{"response":"`;
     const prefixLength = prefix.length;
     const prefixStartIndex = str.indexOf(prefix);
@@ -19,7 +18,7 @@ export class OutputPipe implements PipeTransform {
 
     const content = JSON.parse(JSON.stringify(str.slice(prefixStartIndex + prefixLength)));
 
-    const suffix = `","updatedCode":`;
+    const suffix = `","Codes":[`;
     const suffixStartIndex = content.indexOf(suffix);
     
     if (suffixStartIndex === -1) return content.replace(/\\n/g, '<br>').replace(/\\"/g, '"');

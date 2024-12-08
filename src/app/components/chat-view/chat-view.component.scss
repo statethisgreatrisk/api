@@ -222,9 +222,6 @@
     display: flex;
     flex-direction: column;
 
-    width: auto;
-    height: auto;
-
     flex-grow: 1;
 
     overflow-y: scroll;
@@ -238,14 +235,20 @@
     font-style: normal;
 }
 
-.chat-view-message-container {
+.chat-view-message-container-outer {
     display: flex;
     flex-direction: column;
 
     align-items: end;
+}
 
-    width: 100%;
-    height: auto;
+.chat-view-message-container {
+    display: flex;
+    flex-direction: row;
+
+    flex-grow: 1;
+
+    justify-content: end;
 }
 
 .chat-view-message {
@@ -268,8 +271,6 @@
     width: auto;
     height: auto;
 
-    overflow-wrap: anywhere;
-
     margin-right: 15px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -281,32 +282,33 @@
 }
 
 .chat-view-message-content p {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
 
-    color: white;
+    color: $light-grey-purple;
 }
 
-::ng-deep .chat-view-response-container {
+.chat-view-response-container-outer {
     display: flex;
     flex-direction: column;
 
     align-items: start;
-
-    width: 100%;
-    height: auto;
 }
 
-::ng-deep .chat-view-response {
+.chat-view-response-container {
+    display: flex;
+    flex-direction: row;
+
+    flex-grow: 1;
+}
+
+.chat-view-response {
     display: flex;
     flex-direction: column;
 
-    align-items: center;
+    flex-grow: 1;
 
-    width: 100%;
-    height: auto;
-
-    // max-width: 98%;
+    padding: 0 15px;
 }
 
 ::ng-deep .chat-view-response-content {
@@ -315,21 +317,16 @@
 
     align-items: start;
 
-    width: auto;
-    height: auto;
-
     overflow-wrap: anywhere;
-
-    margin-left: 10px;
-
-    padding: 10px;
 }
 
 ::ng-deep .chat-view-response-content p {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
 
-    color: white;
+    margin-bottom: 10px;
+
+    color: $lighter-grey-purple;
 }
 
 ::ng-deep .chat-view-response-content h1,
@@ -339,7 +336,7 @@
 ::ng-deep .chat-view-response-content h5,
 ::ng-deep .chat-view-response-content h6 {
     font-size: 17px;
-    font-weight: 500;
+    font-weight: 600;
     font-family: "Roboto", sans-serif;
     font-style: normal;
 
@@ -350,20 +347,19 @@
 ::ng-deep .chat-view-response-content ul {
     color: white;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     font-family: "Roboto", sans-serif;
     font-style: normal;
 }
 
 ::ng-deep .chat-view-response-content code {
-    font-size: 13px;
-    font-weight: 700;
     background-color: $surface-dark;
 
-    color: white;
+    color: $bright-purple;
     
     font-family: "Roboto Mono", monospace;
-    font-weight: 400;
+    font-size: 12px;
+    font-weight: 700;
     font-style: normal;
     font-optical-sizing: auto;
 }
@@ -380,71 +376,13 @@
 }
 
 ::ng-deep .chat-view-response-content pre code {
-    font-size: 12px;
+    font-size: 10px;
     font-family: "Roboto Mono", monospace;
     font-weight: 700;
     font-style: normal;
     font-optical-sizing: auto;
 
     color: white;
-}
-
-.chat-view-response-code-container {
-    display: flex;
-    flex-direction: row;
-
-    align-items: start;
-
-    width: 100%;
-    height: auto;
-}
-
-.chat-view-response-code {
-    display: flex;
-    flex-direction: row;
-
-    align-items: start;
-
-    width: 100%;
-    height: auto;
-
-    margin: 5px auto;
-
-    max-width: 98%;
-}
-
-.chat-view-response-code-content {
-    display: flex;
-    flex-direction: row;
-
-    align-items: start;
-
-    height: auto;
-
-    overflow-wrap: anywhere;
-
-    margin-left: 10px;
-    margin-right: 10px;
-
-    padding: 5px 10px;
-
-    flex-grow: 1;
-
-    border-radius: 5px;
-    background-color: $surface-dark;
-}
-
-.chat-view-response-code-content pre {
-    font-size: 12px;
-    font-weight: 500;
-
-    margin: 5px 0;
-
-    color: white;
-
-    white-space: pre-wrap;
-    max-width: 100%;
-    word-break: break-word;
 }
 
 .chat-view-response-alert-container {
@@ -517,7 +455,6 @@
 
     align-items: start;
 
-    // width: 100%;
     height: auto;
 
     margin: 5px auto;
@@ -532,7 +469,6 @@
     align-items: center;
 
     height: auto;
-    max-width: 80%;
 
     overflow-wrap: anywhere;
 
@@ -589,6 +525,108 @@
     font-size: 12px;
     font-weight: 600;
     color: white;
+}
+
+.chat-view-response-dialog-updates-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.chat-view-response-dialog-updates-header {
+    display: flex;
+    flex-direction: row;
+
+    padding: 2px 6px;
+
+    flex-grow: 1;
+
+    background-color: $primary-1900;
+    border-radius: 3px 3px 0 0;
+}
+
+.chat-view-response-dialog-updates-header p {
+    font-size: 12px;
+    font-weight: 600;
+
+    text-align: center;
+
+    color: white;
+}
+
+.chat-view-response-dialog-updates-footer {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    flex-grow: 1;
+
+    padding: 2px 6px;
+
+    background-color: $primary-1900;
+}
+
+.chat-view-response-dialog-updates-footer .button {
+    font-size: 12px;
+    font-weight: 600;
+
+    text-align: center;
+    text-decoration: underline;
+
+    color: white;
+
+    // padding: 3px;
+    margin-left: 10px;
+
+    // background-color: $surface-dark;
+    // border-radius: 3px;
+    
+    cursor: pointer;
+}
+
+.chat-view-response-dialog-updates-footer .accept {
+    font-size: 12px;
+    font-weight: 600;
+
+    text-align: center;
+    text-decoration: underline;
+
+    color: white;
+
+    padding: 3px;
+
+    // background-color: $surface-dark;
+    // border-radius: 3px;
+    
+    cursor: pointer;
+}
+
+.chat-view-response-dialog-updates {
+    display: flex;
+    flex-direction: column;
+
+    align-items: start;
+
+    border-left: 2px solid $primary-1900;
+    border-right: 2px solid $primary-1900;
+}
+
+.chat-view-response-dialog-updates p {
+    font-size: 12px;
+    font-weight: 600;
+
+    text-align: center;
+
+    color: $primary-700;
+}
+
+.chat-view-response-dialog-updates pre {
+    display: flex;
 }
 
 .chat-view-landing-container {
@@ -809,57 +847,71 @@
 }
 
 ::ng-deep .hljs-keyword {
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 700;
 
     color: $primary-600;
 }
 
 ::ng-deep .hljs-string {
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 700;
 
     color: $peach;
 }
 
 ::ng-deep .hljs-title.function_ {
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 700;
 
     color: $light-green;
 }
 
+::ng-deep .hljs-title.class_ {
+    font-size: 11px;
+    font-weight: 700;
+
+    color: $bright-blue;
+}
+
+::ng-deep .hljs-attr {
+    font-size: 11px;
+    font-weight: 700;
+
+    color: $delete-light;
+}
+
 ::ng-deep .hljs-comment {
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 500;
 
     color: $surface-mixed-900;
 }
 
 ::ng-deep .hljs-comment {
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 500;
 
     color: $surface-mixed-900;
 }
 
 ::ng-deep .hljs-variable.language_ {
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 700;
 
     color: $mustard;
 }
 
 ::ng-deep .hljs-number {
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 700;
 
     color: $light-purple;
 }
 
+::ng-deep .hljs-property {
+    font-size: 11px;
+    font-weight: 700;
 
-
-
-
-
-
+    color: white;
+}
